@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Froggy Pond — cozy frog breeder</title>
+<style>
+/* ============ pixel font (Press Start 2P, OFL) ============ */
+@font-face{
+  font-family:'PSP';
+  src:url(data:font/woff2;base64,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) format('woff2');
+  font-display:block;
+}
+:root{
+  --ink:#1b2417; --paper:#f3efdc; --leaf:#3f8f3f; --pond:#2e5741;
+  --gold:#f7ce4a; --pink:#f78fc0;
+}
+*{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
+html,body{width:100%;height:100%;overflow:hidden;background:#101f14;}
+body{font-family:'PSP',monospace; color:var(--ink); user-select:none;}
+canvas#game{position:absolute; left:0; top:0; image-rendering:pixelated; image-rendering:crisp-edges;}
+img.px{image-rendering:pixelated; image-rendering:crisp-edges;}
+
+/* ============ generic pixel chrome ============ */
+.chip{
+  position:absolute; display:flex; align-items:center; gap:8px;
+  background:var(--paper); border:3px solid var(--ink); border-radius:6px;
+  padding:6px 10px; font-size:11px; box-shadow:0 3px 0 var(--ink);
+  z-index:20;
+}
+.btn{
+  font-family:'PSP',monospace; font-size:10px; color:var(--ink);
+  background:var(--gold); border:3px solid var(--ink); border-radius:6px;
+  padding:7px 9px 6px; cursor:pointer; box-shadow:0 3px 0 var(--ink);
+  transition:transform .08s cubic-bezier(.34,1.8,.64,1), box-shadow .08s;
+}
+.btn:hover{transform:translateY(-1px);}
+.btn:active{transform:translateY(2px); box-shadow:0 1px 0 var(--ink);}
+.btn.green{background:#8fd45e;} .btn.pink{background:var(--pink);}
+.btn.gray{background:#cfcabc;} .btn.blue{background:#8fd0f0;}
+.btn:disabled{background:#b7b2a4; color:#6d685c; cursor:not-allowed; transform:none;}
+
+/* ============ HUD ============ */
+#hudCoins{left:12px; top:12px;}
+#hudDex{left:12px; top:58px; cursor:pointer;}
+#hudCoins b,#hudDex b{font-size:12px;}
+#muteBtn{position:absolute; right:12px; top:12px; z-index:20; width:42px; text-align:center;}
+
+/* ============ food tray ============ */
+#tray{
+  position:absolute; left:50%; bottom:10px; transform:translateX(-50%);
+  display:flex; gap:6px; z-index:20; background:rgba(20,35,24,.72);
+  border:3px solid var(--ink); border-radius:10px; padding:7px;
+  max-width:min(96vw,820px); flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none;
+}
+#tray::-webkit-scrollbar{display:none}
+.slot{
+  width:52px; min-width:52px; height:62px; background:var(--paper);
+  border:3px solid var(--ink); border-radius:6px; cursor:pointer; position:relative;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+  transition:transform .1s cubic-bezier(.34,2,.64,1);
+  box-shadow:0 2px 0 var(--ink);
+}
+.slot:hover{transform:translateY(-3px);}
+.slot img{width:36px;height:36px;}
+.slot .cost{font-size:8px; color:#5a5342;}
+.slot.sel{transform:translateY(-8px); background:#ffe98a; box-shadow:0 6px 0 var(--ink);}
+.slot.locked{background:#9a9587; filter:saturate(.35);}
+.slot.locked .cost{color:#3c382f;}
+.slot .lockTag{position:absolute; top:-7px; right:-7px; background:var(--ink); color:#ffe98a;
+  font-size:8px; padding:2px 3px; border-radius:4px;}
+
+/* ============ phone ============ */
+#phoneBtn{
+  position:absolute; right:14px; bottom:14px; z-index:30; width:64px; height:64px;
+  background:var(--paper); border:4px solid var(--ink); border-radius:12px;
+  cursor:pointer; box-shadow:0 4px 0 var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .1s cubic-bezier(.34,2,.64,1);
+}
+#phoneBtn:hover{transform:translateY(-3px) rotate(-3deg);}
+#phoneBtn img{width:44px;height:44px;}
+#phoneBadge{
+  position:absolute; top:-8px; right:-8px; min-width:22px; height:22px; border-radius:11px;
+  background:#e05252; color:#fff; border:3px solid var(--ink); font-size:10px;
+  display:none; align-items:center; justify-content:center; padding:0 4px;
+}
+#phone{
+  position:absolute; right:14px; bottom:88px; width:292px; height:min(66vh,470px);
+  background:#22222e; border:4px solid #000; border-radius:18px; z-index:40;
+  box-shadow:0 6px 0 #000, 0 14px 30px rgba(0,0,0,.5);
+  transform:translateY(130%) scale(.9); opacity:0; pointer-events:none;
+  transition:transform .38s cubic-bezier(.34,1.56,.64,1), opacity .25s;
+  display:flex; flex-direction:column; padding:8px;
+}
+#phone.open{transform:translateY(0) scale(1); opacity:1; pointer-events:auto;}
+#phoneTop{display:flex; justify-content:space-between; align-items:center; color:#9fe6c3;
+  font-size:8px; padding:2px 6px 7px;}
+#phoneScreen{
+  flex:1; background:#e8f3e0; border:3px solid #000; border-radius:8px; overflow:hidden;
+  display:flex; flex-direction:column; position:relative;
+}
+#phoneHome{position:absolute; left:50%; bottom:1px; transform:translateX(-50%);
+  width:70px; height:5px; border-radius:3px; background:#000; opacity:.35;}
+.appHead{
+  display:flex; align-items:center; gap:8px; padding:9px 8px; font-size:10px;
+  border-bottom:3px solid var(--ink); background:var(--gold); flex:none;
+}
+.appHead .back{cursor:pointer; background:var(--paper); border:2px solid var(--ink);
+  border-radius:4px; padding:3px 6px; font-size:9px; box-shadow:0 2px 0 var(--ink);}
+.appHead .back:active{transform:translateY(2px); box-shadow:none;}
+#appBody{flex:1; overflow-y:auto; padding:8px; scrollbar-width:thin;}
+#appBody::-webkit-scrollbar{width:6px} #appBody::-webkit-scrollbar-thumb{background:#5c8a5c}
+
+.appGrid{display:grid; grid-template-columns:1fr 1fr; gap:12px; padding:14px;}
+.appIcon{
+  display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+  transition:transform .1s cubic-bezier(.34,2.2,.64,1); position:relative;
+}
+.appIcon:hover{transform:scale(1.08) rotate(-2deg);}
+.appIcon:active{transform:scale(.94);}
+.appIcon .ic{width:64px; height:64px; border:3px solid var(--ink); border-radius:12px;
+  display:flex; align-items:center; justify-content:center; box-shadow:0 3px 0 var(--ink);}
+.appIcon .ic img{width:44px; height:44px;}
+.appIcon span{font-size:8px;}
+.appIcon .dot{position:absolute; top:-5px; right:8px; width:16px; height:16px; border-radius:8px;
+  background:#e05252; border:2px solid var(--ink); display:none;}
+
+.rowCard{
+  display:flex; align-items:center; gap:8px; background:var(--paper);
+  border:3px solid var(--ink); border-radius:8px; padding:6px; margin-bottom:8px;
+  box-shadow:0 2px 0 var(--ink);
+}
+.rowCard img.face{width:40px; height:40px; flex:none;}
+.rowCard .inf{flex:1; min-width:0;}
+.rowCard .nm{font-size:9px; margin-bottom:3px;}
+.rowCard .ds{font-size:7px; line-height:1.5; color:#5a5342; word-wrap:break-word;}
+.rowCard .pr{font-size:8px; margin-top:3px; color:#7a4d0a;}
+.rowCard .btn{font-size:8px; padding:5px 6px 4px; flex:none;}
+
+/* frogdex */
+.dexGrid{display:grid; grid-template-columns:repeat(5,1fr); gap:5px;}
+.dexCell{
+  background:var(--paper); border:2px solid var(--ink); border-radius:6px; aspect-ratio:1;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  transition:transform .1s cubic-bezier(.34,2.2,.64,1);
+}
+.dexCell:hover{transform:scale(1.12);}
+.dexCell img{width:34px;height:34px;}
+.dexCell.unknown{background:#8f9a86;}
+.dexBar{height:14px; border:2px solid var(--ink); border-radius:7px; background:#cfcabc;
+  overflow:hidden; margin:6px 0 10px;}
+.dexBar i{display:block; height:100%; background:linear-gradient(90deg,#8fd45e,#f7ce4a);}
+.dexDetail{background:var(--paper); border:3px solid var(--ink); border-radius:8px;
+  padding:10px; text-align:center;}
+.dexDetail img{width:72px;height:72px;}
+.dexDetail .nm{font-size:10px; margin:6px 0;}
+.dexDetail .ds{font-size:8px; line-height:1.6; color:#5a5342; margin-bottom:8px;}
+.dexDetail .how{font-size:8px; line-height:1.7; background:#ffe98a; border:2px solid var(--ink);
+  border-radius:6px; padding:6px; display:inline-block;}
+
+/* chat */
+.convRow{cursor:pointer;}
+.convRow .unread{width:12px;height:12px;border-radius:6px;background:#e05252;
+  border:2px solid var(--ink); flex:none;}
+.bubble{max-width:82%; border:2px solid var(--ink); border-radius:8px; padding:6px 8px;
+  font-size:8px; line-height:1.6; margin-bottom:7px; background:#fff; position:relative;}
+.bubble.me{margin-left:auto; background:#c9f0a8;}
+.bubble .frogPic{width:44px;height:44px;display:block;margin:4px auto;}
+.bubble .offerPrice{font-size:9px; color:#7a4d0a; text-align:center; margin:2px 0 6px;}
+.bubble .actions{display:flex; gap:6px; justify-content:center;}
+.chatName{font-size:9px;}
+.chatSub{font-size:7px; color:#5a5342; margin-top:3px;}
+
+/* frog card */
+#frogCard{
+  position:absolute; left:12px; bottom:96px; width:238px; z-index:25;
+  background:var(--paper); border:3px solid var(--ink); border-radius:10px;
+  padding:10px; box-shadow:0 4px 0 var(--ink); display:none;
+}
+#frogCard.show{display:block; animation:boing .3s cubic-bezier(.34,1.8,.64,1);}
+@keyframes boing{0%{transform:scale(.6)}70%{transform:scale(1.06)}100%{transform:scale(1)}}
+#frogCard .hd{display:flex; gap:8px; align-items:center;}
+#frogCard img.face{width:56px;height:56px;}
+#fcName{font-size:10px;} #fcSpec{font-size:8px; color:#5a5342; margin-top:4px;}
+#fcSnack{font-size:8px; margin:8px 0; display:flex; align-items:center; gap:6px;}
+#fcSnack img{width:20px;height:20px;}
+#fcBtns{display:flex; gap:6px; flex-wrap:wrap;}
+#fcClose{position:absolute; top:-10px; right:-10px; width:26px; height:26px; border-radius:13px;
+  background:#e05252; color:#fff; border:3px solid var(--ink); font-size:10px; cursor:pointer;
+  font-family:'PSP'; box-shadow:0 2px 0 var(--ink);}
+#fcHint{font-size:7px; color:#5a5342; margin-top:7px; line-height:1.5;}
+
+/* toasts */
+#toasts{position:absolute; top:14px; left:50%; transform:translateX(-50%); z-index:60;
+  display:flex; flex-direction:column; align-items:center; gap:8px; pointer-events:none;}
+.toast{
+  background:var(--paper); border:3px solid var(--ink); border-radius:8px;
+  box-shadow:0 3px 0 var(--ink); padding:8px 14px; font-size:9px; line-height:1.5;
+  display:flex; align-items:center; gap:8px; max-width:86vw;
+  animation:tin .35s cubic-bezier(.34,1.8,.64,1);
+}
+.toast img{width:28px;height:28px;}
+.toast.gold{background:#ffe98a;}
+@keyframes tin{0%{transform:translateY(-30px) scale(.7); opacity:0}
+  70%{transform:translateY(3px) scale(1.04); opacity:1}100%{transform:none; opacity:1}}
+.toast.out{transition:opacity .4s, transform .4s; opacity:0; transform:translateY(-16px);}
+
+/* title / win overlays */
+.overlay{
+  position:absolute; inset:0; z-index:100; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:18px; text-align:center;
+  background:rgba(10,24,14,.86); color:var(--paper); cursor:pointer;
+}
+.overlay h1{font-size:clamp(20px,5vw,44px); color:#9fe6c3; text-shadow:0 4px 0 #1b2417;}
+.overlay .sub{font-size:clamp(8px,1.6vw,12px); line-height:2; color:#d7e8c8; max-width:640px; padding:0 16px;}
+.overlay img{width:128px;height:128px; animation:hopIdle 1.1s ease-in-out infinite;}
+@keyframes hopIdle{0%,100%{transform:translateY(0) scaleY(1)}30%{transform:translateY(0) scaleY(.92) scaleX(1.06)}
+  55%{transform:translateY(-22px) scaleY(1.1) scaleX(.94)}80%{transform:translateY(0) scaleY(.9) scaleX(1.1)}}
+.overlay .go{animation:pulse 1.2s ease-in-out infinite; font-size:12px; color:var(--gold);}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+#winOverlay{display:none; background:rgba(24,10,32,.88);}
+.tag{font-size:8px; background:#1b2417; color:#ffe98a; border-radius:4px; padding:3px 5px;}
+.small{font-size:7px; color:#5a5342; line-height:1.6;}
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<div id="hudCoins" class="chip"><img class="px" id="coinIcon" width="24" height="24"><b id="coinAmt">0</b></div>
+<div id="hudDex" class="chip" title="FrogDex"><img class="px" id="dexIcon" width="24" height="24"><b id="dexAmt">0/0</b></div>
+<button id="muteBtn" class="btn gray">♪</button>
+
+<div id="tray"></div>
+
+<div id="phoneBtn"><img class="px" id="phoneIcon"><div id="phoneBadge">1</div></div>
+<div id="phone">
+  <div id="phoneTop"><span id="phTime">12:00</span><span>FROG-FI ▮▮▮ ⛆ 87%</span></div>
+  <div id="phoneScreen">
+    <div id="appHead" class="appHead" style="display:none">
+      <div class="back" id="appBack">◀</div><span id="appTitle"></span>
+    </div>
+    <div id="appBody"></div>
+    <div id="phoneHome"></div>
+  </div>
+</div>
+
+<div id="frogCard">
+  <button id="fcClose">✕</button>
+  <div class="hd"><img class="face px" id="fcFace"><div><div id="fcName"></div><div id="fcSpec"></div></div></div>
+  <div id="fcSnack"></div>
+  <div id="fcBtns"></div>
+  <div id="fcHint"></div>
+</div>
+
+<div id="toasts"></div>
+
+<div id="title" class="overlay">
+  <h1>FROGGY POND</h1>
+  <img class="px" id="titleFrog">
+  <div class="sub">a cozy pond of round friends.<br><br>
+  throw snacks · watch them swarm · breed new species<br>
+  sell rare frogs to collectors on your phone<br>
+  and fill the FrogDex — catch all <span id="titleCount">?</span>!</div>
+  <div class="go">▶ CLICK TO HOP IN ◀</div>
+</div>
+
+<div id="winOverlay" class="overlay">
+  <h1>POND MASTER!</h1>
+  <img class="px" id="winFrog">
+  <div class="sub">you caught them all.<br>every frog in the world lives in your pond.<br>they are all very proud of you. ribbit.</div>
+  <div class="go">▶ keep vibing ◀</div>
+</div>
+
+<script>
+'use strict';
+/* =========================================================================
+   FROGGY POND — a cozy pixel frog breeder
+   Everything is generated at runtime: each frog & food is its own little
+   sprite with a transparent background (a sprite sheet, pre-split).
+   ========================================================================= */
+
+/* ---------------- tiny utils ---------------- */
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+const lerp=(a,b,t)=>a+(b-a)*t;
+const rand=(a,b)=>a+Math.random()*(b-a);
+const rint=(a,b)=>Math.floor(rand(a,b+1));
+const pick=arr=>arr[Math.floor(Math.random()*arr.length)];
+const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+const now=()=>performance.now();
+let FAST = /[?&]fast/.test(location.search);
+const T = s => FAST ? s/10 : s; // timers, ms
+
+/* easings */
+const EZ={
+  linear:t=>t,
+  outQuad:t=>1-(1-t)*(1-t),
+  inQuad:t=>t*t,
+  outBack:t=>{const c=1.70158;return 1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2);},
+  outElastic:t=>t===0?0:t===1?1:Math.pow(2,-10*t)*Math.sin((t*10-0.75)*(2*Math.PI/3))+1,
+  inOutSine:t=>-(Math.cos(Math.PI*t)-1)/2,
+};
+
+/* tween engine */
+const tweens=[];
+function tween(o){ // {dur, ease, delay, upd(t), done()}
+  const tw={t:0, dur:o.dur||300, ease:EZ[o.ease||'linear'], delay:o.delay||0,
+    upd:o.upd||(()=>{}), done:o.done||null, dead:false};
+  tweens.push(tw); return tw;
+}
+function stepTweens(dt){
+  for(let i=tweens.length-1;i>=0;i--){
+    const tw=tweens[i];
+    if(tw.dead){tweens.splice(i,1);continue;}
+    if(tw.delay>0){tw.delay-=dt; continue;}
+    tw.t+=dt;
+    const k=clamp(tw.t/tw.dur,0,1);
+    tw.upd(tw.ease(k));
+    if(k>=1){tweens.splice(i,1); if(tw.done)tw.done();}
+  }
+}
+
+/* ---------------- audio (tiny synth) ---------------- */
+let AC=null, muted=false;
+function initAudio(){ if(!AC){ try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){} } }
+function tone(f0,f1,dur,type,vol,delay=0){
+  if(!AC||muted)return;
+  const t0=AC.currentTime+delay;
+  const o=AC.createOscillator(), g=AC.createGain();
+  o.type=type; o.frequency.setValueAtTime(f0,t0);
+  o.frequency.exponentialRampToValueAtTime(Math.max(1,f1),t0+dur);
+  g.gain.setValueAtTime(vol,t0); g.gain.exponentialRampToValueAtTime(0.0001,t0+dur);
+  o.connect(g); g.connect(AC.destination); o.start(t0); o.stop(t0+dur+0.02);
+}
+const SFX={
+  click:()=>tone(900,1400,.06,'square',.05),
+  plop:()=>tone(300,90,.16,'sine',.22),
+  throwFx:()=>tone(500,900,.12,'sine',.08),
+  eat:()=>{tone(600,220,.09,'square',.09); tone(220,120,.12,'sine',.12,.06);},
+  coin:()=>{tone(880,880,.07,'square',.08); tone(1318,1318,.1,'square',.08,.07);},
+  chime:()=>{tone(659,659,.09,'sine',.12); tone(880,880,.09,'sine',.12,.09); tone(1319,1319,.16,'sine',.12,.18);},
+  ribbit:()=>{tone(120,80,.10,'square',.10); tone(160,95,.12,'square',.10,.10);},
+  pop:()=>tone(400,950,.10,'square',.10),
+  buzz:()=>tone(180,140,.14,'sawtooth',.06),
+  msg:()=>{tone(1046,1046,.06,'square',.07); tone(1568,1568,.09,'square',.07,.07);},
+  hearts:()=>{tone(523,523,.08,'sine',.1); tone(659,659,.08,'sine',.1,.08); tone(784,784,.12,'sine',.1,.16);},
+};
+
+/* =========================================================================
+   PIXEL SPRITE FACTORY
+   ========================================================================= */
+function makeCtx(w,h){ const c=document.createElement('canvas'); c.width=w; c.height=h;
+  const x=c.getContext('2d'); x.imageSmoothingEnabled=false; return x; }
+
+/* paint a char-grid into a ctx with a color map (null/undefined = skip) */
+function paintGrid(ctx,grid,map,ox=0,oy=0){
+  for(let y=0;y<grid.length;y++){ const row=grid[y];
+    for(let x=0;x<row.length;x++){ const col=map[row[x]];
+      if(col){ ctx.fillStyle=col; ctx.fillRect(ox+x,oy+y,1,1);} } }
+}
+
+/* ---- the frog base template (left half, mirrored to 24px wide) ---- */
+const FROG_HALF=[
+'.....ooo....',
+'....oeeeo...',
+'...oewweeooo',
+'..obewweebbh',
+'.obbeeeeebhh',
+'.obbbeeebbob',
+'obbbbbbbbbbb',
+'obbbbkkbbbbm',
+'obbbbkkbbmmb',
+'obbbbbbbblll',
+'obbbbbbbllll',
+'obbbbbbbllll',
+'obbbbbbbllll',
+'osbbbbbbllll',
+'.osbbbbbllll',
+'..osssbbllll',
+'...ooooooooo',
+];
+const FROG_W=24, FROG_BODY_H=17, SPR=28;      // sprite canvas 28x28
+const BODY_X=(SPR-FROG_W)/2, BODY_Y=SPR-1-FROG_BODY_H-1; // feet row below body
+
+function frogGrid(){ // full 24-wide grid of chars
+  return FROG_HALF.map(r=>r+[...r].reverse().join(''));
+}
+
+/* feet variants: pairs of [leftFootCx, rightFootCx] on 24-wide grid, row 17 */
+const FEET={ sit:[7,16], walkA:[5,17], walkB:[9,14] };
+
+/* accessories: {grid, map, ox, oy} drawn onto SPR canvas */
+function acc(grid,map,ox,oy){return {grid,map,ox,oy};}
+const ACCS={
+  catEars:s=>acc([
+    '.oo.......oo.',
+    'obbo.....obbo',
+    'obkbo...obkbo',
+    'obkkbo.obkkbo',
+  ],{o:s.o,b:s.b,k:'#f5808c'},BODY_X+3.5|0,BODY_Y-3),
+  dogEars:s=>acc([
+    '.ooo.....ooo.',
+    'obbbo...obbbo',
+    'osbbo...obbso',
+    '.osbo...obso.',
+    '..oo.....oo..',
+  ],{o:s.o,b:s.b,s:s.s},BODY_X+3.5|0,BODY_Y-3),
+  sprout:()=>acc([
+    '.gg..gg',
+    'g.ggg.g',
+    '...g...',
+    '...g...',
+  ],{g:'#3f8f3f'},BODY_X+8,BODY_Y-4),
+  cherry:()=>acc([
+    '.....g.',
+    '....g..',
+    '.ooo...',
+    'orrwo..',
+    'orrro..',
+    '.ooo...',
+  ],{g:'#3f8f3f',o:'#5c1420',r:'#d0303e',w:'#ffd9dd'},BODY_X+11,BODY_Y-5),
+  chiliCap:()=>acc([
+    '....g....',
+    '....g....',
+    '.ggggggg.',
+    'ggggggggg',
+  ],{g:'#3f8f3f'},BODY_X+7,BODY_Y-3),
+  crown:()=>acc([
+    'y..y..y',
+    'y.yyy.y',
+    'yyyyyyy',
+    'yyryryy',
+  ],{y:'#f7ce4a',r:'#e05252'},BODY_X+8,BODY_Y-4),
+  strawberry:()=>acc([
+    '..gg.',
+    '.ggg.',
+    'orro.',
+    'rwrro',
+    'orro.',
+  ],{g:'#3f8f3f',o:'#7c1a28',r:'#e04858',w:'#fff'},BODY_X+9,BODY_Y-4),
+  straw:()=>acc([
+    'pp.',
+    'pp.',
+    '.pp',
+    '.pp',
+    '.pp',
+  ],{p:'#f78fc0'},BODY_X+15,BODY_Y-4),
+  moonPin:()=>acc([
+    '.y.',
+    'yyy',
+    '.y.',
+  ],{y:'#ffe98a'},BODY_X+16,BODY_Y-1),
+  peachLeaf:()=>acc([
+    'gg.',
+    '.gg',
+  ],{g:'#5da24a'},BODY_X+12,BODY_Y-2),
+};
+
+/* pattern painters: receive (ctx, mask, s=species colors)
+   mask(x,y) => 'body' | 'belly' | null (grid coords on SPR canvas) */
+function blob(ctx,x,y,w,h,col,mask,zone){ ctx.fillStyle=col;
+  for(let j=0;j<h;j++)for(let i=0;i<w;i++){
+    const gx=BODY_X+x+i, gy=BODY_Y+y+j;
+    const m=mask(gx,gy); if(m&&(zone?m===zone:true)) ctx.fillRect(gx,gy,1,1);
+  } }
+const PATTERNS={
+  none:()=>{},
+  spots:(ctx,mask,s)=>{ const c=s.s;
+    [[4,10],[18,11],[7,13],[15,14],[11,10]].forEach(([x,y])=>blob(ctx,x,y,2,2,c,mask,'body')); },
+  speckles:(ctx,mask,s)=>{ const c=s.pat||'#ffffff';
+    [[3,9],[6,12],[10,10],[14,13],[18,10],[20,13],[8,15],[16,15]]
+      .forEach(([x,y])=>blob(ctx,x,y,1,1,c,mask)); },
+  bigspots:(ctx,mask,s)=>{ const c=s.pat||s.s;
+    [[3,9,3,3],[17,10,3,3],[9,12,3,2]].forEach(([x,y,w,h])=>blob(ctx,x,y,w,h,c,mask,'body')); },
+  stripes:(ctx,mask,s)=>{ const c=s.pat||s.s;
+    [[10,1,4,1],[9,3,2,2],[13,3,2,2],[1,9,2,1],[21,9,2,1],[1,12,2,1],[21,12,2,1],[5,14,2,1],[17,14,2,1]]
+      .forEach(([x,y,w,h])=>blob(ctx,x,y,w,h,c,mask,'body')); },
+  clouds:(ctx,mask)=>{ [[3,10,4,2],[15,12,4,2],[9,14,3,1]].forEach(([x,y,w,h])=>blob(ctx,x,y,w,h,'#ffffff',mask)); },
+  continents:(ctx,mask)=>{ const g='#5da24a';
+    [[3,9,3,3],[13,11,5,3],[9,2,3,2],[18,9,2,2]].forEach(([x,y,w,h])=>blob(ctx,x,y,w,h,g,mask)); },
+  starfield:(ctx,mask,s)=>{
+    [[4,9],[8,12],[13,10],[18,13],[6,15],[20,10],[11,14]].forEach(([x,y])=>blob(ctx,x,y,1,1,'#fff',mask));
+    [[6,11],[16,9]].forEach(([x,y])=>{blob(ctx,x,y,1,1,'#fff',mask);blob(ctx,x-1,y,3,1,'#c9baf7',mask);blob(ctx,x,y-1,1,3,'#c9baf7',mask);});
+    blob(ctx,12,12,3,2,'#f78fc0',mask); blob(ctx,3,13,2,2,'#6ee0d0',mask); },
+  cracks:(ctx,mask)=>{ for(let x=1;x<23;x++){ const y=13+((x>>1)%2);
+      blob(ctx,x,y,1,1,(x%4<2)?'#ff8c42':'#ffd23e',mask); }
+    [[4,10],[18,11],[11,9]].forEach(([x,y])=>blob(ctx,x,y,1,1,'#ff8c42',mask)); },
+  facets:(ctx,mask)=>{ [[4,9],[5,10],[6,11],[15,10],[16,11],[17,12],[10,13],[11,14]]
+      .forEach(([x,y])=>blob(ctx,x,y,1,1,'#ffffff',mask)); },
+  snowcap:(ctx,mask)=>{ for(let y=0;y<5;y++)for(let x=0;x<24;x++){
+      const gx=BODY_X+x,gy=BODY_Y+y; if(mask(gx,gy)==='body'&&y<3+((x*7)%3?1:0)) {ctx.fillStyle='#ffffff';ctx.fillRect(gx,gy,1,1);} }
+    [[4,9],[18,12],[10,11]].forEach(([x,y])=>blob(ctx,x,y,1,1,'#fff',mask)); },
+  cheese:(ctx,mask,s)=>{ for(let y=0;y<8;y++)for(let x=0;x<24;x++){
+      const gx=BODY_X+x,gy=BODY_Y+y; const dr=(x*5+y*3)%7<1?1:0;
+      if(mask(gx,gy)==='body'&&y<6+dr){ctx.fillStyle='#f7df8f';ctx.fillRect(gx,gy,1,1);} }
+    [[3,10,2,2],[12,11,2,2],[19,10,2,2]].forEach(([x,y,w,h])=>blob(ctx,x,y,w,h,'#c93b3b',mask)); },
+  nori:(ctx,mask)=>{ for(let y=10;y<17;y++)for(let x=8;x<16;x++)blob(ctx,x,y,1,1,'#2e3230',mask);
+    blob(ctx,10,2,4,2,'#f0885a',mask); blob(ctx,10,2,4,1,'#ffb28c',mask); },
+  muzzle:(ctx,mask)=>{ for(let y=6;y<10;y++)for(let x=8;x<16;x++)blob(ctx,x,y,1,1,'#fef2dd',mask,'body'); },
+  drips:(ctx,mask,s)=>{ const c=s.pat||'#f2cdd9'; for(let y=0;y<3;y++)for(let x=0;x<24;x++){
+      const gx=BODY_X+x,gy=BODY_Y+y; if(mask(gx,gy)==='body'){ctx.fillStyle=c;ctx.fillRect(gx,gy,1,1);} }
+    [[3,3,1,3],[8,3,1,2],[13,3,1,4],[19,3,1,2]].forEach(([x,y,w,h])=>blob(ctx,x,y,w,h,c,mask));
+    [[5,1],[11,1],[16,2],[20,1]].forEach(([x,y])=>blob(ctx,x,y,1,1,'#fff',mask)); },
+  sprinkles:(ctx,mask)=>{ const cols=['#e05252','#5b7bd5','#f7ce4a','#8fd45e','#f78fc0'];
+    [[4,10],[8,12],[12,10],[16,13],[19,10],[6,14],[14,15]]
+      .forEach(([x,y],i)=>blob(ctx,x,y,2,1,cols[i%cols.length],mask)); },
+  tapioca:(ctx,mask)=>{ [[5,12],[9,14],[13,12],[17,14],[7,15],[15,15],[11,13]]
+      .forEach(([x,y])=>blob(ctx,x,y,2,2,'#4a2e1a',mask)); },
+  crescent:(ctx,mask)=>{ const c='#ffe98a';
+    [[5,9],[4,10],[4,11],[5,12],[6,12],[17,10],[18,11]].forEach(([x,y])=>blob(ctx,x,y,1,1,c,mask)); },
+  glints:(ctx,mask)=>{ [[4,9],[19,12],[11,11]].forEach(([x,y])=>{
+      blob(ctx,x,y,1,1,'#fff',mask); blob(ctx,x-1,y,3,1,'#fdf0bb',mask); blob(ctx,x,y-1,1,3,'#fdf0bb',mask);}); },
+  inkshine:(ctx,mask)=>{ [[4,9],[5,10],[6,10],[18,10]].forEach(([x,y])=>blob(ctx,x,y,1,1,'#6c6480',mask));
+    [[4,9]].forEach(([x,y])=>blob(ctx,x,y,1,1,'#9a90b5',mask)); },
+  mintchip:(ctx,mask)=>{ [[4,10],[9,13],[15,11],[19,13],[12,10]].forEach(([x,y])=>blob(ctx,x,y,2,2,'#5c3a2e',mask)); },
+  peachfuzz:(ctx,mask)=>{ for(let y=0;y<4;y++)for(let x=0;x<24;x++){
+      const gx=BODY_X+x,gy=BODY_Y+y; if(mask(gx,gy)==='body'&&((x+y)%2===0)){ctx.fillStyle='#ffd9be';ctx.fillRect(gx,gy,1,1);} } },
+  honeydrip:(ctx,mask)=>{ const c='#ffd97a'; for(let y=0;y<2;y++)for(let x=0;x<24;x++){
+      const gx=BODY_X+x,gy=BODY_Y+y; if(mask(gx,gy)==='body'){ctx.fillStyle=c;ctx.fillRect(gx,gy,1,1);} }
+    [[4,2,1,3],[10,2,1,2],[16,2,1,4],[20,2,1,2]].forEach(([x,y,w,h])=>blob(ctx,x,y,w,h,c,mask)); },
+};
+
+/* build one frog frame canvas */
+function buildFrogFrame(s, feet, blink){
+  const ctx=makeCtx(SPR,SPR);
+  let grid=frogGrid().map(r=>[...r]);
+  if(blink){
+    for(let y=0;y<grid.length;y++)for(let x=0;x<grid[y].length;x++){
+      const ch=grid[y][x]; if(ch==='e'||ch==='w')grid[y][x]='b';
+    }
+    // closed lids
+    for(const [cx] of [[4],[15]]) for(let i=0;i<5;i++){ grid[3][cx+i]='o'; }
+  }
+  const map={o:s.o, b:s.b, s:s.s, h:s.h||s.b, l:s.l, e:'#1d1b26', w:'#ffffff',
+             m:s.o, k:s.k||'#f5808c'};
+  paintGrid(ctx, grid.map(r=>r.join('')), map, BODY_X, BODY_Y);
+  // pattern over body/belly but never over face pixels
+  const gmask=(gx,gy)=>{
+    const x=gx-BODY_X, y=gy-BODY_Y;
+    if(y<0||y>=grid.length||x<0||x>=24)return null;
+    const ch=grid[y][x];
+    if(ch==='b'||ch==='s'||ch==='h')return 'body';
+    if(ch==='l')return 'belly';
+    return null;
+  };
+  (PATTERNS[s.pattern||'none'])(ctx,gmask,s);
+  // feet (pale lil toes)
+  ctx.fillStyle=s.l;
+  const fy=BODY_Y+FROG_BODY_H;
+  for(const cx of feet){ ctx.fillRect(BODY_X+cx-1,fy,3,1); }
+  // accessory
+  if(s.accs) for(const a of s.accs){ const A=ACCS[a](s); paintGrid(A.grid?makeAccCtx(ctx,A):ctx,A.grid,A.map,A.ox,A.oy); }
+  return ctx.canvas;
+}
+function makeAccCtx(ctx,A){ return ctx; } // accessories paint straight on
+
+/* generic mini sprite from grid */
+function spriteFromGrid(grid,map,w,h){
+  const gw=grid[0].length, gh=grid.length;
+  const ctx=makeCtx(w||gw,h||gh);
+  paintGrid(ctx,grid,map, (((w||gw)-gw)/2)|0, (((h||gh)-gh)/2)|0);
+  return ctx.canvas;
+}
+const url=c=>c.toDataURL();
+
+/* =========================================================================
+   DATA — species, foods, recipes
+   ========================================================================= */
+const SPECIES=[
+/* buyable — tier 1 */
+{id:'pond',   name:'Pond Frog',      buy:60,  sell:35,  desc:'A classic pond hopper. Champion napper.', b:'#6ab54d',s:'#4e9138',l:'#cfe8a8',o:'#2c5424',pattern:'spots'},
+{id:'toffee', name:'Toffee Frog',    buy:70,  sell:40,  desc:'Sweet as caramel, twice as sticky.',      b:'#c98a4b',s:'#a56a33',l:'#f0d9b0',o:'#5c3a1e',pattern:'spots'},
+{id:'lemon',  name:'Lemon Frog',     buy:80,  sell:45,  desc:'Zesty! Please do not lick.',              b:'#f2d94e',s:'#d4b32c',l:'#fdf6c8',o:'#7a6414',pattern:'none'},
+{id:'blueberry',name:'Blueberry Frog',buy:90, sell:50,  desc:'Round, blue, allegedly a berry.',         b:'#5b7bd5',s:'#4258a8',l:'#b9c9f2',o:'#253066',pattern:'speckles',pat:'#b9c9f2'},
+{id:'cherry', name:'Cherry Frog',    buy:100, sell:55,  desc:'Comes with a stem. Very fancy.',          b:'#e05252',s:'#b53a3a',l:'#f7c1c1',o:'#6e1f1f',pattern:'none',accs:['cherry']},
+/* buyable — tier 2 */
+{id:'snow',   name:'Snow Frog',      buy:240, sell:120, desc:'Cold to the touch. Refuses scarves.',     b:'#eef2f7',s:'#c9d4e2',l:'#ffffff',o:'#7c8aa0',pattern:'speckles',pat:'#c9d4e2'},
+{id:'inky',   name:'Inky Frog',      buy:280, sell:140, desc:'A splash of midnight with legs.',         b:'#3b3547',s:'#2a2536',l:'#6c6480',o:'#14111d',pattern:'inkshine',k:'#8a7fae'},
+{id:'moss',   name:'Moss Frog',      buy:260, sell:130, desc:'Grew a lil sprout. Very proud of it.',    b:'#7d9440',s:'#5f7430',l:'#d6e0ac',o:'#37421a',pattern:'spots',accs:['sprout']},
+{id:'sky',    name:'Sky Frog',       buy:300, sell:150, desc:'Head in the clouds. Also body.',          b:'#8fd0f0',s:'#6aaed4',l:'#eafaff',o:'#33627e',pattern:'clouds'},
+{id:'peach',  name:'Peach Frog',     buy:320, sell:160, desc:'Fuzzy! Smells like late summer.',         b:'#f7b28a',s:'#e08a5e',l:'#ffe3cf',o:'#8a4b2e',pattern:'peachfuzz',accs:['peachLeaf']},
+/* breed-only — gen 1 */
+{id:'mint',     name:'Mint-Chip Frog', sell:210, desc:'Fresh breath included. Choc chips too.', b:'#9fe6c3',s:'#74c9a0',l:'#ffffff',o:'#2f7256',pattern:'mintchip', recipe:['pond','snow','icepop']},
+{id:'bubblegum',name:'Bubblegum Frog', sell:220, desc:'Pops with joy. Slightly sticky.',        b:'#f78fc0',s:'#d76aa4',l:'#ffd9ec',o:'#93275e',pattern:'speckles',pat:'#ffd9ec', recipe:['cherry','snow','berry']},
+{id:'honeyfrog',name:'Honey Frog',     sell:230, desc:'Golden, gooey, bee-approved.',           b:'#f0a832',s:'#cd8a1a',l:'#ffe1a8',o:'#7a4d0a',pattern:'honeydrip', recipe:['lemon','toffee','honey']},
+{id:'lilac',    name:'Lilac Frog',     sell:220, desc:'Smells faintly of lavender naps.',       b:'#c3a3e8',s:'#a37fd0',l:'#ecdcff',o:'#5b3f85',pattern:'speckles',pat:'#ffffff', recipe:['blueberry','snow','berry']},
+{id:'tangerine',name:'Tangerine Frog', sell:210, desc:'Peels itself out of bed at noon.',       b:'#f78d3a',s:'#d96f1e',l:'#ffd9b0',o:'#8a4310',pattern:'none',accs:['peachLeaf'], recipe:['lemon','cherry','berry']},
+{id:'cocoa',    name:'Cocoa Frog',     sell:240, desc:'Warm and toasty. Tiny marshmallows.',    b:'#8a5a3c',s:'#6e4229',l:'#d9b592',o:'#40230f',pattern:'speckles',pat:'#fff6ec', recipe:['inky','toffee','donut']},
+{id:'tabby',    name:'Tabby Frog',     sell:280, desc:'Purrs?? Frogs cannot purr. It purrs.',   b:'#f0a54e',s:'#c97e2c',l:'#fceccd',o:'#6e4514',pattern:'stripes',accs:['catEars'], recipe:['toffee','snow','sushi']},
+{id:'shiba',    name:'Shiba Frog',     sell:300, desc:'Much hop. Very pond. Wow.',              b:'#eab064',s:'#c98a3e',l:'#fef2dd',o:'#7a4a1a',pattern:'muzzle',accs:['dogEars'], recipe:['toffee','peach','donut']},
+{id:'sushifrog',name:'Sushi Frog',     sell:290, desc:'Comes with rice. Wasabi optional.',      b:'#f5f1e8',s:'#d8d2c2',l:'#f5f1e8',o:'#5a5648',pattern:'nori', recipe:['snow','inky','sushi']},
+{id:'pizzafrog',name:'Pizza Frog',     sell:280, desc:'One slice of pure happiness.',           b:'#e8b45e',s:'#c4913c',l:'#f2d9a4',o:'#6e4a14',pattern:'cheese', recipe:['cherry','lemon','pizza']},
+{id:'chili',    name:'Chili Frog',     sell:260, desc:'Warning: extremely spicy little friend.',b:'#d93b2b',s:'#b02417',l:'#f7b3a5',o:'#6e120a',pattern:'none',accs:['chiliCap'], recipe:['cherry','inky','pepper']},
+{id:'earth',    name:'Earth Frog',     sell:380, desc:'Carries the whole world, calmly.',       b:'#4f86c9',s:'#3a68a3',l:'#bfe0f2',o:'#1e3a5c',pattern:'continents', recipe:['moss','sky','berry']},
+/* breed-only — gen 2 */
+{id:'glacier',  name:'Glacier Frog',   sell:400, desc:'Slowly drifting. Please do not melt.',   b:'#bfe6f2',s:'#90c6dd',l:'#ffffff',o:'#4a7d94',pattern:'facets', recipe:['mint','blueberry','icepop']},
+{id:'galaxy',   name:'Galaxy Frog',    sell:460, desc:'Contains at least one nebula.',          b:'#2e2550',s:'#201a3a',l:'#4a3d78',o:'#100c22',pattern:'starfield',k:'#8a7fae', recipe:['inky','blueberry','starcandy']},
+{id:'lava',     name:'Lava Frog',      sell:480, desc:'Do not touch. Gives warm hugs only.',    b:'#4a2018',s:'#331410',l:'#ff8c42',o:'#1f0a06',pattern:'cracks',k:'#ff8c42', recipe:['chili','inky','pepper']},
+{id:'cake',     name:'Cake Frog',      sell:440, desc:'Happy birthday to whoever, always.',     b:'#fdf3f6',s:'#f2cdd9',l:'#ffffff',o:'#8a4a5c',pattern:'drips',pat:'#f2a2c0',accs:['strawberry'], recipe:['bubblegum','snow','donut']},
+{id:'boba',     name:'Boba Frog',      sell:420, desc:'50% tea, 50% pearls, 100% chill.',       b:'#c9986a',s:'#a97845',l:'#e8cfa8',o:'#5c3a1a',pattern:'tapioca',accs:['straw'], recipe:['cocoa','snow','honey']},
+/* breed-only — legendary */
+{id:'moonlight',name:'Moonlight Frog', sell:750, desc:'Only fully awake at midnight.',          b:'#e8e6f7',s:'#c5c2e0',l:'#ffffff',o:'#6a668f',pattern:'crescent',accs:['moonPin'], recipe:['snow','galaxy','moondew']},
+{id:'golden',   name:'Golden Frog',    sell:1200,desc:'Worth its weight in flies.',             b:'#f7ce4a',s:'#d9a821',l:'#fdf0bb',o:'#8a6205',pattern:'glints', recipe:['honeyfrog','moonlight','goldapple']},
+{id:'king',     name:'King Frog',      sell:2400,desc:'Rules the pond with a gentle ribbit.',   b:'#9b6dd6',s:'#7a4eb5',l:'#e0ccf7',o:'#45276e',pattern:'speckles',pat:'#f7ce4a',accs:['crown'], recipe:['golden','moonlight','goldapple']},
+];
+const SP={}; SPECIES.forEach(s=>SP[s.id]=s);
+
+const FOODS=[
+{id:'fly',      name:'Fly',        unlock:0,   cost:0,  desc:'A wiggly lil fly. Classic frog fuel.'},
+{id:'dragonfly',name:'Dragonfly',  unlock:30,  cost:2,  desc:'Zippy! Gives frogs the zoomies.'},
+{id:'berry',    name:'Berry',      unlock:40,  cost:3,  desc:'Juicy pond-side berry. Stains tongues.'},
+{id:'honey',    name:'Honey Drop', unlock:60,  cost:4,  desc:'Sticky golden glob. The bees are mad.'},
+{id:'donut',    name:'Donut',      unlock:80,  cost:5,  desc:'Sprinkled ring of pure joy.'},
+{id:'icepop',   name:'Ice Pop',    unlock:80,  cost:5,  desc:'Brain-freeze on a stick.'},
+{id:'sushi',    name:'Sushi',      unlock:90,  cost:6,  desc:'Fancy lil roll. Extremely exotic.'},
+{id:'pepper',   name:'Hot Pepper', unlock:90,  cost:5,  desc:'Spicy!! Handle with tongs.'},
+{id:'pizza',    name:'Pizza Slice',unlock:100, cost:6,  desc:'Cheesy triangle of power.'},
+{id:'starcandy',name:'Star Candy', unlock:150, cost:8,  desc:'A crunchy piece of night sky.'},
+{id:'moondew',  name:'Moon Dew',   unlock:220, cost:10, desc:'Glows softly. Tastes like midnight.'},
+{id:'goldapple',name:'Gold Apple', unlock:400, cost:25, desc:'Shiny, magical, probably priceless.'},
+];
+const FD={}; FOODS.forEach(f=>FD[f.id]=f);
+
+/* food pixel sprites (each its own transparent sprite) */
+const FOOD_GRIDS={
+fly:[ '..w..w..','.ww..ww.','.wooow..','..obbo..','..oooo..','...oo...'],
+dragonfly:[ '...ee...','wwwccwww','wwwccwww','...cc...','...cc...','...c....'],
+berry:[ '...g....','..gg....','.rprpr..','rprprpr.','.prprp..','..rpr...'],
+honey:[ '...y....','..yy....','.yyyy...','yywyyy..','yyyyyy..','.yyyy...'],
+donut:[ '.pppp...','pspsspp.','pp..spp.','ps..psp.','ppspspp.','.pppp...'],
+icepop:[ '.cccc...','.cwcc...','.cccc...','.cccc...','..tt....','..tt....'],
+sushi:[ '.kkkkkk.','kkkkkkkk','.kkkkkk.','.wwwwww.','wwwowoww','.wwwwww.'],
+pepper:[ '....g...','...gg...','..rr....','.rrr....','.rwr....','..rr....'],
+pizza:[ 'oooooo..','.yyyy...','.yryy...','..yyr...','..yy....','...y....'],
+starcandy:[ '...y....','..yyy...','yyywyyy.','..yyy...','.yy.yy..','........'],
+moondew:[ '..cc....','.c..c...','c..wc...','c.wwc...','.cww....','..cc....'],
+goldapple:[ '...g....','..yyy...','.yywyy..','.yyyyy..','.yyyy...','..yy....'],
+};
+const FOOD_MAPS={
+fly:{w:'#dfe8f0',o:'#2a2a33',b:'#4a4a58'},
+dragonfly:{w:'#cfe8f5',c:'#4aa3c9',e:'#2a5a70'},
+berry:{g:'#3f8f3f',r:'#d0506a',p:'#a03a56'},
+honey:{y:'#f0a832',w:'#ffe1a8'},
+donut:{p:'#f78fc0',s:'#ffe98a'},
+icepop:{c:'#7fd8e8',w:'#eafaff',t:'#c98a4b'},
+sushi:{o:'#c9c2ae',w:'#f5f1e8',k:'#f0885a'},
+pepper:{g:'#3f8f3f',r:'#d93b2b',w:'#ff8c6a'},
+pizza:{o:'#c4913c',y:'#f7df8f',r:'#c93b3b'},
+starcandy:{y:'#ffd23e',w:'#fff6c8'},
+moondew:{c:'#9fd8e8',w:'#eaffff'},
+goldapple:{g:'#3f8f3f',y:'#f7ce4a',w:'#fdf0bb'},
+};
+
+/* UI icon grids */
+const ICON_GRIDS={
+coin:[ '..oooo..','.oyyyyo.','oyywyyyo','oywyyyyo','oyyyyyyo','oyyyywyo','.oyyyyo.','..oooo..'],
+book:[ 'oooooooo','obbwwbbo','obbwwbbo','obbwwbbo','obbwwbbo','obbwwbbo','obbwwbbo','oooooooo'],
+cart:[ '........','ooo.....','..o.oooo','..oyyyyo','..oyyyyo','..oooooo','...w..w.','........'],
+chat:[ '.oooooo.','owwwwwwo','owbwbwbo','owwwwwwo','.oooooo.','...oo...','...o....','........'],
+gear:[ '..o..o..','.oooooo.','oowoowoo','.oo..oo.','.oo..oo.','oowoowoo','.oooooo.','..o..o..'],
+heart:[ '.oo..oo.','opppoppo','oppppppo','oppppppo','.opppp o','..oppo..','...oo...','........'],
+egg:[ '...oo...','..owwo..','.owwwwo.','.owwswo.','.owwwwo.','.owswwo.','..owwo..','...oo...'],
+phone:[ '.oooooo.','.owwwwo.','.owggwo.','.owggwo.','.owwwwo.','.owwwwo.','.owbbwo.','.oooooo.'],
+tag:[ '........','.oooo...','.oyyoo..','.oyyyoo.','.ooyyyo.','..ooyyo.','...oooo.','........'],
+};
+const ICON_MAPS={
+coin:{o:'#7a4d0a',y:'#f7ce4a',w:'#fdf0bb'},
+book:{o:'#5c3a1e',b:'#c96a4a',w:'#f3efdc'},
+cart:{o:'#1b2417',y:'#f7ce4a',w:'#1b2417'},
+chat:{o:'#1b2417',w:'#f3efdc',b:'#1b2417'},
+gear:{o:'#4a5568',w:'#cbd5e0'},
+heart:{o:'#93275e',p:'#f78fc0'},
+egg:{o:'#7c8aa0',w:'#fdfdfd',s:'#9fe6c3'},
+phone:{o:'#1b2417',w:'#9fe6c3',g:'#2f7256',b:'#1b2417'},
+tag:{o:'#7a4d0a',y:'#f7ce4a'},
+};
+
+/* =========================================================================
+   BUILD ALL SPRITES
+   ========================================================================= */
+const SPRITES={frogs:{},foods:{},icons:{}};
+function buildSprites(){
+  for(const s of SPECIES){
+    SPRITES.frogs[s.id]={
+      sit:  buildFrogFrame(s,FEET.sit,false),
+      walkA:buildFrogFrame(s,FEET.walkA,false),
+      walkB:buildFrogFrame(s,FEET.walkB,false),
+      blink:buildFrogFrame(s,FEET.sit,true),
+    };
+    SPRITES.frogs[s.id].url=url(SPRITES.frogs[s.id].sit);
+    // silhouette for the dex
+    const sil=makeCtx(SPR,SPR);
+    sil.drawImage(SPRITES.frogs[s.id].sit,0,0);
+    sil.globalCompositeOperation='source-in';
+    sil.fillStyle='#31402c'; sil.fillRect(0,0,SPR,SPR);
+    SPRITES.frogs[s.id].silUrl=url(sil.canvas);
+  }
+  for(const f of FOODS){
+    const c=spriteFromGrid(FOOD_GRIDS[f.id],FOOD_MAPS[f.id],10,10);
+    SPRITES.foods[f.id]={c,url:url(c)};
+  }
+  for(const k in ICON_GRIDS){
+    const c=spriteFromGrid(ICON_GRIDS[k],ICON_MAPS[k],8,8);
+    SPRITES.icons[k]={c,url:url(c)};
+  }
+  // egg sprite (bigger, used in pond)
+  const eg=makeCtx(12,14);
+  paintGrid(eg,['...oooo....','..owwwwo...','.owwwwwwo..','.owwswwwo..','owwwwwwswo.','owswwwwwwo.','owwwwswwwo.','.owwwwwwo..','.owwwwswo..','..owwwwo...','...oooo....'],
+    {o:'#7c8aa0',w:'#fdfdfd',s:'#9fe6c3'},0,1);
+  SPRITES.egg=eg.canvas;
+}
+
+/* =========================================================================
+   WORLD / STATE
+   ========================================================================= */
+const VW=480, VH=270;               // internal pixel resolution
+const POND_CAP=12;
+const NAMES=['Mochi','Pip','Sprout','Bubbles','Tadeus','Clover','Miso','Pudding','Nori','Beans',
+'Squish','Lily','Pickle','Wasabi','Butter','Peanut','Dot','Momo','Jelly','Boop','Kero','Poppy',
+'Truffle','Noodle','Bumble','Sage','Tofu','Ribbles','Puddle','Fig','Olive','Waffles','Snug','Plink'];
+const CUSTOMERS=['Baron Hoppington','Lily the Collector','Dr. Croakenstein','Granny Petunia',
+'Mx. Splash','Captain Reed','Tiny Tim-Tad','Duchess Bogmира'.replace('мира','mira'),'Sir Lickalot','Professor Polli',
+'Moss Merchant Mo','Wandering Newt'];
+const CHAT_OPENERS=[
+'psst… heard your pond has the good frogs.',
+'hello!! frog emergency. details below.',
+'greetings, pondkeeper. i seek a very specific friend.',
+'my collection has ONE empty lilypad left…',
+'i will trade shiny coins for a round companion.',
+'the frog council sent me. (i am the frog council.)'];
+const CHAT_THANKS=[
+'AAA thank you!! it ribbited at me. perfect.',
+'a wonderful frog. it has already stolen my hat.',
+'so round. so bouncy. 10/10 would buy again.',
+'my collection grows!! the pond thanks you.',
+'it is sitting on my head right now. bliss.'];
+const CHAT_COZY=[
+'no frog needed today, just wanted to say your pond looks lovely 🌿',
+'saw a dragonfly this morning and thought of you.',
+'remember to take breaks, pondkeeper. the frogs nap. so should you.'];
+
+const G={
+  coins:300, frogs:[], eggs:[], foodsOnField:[], discovered:{}, unlockedFoods:{fly:true},
+  selectedFood:null, offers:[], readOffers:{}, nextCustomerAt:0, chatLog:{},
+  time:0, hintStep:0, won:false, muted:false,
+};
+let frogSeq=1, offerSeq=1;
+
+/* pads & water geometry */
+const PADS=[
+  {x:96,y:150,r:15},{x:150,y:196,r:13},{x:206,y:142,r:16},{x:252,y:186,r:12},
+  {x:308,y:150,r:14},{x:342,y:206,r:13},{x:120,y:230,r:12},{x:262,y:236,r:14},
+  {x:186,y:222,r:11},{x:398,y:152,r:12},{x:60,y:190,r:11},{x:430,y:222,r:11},
+];
+const NEST={x:404,y:196,r:20};
+function inWater(x,y){
+  const e1=((x-210)/196)**2+((y-172)/78)**2<1;
+  const e2=((x-320)/148)**2+((y-196)/62)**2<1;
+  return e1||e2;
+}
+function randWaterPoint(){
+  for(let i=0;i<40;i++){ const x=rand(30,VW-30),y=rand(110,VH-16);
+    if(inWater(x,y)&&dist({x,y},NEST)>26)return {x,y}; }
+  return {x:210,y:180};
+}
+
+/* =========================================================================
+   FROG ENTITY
+   ========================================================================= */
+class Frog{
+  constructor(spec, x, y, stage='adult'){
+    this.id=frogSeq++;
+    this.spec=spec; this.name=pick(NAMES);
+    this.x=x; this.y=y; this.z=0;
+    this.stage=stage;                       // 'froglet' | 'adult'
+    this.grownAt = stage==='adult' ? 0 : G.time + T(45000);
+    this.sx=1; this.sy=1; this.rot=0; this.flip=Math.random()<.5;
+    this.state='idle'; this.stateT=rand(400,2200);
+    this.hop=null;                          // active hop data
+    this.lastFood=null; this.fedUntil=0;
+    this.cooldownUntil=0;                   // breeding cooldown
+    this.nestSlot=-1;                       // 0/1 when breeding
+    this.blinkAt=G.time+rand(1200,5200);
+    this.blinkUntil=0;
+    this.walkFrame=0; this.walkT=0;
+    this.zoomUntil=0; this.glowUntil=0;
+    this.bubble=null;                       // {txt,until}
+  }
+  get scale(){ return this.stage==='froglet'?0.62:1; }
+  get busy(){ return this.nestSlot>=0; }
+  startHop(tx,ty,opts={}){
+    const d=dist(this,{x:tx,y:ty});
+    const dur=(opts.dur|| clamp(d*9,240,430)) * (G.time<this.zoomUntil?0.72:1);
+    this.flip = tx<this.x;
+    this.state='hop';
+    this.hop={x0:this.x,y0:this.y,x1:tx,y1:ty,t:0,dur,h:opts.h||clamp(d*.45,7,17),phase:'crouch',pt:0};
+  }
+  update(dt){
+    // blink
+    if(this.state!=='hop'){
+      if(G.time>this.blinkAt){ this.blinkUntil=G.time+140; this.blinkAt=G.time+rand(1600,6400); }
+    }
+    if(this.bubble && G.time>this.bubble.until) this.bubble=null;
+    if(this.stage==='froglet' && G.time>this.grownAt){
+      this.stage='adult'; puffs(this.x,this.y-8,'#ffe98a',8); SFX.pop();
+      toast(`${this.name} grew up!`, SPRITES.frogs[this.spec].url);
+    }
+    if(this.state==='hop'){ this.updateHop(dt); return; }
+    // waddle
+    if(this.state==='waddle'){
+      const tx=this.wtx,ty=this.wty;
+      const d=Math.hypot(tx-this.x,ty-this.y);
+      if(d<1.5){this.state='idle'; this.stateT=rand(500,2000); this.rot=0;}
+      else{
+        const sp=0.018*dt*(G.time<this.zoomUntil?1.5:1);
+        this.x+=(tx-this.x)/d*sp; this.y+=(ty-this.y)/d*sp;
+        this.flip=tx<this.x;
+        this.walkT+=dt;
+        if(this.walkT>130){this.walkT=0;this.walkFrame=(this.walkFrame+1)%2;}
+        this.rot=Math.sin(G.time*0.02)*0.06;
+      }
+      return;
+    }
+    // idle: decide things
+    this.stateT-=dt;
+    if(this.stateT>0)return;
+    // chase food?
+    const f=this.pickFood();
+    if(f){
+      const d=dist(this,f);
+      if(d<7&&!f.eaten){ this.eat(f); return; }
+      const step=Math.min(d,rand(26,44));
+      const ang=Math.atan2(f.y-this.y,f.x-this.x)+rand(-.2,.2);
+      let tx=this.x+Math.cos(ang)*step, ty=this.y+Math.sin(ang)*step;
+      if(d<step){tx=f.x+rand(-3,3);ty=f.y+rand(-3,3);}
+      if(inWater(tx,ty))this.startHop(tx,ty);
+      else this.startHop(f.x,f.y);
+      return;
+    }
+    // waiting at nest? stay put & bounce a lil
+    if(this.busy){
+      if(dist(this,NEST)>14){ this.startHop(NEST.x+(this.nestSlot?9:-9),NEST.y+rand(-2,2)); }
+      else { squishy(this,1.12,.88,140); this.stateT=rand(600,1200); }
+      return;
+    }
+    // wander
+    const roll=Math.random();
+    if(roll<0.42){
+      const p=Math.random()<0.5?pick(PADS):randWaterPoint();
+      const tx=p.x+rand(-4,4),ty=p.y+rand(-3,3);
+      if(dist(this,{x:tx,y:ty})<14){this.wtx=tx;this.wty=ty;this.state='waddle';}
+      else this.startHop(tx,ty);
+    }else if(roll<0.52){
+      this.wtx=clamp(this.x+rand(-12,12),30,VW-30);
+      this.wty=clamp(this.y+rand(-8,8),112,VH-14);
+      if(!inWater(this.wtx,this.wty)){this.wtx=this.x;this.wty=this.y;}
+      this.state='waddle';
+    }else if(roll<0.58){
+      this.bubble={txt:'♪',until:G.time+1100}; if(Math.random()<.5)SFX.ribbit();
+      this.stateT=rand(900,2600);
+    }else{
+      squishy(this,1.06,.94,160);
+      this.stateT=rand(700,2600);
+    }
+  }
+  pickFood(){
+    let best=null,bd=1e9;
+    for(const f of G.foodsOnField){
+      if(f.eaten||f.landT>0)continue;
+      const d=dist(this,f);
+      const full=G.time<this.fedUntil;
+      if(full&&d>70)continue;
+      if(d<bd){bd=d;best=f;}
+    }
+    return best;
+  }
+  updateHop(dt){
+    const h=this.hop;
+    if(h.phase==='crouch'){
+      h.pt+=dt; const k=clamp(h.pt/90,0,1);
+      this.sx=lerp(1,1.22,k); this.sy=lerp(1,0.78,k);
+      if(k>=1){h.phase='air';h.pt=0;}
+      return;
+    }
+    if(h.phase==='air'){
+      h.pt+=dt; const k=clamp(h.pt/h.dur,0,1);
+      this.x=lerp(h.x0,h.x1,k); this.y=lerp(h.y0,h.y1,k);
+      this.z=Math.sin(k*Math.PI)*h.h;
+      const st=Math.sin(k*Math.PI);
+      this.sx=lerp(1.15,0.82,st); this.sy=lerp(0.85,1.22,st);
+      this.rot=(this.flip?-1:1)*Math.sin(k*Math.PI)*0.14;
+      if(k>=1){
+        h.phase='land'; h.pt=0; this.z=0; this.rot=0;
+        ripple(this.x,this.y+2); if(Math.random()<.3)SFX.plop();
+      }
+      return;
+    }
+    if(h.phase==='land'){
+      h.pt+=dt; const k=clamp(h.pt/240,0,1);
+      const e=EZ.outElastic(k);
+      this.sx=lerp(1.28,1,e); this.sy=lerp(0.72,1,e);
+      if(k>=1){
+        this.hop=null; this.state='idle'; this.stateT=rand(160,900);
+        const f=this.pickFood(); if(f&&dist(this,f)<8&&!f.eaten)this.eat(f);
+      }
+    }
+  }
+  eat(f){
+    if(f.eaten)return;
+    const idx=G.foodsOnField.indexOf(f);
+    if(idx<0){this.state='idle';this.stateT=300;return;} // food vanished mid-hop
+    f.eaten=true;
+    G.foodsOnField.splice(idx,1);
+    this.lastFood=f.kind; this.fedUntil=G.time+T(100000);
+    if(f.kind==='dragonfly')this.zoomUntil=G.time+T(20000);
+    if(f.kind==='moondew')this.glowUntil=G.time+T(30000);
+    this.state='idle'; this.stateT=rand(500,1500);
+    tonguefx(this,f); squishy(this,1.28,.72,340); SFX.eat();
+    hearts(this.x,this.y-16,1);
+    if(Math.random()<0.12){ G.coins+=1; coinfx(this.x,this.y-10,1); refreshHud(); }
+    hint(2);
+  }
+}
+function squishy(fr,sx,sy,dur){
+  tween({dur,ease:'outElastic',upd:t=>{fr.sx=lerp(sx,1,t);fr.sy=lerp(sy,1,t);}});
+}
+
+/* =========================================================================
+   PARTICLES & FX
+   ========================================================================= */
+const parts=[];
+function puffs(x,y,col,n=6){for(let i=0;i<n;i++)parts.push({kind:'puff',x:x+rand(-4,4),y:y+rand(-4,4),
+  vx:rand(-.02,.02),vy:rand(-.05,-.01),life:rand(300,700),t:0,col,s:rand(1,2.4)});}
+function hearts(x,y,n=3){for(let i=0;i<n;i++)parts.push({kind:'heart',x:x+rand(-6,6),y,
+  vy:-0.028,life:rand(700,1000),t:0});}
+function coinfx(x,y,n=3){for(let i=0;i<n;i++)parts.push({kind:'coin',x:x+rand(-5,5),y,
+  vy:-0.05,vx:rand(-.02,.02),life:700,t:0});}
+function confetti(){for(let i=0;i<90;i++)parts.push({kind:'conf',x:rand(0,VW),y:rand(-40,0),
+  vx:rand(-.02,.02),vy:rand(.04,.1),life:rand(1800,3200),t:0,
+  col:pick(['#e05252','#f7ce4a','#8fd45e','#8fd0f0','#f78fc0','#c3a3e8'])});}
+function splash(x,y){for(let i=0;i<7;i++)parts.push({kind:'drop',x,y,
+  vx:rand(-.05,.05),vy:rand(-.12,-.04),g:0.0004,life:rand(300,520),t:0});}
+const ripples=[];
+function ripple(x,y){ripples.push({x,y,t:0,life:600});}
+const tongues=[];
+function tonguefx(fr,f){tongues.push({fr,x:f.x,y:f.y,t:0,life:170,kind:f.kind});}
+
+/* =========================================================================
+   FOOD ON FIELD
+   ========================================================================= */
+function throwFood(kind,tx,ty){
+  const f=FD[kind];
+  if(G.coins<f.cost){toast('not enough coins!');SFX.buzz();return;}
+  G.coins-=f.cost; refreshHud();
+  const food={kind,x:tx,y:ty,eaten:false,landT:1,bornAt:G.time,bob:rand(0,6)};
+  G.foodsOnField.push(food);
+  if(G.foodsOnField.length>5){const old=G.foodsOnField.shift(); }
+  SFX.throwFx();
+  const x0=VW/2,y0=VH+14;
+  tween({dur:520,ease:'linear',upd:t=>{
+    food.fx=lerp(x0,tx,t); food.fy=lerp(y0,ty,t)-Math.sin(t*Math.PI)*64; food.spin=t*9;
+  },done:()=>{ food.landT=0; splash(tx,ty); ripple(tx,ty); SFX.plop();
+    for(const fr of G.frogs){ if(fr.state==='idle'||fr.state==='waddle'){fr.state='idle';fr.stateT=rand(0,260);} }
+  }});
+  hint(1);
+}
+
+/* =========================================================================
+   BREEDING
+   ========================================================================= */
+const nest={a:null,b:null,egg:null,heartsT:0};
+function assignToNest(fr){
+  if(fr.stage!=='adult'){toast('still a lil froglet!');return;}
+  if(fr.nestSlot<0&&G.frogs.length>=POND_CAP){toast(`pond is full! (max ${POND_CAP}) sell a frog first`);SFX.buzz();return;}
+  if(G.time<fr.cooldownUntil){toast(`${fr.name} needs a rest first…`);return;}
+  if(nest.egg){toast('the nest has an egg already!');return;}
+  if(fr.nestSlot>=0){ // cancel
+    fr.nestSlot=-1; if(nest.a===fr)nest.a=null; if(nest.b===fr)nest.b=null;
+    toast(`${fr.name} hops off the nest.`); return;
+  }
+  if(nest.a&&nest.b){toast('the love-pad is full!');return;}
+  if(!nest.a){nest.a=fr;fr.nestSlot=0;}
+  else{nest.b=fr;fr.nestSlot=1;}
+  fr.state='idle';fr.stateT=0;
+  toast(`${fr.name} hops to the love-pad 💕`);
+  SFX.hearts(); hint(3);
+}
+function stepNest(dt){
+  if(nest.a&&nest.b&&!nest.egg){
+    const a=nest.a,b=nest.b;
+    if(dist(a,NEST)<15&&dist(b,NEST)<15&&a.state!=='hop'&&b.state!=='hop'){
+      nest.heartsT+=dt;
+      if(nest.heartsT>300){nest.heartsT=0;hearts(NEST.x,NEST.y-14,1);}
+      nest.timer=(nest.timer||0)+dt;
+      if(nest.timer>T(2600)){
+        // resolve!
+        const child=resolveBreed(a,b);
+        nest.egg={spec:child,hatchAt:G.time+T(30000),wob:0};
+        a.lastFood=null;b.lastFood=null;
+        a.cooldownUntil=b.cooldownUntil=G.time+T(60000);
+        a.nestSlot=b.nestSlot=-1;nest.a=nest.b=null;nest.timer=0;
+        a.startHop(a.x-rand(14,26),a.y+rand(-6,10));
+        b.startHop(b.x+rand(14,26),b.y+rand(-6,10));
+        SFX.chime(); toast('an egg appeared on the love-pad!',url(SPRITES.egg));
+      }
+    }else nest.timer=0;
+  }
+  if(nest.egg){
+    nest.egg.wob+=dt;
+    if(G.time>nest.egg.hatchAt) hatch();
+  }
+}
+function resolveBreed(a,b){
+  const pair=[a.spec,b.spec].sort().join('+');
+  for(const s of SPECIES){
+    if(!s.recipe)continue;
+    const rp=[s.recipe[0],s.recipe[1]].sort().join('+');
+    if(rp===pair && a.lastFood===s.recipe[2] && b.lastFood===s.recipe[2]) return s.id;
+  }
+  return Math.random()<.5?a.spec:b.spec;
+}
+function hatch(){
+  const sp=nest.egg.spec; nest.egg=null;
+  const fr=new Frog(sp,NEST.x,NEST.y,'froglet');
+  G.frogs.push(fr);
+  puffs(NEST.x,NEST.y-6,'#ffffff',10); SFX.pop();
+  fr.startHop(NEST.x-rand(18,30),NEST.y+rand(-8,8));
+  discover(sp,true);
+  toast(`${fr.name} the ${SP[sp].name} hatched!`,SPRITES.frogs[sp].url);
+  saveSoon();
+}
+function discover(sp,celebrate){
+  if(G.discovered[sp])return;
+  G.discovered[sp]=true;
+  if(celebrate){
+    confetti(); SFX.chime();
+    toast(`NEW SPECIES: ${SP[sp].name}!`,SPRITES.frogs[sp].url,true);
+  }
+  refreshHud();
+  if(Object.keys(G.discovered).length===SPECIES.length&&!G.won){
+    G.won=true;
+    setTimeout(()=>{document.getElementById('winOverlay').style.display='flex';confetti();SFX.chime();},900);
+  }
+}
+
+/* =========================================================================
+   ECONOMY — buy / sell / customers
+   ========================================================================= */
+function buyFrog(spid){
+  const s=SP[spid];
+  if(G.frogs.length>=POND_CAP){toast(`pond is full! (max ${POND_CAP})`);SFX.buzz();return;}
+  if(G.coins<s.buy){toast('not enough coins!');SFX.buzz();return;}
+  G.coins-=s.buy; refreshHud();
+  const p=randWaterPoint();
+  const fr=new Frog(spid,VW/2,VH+10);
+  G.frogs.push(fr); fr.startHop(p.x,p.y,{h:26,dur:600});
+  discover(spid,!G.discovered[spid]);
+  SFX.coin(); toast(`${fr.name} the ${s.name} hopped in!`,SPRITES.frogs[spid].url);
+  renderApp(); saveSoon();
+}
+function sellFrog(fr,price,quiet){
+  const i=G.frogs.indexOf(fr); if(i<0)return false;
+  if(fr.nestSlot>=0){if(nest.a===fr)nest.a=null;if(nest.b===fr)nest.b=null;fr.nestSlot=-1;}
+  G.frogs.splice(i,1);
+  G.coins+=price; refreshHud();
+  puffs(fr.x,fr.y-8,'#ffe98a',10); coinfx(fr.x,fr.y-10,4); SFX.coin();
+  if(!quiet)toast(`sold ${fr.name} · +${price}¢`,SPRITES.icons.coin.url);
+  hideFrogCard(); saveSoon(); return true;
+}
+function findSellable(spid){
+  const cands=G.frogs.filter(f=>f.spec===spid&&f.stage==='adult'&&f.nestSlot<0);
+  cands.sort((a,b)=>a.id-b.id);
+  return cands[0]||null;
+}
+
+/* customers */
+function scheduleCustomer(){ G.nextCustomerAt=G.time+T(rand(35000,75000)); }
+function spawnCustomer(){
+  if(G.offers.filter(o=>o.state==='open').length>=3)return;
+  const discovered=Object.keys(G.discovered);
+  const buyables=SPECIES.filter(s=>s.buy).map(s=>s.id);
+  const breedables=SPECIES.filter(s=>s.recipe).map(s=>s.id);
+  let spid;
+  const r=Math.random();
+  if(r<0.10&&Math.random()<0.6){
+    // cozy no-offer message
+    const o={id:offerSeq++,cust:pick(CUSTOMERS),spid:null,price:0,state:'cozy',
+      lines:[pick(CHAT_COZY)],at:G.time};
+    G.offers.push(o); notifyPhone(); return;
+  }
+  if(r<0.60&&discovered.length)spid=pick(discovered);
+  else if(r<0.85)spid=pick(buyables);
+  else spid=pick(breedables.filter(b=>!G.discovered[b]).length?breedables.filter(b=>!G.discovered[b]):breedables);
+  const s=SP[spid];
+  const price=Math.round(s.sell*rand(1.35,1.85)/5)*5;
+  const o={id:offerSeq++,cust:pick(CUSTOMERS),spid,price,state:'open',
+    expiresAt:G.time+T(240000),lines:[pick(CHAT_OPENERS)],at:G.time};
+  G.offers.push(o);
+  notifyPhone();
+  SFX.msg();
+  toast(`📱 ${o.cust} wants a ${s.name}!`,SPRITES.frogs[spid].url);
+}
+function notifyPhone(){
+  const unread=G.offers.filter(o=>!G.readOffers[o.id]).length;
+  const b=document.getElementById('phoneBadge');
+  b.style.display=unread?'flex':'none'; b.textContent=unread;
+  const dot=document.querySelector('#icChat .dot'); if(dot)dot.style.display=unread?'block':'none';
+}
+function stepOffers(){
+  for(const o of G.offers){
+    if(o.state==='open'&&G.time>o.expiresAt){
+      o.state='expired'; o.lines.push('…no frog today? alright. the search continues. 👋');
+      notifyPhone(); if(phoneApp==='chat')renderApp();
+    }
+  }
+  while(G.offers.length>14)G.offers.shift();
+}
+
+/* =========================================================================
+   BACKGROUND (painted once at 1x)
+   ========================================================================= */
+let bgCanvas;
+function frond(ctx,x,y,dir,len,col,colHi){
+  for(let i=0;i<len;i++){
+    const t=i/len, fx=x+dir*i*2, fy=y-Math.sin(t*1.4)*i*1.5;
+    ctx.fillStyle=col; ctx.fillRect(fx,fy,2,2);
+    if(i%2===0){ctx.fillStyle=colHi;
+      ctx.fillRect(fx+dir*1,fy-2,2,1);ctx.fillRect(fx-dir*1,fy+2,2,1);}
+  }
+}
+function buildBg(){
+  const ctx=makeCtx(VW,VH);
+  // deep forest
+  ctx.fillStyle='#14291a';ctx.fillRect(0,0,VW,100);
+  // trunks
+  ctx.fillStyle='#0f2013';
+  [[28,7],[92,9],[168,6],[248,8],[312,6],[388,9],[444,6]].forEach(([x,w])=>ctx.fillRect(x,0,w,74));
+  ctx.fillStyle='#183021';
+  [[30,2],[95,2],[170,2],[251,2],[314,2],[392,2]].forEach(([x,w])=>ctx.fillRect(x,0,w,74));
+  // canopy blobs
+  for(let i=0;i<170;i++){const x=rand(0,VW),y=rand(0,58),s=rint(2,5);
+    ctx.fillStyle=pick(['#1b3622','#22452a','#193020']);ctx.fillRect(x,y,s,s);}
+  // grass everywhere below the forest
+  ctx.fillStyle='#23481f';ctx.fillRect(0,72,VW,VH-72);
+  for(let i=0;i<420;i++){const x=rand(0,VW),y=rand(74,VH-2);
+    ctx.fillStyle=pick(['#2c5a26','#1e401b','#35682c']);ctx.fillRect(x,y,2,2);}
+  // tufts
+  for(let i=0;i<90;i++){const x=rand(0,VW),y=rand(78,VH-6);
+    ctx.fillStyle='#3a7330';ctx.fillRect(x,y,1,3);ctx.fillRect(x+2,y+1,1,2);}
+  // tiny meadow flowers
+  for(let i=0;i<26;i++){const x=rand(0,VW),y=rand(80,VH-6);
+    if(!inWater(x,y+4)&&!inWater(x-6,y)&&!inWater(x+6,y)){
+      ctx.fillStyle=pick(['#d9e8a0','#f7c9d9','#ffe98a']);ctx.fillRect(x,y,1,1);}}
+  // water
+  const wat=(cx,cy,rx,ry,col)=>{ctx.fillStyle=col;
+    for(let y=-ry;y<=ry;y++){const w=rx*Math.sqrt(Math.max(0,1-(y/ry)**2));
+      ctx.fillRect(Math.round(cx-w),Math.round(cy+y),Math.round(w*2),1);}};
+  wat(210,172,200,82,'#1d3a28');   // bank shadow
+  wat(320,196,152,66,'#1d3a28');
+  wat(210,172,196,78,'#2e5741');
+  wat(320,196,148,62,'#2e5741');
+  wat(200,166,180,66,'#2b5340');
+  // deeper center
+  wat(230,182,120,42,'#28503a');
+  // water speckle
+  for(let i=0;i<260;i++){const x=rand(16,VW-16),y=rand(104,VH-6);
+    if(inWater(x,y)){ctx.fillStyle=pick(['#33604a','#28503a','#356349']);ctx.fillRect(x,y,2,1);}}
+  // duckweed clusters (like the cozy reference pond)
+  for(let c=0;c<30;c++){
+    const p=randWaterPoint();
+    const n=rint(4,10);
+    for(let i=0;i<n;i++){
+      const x=p.x+rand(-9,9),y=p.y+rand(-5,5);
+      if(!inWater(x,y))continue;
+      ctx.fillStyle=pick(['#5d9c46','#6fae4a','#4c8a34','#7fbf54']);
+      ctx.fillRect(Math.round(x),Math.round(y),rint(1,3),rint(1,2));
+    }
+  }
+  // lone duckweed bits
+  for(let i=0;i<90;i++){const x=rand(20,VW-20),y=rand(108,VH-8);
+    if(inWater(x,y)&&Math.random()<.8){ctx.fillStyle=pick(['#5d9c46','#6fae4a','#4c8a34']);
+      ctx.fillRect(x,y,rint(1,2),1);}}
+  // ferns
+  frond(ctx,6,88,1,9,'#2f6b35','#3f8f3f'); frond(ctx,20,70,1,8,'#2f6b35','#3f8f3f');
+  frond(ctx,470,84,-1,9,'#2f6b35','#3f8f3f'); frond(ctx,452,64,-1,8,'#2f6b35','#3f8f3f');
+  frond(ctx,120,60,1,7,'#28522c','#356d33'); frond(ctx,350,58,-1,7,'#28522c','#356d33');
+  frond(ctx,220,52,1,6,'#28522c','#356d33');
+  // big foreground leaves bottom corners
+  for(const [bx,by,dir] of [[8,262,1],[472,266,-1],[30,270,1],[452,252,-1]]){
+    for(let i=0;i<7;i++){ctx.fillStyle=i%2?'#2c5a26':'#3a7330';
+      ctx.fillRect(bx+dir*i*3,by-i*4,4,3);}
+  }
+  // rocks
+  const rock=(x,y,w,h)=>{
+    ctx.fillStyle='#3a423a';ctx.fillRect(x-1,y+1,w+2,h);ctx.fillRect(x+1,y-1,w-2,h+2);
+    ctx.fillStyle='#7e8a7e';ctx.fillRect(x,y+1,w,h-1);ctx.fillRect(x+2,y,w-4,h);
+    ctx.fillStyle='#a8b2a8';ctx.fillRect(x+3,y+1,Math.max(2,w-7),2);
+    ctx.fillStyle='#5c665c';ctx.fillRect(x+1,y+h-2,w-2,1);ctx.fillRect(x+3,y+h-1,w-6,1);};
+  rock(148,128,26,10); rock(388,238,30,11); rock(52,236,20,8); rock(330,120,18,7);
+  // lily pads
+  for(const p of PADS)drawPad(ctx,p.x,p.y,p.r,false);
+  // nest pad (the love-pad)
+  drawPad(ctx,NEST.x,NEST.y,NEST.r,true);
+  // reeds
+  for(const [x,y] of [[36,148],[44,152],[452,180],[458,174],[86,120],[418,128]]){
+    ctx.fillStyle='#3a7330';ctx.fillRect(x,y-18,2,18);
+    ctx.fillStyle='#7a5a2e';ctx.fillRect(x-1,y-22,4,6);
+  }
+  bgCanvas=ctx.canvas;
+}
+function drawPad(ctx,x,y,r,isNest){
+  const ry=Math.round(r*.6);
+  const col=isNest?'#7fbf54':pick(['#6fae4a','#7fbf54','#63a03f']);
+  const rim=isNest?'#4c8a34':'#4c8a34';
+  for(let j=-ry;j<=ry;j++){const w=r*Math.sqrt(Math.max(0,1-(j/ry)**2));
+    ctx.fillStyle=col;ctx.fillRect(Math.round(x-w),y+j,Math.round(w*2),1);}
+  // rim
+  ctx.fillStyle=rim;
+  for(let a=0;a<64;a++){const th=a/64*Math.PI*2;
+    ctx.fillRect(Math.round(x+Math.cos(th)*r),Math.round(y+Math.sin(th)*ry),1,1);}
+  // notch
+  ctx.fillStyle='#2e5741';
+  for(let i=0;i<Math.round(r);i++){ctx.fillRect(x+i,y-Math.round(i*.28),1,Math.max(1,3-i*.18));}
+  // vein
+  ctx.fillStyle=rim;ctx.fillRect(x-Math.round(r*.6),y,Math.round(r*.5),1);
+  if(isNest){
+    // pink heart on the pad
+    const hx=x-1,hy=y-1;
+    ctx.fillStyle='#f78fc0';
+    ctx.fillRect(hx-3,hy-2,3,3);ctx.fillRect(hx+1,hy-2,3,3);
+    ctx.fillRect(hx-4,hy-1,9,3);ctx.fillRect(hx-3,hy+2,7,2);
+    ctx.fillRect(hx-2,hy+4,5,1);ctx.fillRect(hx-1,hy+5,3,1);
+    ctx.fillStyle='#ffd9ec';ctx.fillRect(hx-2,hy-1,2,1);
+    // flowers around
+    for(const [fx,fy] of [[x-r+2,y-3],[x+r-4,y-2],[x-4,y+ry-2],[x+6,y-ry+1]]){
+      ctx.fillStyle='#ffd9ec';ctx.fillRect(fx-1,fy,1,1);ctx.fillRect(fx+1,fy,1,1);
+      ctx.fillRect(fx,fy-1,1,1);ctx.fillRect(fx,fy+1,1,1);
+      ctx.fillStyle='#f7ce4a';ctx.fillRect(fx,fy,1,1);
+    }
+  }else if(Math.random()<0.3){
+    const fx=x+rint(-3,3),fy=y+rint(-2,2);
+    ctx.fillStyle='#ffffff';ctx.fillRect(fx-1,fy,1,1);ctx.fillRect(fx+1,fy,1,1);
+    ctx.fillRect(fx,fy-1,1,1);ctx.fillRect(fx,fy+1,1,1);
+    ctx.fillStyle='#f7ce4a';ctx.fillRect(fx,fy,1,1);
+  }
+}
+
+/* sparkles on the water */
+const sparkles=[];
+function initSparkles(){
+  for(let i=0;i<34;i++){const p=randWaterPoint();
+    sparkles.push({x:p.x,y:p.y,ph:rand(0,Math.PI*2),sp:rand(.0012,.003),big:Math.random()<.4});}
+}
+
+/* =========================================================================
+   RENDERING
+   ========================================================================= */
+const cv=document.getElementById('game'), cx0=cv.getContext('2d');
+let scale=2, offX=0, offY=0;
+const buf=makeCtx(VW,VH);
+function resize(){
+  const w=innerWidth,h=innerHeight;
+  const fit=Math.min(w/VW,h/VH);
+  scale=fit<1?fit:Math.max(1,Math.floor(fit*2)/2); // crisp half-steps
+
+  cv.width=w;cv.height=h;
+  offX=Math.round((w-VW*scale)/2); offY=Math.round((h-VH*scale)/2);
+  cx0.imageSmoothingEnabled=false;
+}
+addEventListener('resize',resize);
+
+function draw(){
+  const ctx=buf;
+  ctx.clearRect(0,0,VW,VH);
+  ctx.drawImage(bgCanvas,0,0);
+  // light rays
+  for(let i=0;i<4;i++){
+    const x=70+i*110, sway=Math.sin(G.time*0.0004+i)*8;
+    ctx.fillStyle=`rgba(247,247,200,${0.05+0.025*Math.sin(G.time*0.001+i*2)})`;
+    ctx.beginPath();
+    ctx.moveTo(x+sway,0);ctx.lineTo(x+26+sway,0);
+    ctx.lineTo(x-14,150);ctx.lineTo(x-34,150);ctx.closePath();ctx.fill();
+  }
+  // ripples
+  for(const r of ripples){
+    const k=r.t/r.life;
+    ctx.strokeStyle=`rgba(190,230,190,${0.5*(1-k)})`;
+    ctx.beginPath();ctx.ellipse(r.x,r.y,4+k*12,(4+k*12)*.5,0,0,Math.PI*2);ctx.stroke();
+  }
+  // sparkles
+  for(const s of sparkles){
+    const a=Math.max(0,Math.sin(G.time*s.sp+s.ph));
+    if(a<0.25)continue;
+    ctx.fillStyle=`rgba(255,233,138,${a*.85})`;
+    ctx.fillRect(s.x,s.y,1,1);
+    if(s.big&&a>0.7){ctx.fillRect(s.x-1,s.y,1,1);ctx.fillRect(s.x+1,s.y,1,1);
+      ctx.fillRect(s.x,s.y-1,1,1);ctx.fillRect(s.x,s.y+1,1,1);}
+  }
+  // nest egg
+  if(nest.egg){
+    const wob=Math.sin(nest.egg.wob*0.02)*(Math.sin(nest.egg.wob*0.004)>.6?0.18:0.04);
+    ctx.save();ctx.translate(NEST.x,NEST.y+2);ctx.rotate(wob);
+    ctx.drawImage(SPRITES.egg,-6,-13);ctx.restore();
+    const left=Math.max(0,nest.egg.hatchAt-G.time);
+    if(left<T(6000)&&Math.floor(G.time/220)%2)puffsOnce();
+  }
+  // foods (in flight or floating)
+  for(const f of G.foodsOnField){
+    const spr=SPRITES.foods[f.kind].c;
+    if(f.landT>0){ // flying
+      if(f.fx===undefined)continue;
+      ctx.save();ctx.translate(f.fx,f.fy);ctx.rotate(f.spin||0);
+      ctx.drawImage(spr,-5,-5);ctx.restore();
+      ctx.fillStyle='rgba(0,0,0,.18)';
+      ctx.beginPath();ctx.ellipse(f.x,f.y+3,4,2,0,0,Math.PI*2);ctx.fill();
+    }else{
+      const bob=Math.sin(G.time*0.004+f.bob)*1.2;
+      ctx.fillStyle='rgba(0,0,0,.15)';
+      ctx.beginPath();ctx.ellipse(f.x,f.y+3,5,2,0,0,Math.PI*2);ctx.fill();
+      ctx.drawImage(spr,Math.round(f.x-5),Math.round(f.y-6+bob));
+      const age=G.time-f.bornAt;
+      if(age>T(38000))ctx.fillStyle='rgba(46,87,65,.5)',ctx.fillRect(f.x-5,f.y-6+bob,10,10);
+    }
+  }
+  // frogs sorted by y
+  const sorted=[...G.frogs].sort((a,b)=>a.y-b.y);
+  for(const fr of sorted)drawFrog(ctx,fr);
+  // tongues
+  for(const t of tongues){
+    const fr=t.fr,k=t.t/t.life,ext=Math.sin(k*Math.PI);
+    ctx.strokeStyle='#f5808c';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(fr.x,fr.y-8*fr.scale-fr.z);
+    ctx.lineTo(lerp(fr.x,t.x,ext),lerp(fr.y-8,t.y,ext));ctx.stroke();
+    ctx.lineWidth=1;
+  }
+  // particles
+  for(const p of parts){
+    const k=p.t/p.life, a=1-k;
+    if(p.kind==='puff'){ctx.fillStyle=p.col;ctx.globalAlpha=a;
+      ctx.fillRect(p.x,p.y,p.s,p.s);ctx.globalAlpha=1;}
+    else if(p.kind==='heart'){ctx.globalAlpha=a;
+      ctx.fillStyle='#f5808c';
+      ctx.fillRect(p.x-2,p.y-1,2,2);ctx.fillRect(p.x+1,p.y-1,2,2);
+      ctx.fillRect(p.x-2,p.y,5,2);ctx.fillRect(p.x-1,p.y+2,3,1);ctx.fillRect(p.x,p.y+3,1,1);
+      ctx.globalAlpha=1;}
+    else if(p.kind==='coin'){ctx.globalAlpha=a;ctx.drawImage(SPRITES.icons.coin.c,p.x-4,p.y-4);ctx.globalAlpha=1;}
+    else if(p.kind==='conf'){ctx.globalAlpha=Math.min(1,a*2);ctx.fillStyle=p.col;
+      ctx.fillRect(p.x,p.y,2,2);ctx.globalAlpha=1;}
+    else if(p.kind==='drop'){ctx.globalAlpha=a;ctx.fillStyle='#bfe6d2';
+      ctx.fillRect(p.x,p.y,1,2);ctx.globalAlpha=1;}
+  }
+  // aim ring when a food is selected
+  if(G.selectedFood&&mouse.inCanvas){
+    const ok=inWater(mouse.x,mouse.y);
+    ctx.strokeStyle=ok?'rgba(255,233,138,.9)':'rgba(224,82,82,.8)';
+    ctx.beginPath();ctx.ellipse(mouse.x,mouse.y,7,3.5,0,0,Math.PI*2);ctx.stroke();
+    ctx.drawImage(SPRITES.foods[G.selectedFood].c,mouse.x-5,mouse.y-16+Math.sin(G.time*.006)*2);
+  }
+  // blit
+  cx0.fillStyle='#101f14';cx0.fillRect(0,0,cv.width,cv.height);
+  cx0.drawImage(buf.canvas,0,0,VW,VH,offX,offY,VW*scale,VH*scale);
+}
+function puffsOnce(){} // egg about-to-hatch shimmer placeholder
+
+function drawFrog(ctx,fr){
+  const S=SPRITES.frogs[fr.spec];
+  let img=S.sit;
+  if(G.time<fr.blinkUntil)img=S.blink;
+  else if(fr.state==='waddle')img=fr.walkFrame?S.walkA:S.walkB;
+  const sc=fr.scale;
+  // shadow
+  ctx.fillStyle='rgba(10,30,18,.28)';
+  const shw=9*sc*(1-fr.z*0.02);
+  ctx.beginPath();ctx.ellipse(fr.x,fr.y+2,Math.max(3,shw),Math.max(1.6,shw*.42),0,0,Math.PI*2);ctx.fill();
+  // glow (moon dew)
+  if(G.time<fr.glowUntil){
+    ctx.fillStyle=`rgba(159,230,195,${0.14+0.08*Math.sin(G.time*.006)})`;
+    ctx.beginPath();ctx.ellipse(fr.x,fr.y-9*sc-fr.z,14*sc,11*sc,0,0,Math.PI*2);ctx.fill();
+    if(Math.random()<.06)puffs(fr.x+rand(-8,8),fr.y-rand(4,16),'#9fe6c3',1);
+  }
+  if(G.time<fr.zoomUntil&&Math.random()<.1)puffs(fr.x+rand(-6,6),fr.y,'#cfe8a8',1);
+  ctx.save();
+  ctx.translate(fr.x,fr.y-fr.z);
+  ctx.rotate(fr.rot);
+  ctx.scale((fr.flip?-1:1)*fr.sx*sc,fr.sy*sc);
+  ctx.drawImage(img,-SPR/2,-SPR+3);
+  ctx.restore();
+  // nest waiting heart
+  if(fr.nestSlot>=0){
+    const bob=Math.sin(G.time*.008)*1.5;
+    ctx.fillStyle='#f5808c';
+    const hx=fr.x,hy=fr.y-26*sc+bob;
+    ctx.fillRect(hx-2,hy,2,2);ctx.fillRect(hx+1,hy,2,2);
+    ctx.fillRect(hx-2,hy+1,5,2);ctx.fillRect(hx-1,hy+3,3,1);
+  }
+  // bubble
+  if(fr.bubble){
+    ctx.fillStyle='#f3efdc';
+    const bx=fr.x+10,by=fr.y-26*sc;
+    ctx.fillRect(bx-2,by-4,12,9);
+    ctx.fillRect(bx-1,by+5,3,2);
+    ctx.fillStyle='#1b2417';
+    ctx.fillRect(bx+2,by-2,2,4);ctx.fillRect(bx+4,by-2,2,1);ctx.fillRect(bx+4,by+1,2,1);
+  }
+  // selected indicator
+  if(selectedFrog===fr){
+    const bob=Math.sin(G.time*.01)*1.5;
+    ctx.fillStyle='#ffe98a';
+    ctx.beginPath();
+    ctx.moveTo(fr.x,fr.y-30*sc+bob+4);ctx.lineTo(fr.x-4,fr.y-30*sc+bob-2);
+    ctx.lineTo(fr.x+4,fr.y-30*sc+bob-2);ctx.closePath();ctx.fill();
+  }
+}
+
+/* =========================================================================
+   INPUT
+   ========================================================================= */
+const mouse={x:0,y:0,inCanvas:false};
+function canvasPos(e){
+  const r=cv.getBoundingClientRect();
+  const px=(e.clientX-r.left-offX)/scale, py=(e.clientY-r.top-offY)/scale;
+  return {x:px,y:py};
+}
+cv.addEventListener('mousemove',e=>{const p=canvasPos(e);mouse.x=p.x;mouse.y=p.y;
+  mouse.inCanvas=p.x>=0&&p.y>=0&&p.x<VW&&p.y<VH;});
+cv.addEventListener('mouseleave',()=>mouse.inCanvas=false);
+let selectedFrog=null;
+cv.addEventListener('click',e=>{
+  initAudio();
+  const p=canvasPos(e);
+  if(p.x<0||p.y<0||p.x>=VW||p.y>=VH)return;
+  // food throw?
+  if(G.selectedFood){
+    if(inWater(p.x,p.y)){throwFood(G.selectedFood,p.x,p.y);}
+    else{toast('aim at the pond!');}
+    return;
+  }
+  // frog?
+  let hit=null,hd=1e9;
+  for(const fr of G.frogs){
+    const d=Math.hypot(p.x-fr.x,p.y-(fr.y-10*fr.scale));
+    if(d<15*fr.scale&&d<hd){hd=d;hit=fr;}
+  }
+  if(hit){
+    selectedFrog=hit;
+    squishy(hit,1.25,.75,320); hearts(hit.x,hit.y-18,1);
+    if(Math.random()<.4)SFX.ribbit(); else SFX.pop();
+    showFrogCard(hit);
+    return;
+  }
+  // egg?
+  if(nest.egg&&Math.hypot(p.x-NEST.x,p.y-NEST.y)<16){
+    const s=Math.ceil(Math.max(0,nest.egg.hatchAt-G.time)/1000);
+    toast(`the egg wiggles… hatches in ${s}s`,url(SPRITES.egg));
+    return;
+  }
+  selectedFrog=null; hideFrogCard();
+});
+
+/* =========================================================================
+   DOM UI — hud, tray, frog card, toasts
+   ========================================================================= */
+function refreshHud(){
+  document.getElementById('coinAmt').textContent=G.coins;
+  document.getElementById('dexAmt').textContent=Object.keys(G.discovered).length+'/'+SPECIES.length;
+}
+function buildTray(){
+  const tray=document.getElementById('tray');
+  tray.innerHTML='';
+  for(const f of FOODS){
+    const el=document.createElement('div');
+    el.className='slot'; el.id='slot_'+f.id;
+    el.innerHTML=`<img class="px" src="${SPRITES.foods[f.id].url}">
+      <div class="cost">${f.cost?f.cost+'¢':'free'}</div>`;
+    el.title=`${f.name} — ${f.desc}`;
+    el.onclick=()=>{
+      initAudio();SFX.click();
+      if(!G.unlockedFoods[f.id]){toast(`unlock ${f.name} in the ShopHop app! (${f.unlock}¢)`);openPhone('shop');return;}
+      G.selectedFood = G.selectedFood===f.id?null:f.id;
+      updateTray();
+    };
+    tray.appendChild(el);
+  }
+  updateTray();
+}
+function updateTray(){
+  for(const f of FOODS){
+    const el=document.getElementById('slot_'+f.id);
+    el.classList.toggle('sel',G.selectedFood===f.id);
+    el.classList.toggle('locked',!G.unlockedFoods[f.id]);
+    let tag=el.querySelector('.lockTag');
+    if(!G.unlockedFoods[f.id]){
+      if(!tag){tag=document.createElement('div');tag.className='lockTag';el.appendChild(tag);}
+      tag.textContent='🔒';
+    }else if(tag)tag.remove();
+  }
+}
+
+function showFrogCard(fr){
+  const s=SP[fr.spec];
+  document.getElementById('fcFace').src=SPRITES.frogs[fr.spec].url;
+  document.getElementById('fcName').textContent=fr.name;
+  document.getElementById('fcSpec').textContent=s.name+(fr.stage==='froglet'?' (froglet)':'');
+  const sn=document.getElementById('fcSnack');
+  if(fr.lastFood){
+    sn.innerHTML=`last snack: <img class="px" src="${SPRITES.foods[fr.lastFood].url}"> ${FD[fr.lastFood].name}`;
+  }else sn.innerHTML=`last snack: none (tummy empty)`;
+  const btns=document.getElementById('fcBtns');
+  btns.innerHTML='';
+  const bBreed=document.createElement('button');
+  bBreed.className='btn pink';
+  bBreed.textContent=fr.nestSlot>=0?'leave nest':'breed';
+  const cd=Math.ceil(Math.max(0,fr.cooldownUntil-G.time)/1000);
+  if(fr.stage!=='adult'){bBreed.disabled=true;bBreed.textContent='too smol';}
+  else if(cd>0&&fr.nestSlot<0){bBreed.disabled=true;bBreed.textContent=`resting ${cd}s`;}
+  bBreed.onclick=()=>{SFX.click();assignToNest(fr);showFrogCard(fr);};
+  btns.appendChild(bBreed);
+  const bSell=document.createElement('button');
+  bSell.className='btn';
+  bSell.textContent=`sell ${s.sell}¢`;
+  if(fr.stage!=='adult'){bSell.disabled=true;}
+  let armed=false;
+  bSell.onclick=()=>{
+    SFX.click();
+    if(!armed){armed=true;bSell.textContent='sure?';bSell.classList.add('pink');
+      setTimeout(()=>{armed=false;bSell.textContent=`sell ${s.sell}¢`;bSell.classList.remove('pink');},1800);
+      return;}
+    sellFrog(fr,s.sell);
+  };
+  btns.appendChild(bSell);
+  const bPet=document.createElement('button');
+  bPet.className='btn green'; bPet.textContent='pet';
+  bPet.onclick=()=>{squishy(fr,1.35,.65,380);hearts(fr.x,fr.y-18,3);SFX.hearts();};
+  btns.appendChild(bPet);
+  document.getElementById('fcHint').textContent=
+    fr.nestSlot>=0?'waiting on the love-pad… pick a partner!':
+    'tip: both parents must snack the same special food to discover new species.';
+  document.getElementById('frogCard').classList.add('show');
+}
+function hideFrogCard(){document.getElementById('frogCard').classList.remove('show');selectedFrog=null;}
+document.getElementById('fcClose').onclick=()=>{SFX.click();hideFrogCard();};
+
+function toast(txt,icon,gold){
+  const t=document.createElement('div');
+  t.className='toast'+(gold?' gold':'');
+  t.innerHTML=(icon?`<img class="px" src="${icon}">`:'')+`<span>${txt}</span>`;
+  document.getElementById('toasts').appendChild(t);
+  setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),450);},gold?4200:2600);
+}
+const HINTS=[
+'welcome! click a snack below, then click the pond to throw it 🪰',
+'frogs swarm to food — the closest one gets the bite!',
+'click a frog → BREED to send it to the pink love-pad. pick two!',
+'matching snacks + the right parents = brand new species. check the FrogDex!',
+];
+function hint(step){
+  if(G.hintStep!==step-1)return;
+  G.hintStep=step;
+  if(HINTS[step])setTimeout(()=>toast(HINTS[step]),800);
+}
+
+/* =========================================================================
+   PHONE
+   ========================================================================= */
+let phoneOpen=false, phoneApp='home';
+function openPhone(app){
+  phoneOpen=true; phoneApp=app||'home';
+  document.getElementById('phone').classList.add('open');
+  renderApp();
+}
+document.getElementById('phoneBtn').onclick=()=>{
+  initAudio();SFX.click();
+  phoneOpen=!phoneOpen;
+  document.getElementById('phone').classList.toggle('open',phoneOpen);
+  if(phoneOpen){phoneApp='home';renderApp();}
+};
+document.getElementById('appBack').onclick=()=>{SFX.click();
+  if(phoneApp==='chatThread'){phoneApp='chat';}else phoneApp='home';
+  renderApp();};
+document.getElementById('hudDex').onclick=()=>{initAudio();SFX.click();openPhone('dex');};
+let curThread=null;
+
+function renderApp(){
+  const head=document.getElementById('appHead'), body=document.getElementById('appBody');
+  const title=document.getElementById('appTitle');
+  document.getElementById('phTime').textContent=new Date().toTimeString().slice(0,5);
+  if(phoneApp==='home'){
+    head.style.display='none';
+    body.innerHTML='';
+    const grid=document.createElement('div');grid.className='appGrid';
+    const apps=[
+      ['shop','ShopHop','cart','#8fd45e'],
+      ['dex','FrogDex','book','#8fd0f0'],
+      ['chat','RibbitChat','chat','#f78fc0','icChat'],
+      ['set','Settings','gear','#cfcabc'],
+    ];
+    for(const [id,nm,ic,col,domId] of apps){
+      const a=document.createElement('div');a.className='appIcon';if(domId)a.id=domId;
+      a.innerHTML=`<div class="ic" style="background:${col}"><img class="px" src="${SPRITES.icons[ic].url}"></div>
+        <span>${nm}</span><div class="dot"></div>`;
+      a.onclick=()=>{SFX.click();phoneApp=id;renderApp();};
+      grid.appendChild(a);
+    }
+    body.appendChild(grid);
+    const tip=document.createElement('div');
+    tip.className='small';tip.style.textAlign='center';tip.style.padding='4px 10px';
+    tip.innerHTML='🐸 froggy pond OS v1.0';
+    body.appendChild(tip);
+    notifyPhone();
+    return;
+  }
+  head.style.display='flex';
+  body.innerHTML='';
+  if(phoneApp==='shop'){
+    title.textContent='🛒 ShopHop';
+    const h1=document.createElement('div');h1.className='small';h1.style.margin='2px 0 8px';
+    h1.textContent='— FROGS FOR SALE —';body.appendChild(h1);
+    for(const s of SPECIES.filter(s=>s.buy)){
+      const row=document.createElement('div');row.className='rowCard';
+      row.innerHTML=`<img class="face px" src="${SPRITES.frogs[s.id].url}">
+        <div class="inf"><div class="nm">${s.name}</div><div class="ds">${s.desc}</div>
+        <div class="pr">${s.buy}¢</div></div>`;
+      const b=document.createElement('button');b.className='btn green';b.textContent='buy';
+      b.disabled=G.coins<s.buy||G.frogs.length>=POND_CAP;
+      b.onclick=()=>{SFX.click();buyFrog(s.id);};
+      row.appendChild(b);body.appendChild(row);
+    }
+    const h2=document.createElement('div');h2.className='small';h2.style.margin='10px 0 8px';
+    h2.textContent='— SNACK RECIPE UNLOCKS —';body.appendChild(h2);
+    for(const f of FOODS.filter(f=>f.unlock>0)){
+      const owned=G.unlockedFoods[f.id];
+      const row=document.createElement('div');row.className='rowCard';
+      row.innerHTML=`<img class="face px" style="width:32px;height:32px" src="${SPRITES.foods[f.id].url}">
+        <div class="inf"><div class="nm">${f.name}</div><div class="ds">${f.desc}</div>
+        <div class="pr">${owned?`${f.cost}¢ per throw`:`unlock ${f.unlock}¢`}</div></div>`;
+      const b=document.createElement('button');b.className='btn '+(owned?'gray':'blue');
+      b.textContent=owned?'owned':'unlock';
+      b.disabled=owned||G.coins<f.unlock;
+      b.onclick=()=>{SFX.click();G.coins-=f.unlock;G.unlockedFoods[f.id]=true;SFX.coin();
+        toast(`${f.name} unlocked!`,SPRITES.foods[f.id].url);refreshHud();updateTray();renderApp();saveSoon();};
+      row.appendChild(b);body.appendChild(row);
+    }
+  }
+  else if(phoneApp==='dex'){
+    title.textContent='📖 FrogDex';
+    const n=Object.keys(G.discovered).length;
+    const bar=document.createElement('div');
+    bar.innerHTML=`<div class="small" style="text-align:center">${n} / ${SPECIES.length} discovered</div>
+      <div class="dexBar"><i style="width:${n/SPECIES.length*100}%"></i></div>`;
+    body.appendChild(bar);
+    const grid=document.createElement('div');grid.className='dexGrid';
+    for(const s of SPECIES){
+      const known=G.discovered[s.id];
+      const cell=document.createElement('div');
+      cell.className='dexCell'+(known?'':' unknown');
+      cell.innerHTML=`<img class="px" src="${known?SPRITES.frogs[s.id].url:SPRITES.frogs[s.id].silUrl}">`;
+      cell.onclick=()=>{SFX.click();renderDexDetail(s);};
+      grid.appendChild(cell);
+    }
+    body.appendChild(grid);
+  }
+  else if(phoneApp==='dexDetail'){/* rendered by renderDexDetail */}
+  else if(phoneApp==='chat'){
+    title.textContent='💬 RibbitChat';
+    const open=[...G.offers].reverse();
+    if(!open.length){
+      body.innerHTML='<div class="small" style="text-align:center;padding:20px">no messages yet…<br><br>collectors will ribbit at you soon!</div>';
+    }
+    for(const o of open){
+      const row=document.createElement('div');row.className='rowCard convRow';
+      const unread=!G.readOffers[o.id];
+      const sub=o.state==='cozy'?o.lines[0]:
+        o.state==='open'?`wants: ${SP[o.spid].name} · ${o.price}¢`:
+        o.state==='sold'?'sold! ⭐':'offer expired';
+      row.innerHTML=`<img class="face px" src="${o.spid?SPRITES.frogs[o.spid].url:SPRITES.icons.heart.url}" style="${o.state==='open'?'':'filter:saturate(.4)'}">
+        <div class="inf"><div class="chatName">${o.cust}</div><div class="chatSub">${sub}</div></div>
+        ${unread?'<div class="unread"></div>':''}`;
+      row.onclick=()=>{SFX.click();G.readOffers[o.id]=true;curThread=o;phoneApp='chatThread';renderApp();notifyPhone();};
+      body.appendChild(row);
+    }
+  }
+  else if(phoneApp==='chatThread'&&curThread){
+    const o=curThread;
+    title.textContent='💬 '+o.cust;
+    for(const l of o.lines){
+      const b=document.createElement('div');b.className='bubble';b.textContent=l;body.appendChild(b);
+    }
+    if(o.state==='open'){
+      const s=SP[o.spid];
+      const b=document.createElement('div');b.className='bubble';
+      const have=findSellable(o.spid);
+      const secs=Math.max(0,Math.ceil((o.expiresAt-G.time)/1000));
+      b.innerHTML=`i'm looking for a <b>${s.name}</b>!<br>
+        <img class="frogPic px" src="${G.discovered[o.spid]?SPRITES.frogs[o.spid].url:SPRITES.frogs[o.spid].silUrl}">
+        <div class="offerPrice">offering ${o.price}¢ <span class="tag">${Math.floor(secs/60)}:${String(secs%60).padStart(2,'0')}</span></div>
+        <div class="actions"></div>`;
+      const act=b.querySelector('.actions');
+      const sellB=document.createElement('button');sellB.className='btn green';
+      sellB.textContent=have?`sell ${have.name}`:'none to sell';
+      sellB.disabled=!have;
+      sellB.onclick=()=>{
+        SFX.click();
+        const fr=findSellable(o.spid);
+        if(!fr)return;
+        if(sellFrog(fr,o.price,true)){
+          o.state='sold';
+          o.lines.push(`(you sold ${fr.name} for ${o.price}¢)`);
+          o.lines.push(pick(CHAT_THANKS));
+          toast(`sold ${fr.name} to ${o.cust} · +${o.price}¢`,SPRITES.icons.coin.url,true);
+          renderApp();
+        }
+      };
+      const nahB=document.createElement('button');nahB.className='btn gray';nahB.textContent='nah';
+      nahB.onclick=()=>{SFX.click();o.state='expired';o.lines.push('no worries! happy ponding 👋');renderApp();};
+      act.appendChild(sellB);act.appendChild(nahB);
+      body.appendChild(b);
+      if(!G.discovered[o.spid]){
+        const hintB=document.createElement('div');hintB.className='bubble';
+        hintB.innerHTML=`<span class="small">you haven't met this frog yet… check the FrogDex for breeding hints!</span>`;
+        body.appendChild(hintB);
+      }
+    }
+    if(o.state==='sold'||o.state==='expired'){
+      for(let i=o.lines.length-((o.state==='sold')?2:1);i<o.lines.length;i++){
+        if(i<1)continue;
+        const b=document.createElement('div');
+        b.className='bubble'+(o.lines[i].startsWith('(')?' me':'');
+        b.textContent=o.lines[i];body.appendChild(b);
+      }
+    }
+    body.scrollTop=body.scrollHeight;
+  }
+  else if(phoneApp==='set'){
+    title.textContent='⚙ Settings';
+    body.innerHTML=`<div class="rowCard"><div class="inf"><div class="nm">sound</div>
+      <div class="ds">bloops and ribbits</div></div></div>
+      <div class="rowCard"><div class="inf"><div class="nm">reset pond</div>
+      <div class="ds">start over. the frogs will forgive you. probably.</div></div></div>
+      <div class="small" style="text-align:center;margin-top:10px">froggy pond v1.0<br>made with 🐸 & pixels</div>`;
+    const rows=body.querySelectorAll('.rowCard');
+    const sb=document.createElement('button');sb.className='btn '+(muted?'gray':'green');
+    sb.textContent=muted?'off':'on';
+    sb.onclick=()=>{SFX.click();toggleMute();sb.textContent=muted?'off':'on';sb.className='btn '+(muted?'gray':'green');};
+    rows[0].appendChild(sb);
+    const rb=document.createElement('button');rb.className='btn pink';rb.textContent='reset';
+    let armed=false;
+    rb.onclick=()=>{ if(!armed){armed=true;rb.textContent='SURE?';return;}
+      localStorage.removeItem(SAVE_KEY);location.reload();};
+    rows[1].appendChild(rb);
+  }
+}
+function renderDexDetail(s){
+  phoneApp='dexDetail';
+  const body=document.getElementById('appBody');
+  document.getElementById('appTitle').textContent='📖 FrogDex';
+  document.getElementById('appHead').style.display='flex';
+  body.innerHTML='';
+  const known=G.discovered[s.id];
+  const d=document.createElement('div');d.className='dexDetail';
+  let how;
+  if(s.buy)how=`🛒 ShopHop · ${s.buy}¢`;
+  else{
+    const [pa,pb,fd]=s.recipe;
+    const paK=G.discovered[pa],pbK=G.discovered[pb];
+    const bothK=paK&&pbK;
+    how=`💕 breed only<br>${paK?SP[pa].name:'???'} + ${pbK?SP[pb].name:'???'}<br>`+
+        `snack: ${bothK?('<img class="px" style="width:14px;height:14px;vertical-align:middle" src="'+SPRITES.foods[fd].url+'"> '+FD[fd].name):'???'}`;
+  }
+  d.innerHTML=`<img class="px" src="${known?SPRITES.frogs[s.id].url:SPRITES.frogs[s.id].silUrl}">
+    <div class="nm">${known?s.name:'???'}</div>
+    <div class="ds">${known?s.desc:'a mysterious silhouette…'}</div>
+    <div class="how">${how}</div>
+    <div class="small" style="margin-top:8px">${known?('sells for '+s.sell+'¢ · collectors pay more!'):''}</div>`;
+  body.appendChild(d);
+  const back=document.createElement('button');back.className='btn blue';back.style.marginTop='8px';
+  back.textContent='◀ back to dex';back.onclick=()=>{SFX.click();phoneApp='dex';renderApp();};
+  body.appendChild(back);
+}
+function toggleMute(){muted=!muted;document.getElementById('muteBtn').textContent=muted?'✕':'♪';saveSoon();}
+document.getElementById('muteBtn').onclick=()=>{initAudio();toggleMute();SFX.click();};
+
+/* =========================================================================
+   SAVE / LOAD
+   ========================================================================= */
+const SAVE_KEY='froggy_pond_v1';
+let saveTimer=null;
+function saveSoon(){clearTimeout(saveTimer);saveTimer=setTimeout(saveNow,800);}
+function saveNow(){
+  try{
+    const data={
+      coins:G.coins, discovered:G.discovered, unlockedFoods:G.unlockedFoods,
+      muted, hintStep:G.hintStep, won:G.won,
+      frogs:G.frogs.map(f=>({spec:f.spec,name:f.name,x:f.x,y:f.y,stage:f.stage,lastFood:f.lastFood})),
+      egg:nest.egg?{spec:nest.egg.spec,left:Math.max(0,nest.egg.hatchAt-G.time)}:null,
+      offers:G.offers.slice(-8).map(o=>({id:o.id,cust:o.cust,spid:o.spid,price:o.price,state:o.state,
+        lines:o.lines,left:o.state==='open'?Math.max(0,o.expiresAt-G.time):0})),
+    };
+    localStorage.setItem(SAVE_KEY,JSON.stringify(data));
+  }catch(e){}
+}
+function load(){
+  try{
+    const raw=localStorage.getItem(SAVE_KEY);
+    if(!raw)return false;
+    const d=JSON.parse(raw);
+    G.coins=d.coins??300; G.discovered=d.discovered||{}; G.unlockedFoods=d.unlockedFoods||{fly:true};
+    muted=!!d.muted; G.hintStep=d.hintStep||0; G.won=!!d.won;
+    for(const fd of d.frogs||[]){
+      const fr=new Frog(fd.spec,fd.x,fd.y,fd.stage);
+      fr.name=fd.name; fr.lastFood=fd.lastFood;
+      G.frogs.push(fr);
+    }
+    if(d.egg)nest.egg={spec:d.egg.spec,hatchAt:0+d.egg.left,wob:0}; // hatchAt fixed after time starts
+    for(const od of d.offers||[]){
+      G.offers.push({id:od.id,cust:od.cust,spid:od.spid,price:od.price,state:od.state,
+        lines:od.lines,expiresAt:od.left,at:0});
+      G.readOffers[od.id]=od.state!=='open';
+      offerSeq=Math.max(offerSeq,od.id+1);
+    }
+    return true;
+  }catch(e){return false;}
+}
+addEventListener('visibilitychange',()=>{if(document.hidden)saveNow();});
+
+/* =========================================================================
+   MAIN LOOP
+   ========================================================================= */
+let last=0, started=false;
+function loop(ts){
+  requestAnimationFrame(loop);
+  if(!last)last=ts;
+  let dt=Math.min(50,ts-last); last=ts;
+  if(!started)return;
+  G.time+=dt;
+  stepTweens(dt);
+  for(const fr of G.frogs)fr.update(dt);
+  stepNest(dt);
+  // particles
+  for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.t+=dt;
+    if(p.t>=p.life){parts.splice(i,1);continue;}
+    p.x+=(p.vx||0)*dt;p.y+=(p.vy||0)*dt;
+    if(p.g)p.vy+=p.g*dt;
+    if(p.kind==='conf')p.x+=Math.sin((p.t+p.y)*0.01)*0.3;
+  }
+  for(let i=ripples.length-1;i>=0;i--){ripples[i].t+=dt;if(ripples[i].t>=ripples[i].life)ripples.splice(i,1);}
+  for(let i=tongues.length-1;i>=0;i--){tongues[i].t+=dt;if(tongues[i].t>=tongues[i].life)tongues.splice(i,1);}
+  // stale food sinks
+  for(let i=G.foodsOnField.length-1;i>=0;i--){const f=G.foodsOnField[i];
+    if(f.landT===0&&G.time-f.bornAt>T(45000)){G.foodsOnField.splice(i,1);ripple(f.x,f.y);}}
+  // customers
+  if(G.time>G.nextCustomerAt){spawnCustomer();scheduleCustomer();}
+  stepOffers();
+  // live chat timer refresh
+  if(phoneOpen&&(phoneApp==='chatThread')&&Math.floor(G.time/1000)!==Math.floor((G.time-dt)/1000))renderApp();
+  draw();
+}
+requestAnimationFrame(loop);
+
+/* =========================================================================
+   BOOT
+   ========================================================================= */
+function boot(){
+  buildSprites(); buildBg(); initSparkles(); resize();
+  // static imgs
+  const fav=document.createElement('link');fav.rel='icon';fav.href=SPRITES.frogs.pond.url;
+  document.head.appendChild(fav);
+  document.getElementById('coinIcon').src=SPRITES.icons.coin.url;
+  document.getElementById('dexIcon').src=SPRITES.icons.book.url;
+  document.getElementById('phoneIcon').src=SPRITES.icons.phone.url;
+  document.getElementById('titleFrog').src=SPRITES.frogs.pond.url;
+  document.getElementById('winFrog').src=SPRITES.frogs.king.url;
+  document.getElementById('titleCount').textContent=SPECIES.length;
+  buildTray();
+  const loaded=load();
+  if(!loaded){
+    // fresh pond: two pond frogs
+    const a=new Frog('pond',180,170), b=new Frog('pond',250,196);
+    while(b.name===a.name)b.name=pick(NAMES);
+    G.frogs.push(a,b);
+    G.discovered.pond=true;
+  }
+  refreshHud(); notifyPhone();
+  document.getElementById('muteBtn').textContent=muted?'✕':'♪';
+  document.getElementById('title').addEventListener('click',()=>{
+    initAudio();
+    document.getElementById('title').style.display='none';
+    started=true;
+    if(nest.egg)nest.egg.hatchAt=G.time+nest.egg.hatchAt; // resolve saved remaining time
+    for(const o of G.offers)if(o.state==='open')o.expiresAt=G.time+o.expiresAt;
+    scheduleCustomer();
+    G.nextCustomerAt=G.time+T(18000); // first customer comes fairly quick
+    if(G.hintStep===0)setTimeout(()=>toast(HINTS[0]),1200);
+    if(G.won)document.getElementById('winOverlay').style.display='none';
+    SFX.chime();
+  });
+  document.getElementById('winOverlay').addEventListener('click',()=>{
+    document.getElementById('winOverlay').style.display='none';
+  });
+  setInterval(saveNow,6000);
+}
+window.G=G; window.SPECIES=SPECIES; window.SPRITES=SPRITES; window.FOODS=FOODS; // for curious consoles
+window.__dbg={nest,assignToNest,Frog,throwFood,spawnCustomer,resolveBreed,findSellable,sellFrog,SP,FD};
+boot();
+</script>
+</body>
+</html>
