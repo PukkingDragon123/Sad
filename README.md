@@ -21,13 +21,29 @@ Progress saves automatically in your browser.
 - **Throw snacks** — pick a snack from the tray, then click the open water.
   It arcs in, splashes, and the frogs swarm it; the closest one gets the bite.
   Every frog remembers its **last snack**.
+  You can also **click a frog** with a snack selected to hand-feed it directly —
+  the reliable way to get one particular snack into one particular frog.
 - **Breed** — click a frog → `breed` to send it to the pink **love-pad** in the
-  middle of the pond. Send two. If the pair matches a recipe **and both parents
-  last ate that recipe's snack**, the egg hatches a brand-new species. Any other
-  pairing gives you a copy of a parent — still worth selling.
-  Parents aren't consumed; they just rest a moment, so a good pair keeps giving.
+  middle of the pond, or just drag it there with the hand. Send two. If the pair
+  matches a recipe and **either** parent last ate that recipe's snack, the egg
+  hatches a brand-new species. Any other pairing gives you a copy of a parent —
+  still worth selling. Parents aren't consumed and keep their snack, so a working
+  pair keeps giving. The love-pad tells you on screen what the current pair will
+  make, or which snack it still wants.
 - **Froglets** hatch small and grow up before they can breed or be sold.
-- **The phone** (bottom right):
+- **Tools** (rack beside the snacks):
+  - **Gentle Hand** — lift a frog and set it down anywhere. Drop it on the
+    love-pad to breed, or onto a snack to choose exactly who eats what. Tapping
+    without dragging still opens its card.
+  - **Breed Tonic** (10c) — for two minutes that frog makes the best baby it
+    can: it works with no snack at all, crosses the pond for the next snack,
+    rests and hatches quicker, and never wastes a pairing. Dosed frogs shimmer.
+  - **Droplets** — sprinkle the water to freshen the pond, and everything grows,
+    rests and keeps for longer while it's fresh. Sprinkle a frog to rinse it
+    hungry again.
+  - **Fly Toy** — dangle it and every frog loses composure. Catching it gives
+    zoomies, shortens rests and helps froglets grow. Never touches their snack.
+- **The phone** (bottom right) — a frog-themed handset with twelve apps:
   - 🛒 **ShopHop** — buy the 8 starter frogs, unlock deeper snacks.
   - 📖 **FrogDex** — the collection. Unmet frogs are silhouettes; once you've met
     both parents of a recipe, the Dex reveals which snack it needs. It remembers
@@ -35,6 +51,16 @@ Progress saves automatically in your browser.
   - 💬 **RibbitChat** — collectors message you wanting a specific frog and pay
     1.4–1.9× the shelf price. This is the main way to fund the fancy snacks.
   - ⚙️ **Settings** — sound and a pond reset.
+  - 🌄 **Pondscape** — buy and apply 10 pond looks (dawn mist, blossom spring,
+    autumn, rain, golden hour, moonlit, thunderhead, first snow, aurora) plus six
+    little ornaments. Each look is a colour treatment of the same pond art with
+    its own weather: snow, petals, rain, leaves, fireflies, stars, lightning.
+  - 📷 **PondCam** — a live viewfinder of your actual pond, with a shutter that
+    keeps real photos, and 🖼 **Album** to look back at them.
+  - 📼 **RibbitFM**, ⛅ **Bogcast**, 👟 **HopTracker**, 🌙 **Croakoscope** and
+    📓 **PondDiary** — four pond tracks, a forecast and water quality, how far
+    your frogs hopped today, a daily reading for one of them, and a diary the
+    pond keeps of hatchings, sales and redecorating.
 - **Goal** — meet all **36 species**. 8 are buyable; the other 28 are breed-only,
   four tiers deep, ending in two legendaries.
 
