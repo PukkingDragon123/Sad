@@ -21,6 +21,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{width:100%;height:100%;overflow:hidden;background:#0c160e}
 body{font-family:'Pix',monospace;color:var(--ink);user-select:none;
+  -webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation;
   image-rendering:pixelated;text-rendering:geometricPrecision}
 img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 
@@ -28,6 +29,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #stage{position:absolute;left:0;top:0;transform-origin:0 0;width:640px;height:400px;
   filter:drop-shadow(0 0 0 transparent)}
 #pond,#game{position:absolute;left:0;top:0;width:640px;height:400px}
+#game{touch-action:none}
 #pond{z-index:1}
 #game{z-index:2}
 #themeOv{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;
@@ -65,17 +67,19 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 /* ---------- snack tray ---------- */
 #bottomBar{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:20;
   display:flex;align-items:flex-end;gap:12px;max-width:97vw}
-#trayWrap{padding:9px 11px 10px;max-width:min(78vw,880px)}
-#toolWrap{padding:9px 11px 10px;flex:none}
+/* min-width:0 so the tray is the part that gives when the bar runs out of room
+   (the snack strip already scrolls); without it the flex line overflowed the
+   viewport and half the snacks sat off-screen. */
+#trayWrap{padding:9px 11px 10px;max-width:min(78vw,880px);min-width:0;flex:1 1 auto}
+#toolWrap{padding:9px 11px 10px;flex:0 0 auto}
 .barLabel{font-size:var(--t-body);color:#f0e0bc;text-align:center;margin-bottom:5px;
   text-shadow:0 2px 0 #3a2a14}
-#tools{display:flex;gap:7px}
-#hudFresh{left:16px;top:118px;gap:9px}
-#hudFresh img{width:32px;height:32px}
-#freshBar{display:flex;gap:3px}
-#freshBar i{display:block;width:11px;height:17px;border:2px solid #3a2a14;background:#5c5040}
-#freshBar i.on{background:#8fd0e8;box-shadow:inset 0 -4px 0 #4a9dc0}
-#tray{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:3px}
+#tools{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+/* the tray sets the bar height, so the tools can be as tall as a snack slot */
+.slot.tool{width:63px;min-width:63px;height:92px;gap:1px}
+.slot.tool img{width:46px;height:46px;margin-top:2px}
+.slot.tool .cost{font-size:calc(var(--sc)*6px)}
+#tray{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:3px;min-width:0}
 #tray::-webkit-scrollbar{display:none}
 .slot{width:80px;min-width:80px;height:96px;cursor:pointer;position:relative;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;
@@ -304,6 +308,35 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .gated{visibility:hidden}
 #credit{display:none;position:absolute;right:8px;bottom:2px;z-index:5;font-size:9px;
   color:rgba(240,255,220,.5);pointer-events:none}
+/* ---------- narrow screens: one tool strip, a full-width tray ----------
+   Side by side, the two racks are wider than a phone, and flex refused to shrink
+   them past the slot min-widths, so the snacks ended up off-screen to the right. */
+@media (max-width:820px){
+  #bottomBar{flex-wrap:wrap;justify-content:center;width:96vw;max-width:96vw;gap:6px;bottom:8px}
+  #toolWrap,#trayWrap{border-width:8px}
+  #toolWrap{order:1;flex:1 1 100%;padding:6px 8px 7px}
+  #trayWrap{order:2;flex:1 1 100%;max-width:100%;padding:6px 8px 7px}
+  .barLabel{margin-bottom:2px;font-size:calc(var(--sc)*5.6px)}
+  #tools{grid-template-columns:repeat(8,1fr);gap:4px}
+  .slot.tool{width:auto;min-width:0;height:44px;border-width:6px}
+  .slot.tool img{width:24px;height:24px;margin-top:0}
+  #tray{gap:5px}
+  .slot{width:56px;min-width:56px;height:60px;border-width:7px}
+  .slot img{width:32px;height:32px;margin-top:1px}
+  #fcard{left:8px;width:calc(100vw - 96px);max-width:300px;padding:9px}
+  #fcFace{width:56px;height:56px}
+  #phoneBtn{width:58px;height:58px;right:8px}
+  #phoneBtn img{width:36px;height:36px}
+  #phone{right:8px;width:min(94vw,348px);height:min(78vh,620px)}
+  #handHint{white-space:normal;max-width:92vw;text-align:center}
+  #toasts{top:6px;gap:5px}
+  .toast{padding:5px 10px 6px;border-width:9px;font-size:calc(var(--sc)*7px);max-width:90vw}
+  .toast img{width:26px;height:26px}
+  #hudCoins{left:8px;top:8px}
+  #hudDex{left:8px;top:52px}
+  #topRight{right:8px;top:8px}
+}
+
 </style>
 </head>
 <body>
@@ -318,8 +351,6 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 
 <div id="hudCoins" class="hud panelWood gated"><img id="icCoin"><span id="coins">0</span></div>
 <div id="hudDex" class="hud panelWood gated" title="FrogDex"><img id="icBook"><span id="dexN">0/0</span></div>
-<div id="hudFresh" class="hud panelWood gated" title="pond freshness — sprinkle the droplets to top it up">
-  <img id="icDrop"><span id="freshBar"></span></div>
 <div id="topRight" class="gated"><button id="bMute" class="btn gray sm">♪</button><button id="bHelp" class="btn gray sm">?</button></div>
 
 <div id="bottomBar" class="gated">
@@ -428,10 +459,26 @@ function stepTweens(dt){
 
 /* ---------------- audio ---------------- */
 let AC=null,muted=false,ambGain=null;
+let musBooted=false;
+function afterAudio(){
+  if(musBooted||!AC)return;
+  musBooted=true;
+  // the title screen runs before load(), so read the preference off the save
+  // directly rather than serenading someone who switched the music off
+  const sv=peekSave();
+  if(sv&&!sv.music){G.music=false;return}
+  if(sv)G.track=sv.track;
+  if(G.music!==false)musStart();
+}
 function initAudio(){
-  if(AC)return;
+  if(AC){
+    // mobile browsers hand back a suspended context until a real gesture
+    if(AC.state==='suspended')AC.resume().catch(()=>{});
+    afterAudio();return;
+  }
   try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(e){return}
   startAmbience();
+  afterAudio();
 }
 function tone(f0,f1,dur,type,vol,delay=0){
   if(!AC||muted)return;
@@ -456,6 +503,132 @@ function startAmbience(){
     if(Math.random()<.4){const b=1200+Math.random()*500;
       for(let i=0;i<3;i++)tone(b,b*1.02,.035,'triangle',.012,i*.07)} },4200);
 }
+/* ---------------- music ----------------
+   Four looping pond tracks, synthesised note by note: a soft triangle lead, a
+   sine bass, a music-box pluck on the chord and a brushed shaker. Written as a
+   16-step grid per bar, where a digit is a degree of the track's pentatonic
+   scale and '-' holds the note on. */
+const PENT_MAJ=[0,2,4,7,9,12,14,16,19,21];
+const PENT_MIN=[0,3,5,7,10,12,15,17,19,22];
+const TRACKS=[
+ {n:'lilypad lullaby',m:'#7fbf54',d:'for slow afternoons on the water.',
+  bpm:78,root:60,
+  prog:[[0,4,7,9],[-3,0,4,7],[-7,-3,0,2],[-5,-1,2,5]],
+  lead:['3-4-5---4-3-1---','2-1-2---3-------','4-5-6---5-4-3---','2-3-1-------0---']},
+ {n:'puddle skip',m:'#f0a860',d:'the one the froglets like.',
+  bpm:102,root:65,perc:true,
+  prog:[[0,4,7,9],[-3,0,4,7],[-7,-3,0,2],[-5,-1,2,5]],
+  lead:['0-0-3-2-3---1---','2-2-4-3-4---3---','3-4-5-4-3-2-1---','2-3-4---3-1-0---']},
+ {n:'moss and honey',m:'#e8c98f',d:'warm, and in no hurry at all.',
+  bpm:70,root:67,
+  prog:[[0,4,7,9],[-3,0,4,7],[-7,-3,0,2],[-5,-1,2,5]],
+  lead:['5-------4---3---','2-------3-------','4---3---1-------','0---1---2-------']},
+ {n:'rain on the rock',m:'#7f93a3',d:'for grey days. mostly puddles.',
+  bpm:64,root:57,min:true,
+  prog:[[0,3,7,12],[-4,0,3,8],[-7,-4,0,3],[-5,-2,2,5]],
+  lead:['0---2---1-------','3---2---0-------','1---0---4-------','2---1---0-------']},
+];
+const MUSVOL=.5;
+let musGain=null;
+const mus={on:false,idx:0,step:0,next:0,iv:null};
+function hzOf(midi){return 440*Math.pow(2,(midi-69)/12)}
+function musBus(){
+  if(!AC)return null;
+  if(!musGain){musGain=AC.createGain();musGain.gain.value=0;musGain.connect(AC.destination)}
+  return musGain;
+}
+function musVoice(t0,f,dur,vol,type,atk,rel,cut){
+  const bus=musBus();if(!bus)return;
+  const o=AC.createOscillator(),g=AC.createGain(),lp=AC.createBiquadFilter();
+  o.type=type;o.frequency.setValueAtTime(f,t0);
+  lp.type='lowpass';lp.frequency.value=cut||Math.min(7000,f*7);
+  g.gain.setValueAtTime(.0001,t0);
+  g.gain.linearRampToValueAtTime(vol,t0+atk);
+  g.gain.exponentialRampToValueAtTime(.0001,t0+dur+rel);
+  o.connect(lp);lp.connect(g);g.connect(bus);
+  o.start(t0);o.stop(t0+dur+rel+.05);
+}
+function musPluck(t0,f){
+  musVoice(t0,f,.07,.075,'triangle',.004,.26,f*4);
+  musVoice(t0,f*2,.05,.022,'sine',.004,.16);
+}
+function musShake(t0,vol){
+  const bus=musBus();if(!bus)return;
+  const len=Math.floor(AC.sampleRate*.06),b=AC.createBuffer(1,len,AC.sampleRate),d=b.getChannelData(0);
+  for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*(1-i/len);
+  const s=AC.createBufferSource();s.buffer=b;
+  const hp=AC.createBiquadFilter();hp.type='highpass';hp.frequency.value=5200;
+  const g=AC.createGain();g.gain.value=vol;
+  s.connect(hp);hp.connect(g);g.connect(bus);s.start(t0);
+}
+function musThump(t0){
+  const bus=musBus();if(!bus)return;
+  const o=AC.createOscillator(),g=AC.createGain();
+  o.type='sine';o.frequency.setValueAtTime(105,t0);
+  o.frequency.exponentialRampToValueAtTime(46,t0+.12);
+  g.gain.setValueAtTime(.10,t0);g.gain.exponentialRampToValueAtTime(.0001,t0+.16);
+  o.connect(g);g.connect(bus);o.start(t0);o.stop(t0+.2);
+}
+const MUS_ARP=[0,3,6,10,13];
+function musStep(tr,step,t,spb){
+  const bar=(step>>4)%tr.prog.length, s=step&15;
+  const ch=tr.prog[bar], sc=tr.min?PENT_MIN:PENT_MAJ;
+  const row=tr.lead[bar%tr.lead.length], ln=row[s];
+  if(ln>='0'&&ln<='9'){
+    let hold=1;
+    for(let k=s+1;k<16&&row[k]==='-';k++)hold++;
+    const f=hzOf(tr.root+sc[+ln]);
+    musVoice(t,f,hold*spb*.92,.13,'triangle',.014,.11);
+    musVoice(t,f*2,hold*spb*.42,.026,'sine',.02,.09);
+  }
+  if(s===0||s===8||s===11){
+    musVoice(t,hzOf(tr.root+ch[0]-12),spb*(s===11?1.6:3),s===11?.085:.12,'sine',.01,.12,900);
+  }
+  const ai=MUS_ARP.indexOf(s);
+  if(ai>=0)musPluck(t,hzOf(tr.root+ch[(ai+bar)%ch.length]+12));
+  if(tr.perc){if(s%4===2)musShake(t,.03);if(s===0||s===8)musThump(t)}
+  else if(s===6||s===14)musShake(t,.016);
+}
+function musTick(){
+  if(!AC||!mus.on)return;
+  const tr=TRACKS[mus.idx%TRACKS.length], spb=60/tr.bpm/4;
+  // a backgrounded tab throttles the timer while AC.currentTime keeps running;
+  // resync instead of dumping a hundred queued notes at once. Muted does the
+  // same, so nothing is synthesised while nobody can hear it.
+  if(muted||mus.next<AC.currentTime-.4){mus.next=AC.currentTime+.05;if(muted)return}
+  while(mus.next<AC.currentTime+.28){
+    musStep(tr,mus.step,mus.next,spb);
+    mus.step=(mus.step+1)%(tr.lead.length*16);
+    mus.next+=spb;
+  }
+}
+function musStart(i){
+  initAudio();
+  if(i!=null)G.track=mus.idx=i%TRACKS.length; else mus.idx=(G.track|0)%TRACKS.length;
+  G.music=true;
+  if(!AC)return;
+  musBus();
+  if(!mus.on){mus.on=true;mus.step=0;mus.next=AC.currentTime+.1}
+  if(!mus.iv)mus.iv=setInterval(musTick,50);
+  musGain.gain.cancelScheduledValues(AC.currentTime);
+  musGain.gain.setTargetAtTime(muted?0:MUSVOL,AC.currentTime,.25);
+  saveSoon();
+}
+function musStop(quiet){
+  mus.on=false;
+  if(mus.iv){clearInterval(mus.iv);mus.iv=null}
+  if(musGain&&AC){musGain.gain.cancelScheduledValues(AC.currentTime);
+    musGain.gain.setTargetAtTime(0,AC.currentTime,.2)}
+  if(!quiet){G.music=false;saveSoon()}
+}
+function musToggle(){mus.on?musStop():musStart();}
+function musSkip(d){
+  const n=((G.track|0)+d+TRACKS.length)%TRACKS.length;
+  G.track=n;
+  if(mus.on){mus.idx=n;mus.step=0;if(AC)mus.next=AC.currentTime+.06}
+  saveSoon();
+}
+
 const SFX={
   click:()=>tone(880,1320,.05,'square',.045),
   plop:()=>{tone(330,90,.15,'sine',.2);tone(180,70,.1,'sine',.1,.03)},
@@ -471,11 +644,16 @@ const SFX={
   snore:()=>tone(150,105,.3,'sine',.035),
   lift:()=>tone(300,720,.07,'sine',.06),
   tonic:()=>{tone(520,300,.09,'sine',.07);tone(760,1040,.07,'sine',.05,.09)},
-  sprinkle:()=>{tone(1400,1600,.04,'sine',.03);tone(1650,1850,.04,'sine',.03,.025);
+  fizz:()=>{tone(1400,1600,.04,'sine',.03);tone(1650,1850,.04,'sine',.03,.025);
     tone(1900,2100,.04,'sine',.025,.05)},
+  bell:()=>{tone(1568,1568,.1,'sine',.075);tone(2093,2093,.16,'sine',.055,.05);
+    tone(3136,3136,.22,'sine',.03,.11)},
+  warm:()=>{tone(392,784,.22,'sine',.06);tone(587,880,.28,'triangle',.035,.06)},
+  bounce:()=>{tone(300,760,.07,'triangle',.075);tone(520,240,.09,'sine',.05,.05)},
 };
 function toggleMute(){muted=!muted;
   if(ambGain)ambGain.gain.value=muted?0:0.05;
+  if(musGain&&AC)musGain.gain.setTargetAtTime(muted?0:(mus.on?MUSVOL:0),AC.currentTime,.2);
   document.getElementById('bMute').textContent=muted?'✕':'♪';saveSoon()}
 
 /* ---------------- pixel UI frames (9-slice, drawn once) ---------------- */
@@ -557,40 +735,108 @@ const BIG_ICONS={grids:{
    '.......pp.......',
    '......oppo......',
    '.......oo.......'],
-  droplet:[
+  wand:[
+   '................',
+   '...oo.....oo....',
+   '..opPo...oPpo...',
+   '.oppPPo.oPPppo..',
+   '.opppPPoPPpppo..',
+   '.oppppPPPPpppo..',
+   '..opppppppppo...',
+   '...opppppppo....',
+   '....opppppo.....',
+   '.....ooooo......',
+   '..y...www.......',
+   '.yYy..www.......',
+   '..y..www........',
+   '....www.....y...',
+   '...www.....yYy..',
+   '...ww.......y...'],
+  bell:[
    '................',
    '.......oo.......',
-   '.......bb.......',
-   '......obbo......',
-   '......obbbo.....',
-   '.....obwbbbo....',
-   '....obbwbbbbo...',
-   '....obbwbbbbo...',
-   '...obbbwbbbbbo..',
-   '...obbbbbbbbbo..',
-   '...obbbbbbbbbo..',
-   '....obbbbbbbo...',
-   '.....obbbbbo....',
-   '......oooooo....',
+   '......oYYo......',
+   '.....oyYYyo.....',
+   '.w..oyyYYyyo..w.',
+   '..w.oyyYYyyo.w..',
+   '.w.oyyyYYyyyo.w.',
+   '..w.oyyyyyyo.w..',
+   '.w.oyyyyyyyyo.w.',
+   '..oyyyyyyyyyyo..',
+   '.oyyyyyyyyyyyyo.',
+   'oyyyyyyyyyyyyyyo',
+   'oooooooooooooooo',
+   '.....oyyyyo.....',
+   '......oyyo......',
+   '.......oo.......'],
+  warm:[
+   '.......oo.......',
+   '.......oo.......',
+   '....oooooooo....',
+   '...oyyyyyyyyo...',
+   '..oyyyyyyyyyyo..',
+   '.oyyyyyyyyyyyyo.',
+   '.oooWWWWWWWWooo.',
+   '....oWWWWWWo....',
+   '.....oWWWWo.....',
+   '......oWWo......',
+   '.......oo.......',
+   '..Y....Y....Y...',
+   '...Y..Y..Y..Y...',
+   '....Y..Y..Y.....',
+   '..ggg......ggg..',
+   '.gGGGg....gGGGg.'],
+  ball:[
+   '................',
+   '.....oooooo.....',
+   '...oopppppwoo...',
+   '..opppppwwwppo..',
+   '..oppwwwwwwppo..',
+   '.oppwwPPPPwpppo.',
+   '.opwwPPPPPPwppo.',
+   '.opwPPPPPPPPwpo.',
+   '.opwPPPPPPPPwpo.',
+   '.oppwPPPPPPwppo.',
+   '.opppwwPPwwpppo.',
+   '..oppppwwppppo..',
+   '..oopppppppoo...',
+   '....oooooooo....',
    '................',
    '................'],
-  flytoy:[
+  bubbles:[
    '................',
-   '..........oooo..',
-   '.........owwwwo.',
-   '.........owwwo..',
-   '.........o......',
-   '........o.......',
-   '.......o........',
-   '......o.........',
-   '..gg.o..gg......',
-   '.ghhgo.ghhg.....',
-   '.ghhhoohhhg.....',
-   '..goffffog......',
-   '...offffo.......',
-   '....offo........',
-   '.....oo.........',
+   '...oo...........',
+   '..obbo..........',
+   '..obwo..oooo....',
+   '...oo..obbbbo...',
+   '......obbwwbbo..',
+   '......obwwwwbo..',
+   '......obbwwbbo..',
+   '.......obbbbo...',
+   '...oo...oooo....',
+   '..obbo..........',
+   '..obwo....oo....',
+   '...oo....obbo...',
+   '.........obwo...',
+   '..........oo....',
    '................'],
+  box:[
+   '....y...........',
+   '...yyy..........',
+   '...yyy......oy..',
+   '....y......oyy..',
+   '....y.....oyyo..',
+   '..yyy.....oyo...',
+   '.yyyy.....oo....',
+   'oooooooooooooooo',
+   'oWWWWWWWWWWWWWWo',
+   'oWppppppppppppWo',
+   'oWpPPpppppPPppWo',
+   'oWppppppppppppWo',
+   'oWWWWWWWWWWWWWWo',
+   'oooooooooooooooo',
+   '.o............o.',
+   '.o............o.'],
   cam:[
    '................',
    '................',
@@ -730,8 +976,12 @@ const BIG_ICONS={grids:{
 },maps:{
   hand:{o:'#2a2118',c:'#f6dcbc'},
   tonic:{o:'#2a2118',g:'#7e8a7e',p:'#f28cae',h:'#a84568',w:'#ffd0e0'},
-  droplet:{o:'#20323a',b:'#7fc4e0',w:'#eaffff'},
-  flytoy:{o:'#2a2118',w:'#c08a58',g:'#bcd8e8',h:'#ffffff',f:'#42424e'},
+  wand:{o:'#2a2118',y:'#f2c14e',Y:'#fff2b0',p:'#f28cae',P:'#ffd0e0',w:'#c08a58'},
+  bell:{o:'#4a3410',y:'#f2c14e',Y:'#fff2b0',w:'#ffe9a8'},
+  warm:{o:'#4a3410',y:'#f2c14e',Y:'#ffe9a8',W:'#fffbe0',g:'#2f5a26',G:'#7fbf54'},
+  ball:{o:'#2a2118',p:'#e0577f',P:'#ffd0e0',w:'#f28cae'},
+  bubbles:{o:'#2b4a58',b:'#8fd0e8',w:'#eaffff'},
+  box:{o:'#2a2118',W:'#c08a58',p:'#f28cae',P:'#ffd0e0',y:'#f2c14e'},
   cam:{'B':'#bfe6f2','G':'#7fbf54','b':'#4a7d94','d':'#2f5a26','g':'#4e8a3a','n':'#ffffff','o':'#2a2118'},
   fm:{'D':'#a87a1e','G':'#7fbf54','Y':'#ffe9a8','f':'#f6ead2','g':'#4e8a3a','o':'#2a2118','y':'#f2c14e'},
   weather:{'B':'#bfe6f2','Y':'#ffe9a8','b':'#4a7d94','n':'#ffffff','o':'#2a2118','y':'#f2c14e'},
@@ -895,8 +1145,15 @@ function syncTrayRect(){
   TRAY.x1=Math.min(VW,(r.right-OX)/SC+6);
   TRAY.y=Math.max(200,(r.top-OY)/SC-4);
   // park the hint strip just above the bar, whatever height the bar ends up
+  const above=Math.round(innerHeight-r.top+12);
   const hint=document.getElementById('handHint');
-  if(hint)hint.style.bottom=Math.round(innerHeight-r.top+12)+'px';
+  if(hint)hint.style.bottom=above+'px';
+  // and on a phone the frog card and the phone button have to clear it too, or
+  // the card lands on top of the pond and swallows every tap aimed at a frog
+  const narrow=innerWidth<=820;
+  const card=document.getElementById('fcard'),pb=document.getElementById('phoneBtn');
+  if(card)card.style.bottom=narrow?(above+30)+'px':'';
+  if(pb)pb.style.bottom=narrow?(above+30)+'px':'';
 }
 function behindTray(x,y){return y>TRAY.y&&x>TRAY.x0&&x<TRAY.x1}
 function usable(x,y){return inWater(x,y)&&!behindTray(x,y)}
@@ -994,42 +1251,259 @@ function applyTheme(){
 }
 
 /* ---------------- tools ---------------- */
+/* Every way of pairing two frogs now goes through a breeding tool. The two that
+   matter are free and the Gentle Hand is what you are already holding, so this
+   is fewer taps than the old card-menu route rather than a new gate: the wand
+   pairs two frogs in two taps, from anywhere in the pond. */
 const TOOLS=[
- {id:'hand',name:'Gentle Hand',cost:0,
+ {id:'hand',name:'Gentle Hand',cost:0,grp:'breeding',
   desc:'lift a frog and set it down wherever you like.',
-  tip:'drag a frog onto the love-pad or onto a snack.'},
- {id:'tonic',name:'Love Tonic',cost:10,
-  desc:'one drop and breeding forgives almost everything.',
-  tip:'click a frog. for 2 minutes it will make the best baby it can.'},
- {id:'droplets',name:'Droplets',cost:0,
-  desc:'sprinkle fresh water; the whole pond perks up.',
-  tip:'sprinkle the water to freshen it, or a frog to make it hungry again.'},
- {id:'flytoy',name:'Fly Toy',cost:0,
-  desc:'dangle it and watch every frog lose composure.',
-  tip:'just wave it over the pond. no clicking needed.'},
+  tip:'drag a frog anywhere · onto the love-pad to breed, onto a snack to feed'},
+ {id:'wand',name:'Love Wand',cost:0,grp:'breeding',
+  desc:'the quick way to breed. tap two frogs; they meet at the pad.',
+  tip:'tap one frog, then tap another. they walk to the love-pad themselves.'},
+ {id:'tonic',name:'Breed Tonic',cost:10,grp:'breeding',
+  desc:'one drop and breeding forgives the missing snack.',
+  tip:'tap a frog. for 2 minutes it makes the best baby it can.'},
+ {id:'bell',name:'Matchmaker Bell',cost:12,grp:'breeding',
+  desc:'ring it at a frog and it points out who to pair it with.',
+  tip:'tap a frog. the bell marks its best partner in the pond.'},
+ {id:'warm',name:'Sun Lamp',cost:8,grp:'speed-up',
+  desc:'warm light. eggs hatch sooner, tired frogs perk up, froglets grow.',
+  tip:'tap the egg to hurry it along, or a resting frog to wake it.'},
+ {id:'ball',name:'Bouncy Ball',cost:0,grp:'toy',
+  desc:'a squishy ball. the whole pond loses its composure.',
+  tip:'tap the water to bounce it. the frogs will chase it.'},
+ {id:'bubbles',name:'Bubble Wand',cost:0,grp:'toy',
+  desc:'soap bubbles that no frog can leave alone.',
+  tip:'tap or drag across the water to blow bubbles.'},
+ {id:'box',name:'Music Box',cost:0,grp:'toy',
+  desc:'plays whatever RibbitFM is on. the frogs gather and bop.',
+  tip:'tap the water to set it down. tap the box again to pick it up.'},
 ];
 const TL={};TOOLS.forEach(t=>TL[t.id]=t);
-const fly={x:320,y:260,vx:0,vy:0,on:false};
-let buzzOsc=null,buzzGain=null;
-function startBuzz(){
-  if(!AC||muted||buzzOsc)return;
-  buzzOsc=AC.createOscillator();buzzGain=AC.createGain();
-  buzzOsc.type='sawtooth';buzzOsc.frequency.value=105;
-  buzzGain.gain.value=0;
-  buzzOsc.connect(buzzGain);buzzGain.connect(AC.destination);buzzOsc.start();
-}
-function stopBuzz(){
-  if(!buzzOsc)return;
-  try{buzzOsc.stop();buzzOsc.disconnect();buzzGain.disconnect()}catch(e){}
-  buzzOsc=null;buzzGain=null;
-}
 function selectTool(id){
   initAudio();
-  G.tool=(G.tool===id)?null:id;
+  const was=G.tool;
+  // there is always something in your hand, and the default is the hand itself,
+  // so dragging a frog never needs a trip to the rack first
+  G.tool=(G.tool===id)?'hand':id;
   if(G.tool)G.sel=null;
-  if(G.tool!=='flytoy')stopBuzz(); else startBuzz();
+  if(was==='wand'&&G.tool!=='wand')clearWandPick();
   updateTray();updateToolRack();
-  if(G.tool)toast(TL[G.tool].tip,ICON[TOOL_ICON[G.tool]]||null);
+  if(G.tool!==was)toast(TL[G.tool].tip,ICON[TOOL_ICON[G.tool]]||null);
+}
+
+/* ---------------- toys ----------------
+   All three are free, tap-driven (so a finger works as well as a mouse) and pay
+   nothing: what they give is zoomies, faster growing-up and a shorter rest. */
+const ball={on:false,x:0,y:0,z:0,vx:0,vy:0,vz:0,spin:0,still:0};
+function kickBall(x,y){
+  if(!usable(x,y)){toast('bounce it on the open water');return}
+  if(!ball.on){
+    Object.assign(ball,{on:true,x,y,z:30,vx:0,vy:0,vz:0,spin:0,still:0});
+    puff(x,y-8,'#ffd0e0',7);SFX.bounce();
+    toast('the ball is in play — frogs incoming',ICON.ball);
+    return;
+  }
+  const dx=x-ball.x,dy=y-ball.y,d=Math.max(8,Math.hypot(dx,dy));
+  ball.vx+=dx/d*.17;ball.vy+=dy/d*.11;
+  ball.vz=Math.max(ball.vz,.18);ball.spin+=rand(-.6,.6);ball.still=0;
+  SFX.bounce();
+}
+function stepBall(dt){
+  if(!ball.on)return;
+  ball.vz-=.0012*dt;ball.z+=ball.vz*dt;
+  if(ball.z<=0){
+    ball.z=0;
+    if(Math.abs(ball.vz)>.035){ball.vz=-ball.vz*.56;
+      ripple(ball.x,ball.y+2);splash(ball.x,ball.y,3);
+      if(Math.random()<.45)SFX.plop()}
+    else ball.vz=0;
+  }
+  const nx=ball.x+ball.vx*dt, ny=ball.y+ball.vy*dt;
+  if(usable(nx,ball.y))ball.x=nx; else ball.vx*=-.55;
+  if(usable(ball.x,ny))ball.y=ny; else ball.vy*=-.55;
+  ball.x=clamp(ball.x,20,VW-20);ball.y=clamp(ball.y,152,TRAY.y-8);
+  const damp=Math.pow(ball.z>0?.9985:.985,dt/16);
+  ball.vx*=damp;ball.vy*=damp;
+  ball.spin+=ball.vx*dt*.03;
+  const sp=Math.hypot(ball.vx,ball.vy)+Math.abs(ball.vz);
+  ball.still=sp<.014?ball.still+dt:0;
+  if(ball.still>T(6000)){ball.on=false;puff(ball.x,ball.y-4,'#ffd0e0',6)}
+}
+function chasingBall(f){
+  return ball.on&&f.slot<0&&f.state!=='held'&&
+    Math.hypot(ball.x-f.x,ball.y-f.y)<(f.stage==='froglet'?128:96);
+}
+
+const bubs=[];
+let lastBub=0;
+function blowBubbles(x,y){
+  if(G.time-lastBub<T(120))return;
+  lastBub=G.time;
+  if(!usable(x,y))return;
+  for(let i=0;i<2;i++)bubs.push({x:x+rand(-9,9),y:y+rand(-5,3),r:rand(2.4,5.4),
+    vy:-rand(.010,.023),ph:rand(0,7),t:0,life:rand(2600,4800)});
+  if(bubs.length>44)bubs.splice(0,bubs.length-44);
+  SFX.fizz();
+}
+function popBub(i,cute){
+  const b=bubs[i];if(!b)return;
+  bubs.splice(i,1);
+  puff(b.x,b.y,'#eaffff',cute?5:2);
+  if(cute)SFX.pop();
+}
+function stepBubbles(dt){
+  for(let i=bubs.length-1;i>=0;i--){
+    const b=bubs[i];b.t+=dt;
+    b.y+=b.vy*dt;b.x+=Math.sin(G.time*.003+b.ph)*.055;
+    if(b.t>b.life||b.y<132)popBub(i,false);
+  }
+  if(!bubs.length)return;
+  for(const f of G.frogs){
+    if(f.state!=='idle'||f.busy||G.time<(f.nextBub||0))continue;
+    let bi=-1,bd=1e9;
+    for(let i=0;i<bubs.length;i++){
+      const d=Math.hypot(bubs[i].x-f.x,bubs[i].y-f.y);
+      if(d<58&&d<bd){bd=d;bi=i}
+    }
+    if(bi<0)continue;
+    const b=bubs[bi];
+    f.nextBub=G.time+rand(650,1400);f.sleep=false;
+    if(bd>30){                                    // too far: hop under it first
+      const tx=clamp(b.x+rand(-4,4),22,VW-22),ty=clamp(b.y+12,152,TRAY.y-6);
+      if(usable(tx,ty))f.startHop(tx,ty,{h:17});
+      continue;
+    }
+    tongues.push({f,x:b.x,y:b.y,t:0,life:150});
+    squish(f,1.2,.8,250);hearts(f.x,f.y-20,1);
+    popBub(bi,true);
+    f.zoomUntil=Math.max(f.zoomUntil,G.time+T(6000));
+    if(f.stage==='froglet')f.growAt=Math.max(0,f.growAt-T(900));
+    f.stateT=rand(220,600);
+  }
+}
+
+const box={on:false,x:0,y:0};
+function placeBox(x,y){
+  if(!usable(x,y)){toast('the box needs open water to sit on');return}
+  box.on=true;box.x=x;box.y=y;
+  puff(x,y-6,'#ffe9a8',8);SFX.chime();
+  musStart();
+  toast('the music box is playing — the frogs are gathering',ICON.box);
+}
+function takeBox(){
+  box.on=false;
+  for(const f of G.frogs)if(f.state==='idle'){f.z=0;f.rot=0;f.sx=f.sy=1;f.stateT=rand(200,900)}
+  puff(box.x,box.y-6,'#cfe8a8',5);SFX.pop();
+  toast('picked the music box back up');
+}
+function dancingTo(f){
+  return box.on&&f.slot<0&&f.state!=='held'&&
+    Math.hypot(box.x-f.x,box.y-f.y)<92;
+}
+
+/* ---------------- breeding tools ---------------- */
+let wandPick=null;
+function clearWandPick(){if(wandPick){wandPick.wandUntil=0;wandPick=null}}
+function leavePad(f){
+  if(nest.a===f)nest.a=null;
+  if(nest.b===f)nest.b=null;
+  f.slot=-1;
+}
+function wandTap(f){
+  if(f.stage!=='adult'){toast('still a lil froglet');SFX.buzz();return}
+  if(wandPick===f){clearWandPick();toast(`${f.name} steps back off the wand`);return}
+  if(!wandPick){
+    wandPick=f;f.wandUntil=G.time+T(30000);
+    hearts(f.x,f.y-20,2);squish(f,1.16,.86,300);SFX.love();
+    toast(`${f.name} is ready — now tap its partner`,ICON.wand);
+    return;
+  }
+  const a=wandPick;
+  clearWandPick();
+  for(const o of G.frogs)if(o!==a&&o!==f&&o.slot>=0)leavePad(o);
+  if(a.slot<0)toNest(a);
+  if(f.slot<0)toNest(f);
+  if(a.slot>=0&&f.slot>=0){
+    hearts(NEST.x,NEST.y-16,3);SFX.love();
+    const pv=nestPreview();
+    if(pv&&pv.text)setTimeout(()=>toast(pv.text,ICON.wand),700);
+  }
+}
+function ringBell(f){
+  if(f.stage!=='adult'){toast('froglets are too young to pair up');SFX.buzz();return}
+  let best=null;
+  for(const o of G.frogs){
+    if(o===f||o.stage!=='adult')continue;
+    const m=matchRecipe(f,o);
+    if(!m)continue;
+    const score=(G.discovered[m.id]?0:4)+(m.__needs?0:2);
+    if(!best||score>best.score)best={o,m,score};
+  }
+  if(!best){                                     // finds nothing, charges nothing
+    toast(`${f.name} has no partner in this pond yet — check the FrogDex`,ICON.bell);
+    SFX.buzz();return;
+  }
+  const cost=TL.bell.cost;
+  if(G.coins<cost){toast(`the bell costs ${cost}c`);SFX.buzz();return}
+  G.coins-=cost;hud();
+  f.markUntil=best.o.markUntil=G.time+T(18000);
+  SFX.bell();hearts(f.x,f.y-20,1);hearts(best.o.x,best.o.y-20,1);
+  const m=best.m,what=G.discovered[m.id]?m.name:'a NEW species';
+  toast(m.__needs
+    ? `${f.name} + ${best.o.name} → ${what}, once either eats ${FD[m.__needs].name}`
+    : `${f.name} + ${best.o.name} → ${what}. send them to the pad!`,ICON.bell);
+  saveSoon();
+}
+/* the speed-up tool: the egg is the main thing it is for, but it also ends a
+   rest and pulls a froglet forward, which are the other two waits in the game */
+function sunLamp(target){
+  const cost=TL.warm.cost;
+  if(target==='egg'){
+    const left=Math.max(0,nest.egg.hatch-G.time);
+    if(left<T(1200)){toast('it is already hatching');return}
+    if(G.coins<cost){toast(`the lamp costs ${cost}c`);SFX.buzz();return}
+    G.coins-=cost;hud();
+    nest.egg.hatch=G.time+Math.max(T(900),left*.4);
+    for(let i=0;i<9;i++)puff(NEST.x+rand(-9,9),NEST.y-rand(0,16),'#ffe9a8',1);
+    SFX.warm();
+    toast(`warm light — hatching in ${Math.ceil((nest.egg.hatch-G.time)/1000)}s`,ICON.warm);
+    saveSoon();return;
+  }
+  const f=target;
+  if(!f){toast('aim the lamp at the egg, or at a frog');return}
+  const resting=G.time<f.coolUntil, growing=f.stage==='froglet';
+  if(!resting&&!growing){toast(`${f.name} is already up and about`);return}
+  if(G.coins<cost){toast(`the lamp costs ${cost}c`);SFX.buzz();return}
+  G.coins-=cost;hud();
+  if(resting)f.coolUntil=0;
+  if(growing)f.growAt=G.time+Math.max(T(1200),(f.growAt-G.time)*.35);
+  f.sleep=false;f.stateT=0;
+  f.zoomUntil=Math.max(f.zoomUntil,G.time+T(6000));
+  squish(f,1.2,.82,320);
+  for(let i=0;i<8;i++)puff(f.x+rand(-9,9),f.y-rand(4,22),'#ffe9a8',1);
+  SFX.warm();
+  toast(resting&&growing?`${f.name} is warm, rested and growing fast`
+    :resting?`${f.name} is rested and ready to breed`:`${f.name} is growing fast`,ICON.warm);
+  if(selFrog===f)showCard(f);
+  saveSoon();
+}
+/* petting, with a combo: keep going and the frog gets properly silly */
+function petFrog(f){
+  const combo=(G.time-(f.petAt||0)<1500)?Math.min(5,(f.petN||0)+1):1;
+  f.petN=combo;f.petAt=G.time;f.sleep=false;
+  squish(f,1.18+combo*.07,.82-combo*.035,300+combo*40);
+  hearts(f.x,f.y-20,combo);
+  if(combo>=3){puff(f.x,f.y-14,'#fff2b0',3+combo);f.bubble={t:'note',until:G.time+900}}
+  if(combo>=4){
+    f.zoomUntil=Math.max(f.zoomUntil,G.time+T(7000));
+    const tx=clamp(f.x+rand(-16,16),22,VW-22),ty=clamp(f.y+rand(-9,9),152,TRAY.y-6);
+    if(usable(tx,ty))f.startHop(tx,ty,{h:21});
+  }
+  if(combo>=3)SFX.love(); else Math.random()<.45?SFX.ribbit():SFX.pop();
+  G.pets=(G.pets||0)+1;
 }
 
 /* ---------------- state ---------------- */
@@ -1060,7 +1534,7 @@ const COZY=['no frog needed today, just wanted to say your pond looks lovely.',
 
 const G={coins:GD.startCoins,frogs:[],food:[],discovered:{},unlocked:{},sel:null,
   offers:[],read:{},nextCust:0,time:0,hint:0,won:false,
-  tool:null,drag:null,fresh:0,freshWarn:0,lastSprinkle:0,
+  tool:'hand',drag:null,pets:0,
   theme:'emerald',themes:{emerald:true},decor:{},snaps:[],diary:[],hops:0,flash:0};
 let frogSeq=1,offerSeq=1,selFrog=null;
 
@@ -1075,7 +1549,7 @@ class Frog{
     this.lastFood=null;this.fedUntil=0;this.coolUntil=0;this.slot=-1;
     this.walkF=0;this.walkT=0;this.bob=rand(0,7);
     this.zoomUntil=0;this.glowUntil=0;this.sleep=false;this.bubble=null;
-    this.tonicUntil=0;this.playUntil=0;
+    this.tonicUntil=0;this.markUntil=0;this.wandUntil=0;this.petN=0;this.petAt=0;
   }
   get img(){return this.stage==='adult'?FROG_A[this.i]:FROG_B[this.i]}
   get busy(){return this.slot>=0}
@@ -1091,12 +1565,14 @@ class Frog{
   update(dt){
     if(this.bubble&&G.time>this.bubble.until)this.bubble=null;
     if(this.state==='held')return;                 // the hand has it; AI suspended
-    if(this.state==='play')return this.stepPlay(dt);
     if(this.stage==='froglet'&&G.time>this.growAt){
       this.stage='adult';puff(this.x,this.y-9,'#ffe9a8',9);SFX.pop();
       toast(`${this.name} grew up`,FROG_URL[this.i]);
     }
     if(this.state==='hop')return this.stepHop(dt);
+    // a toy in the pond outranks whatever the frog had planned
+    if(chasingBall(this))return this.stepChase(dt);
+    if(dancingTo(this))return this.stepDance(dt);
     if(this.state==='waddle'){
       const dx=this.wx-this.x,dy=this.wy-this.y,d=Math.hypot(dx,dy);
       if(d<1.4){this.state='idle';this.stateT=rand(400,1800);this.rot=0;this.sy=1;return}
@@ -1153,47 +1629,54 @@ class Frog{
       squish(this,1.05,.95,170);this.stateT=rand(700,2600);
     }
   }
-  stepPlay(dt){
-    if(!G.tool||G.tool!=='flytoy'||G.time>this.playUntil){
-      this.state='idle';this.stateT=rand(200,700);this.rot=0;return;
-    }
-    const dx=fly.x-this.x,dy=(fly.y+10)-this.y,d=Math.hypot(dx,dy);
+  /* the bouncy ball: hop after it, then headbutt it away */
+  stepChase(dt){
+    this.sleep=false;this.rot=0;
+    const dx=ball.x-this.x,dy=ball.y-this.y,d=Math.hypot(dx,dy);
     this.flip=dx<0;
-    if(d>44){                                       // shuffle toward it
-      const sp=.014*dt;
-      const nx=this.x+dx/d*sp,ny=this.y+dy/d*sp;
-      if(usable(nx,ny)){this.x=nx;this.y=ny}
-      this.walkT+=dt;
-      if(this.walkT>110){this.walkT=0;this.walkF^=1}
-      this.sy=this.walkF?.97:1.03;this.sx=this.walkF?1.03:.98;
-      this.rot=Math.sin(G.time*.022)*.06;
-    }else{
-      this.lunge(d);
+    if(G.time<(this.nextPounce||0))return;
+    if(d>20){
+      this.nextPounce=G.time+rand(360,680);
+      const step=Math.min(d,rand(26,46));
+      const tx=clamp(this.x+dx/d*step,22,VW-22),ty=clamp(this.y+dy/d*step,152,TRAY.y-6);
+      if(usable(tx,ty))this.startHop(tx,ty,{h:16});
+      else this.nextPounce=G.time+rand(500,900);
+      return;
     }
+    this.nextPounce=G.time+rand(480,860);
+    squish(this,1.26,.76,250);
+    const n=d<1?{x:rand(-1,1),y:rand(-1,1)}:{x:dx/d,y:dy/d};
+    ball.vx+=n.x*rand(.10,.22);ball.vy+=n.y*rand(.06,.13);
+    ball.vz=Math.max(ball.vz,rand(.11,.20));
+    ball.spin+=rand(-.5,.5);ball.still=0;
+    hearts(this.x,this.y-20,1);SFX.bounce();
+    this.zoomUntil=Math.max(this.zoomUntil,G.time+T(9000));
+    this.coolUntil=Math.max(0,this.coolUntil-T(1200));
+    if(this.stage==='froglet')this.growAt=Math.max(0,this.growAt-T(1200));
   }
-  lunge(d){
-    if(G.time<(this.nextLunge||0))return;
-    this.nextLunge=G.time+rand(700,1200);
-    const mouthY=this.y-this.img.height*.42;
-    tongues.push({f:this,x:fly.x,y:fly.y,t:0,life:180});
-    squish(this,1.2,.8,220);
-    const caught=Math.hypot(fly.x-this.x,fly.y-mouthY)<26;
-    this.startHop(clamp(fly.x+rand(-6,6),22,VW-22),
-                  clamp(this.y+rand(-6,6),148,TRAY.y-4),{h:20});
-    this.state='hop';
-    if(caught){
-      this.zoomUntil=G.time+T(12000);
-      this.coolUntil=Math.max(0,this.coolUntil-T(8000));
-      if(this.stage==='froglet')this.growAt=Math.max(0,this.growAt-T(4000));
-      hearts(this.x,this.y-20,2);puff(fly.x,fly.y,'#ffffff',5);
-      SFX.pop();
-      fly.vx+=rand(-.5,.5);fly.vy-=.4;
-      // deliberately pays nothing: with a dozen frogs lunging every ~1s this was
-      // ~150 coins/minute for holding the mouse still, which paid for the entire
-      // cosmetic ladder without playing the game
-    }else{
-      this.bubble={t:'note',until:G.time+700};
+  /* the music box: gather round it and bop */
+  stepDance(dt){
+    this.sleep=false;
+    const a=this.uid*2.399,r=27+(this.uid%3)*6;
+    const tx=clamp(box.x+Math.cos(a)*r,22,VW-22);
+    const ty=clamp(box.y+Math.sin(a)*r*.52,152,TRAY.y-6);
+    const dx=tx-this.x,dy=ty-this.y,d=Math.hypot(dx,dy);
+    if(d>7){
+      const sp=.017*dt;
+      const nx=this.x+dx/d*sp,ny=this.y+dy/d*sp;
+      if(usable(nx,ny)){this.x=nx;this.y=ny} else {this.z=0;return}
+      this.flip=dx<0;
+      this.walkT+=dt;if(this.walkT>110){this.walkT=0;this.walkF^=1}
+      this.sy=this.walkF?.97:1.03;this.sx=this.walkF?1.03:.98;
+      this.rot=Math.sin(G.time*.02)*.05;
+      return;
     }
+    const beat=Math.sin(G.time*.0075+this.uid);
+    this.z=Math.max(0,beat*5);
+    this.sx=1-beat*.07;this.sy=1+beat*.09;
+    this.rot=beat*.11;
+    this.flip=beat>0;
+    if(Math.random()<.0011*dt){hearts(this.x,this.y-20,1);this.bubble={t:'note',until:G.time+900}}
   }
   nearestFood(){
     let b=null,bd=1e9;
@@ -1679,7 +2162,11 @@ let SC=1,OX=0,OY=0;
 function resize(){
   const w=innerWidth,h=innerHeight,fit=Math.min(w/VW,h/VH);
   SC=fit<1?fit:Math.max(1,Math.floor(fit*4)/4);
-  OX=Math.round((w-VW*SC)/2);OY=Math.round((h-VH*SC)/2);
+  OX=Math.round((w-VW*SC)/2);
+  // on a tall, narrow screen the leftover height all belongs to the bar and the
+  // frog card, so sit the pond near the top instead of floating it in the middle
+  const slack=h-VH*SC;
+  OY=slack>150?10:Math.round(slack/2);
   stage.style.transform=`translate(${OX}px,${OY}px) scale(${SC})`;
   // UI type tracks the stage scale, clamped to whole steps so the pixel font
   // never lands on a fractional cell
@@ -1745,8 +2232,62 @@ function drawFrog(f,reflect){
     cx.fillStyle='#ffe9a8';
     cx.beginPath();cx.moveTo(f.x,ay+6);cx.lineTo(f.x-4,ay);cx.lineTo(f.x+4,ay);cx.closePath();cx.fill();
   }
+  if(G.time<f.markUntil||G.time<f.wandUntil){
+    const gold=G.time<f.markUntil;
+    const b=Math.sin(G.time*.009+f.uid)*2.2,my=f.y-img.height-19+b;
+    cx.fillStyle=gold?'#f2c14e':'#f5809c';
+    cx.fillRect(f.x-3,my,3,3);cx.fillRect(f.x+1,my,3,3);
+    cx.fillRect(f.x-3,my+2,7,3);cx.fillRect(f.x-2,my+5,5,2);cx.fillRect(f.x-1,my+7,3,1);
+    cx.fillStyle=gold?'#fff2b0':'#ffd0e0';cx.fillRect(f.x-2,my+1,2,2);
+    if(Math.random()<.04)puff(f.x+rand(-7,7),f.y-img.height-rand(4,16),
+      gold?'#fff2b0':'#ffd0e0',1);
+  }
 }
 
+function drawBox(){
+  if(!box.on)return;
+  const bx=Math.round(box.x),by=Math.round(box.y);
+  cx.fillStyle='rgba(8,26,16,.28)';
+  cx.beginPath();cx.ellipse(bx,by+2,10,3.6,0,0,Math.PI*2);cx.fill();
+  cx.fillStyle='#2a2118';cx.fillRect(bx-11,by-13,22,14);
+  cx.fillStyle='#c08a58';cx.fillRect(bx-10,by-12,20,12);
+  cx.fillStyle='#8a5a34';cx.fillRect(bx-10,by-5,20,4);
+  cx.fillStyle='#f28cae';cx.fillRect(bx-7,by-10,14,4);
+  cx.fillStyle='#ffd0e0';cx.fillRect(bx-5,by-9,2,2);cx.fillRect(bx+2,by-9,2,2);
+  // the little crank turns, and notes drift up on the beat
+  const t=G.time*.006, cyy=by-15+Math.round(Math.cos(t)*2);
+  cx.fillStyle='#f2c14e';cx.fillRect(bx+8,cyy,2,4);cx.fillRect(bx+8,cyy,4,2);
+  if(Math.random()<.05)parts.push({k:'note',x:bx+rand(-4,4),y:by-14,
+    vx:rand(-.012,.012),vy:-.03,life:900,t:0});
+}
+function drawBall(){
+  if(!ball.on)return;
+  const bx=Math.round(ball.x),by=Math.round(ball.y-ball.z);
+  const sw=Math.max(3.5,7.5*(1-ball.z*.014));
+  cx.fillStyle='rgba(8,26,16,.3)';
+  cx.beginPath();cx.ellipse(ball.x,ball.y+2,sw,sw*.42,0,0,Math.PI*2);cx.fill();
+  const sq=1+Math.max(0,.28-Math.abs(ball.vz)*1.6)*(ball.z<2?1:0);
+  cx.save();cx.translate(bx,by);cx.scale(sq,2-sq);
+  cx.fillStyle='#2a2118';cx.beginPath();cx.arc(0,-7,8,0,Math.PI*2);cx.fill();
+  cx.fillStyle='#f28cae';cx.beginPath();cx.arc(0,-7,7,0,Math.PI*2);cx.fill();
+  cx.fillStyle='#e0577f';
+  const s=Math.sin(ball.spin);
+  cx.fillRect(-6,-8+Math.round(s*3),12,3);
+  cx.fillStyle='#ffd0e0';cx.fillRect(-4,-11,3,2);cx.fillRect(-2,-12,2,1);
+  cx.restore();
+}
+function drawBubbles(){
+  for(const b of bubs){
+    const a=Math.min(1,Math.min(b.t,600)/600)*(1-Math.max(0,b.t-(b.life-500))/500);
+    cx.fillStyle=`rgba(198,240,252,${.20*a})`;
+    cx.beginPath();cx.arc(b.x,b.y,b.r,0,Math.PI*2);cx.fill();
+    cx.strokeStyle=`rgba(240,255,255,${.92*a})`;cx.lineWidth=1;
+    cx.beginPath();cx.arc(b.x,b.y,b.r,0,Math.PI*2);cx.stroke();
+    cx.fillStyle=`rgba(255,255,255,${.95*a})`;
+    cx.fillRect(Math.round(b.x-b.r*.45),Math.round(b.y-b.r*.55),2,1);
+    cx.fillRect(Math.round(b.x-b.r*.45),Math.round(b.y-b.r*.55)+1,1,1);
+  }
+}
 function draw(){
   cx.clearRect(0,0,VW,VH);
   drawDecor();
@@ -1767,6 +2308,7 @@ function draw(){
     cx.beginPath();cx.ellipse(r.x,r.y,4+k*14,(4+k*14)*.42,0,0,Math.PI*2);cx.stroke();
   }
   // reflections under everything
+  drawBox();
   const sorted=[...G.frogs].sort((a,b)=>a.y-b.y);
   for(const f of sorted)drawFrog(f,true);
   // egg
@@ -1810,6 +2352,7 @@ function draw(){
     cx.beginPath();cx.moveTo(f.x,f.y-ih*.42-f.z);
     cx.lineTo(lerp(f.x,t.x,e),lerp(f.y-ih*.42,t.y,e));cx.stroke();cx.lineWidth=1;
   }
+  drawBall();drawBubbles();
   // fireflies
   for(const fl of flies){
     const a=.35+.35*Math.sin(G.time*.003+fl.ph);
@@ -1831,17 +2374,10 @@ function draw(){
       cx.fillRect(p.x-2,p.y,5,2);cx.fillRect(p.x-1,p.y+2,3,1);cx.fillRect(p.x,p.y+3,1,1)}
     else if(p.k==='coin'){cx.drawImage(ICONC.coin,p.x-4,p.y-4)}
     else if(p.k==='conf'){cx.fillStyle=p.col;cx.fillRect(p.x,p.y,2,2)}
+    else if(p.k==='note'){cx.fillStyle='#f6ead2';
+      cx.fillRect(p.x,p.y-4,2,5);cx.fillRect(p.x+2,p.y-4,2,1);cx.fillRect(p.x-1,p.y+1,3,2)}
     else if(p.k==='drop'){cx.fillStyle='#c8ead4';cx.fillRect(p.x,p.y,1,2)}
     cx.globalAlpha=1;
-  }
-  // the fly toy: rod, string and a buzzing fly
-  if(G.tool==='flytoy'&&mouse.on){
-    cx.strokeStyle='rgba(240,240,220,.55)';cx.lineWidth=1;
-    cx.beginPath();cx.moveTo(mouse.x,mouse.y-26);cx.lineTo(fly.x,fly.y);cx.stroke();
-    cx.fillStyle='#5c3a1e';cx.fillRect(mouse.x-1,mouse.y-30,3,5);
-    cx.fillStyle='#2a2a33';cx.fillRect(fly.x-1,fly.y-1,3,3);
-    if(Math.floor(G.time/60)%2){cx.fillStyle='rgba(223,236,244,.85)';
-      cx.fillRect(fly.x-3,fly.y-2,2,1);cx.fillRect(fly.x+2,fly.y-2,2,1)}
   }
   // tool reticles
   if(G.tool==='hand'&&mouse.on&&!G.drag){
@@ -1850,22 +2386,53 @@ function draw(){
     cx.fillRect(hx-4,hy-2,9,6);
     for(let i=0;i<4;i++)cx.fillRect(hx-4+i*3,hy-6,2,4);
   }
-  if(G.tool==='droplets'&&mouse.on){
-    const ok=usable(mouse.x,mouse.y);
-    cx.strokeStyle=ok?'rgba(190,235,255,.9)':'rgba(208,69,63,.8)';
-    cx.beginPath();cx.ellipse(mouse.x,mouse.y,10,5,0,0,Math.PI*2);cx.stroke();
-    cx.fillStyle='#bfe6f2';
-    cx.fillRect(mouse.x-1,mouse.y-14,2,4);cx.fillRect(mouse.x-2,mouse.y-11,4,3);
-  }
-  if(G.tool==='tonic'&&mouse.on){
+  if(mouse.on&&(G.tool==='tonic'||G.tool==='wand'||G.tool==='bell'||G.tool==='warm')){
     const f=frogAt(mouse);
+    const col=G.tool==='tonic'?'245,128,156':G.tool==='wand'?'255,208,224'
+             :G.tool==='bell'?'242,193,78':'255,233,168';
     if(f){
-      cx.strokeStyle='rgba(245,128,156,.9)';cx.lineWidth=1;
+      cx.strokeStyle=`rgba(${col},.9)`;cx.lineWidth=1;
       cx.strokeRect(Math.round(f.x-f.img.width/2)-1,Math.round(f.y-f.img.height)-1,
         f.img.width+2,f.img.height+2);
     }
-    cx.fillStyle='#f28cae';cx.fillRect(mouse.x-2,mouse.y-13,4,7);
-    cx.fillStyle='#a84568';cx.fillRect(mouse.x-1,mouse.y-16,2,3);
+    if(G.tool==='tonic'){
+      cx.fillStyle='#f28cae';cx.fillRect(mouse.x-2,mouse.y-13,4,7);
+      cx.fillStyle='#a84568';cx.fillRect(mouse.x-1,mouse.y-16,2,3);
+    }else if(G.tool==='wand'){
+      cx.fillStyle='#c08a58';cx.fillRect(mouse.x-1,mouse.y-8,2,9);
+      cx.fillStyle='#f28cae';cx.fillRect(mouse.x-3,mouse.y-13,7,5);
+      cx.fillRect(mouse.x-2,mouse.y-15,5,2);
+      cx.fillStyle='#fff2b0';
+      const tw=Math.sin(G.time*.012)>0?1:0;
+      cx.fillRect(mouse.x+4+tw,mouse.y-17,1,1);cx.fillRect(mouse.x-6,mouse.y-11-tw,1,1);
+    }else if(G.tool==='bell'){
+      cx.fillStyle='#f2c14e';cx.fillRect(mouse.x-3,mouse.y-13,7,7);
+      cx.fillRect(mouse.x-1,mouse.y-16,3,3);
+      cx.fillStyle='#4a3410';cx.fillRect(mouse.x-4,mouse.y-6,9,2);
+    }else{
+      const p=.5+.5*Math.sin(G.time*.006);
+      cx.fillStyle=`rgba(255,233,168,${.35+p*.3})`;
+      cx.beginPath();cx.arc(mouse.x,mouse.y-12,7+p*2,0,Math.PI*2);cx.fill();
+      cx.fillStyle='#f2c14e';cx.fillRect(mouse.x-4,mouse.y-15,9,6);
+      cx.fillStyle='#fffbe0';cx.fillRect(mouse.x-2,mouse.y-13,5,3);
+    }
+  }
+  if(mouse.on&&(G.tool==='ball'||G.tool==='bubbles'||G.tool==='box')){
+    const ok=usable(mouse.x,mouse.y);
+    cx.strokeStyle=ok?'rgba(255,235,200,.75)':'rgba(208,69,63,.8)';
+    cx.beginPath();cx.ellipse(mouse.x,mouse.y,10,5,0,0,Math.PI*2);cx.stroke();
+    if(G.tool==='ball'){
+      cx.fillStyle='#f28cae';cx.beginPath();cx.arc(mouse.x,mouse.y-13,4,0,Math.PI*2);cx.fill();
+      cx.fillStyle='#ffd0e0';cx.fillRect(mouse.x-2,mouse.y-15,2,2);
+    }else if(G.tool==='bubbles'){
+      cx.strokeStyle='rgba(234,255,255,.9)';
+      cx.beginPath();cx.arc(mouse.x-3,mouse.y-14,3.2,0,Math.PI*2);cx.stroke();
+      cx.beginPath();cx.arc(mouse.x+4,mouse.y-18,2,0,Math.PI*2);cx.stroke();
+    }else{
+      cx.fillStyle='#c08a58';cx.fillRect(mouse.x-6,mouse.y-13,13,8);
+      cx.fillStyle='#f28cae';cx.fillRect(mouse.x-4,mouse.y-11,9,4);
+      cx.fillStyle='#f2c14e';cx.fillRect(mouse.x-1,mouse.y-17,2,4);
+    }
   }
   // aim
   if(G.sel&&mouse.on){
@@ -1926,20 +2493,29 @@ function drawNestLabel(){
   }
 }
 
-/* ---------------- input ---------------- */
-const mouse={x:0,y:0,vx:0,on:false,down:false};
+/* ---------------- input ----------------
+   One pointer path for a mouse and a finger alike: press to lift, move to carry,
+   release to set down, and a press that barely moved counts as a tap. Touch has
+   no hover, so the reticles are dropped again the moment a finger lifts. */
+const mouse={x:0,y:0,vx:0,on:false,down:false,touch:false};
 function toGame(e){
   return {x:(e.clientX-OX)/SC,y:(e.clientY-OY)/SC};
 }
-addEventListener('mousemove',e=>{
+function trackPointer(e){
   const p=toGame(e);
   mouse.vx=p.x-mouse.x;
   mouse.x=p.x;mouse.y=p.y;
   mouse.on=p.x>=0&&p.y>=0&&p.x<VW&&p.y<VH;
+  return p;
+}
+let tapStart=null;
+addEventListener('pointermove',e=>{
+  const p=trackPointer(e);
   if(G.drag)G.drag.moved=G.drag.moved||Math.hypot(p.x-G.drag.x0,p.y-G.drag.y0)>4;
-  if(G.tool==='droplets'&&mouse.down&&mouse.on)sprinkle(p.x,p.y);
-});
-addEventListener('mouseout',()=>{mouse.on=false;mouse.down=false});
+  if(tapStart&&Math.hypot(p.x-tapStart.x,p.y-tapStart.y)>6)tapStart.moved=true;
+  if(G.tool==='bubbles'&&mouse.down&&mouse.on)blowBubbles(p.x,p.y);
+},{passive:true});
+addEventListener('pointerout',e=>{if(e.pointerType==='mouse')mouse.on=false});
 
 function frogAt(p){
   let hit=null,hd=1e9;
@@ -1952,20 +2528,24 @@ function frogAt(p){
 }
 
 /* ---- Gentle Hand: press to lift, release to set down ---- */
-cv.addEventListener('mousedown',e=>{
+cv.addEventListener('pointerdown',e=>{
   if(mode!=='play')return;
-  mouse.down=true;
+  if(e.isPrimary===false)return;               // second finger: ignore
+  e.preventDefault();
+  mouse.down=true;mouse.touch=e.pointerType!=='mouse';
+  const p=trackPointer(e);
+  tapStart={x:p.x,y:p.y,moved:false};
+  initAudio();
+  try{cv.setPointerCapture(e.pointerId)}catch(err){}
   if(G.tool!=='hand')return;
-  const p=toGame(e);
   const f=frogAt(p);
   if(!f)return;
-  e.preventDefault();
-  if(f.slot>=0){if(nest.a===f)nest.a=null;if(nest.b===f)nest.b=null;f.slot=-1}
+  if(f.slot>=0)leavePad(f);
   f.state='held';f.hop=null;f.sleep=false;
   G.drag={f,x0:p.x,y0:p.y,homeY:f.y,moved:false,since:G.time,drip:0,warm:false};
-  ripple(f.x,f.y+2);SFX.lift();
+  ripple(f.x,f.y+2);SFX.lift();squish(f,.84,1.2,320);
 });
-/* Releasing the button outside the window never fired mouseup, which left the
+/* Releasing outside the window never fired the release event, which left the
    frog stuck in 'held' forever: unbreedable, unfeedable and glued to the cursor.
    Every path that can end a drag now goes through here. */
 function releaseDrag(safe){
@@ -1978,76 +2558,57 @@ function releaseDrag(safe){
     puff(f.x,f.y-10,'#cfe8a8',4);
   }
 }
-addEventListener('blur',()=>{mouse.down=false;releaseDrag(false)});
-addEventListener('mouseup',e=>{
-  mouse.down=false;
-  if(!G.drag)return;
-  const {f,moved}=G.drag;
-  const p=toGame(e);
-  G.drag=null;
-  if(!moved){                                  // a tap, not a drag: inspect it
-    f.state='idle';f.stateT=rand(200,600);f.z=0;f.rot=0;f.sx=f.sy=1;
-    selFrog=f;squish(f,1.2,.8,300);showCard(f);return;
-  }
+function dropFrog(f){
   const land=()=>{
     f.z=0;f.rot=0;f.state='idle';f.stateT=rand(200,600);
-    squish(f,1.26,.74,300);ripple(f.x,f.y+2);splash(f.x,f.y,4);SFX.plop();
+    squish(f,1.3,.72,320);ripple(f.x,f.y+2);splash(f.x,f.y,5);SFX.plop();
   };
   if(!usable(f.x,f.y)){                        // never punish: it wriggles back to water
-    f.state='idle';f.z=0;f.rot=0;
+    f.state='idle';f.z=0;f.rot=0;f.sx=f.sy=1;
     const w=randWater();f.startHop(w.x,w.y);
     puff(f.x,f.y-10,'#cfe8a8',4);toast('no dry land, please');
     return;
   }
-  // drop onto the love-pad = the obvious second way to breed
-  if(dist(f,NEST)<24&&!nest.egg&&(!nest.a||!nest.b)){land();toNest(f);return}
-  // drop onto a snack = you choose exactly who eats what
-  const snack=G.food.find(o=>!o.gone&&!o.flying&&dist(o,f)<16);
+  // drop onto the love-pad = the hand doubling as a breeding tool
+  if(dist(f,NEST)<26&&!nest.egg&&(!nest.a||!nest.b)){land();toNest(f);return}
+  // drop onto a snack = you choose exactly who eats what. The carried frog
+  // trails the pointer, so this has to forgive about as much as the pad does.
+  const snack=G.food.find(o=>!o.gone&&!o.flying&&dist(o,f)<24);
   if(snack){land();f.eat(snack);return}
   land();
+}
+addEventListener('blur',()=>{mouse.down=false;tapStart=null;releaseDrag(false)});
+addEventListener('pointercancel',()=>{mouse.down=false;tapStart=null;releaseDrag(false)});
+addEventListener('pointerup',e=>{
+  mouse.down=false;
+  const p=trackPointer(e);
+  const ts=tapStart;tapStart=null;
+  if(G.drag){
+    const f=G.drag.f,moved=G.drag.moved;
+    G.drag=null;
+    if(!moved){                                // a tap on a frog is still a tap
+      f.z=0;f.rot=0;f.sx=f.sy=1;f.state='idle';f.stateT=rand(200,600);
+      tapAt(p);
+    }else dropFrog(f);
+  }else if(ts&&!ts.moved&&overCanvas(e)){
+    tapAt(p);
+  }
+  if(mouse.touch){mouse.on=false;mouse.touch=false}
 });
-cv.addEventListener('contextmenu',e=>{
-  e.preventDefault();
+/* the pond canvas sits under the phone, the bar and the frog card. Pointer
+   capture keeps sending us the release wherever it happens, so check what is
+   actually under it before treating it as a tap on the water. */
+function overCanvas(e){
+  try{return document.elementFromPoint(e.clientX,e.clientY)===cv}
+  catch(err){return true}
+}
+function clearHand(){
   releaseDrag(true);
-  if(G.tool||G.sel){G.tool=null;G.sel=null;stopBuzz();updateTray();updateToolRack()}
-});
-addEventListener('keydown',e=>{
-  if(e.key==='Escape'){
-    releaseDrag(true);
-    if(G.tool||G.sel){G.tool=null;G.sel=null;stopBuzz();updateTray();updateToolRack()}
-  }
-});
-
-/* ---- Droplets ---- */
-function sprinkle(x,y){
-  if(G.time-G.lastSprinkle<T(180))return;
-  G.lastSprinkle=G.time;
-  if(!usable(x,y))return;
-  ripple(x,y);splash(x,y,9);
-  for(let i=0;i<6;i++)puff(x+rand(-9,9),y+rand(-6,4),'#dff4ff',1);
-  SFX.sprinkle();
-  G.fresh=Math.min(1,G.fresh+.06);
-  for(const f of G.frogs){
-    if(f.state==='held')continue;
-    const d=dist(f,{x,y});
-    if(d<34){f.sleep=false;f.stateT=0}
-    else if(d<110&&(f.state==='idle'||f.state==='waddle')&&f.slot<0&&Math.random()<.5){
-      f.startHop(clamp(x+rand(-16,16),22,VW-22),clamp(y+rand(-12,12),148,TRAY.y-4));
-    }
-  }
-  updateFreshBar();
+  clearWandPick();
+  if(G.sel||G.tool!=='hand'){G.sel=null;G.tool='hand';updateTray();updateToolRack()}
 }
-function rinseFrog(f){
-  f.sleep=false;f.fedUntil=0;                  // hungry again -> will chase the next snack
-  hearts(f.x,f.y-20,2);
-  for(let i=0;i<8;i++)puff(f.x+rand(-10,10),f.y-rand(0,18),'#ffffff',1);
-  let n=0;
-  const iv=setInterval(()=>{f.flip=!f.flip;if(++n>3)clearInterval(iv)},65);
-  squish(f,1.14,.88,280);SFX.sprinkle();
-  if(Math.random()<.6)SFX.ribbit();
-  toast(`${f.name} is rinsed and hungry again`,ICON.droplet||ICON.heart);
-  if(selFrog===f)showCard(f);
-}
+cv.addEventListener('contextmenu',e=>{e.preventDefault();clearHand()});
+addEventListener('keydown',e=>{if(e.key==='Escape')clearHand()});
 
 /* ---- Breed Tonic ---- */
 function doseTonic(f){
@@ -2064,55 +2625,40 @@ function doseTonic(f){
   if(selFrog===f)showCard(f);
   saveSoon();
 }
-cv.addEventListener('click',e=>{
+/* one tap, whatever is in your hand */
+function tapAt(p){
   if(mode!=='play')return;
-  initAudio();
-  const p=toGame(e);
   if(p.x<0||p.y<0||p.x>=VW||p.y>=VH)return;
-  if(G.tool){
-    const f=frogAt(p);
-    if(G.tool==='hand')return;                       // handled by mousedown/up
-    if(G.tool==='flytoy')return;                     // passive
-    if(G.tool==='tonic'){
-      if(f)doseTonic(f); else toast('aim the tonic at a frog');
-      return;
-    }
-    if(G.tool==='droplets'){
-      if(f)rinseFrog(f); else sprinkle(p.x,p.y);
-      return;
-    }
+  const f=frogAt(p);
+  const onEgg=!!nest.egg&&Math.hypot(p.x-NEST.x,p.y-NEST.y)<20;
+  switch(G.tool){
+    case 'wand':    if(f)wandTap(f); else toast('tap a frog, then tap its partner');return;
+    case 'tonic':   if(f)doseTonic(f); else toast('aim the tonic at a frog');return;
+    case 'bell':    if(f)ringBell(f); else toast('ring the bell at a frog');return;
+    case 'warm':    sunLamp(onEgg?'egg':f);return;
+    case 'ball':    kickBall(p.x,p.y);return;
+    case 'bubbles': blowBubbles(p.x,p.y);return;
+    case 'box':     if(box.on&&Math.hypot(p.x-box.x,p.y-box.y)<18)takeBox();
+                    else placeBox(p.x,p.y);
+                    return;
   }
-  const pickFrog=()=>{
-    let hit=null,hd=1e9;
-    for(const f of G.frogs){
-      const ih=f.img.height,iw=f.img.width;
-      const d=Math.hypot(p.x-f.x,(p.y-(f.y-ih*.45))*1.2);
-      if(d<Math.max(iw,ih)*.55&&d<hd){hd=d;hit=f}
-    }
-    return hit;
-  };
   if(G.sel){
-    // clicking a frog hand-feeds it directly: the whole point of a recipe snack is
+    // tapping a frog hand-feeds it directly: the whole point of a recipe snack is
     // getting it into a PARTICULAR frog, and the throw-and-swarm lottery made that
     // the hardest part of breeding
-    const target=pickFrog();
-    if(target)handFeed(target,G.sel);
+    if(f)handFeed(f,G.sel);
     else if(usable(p.x,p.y))throwFood(G.sel,p.x,p.y);
-    else toast('aim at the open water, or click a frog to hand-feed it');
+    else toast('aim at the open water, or tap a frog to hand-feed it');
     return;
   }
-  let hit=pickFrog(),hd=0;
-  if(hit){
-    selFrog=hit;squish(hit,1.25,.75,330);hearts(hit.x,hit.y-20,1);
-    Math.random()<.45?SFX.ribbit():SFX.pop();
-    showCard(hit);return;
-  }
-  if(nest.egg&&Math.hypot(p.x-NEST.x,p.y-NEST.y)<18){
-    toast(`the egg wiggles… hatches in ${Math.ceil(Math.max(0,nest.egg.hatch-G.time)/1000)}s`,ICON.egg);
+  if(f){selFrog=f;petFrog(f);showCard(f);return}
+  if(onEgg){
+    toast(`the egg wiggles… hatches in ${Math.ceil(Math.max(0,nest.egg.hatch-G.time)/1000)}s`
+      +' · the sun lamp hurries it',ICON.egg);
     return;
   }
   selFrog=null;hideCard();
-});
+}
 
 /* ---------------- DOM UI ---------------- */
 function hud(){
@@ -2130,7 +2676,7 @@ function buildTray(){
       initAudio();SFX.click();
       if(!G.unlocked[f.id]){toast(`unlock ${f.name} in ShopHop (${f.unlock}c)`);openPhone('shop');return}
       G.sel=G.sel===f.id?null:f.id;
-      if(G.sel){G.tool=null;stopBuzz()}
+      if(G.sel){G.tool=null;clearWandPick()} else G.tool='hand';
       updateToolRack();updateTray();
     };
     t.appendChild(el);
@@ -2147,14 +2693,15 @@ function updateTray(){
     else if(lk)lk.remove();
   }
 }
-const TOOL_ICON={hand:'hand',tonic:'tonic',droplets:'droplet',flytoy:'flytoy'};
+const TOOL_ICON={hand:'hand',wand:'wand',tonic:'tonic',bell:'bell',
+                 warm:'warm',ball:'ball',bubbles:'bubbles',box:'box'};
 function buildTools(){
   const box=document.getElementById('tools');box.innerHTML='';
   for(const t of TOOLS){
     const el=document.createElement('div');
     el.className='slot tool';el.id='tl_'+t.id;
     el.innerHTML=`<img src="${ICON[TOOL_ICON[t.id]]}"><div class="cost">${t.cost?t.cost+'c':'free'}</div>`;
-    el.title=`${t.name} — ${t.desc}`;
+    el.title=`${t.name} (${t.grp}) — ${t.desc}`;
     el.onclick=()=>{SFX.click();selectTool(t.id)};
     box.appendChild(el);
   }
@@ -2172,18 +2719,11 @@ function updateHandHint(){
   const el=document.getElementById('handHint');
   if(!el)return;
   let txt='';
-  if(G.tool)txt=`${TL[G.tool].name} · ${TL[G.tool].tip}`;
-  else if(G.sel)txt=`${FD[G.sel].name} · click the water to toss it, or a frog to hand-feed it`;
+  if(G.tool==='wand'&&wandPick)txt=`Love Wand · ${wandPick.name} is ready — now tap its partner`;
+  else if(G.tool)txt=`${TL[G.tool].name} · ${TL[G.tool].tip}`;
+  else if(G.sel)txt=`${FD[G.sel].name} · tap the water to toss it, or a frog to hand-feed it`;
   el.textContent=txt;
   el.classList.toggle('on',!!txt);
-}
-function updateFreshBar(){
-  const bar=document.getElementById('freshBar');
-  if(!bar)return;
-  if(bar.children.length!==4){bar.innerHTML='';
-    for(let i=0;i<4;i++)bar.appendChild(document.createElement('i'))}
-  const lit=G.fresh<=0?0:Math.max(1,Math.round(G.fresh*4));
-  [...bar.children].forEach((c,i)=>c.classList.toggle('on',i<lit));
 }
 function showCard(f){
   const s=SP[f.spec];
@@ -2204,7 +2744,13 @@ function showCard(f){
   bB.textContent=f.slot>=0?'leave pad':'breed';
   if(f.stage!=='adult'){bB.disabled=true;bB.textContent='too smol'}
   else if(cd>0&&f.slot<0){bB.disabled=true;bB.textContent=`resting ${cd}s`}
-  bB.onclick=()=>{SFX.click();toNest(f);showCard(f)};
+  bB.onclick=()=>{SFX.click();
+    if(f.slot>=0){toNest(f);showCard(f);return}
+    // breeding goes through a breeding tool: this hands you the wand with this
+    // frog already chosen, so the next tap is its partner
+    if(G.tool!=='wand'){G.tool='wand';G.sel=null;updateTray();updateToolRack()}
+    hideCard();wandTap(f);
+  };
   bs.appendChild(bB);
   const bS=document.createElement('button');bS.className='btn sm';
   bS.textContent=`sell ${s.sell}`;
@@ -2216,7 +2762,7 @@ function showCard(f){
     sellFrog(f,s.sell)};
   bs.appendChild(bS);
   const bP=document.createElement('button');bP.className='btn green sm';bP.textContent='pet';
-  bP.onclick=()=>{squish(f,1.35,.66,380);hearts(f.x,f.y-20,3);SFX.love()};
+  bP.onclick=()=>petFrog(f);
   bs.appendChild(bP);
   if(f.slot>=0&&nest.a&&nest.b){
     const pv=nestPreview();
@@ -2241,12 +2787,15 @@ function toast(txt,icon,gold){
   const t=document.createElement('div');
   t.className='toast'+(gold?' gold':'');
   t.innerHTML=(icon?`<img src="${icon}">`:'')+`<span>${txt}</span>`;
-  document.getElementById('toasts').appendChild(t);
+  const box=document.getElementById('toasts');
+  box.appendChild(t);
+  const cap=innerHeight<760?2:4;
+  while(box.children.length>cap)box.firstChild.remove();
   setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),450)},gold?4200:2600);
 }
-const HINTS=['welcome. pick a snack below, then click the water to toss it in.',
-'or click a frog directly to hand-feed it that exact snack.',
-'click a frog, then hit breed to send it to the pink love-pad. pick two.',
+const HINTS=['welcome. pick a snack below, then tap the water to toss it in.',
+'or tap a frog directly to hand-feed it that exact snack.',
+'breeding needs a breeding tool: take the love wand and tap two frogs.',
 'the right pair plus that snack in EITHER of them = a brand new species.'];
 function hint(step){
   if(G.hint!==step-1)return;
@@ -2459,7 +3008,7 @@ function renderApp(){
   }
   head.style.display='flex';body.innerHTML='';
   const title=document.getElementById('appTitle');
-  if(app==='cam'||app==='weather')startAppTick(); else stopAppTick();
+  if(app==='cam'||app==='weather'||app==='fm')startAppTick(); else stopAppTick();
   if(app==='shop'){
     title.textContent='ShopHop';
     const h=document.createElement('div');h.className='tiny';h.style.margin='2px 0 7px';
@@ -2656,14 +3205,8 @@ function renderApp(){
   }
   else if(app==='fm'){
     title.textContent='RibbitFM';
-    const tracks=[
-      {n:'still water',   m:'#4a7d94',d:'nothing happens, beautifully.'},
-      {n:'cricket radio', m:'#4e8a3a',d:'recorded live from the reeds.'},
-      {n:'rain on leaves',m:'#7f93a3',d:'for when the pond is grey.'},
-      {n:'frog chorus',   m:'#f0a860',d:'your own frogs, uncredited.'},
-    ];
-    G.track=G.track||0;
-    const t=tracks[G.track%4];
+    G.track=(G.track|0)%TRACKS.length;
+    const t=TRACKS[G.track];
     const art=document.createElement('canvas');art.width=120;art.height=120;
     art.style.cssText='display:block;margin:4px auto 10px;width:150px;height:150px;'+
       'border:3px solid var(--ink);border-radius:8px;image-rendering:pixelated';
@@ -2674,6 +3217,11 @@ function renderApp(){
     for(let i=0;i<3;i++){const yy=90-((G.time/40+i*33)%110);
       a.fillStyle='rgba(255,255,255,.16)';a.beginPath();
       a.arc(30+i*30,yy,5+i*2,0,Math.PI*2);a.fill()}
+    // the sleeve doubles as a level meter, so you can see it is really playing
+    for(let i=0;i<12;i++){
+      const h=mus.on?4+Math.abs(Math.sin(G.time*.004+i*.7))*22:2;
+      a.fillStyle='rgba(255,246,200,.5)';a.fillRect(6+i*10,112-h,6,h);
+    }
     if(G.frogs.length){
       const im=new Image();im.src=FROG_SIL[SP[G.frogs[0].spec].i];
       im.onload=()=>a.drawImage(im,44,120-im.height,im.width,im.height);
@@ -2683,19 +3231,32 @@ function renderApp(){
     nm.style.cssText='text-align:center;font-size:15px;font-weight:700';
     nm.textContent=t.n;body.appendChild(nm);
     const ds=document.createElement('div');ds.className='tiny';
-    ds.style.cssText='text-align:center;margin:4px 0 10px';ds.textContent=t.d;
+    ds.style.cssText='text-align:center;margin:4px 0 2px';ds.textContent=t.d;
     body.appendChild(ds);
+    const bt=document.createElement('div');bt.className='tiny';
+    bt.style.cssText='text-align:center;margin:0 0 10px;opacity:.75';
+    bt.textContent=`${t.bpm} bpm · ${mus.on?(muted?'playing (muted)':'now playing'):'stopped'}`;
+    body.appendChild(bt);
     const ctl=document.createElement('div');
     ctl.style.cssText='display:flex;gap:8px;justify-content:center;align-items:center';
     const mk=(lbl,fn,cls)=>{const b=document.createElement('button');
       b.className='btn sm '+(cls||'');b.textContent=lbl;b.onclick=()=>{SFX.click();fn()};return b};
-    ctl.appendChild(mk('◀◀',()=>{G.track=(G.track+3)%4;renderApp()}));
-    ctl.appendChild(mk(muted?'▶ unmute':'❙❙ playing',()=>{toggleMute();renderApp()},'green'));
-    ctl.appendChild(mk('▶▶',()=>{G.track=(G.track+1)%4;renderApp()}));
+    ctl.appendChild(mk('◀◀',()=>{musSkip(-1);renderApp()}));
+    ctl.appendChild(mk(mus.on?'❙❙ stop':'▶ play',
+      ()=>{mus.on?musStop():musStart(G.track);renderApp()},'green'));
+    ctl.appendChild(mk('▶▶',()=>{musSkip(1);renderApp()}));
     body.appendChild(ctl);
+    for(let i=0;i<TRACKS.length;i++){
+      const r=document.createElement('div');r.className='card';
+      r.style.cssText='margin-top:6px;cursor:pointer';
+      r.innerHTML=`<div class="inf"><div class="nm">${i===G.track?'▶ ':''}${TRACKS[i].n}</div>
+        <div class="ds">${TRACKS[i].d}</div></div>`;
+      r.onclick=()=>{SFX.click();musStart(i);renderApp()};
+      body.appendChild(r);
+    }
     const note=document.createElement('div');note.className='tiny';
-    note.style.cssText='text-align:center;margin-top:10px';
-    note.textContent='(it is all the same pond, really)';
+    note.style.cssText='text-align:center;margin-top:10px;line-height:1.6';
+    note.textContent='set the music box down in the pond and the frogs will bop to whatever is on.';
     body.appendChild(note);
   }
   else if(app==='weather'){
@@ -2704,18 +3265,9 @@ function renderApp(){
     sky.style.cssText='width:100%;border:3px solid var(--ink);border-radius:8px;image-rendering:pixelated';
     body.appendChild(sky);
     const th=TH[G.theme]||THEMES[0];
-    const q=Math.round(G.fresh*100);
-    const info=document.createElement('div');info.className='card';
-    info.style.marginTop='8px';
-    info.innerHTML=`<img class="face" style="width:36px;height:36px" src="${ICON.droplet}">
-      <div class="inf"><div class="nm">water quality ${q}%</div>
-      <div class="ds">${q>70?'crisp and clear. everything grows sooner.'
-        :q>35?'decent. a sprinkle would not hurt.'
-        :'a bit stale. try the droplets.'}</div></div>`;
-    body.appendChild(info);
     const rows=[['sky',th.name],['weather',th.particles==='none'?'clear':th.particles],
       ['lily pads',String(GEOM.pads.length)],['frogs outside',String(G.frogs.length)],
-      ['hops today',String(G.hops||0)]];
+      ['hops today',String(G.hops||0)],['pets given',String(G.pets||0)]];
     for(const [k,v] of rows){
       const r=document.createElement('div');r.className='card';
       r.innerHTML=`<div class="inf"><div class="nm">${k}</div></div>
@@ -2825,6 +3377,12 @@ function renderApp(){
     sb.onclick=()=>{SFX.click();toggleMute();sb.textContent=muted?'off':'on';
       sb.className='btn sm '+(muted?'gray':'green')};
     r1.appendChild(sb);
+    const r1b=mk('music',`pond tracks · now on "${TRACKS[(G.track|0)%TRACKS.length].n}"`);
+    const mb=document.createElement('button');
+    const paint=()=>{mb.textContent=mus.on?'on':'off';
+      mb.className='btn sm '+(mus.on?'green':'gray')};
+    mb.onclick=()=>{SFX.click();mus.on?musStop():musStart();paint()};
+    paint();r1b.appendChild(mb);
     const r2=mk('reset pond','start over. the frogs will forgive you. probably.');
     const rb=document.createElement('button');rb.className='btn pink sm';rb.textContent='reset';
     let armed=false;
@@ -2833,7 +3391,7 @@ function renderApp(){
     r2.appendChild(rb);
     const cr=document.createElement('div');cr.className='tiny';
     cr.style.cssText='text-align:center;margin-top:10px;line-height:1.7';
-    cr.innerHTML='froggy pond v2.0<br>pond art by @anasabdin<br>frog &amp; snack art supplied by the pondkeeper';
+    cr.innerHTML='froggy pond v2.1<br>pond art by @anasabdin<br>frog &amp; snack art supplied by the pondkeeper<br>music written for this pond';
     body.appendChild(cr);
   }
 }
@@ -2888,7 +3446,7 @@ function saveNow(){
   try{
     localStorage.setItem(SAVE,JSON.stringify({
       coins:G.coins,discovered:G.discovered,unlocked:G.unlocked,muted,hint:G.hint,won:G.won,
-      fresh:G.fresh,theme:G.theme,themes:G.themes,decor:G.decor,
+      theme:G.theme,themes:G.themes,decor:G.decor,music:G.music!==false,track:G.track|0,pets:G.pets|0,
       diary:(G.diary||[]).slice(-40),hops:G.hops,
       day:pondDay(),stamp:1,
       frogs:G.frogs.map(f=>({spec:f.spec,name:f.name,x:f.x,y:f.y,stage:f.stage,lastFood:f.lastFood,
@@ -2904,7 +3462,8 @@ function load(){
     const raw=localStorage.getItem(SAVE);if(!raw)return false;
     const d=JSON.parse(raw);
     G.coins=d.coins??GD.startCoins;G.discovered=d.discovered||{};
-    G.unlocked=d.unlocked||{};muted=!!d.muted;G.hint=d.hint||0;G.won=!!d.won;G.fresh=d.fresh||0;
+    G.unlocked=d.unlocked||{};muted=!!d.muted;G.hint=d.hint||0;G.won=!!d.won;
+    G.music=d.music!==false;G.track=d.track|0;G.pets=d.pets|0;
     G.theme=(d.theme&&TH[d.theme])?d.theme:'emerald';
     G.themes=d.themes||{emerald:true};G.themes.emerald=true;
     G.decor=d.decor||{};G.diary=d.diary||[];G.hops=d.hops||0;
@@ -2928,7 +3487,7 @@ function load(){
   }catch(e){return false}
 }
 addEventListener('visibilitychange',()=>{
-  if(document.hidden){mouse.down=false;releaseDrag(false);stopBuzz();saveNow()}
+  if(document.hidden){mouse.down=false;tapStart=null;releaseDrag(false);saveNow()}
 });
 
 /* ---------------- day tint ---------------- */
@@ -2955,7 +3514,7 @@ function loop(ts){
   if(mode==='load')return;
   G.time+=dt;
   stepTweens(dt);
-  mouse.vx*=Math.pow(.86,dt/16);      // decay, or the buzz drones and the dangle sticks
+  mouse.vx*=Math.pow(.86,dt/16);      // decay, or the carried frog keeps leaning
   // the carried frog swings along behind the cursor
   if(G.drag){
     const f=G.drag.f;
@@ -2972,35 +3531,7 @@ function loop(ts){
     }
     f.walkT+=dt;if(f.walkT>110){f.walkT=0;f.walkF^=1}
   }
-  // the fly toy is a little spring on a string
-  if(G.tool==='flytoy'&&mouse.on){
-    fly.on=true;
-    fly.vx=(fly.vx+(mouse.x-fly.x)*.02*dt*.06)*.88;
-    fly.vy=(fly.vy+((mouse.y+26)-fly.y)*.02*dt*.06)*.88;
-    fly.x+=fly.vx;fly.y+=fly.vy+Math.sin(G.time*.006)*.12;
-    if(buzzGain&&AC)buzzGain.gain.setTargetAtTime(
-      muted?0:Math.min(.03,Math.abs(mouse.vx)*.004),AC.currentTime,.05);
-    for(const f of G.frogs){
-      if(f.slot>=0||f.state==='held'||f.state==='hop')continue;
-      const r=(f.stage==='froglet'?126:90);
-      if(dist(f,fly)<r){
-        if(f.state!=='play'){f.state='play';f.nextLunge=G.time+rand(120,420)}
-        f.playUntil=G.time+700;
-      }
-    }
-  }else{
-    fly.on=false;
-    if(buzzGain&&AC)buzzGain.gain.setTargetAtTime(0,AC.currentTime,.05);
-  }
-  // pond freshness makes everything happen a little sooner
-  if(G.fresh>0){
-    const before=G.fresh;
-    G.fresh=Math.max(0,G.fresh-dt/T(90000));
-    if(Math.ceil(before*4)!==Math.ceil(G.fresh*4))updateFreshBar();
-    // one visible benefit only. Three invisible multipliers on a free, spammable
-    // tool meant the pond permanently ran at 1.5x with nothing to notice or spend.
-    if(G.fresh>.5)for(const f of G.frogs)if(f.stage==='froglet')f.growAt-=dt*.5;
-  }
+  stepBall(dt);stepBubbles(dt);
   for(const f of G.frogs)f.update(dt);
   stepNest(dt);
   for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.t+=dt;
@@ -3036,7 +3567,8 @@ function peekSave(){
     const d=JSON.parse(localStorage.getItem(SAVE)||'null');
     if(!d)return null;
     return {coins:d.coins|0,frogs:(d.frogs||[]).length,
-            dex:Object.keys(d.discovered||{}).length,won:!!d.won};
+            dex:Object.keys(d.discovered||{}).length,won:!!d.won,
+            music:d.music!==false,track:d.track|0};
   }catch(e){return null}
 }
 function titleHeart(el){
@@ -3136,7 +3668,8 @@ function startGame(){
   for(const f of FOODS)if(f.unlock===0)G.unlocked[f.id]=true;
   if(nest.egg)nest.egg.hatch=G.time+nest.egg.hatch;
   for(const o of G.offers)if(o.state==='open')o.exp=G.time+o.exp;
-  updateTray();updateToolRack();updateFreshBar();applyTheme();hud();notify();
+  updateTray();updateToolRack();applyTheme();hud();notify();
+  if(G.music===false)musStop(true); else musStart();
   document.getElementById('bMute').textContent=muted?'✕':'♪';
   G.nextCust=G.time+T(18000);
   mode='play';
@@ -3167,7 +3700,7 @@ async function boot(){
   document.getElementById('icBook').src=ICON.book;
   document.getElementById('icPhone').src=ICON.phone;
   document.getElementById('winHero').src=FROG_URL[SP[GD.winFrog].i];
-  buildTray();buildTools();buildDecor();updateFreshBar();initFlies();applyTheme();buildTitle();
+  buildTray();buildTools();buildDecor();initFlies();applyTheme();buildTitle();
   syncTrayRect();                        // now that the bar actually has contents
   // attract mode: a few random frogs pottering about behind the menu
   for(let i=0;i<5;i++){
@@ -3182,7 +3715,10 @@ async function boot(){
   requestAnimationFrame(loop);
 }
 window.G=G;window.SPECIES=SPECIES;window.FOODS=FOODS;
-window.__dbg={nest,toNest,Frog,throwFood,startGame,weather,weatherPositions:()=>weather.map(w=>[Math.round(w.x*10),Math.round(w.y*10),Math.round((w.ph||0)*1000)]),avatar,THEMES,DECOR,applyTheme,nestPreview,matchRecipe,handFeed,selectTool,sprinkle,rinseFrog,doseTonic,fly,TOOLS,frogAt,dosed,peekSave,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
+window.__dbg={nest,toNest,Frog,throwFood,startGame,weather,weatherPositions:()=>weather.map(w=>[Math.round(w.x*10),Math.round(w.y*10),Math.round((w.ph||0)*1000)]),avatar,THEMES,DECOR,applyTheme,nestPreview,matchRecipe,handFeed,selectTool,doseTonic,TOOLS,frogAt,dosed,peekSave,
+  ball,bubs,box,kickBall,blowBubbles,stepBubbles,stepBall,placeBox,takeBox,chasingBall,dancingTo,
+  wandTap,ringBell,sunLamp,petFrog,clearWandPick,
+  TRACKS,mus,musStart,musStop,musSkip,tapAt,leavePad,getWandPick:()=>wandPick,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
   FROG_URL,geom:GEOM,discover};
 boot();
 </script>
