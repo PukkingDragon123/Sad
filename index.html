@@ -30,46 +30,56 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #tint{position:absolute;inset:0;z-index:4;pointer-events:none;mix-blend-mode:soft-light;opacity:0}
 
 /* ---------- pixel-framed chrome ---------- */
-.panel{border-style:solid;border-width:9px;border-image:var(--frame-paper) 9 fill repeat;
+.panel{border-style:solid;border-width:12px;border-image:var(--frame-paper) 9 fill repeat;
   image-rendering:pixelated}
-.panelWood{border-style:solid;border-width:9px;border-image:var(--frame-wood) 9 fill repeat}
-.panelLeaf{border-style:solid;border-width:9px;border-image:var(--frame-leaf) 9 fill repeat}
+.panelWood{border-style:solid;border-width:12px;border-image:var(--frame-wood) 9 fill repeat}
+.panelLeaf{border-style:solid;border-width:12px;border-image:var(--frame-leaf) 9 fill repeat}
 
-.btn{font-family:'Pix';font-size:13px;font-weight:700;color:#2a1e12;cursor:pointer;
-  border-style:solid;border-width:8px;border-image:var(--frame-btn) 8 fill repeat;
-  padding:2px 7px 3px;background:none;line-height:1.15;
+.btn{font-family:'Pix';font-size:17px;font-weight:700;color:#2a1e12;cursor:pointer;
+  border-style:solid;border-width:11px;border-image:var(--frame-btn) 9 fill repeat;
+  padding:3px 10px 4px;background:none;line-height:1.15;
   transition:transform .09s cubic-bezier(.34,1.9,.64,1),filter .09s}
 .btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
 .btn:active{transform:translateY(1px)}
-.btn.green{border-image:var(--frame-btnG) 8 fill repeat;color:#17300f}
-.btn.pink{border-image:var(--frame-btnP) 8 fill repeat;color:#4a1128}
-.btn.gray{border-image:var(--frame-btnN) 8 fill repeat;color:#2e2a22}
+.btn.green{border-image:var(--frame-btnG) 9 fill repeat;color:#17300f}
+.btn.pink{border-image:var(--frame-btnP) 9 fill repeat;color:#4a1128}
+.btn.gray{border-image:var(--frame-btnN) 9 fill repeat;color:#2e2a22}
 .btn:disabled{filter:grayscale(.75) brightness(.85);cursor:not-allowed;transform:none}
-.btn.sm{font-size:11px;border-width:7px;padding:1px 4px 2px}
+.btn.sm{font-size:14px;border-width:9px;padding:2px 7px 3px}
 
 /* ---------- HUD ---------- */
 .hud{position:absolute;z-index:20;display:flex;align-items:center;gap:7px;
-  padding:3px 9px 4px;font-size:15px;font-weight:700}
-#hudCoins{left:14px;top:12px}
-#hudDex{left:14px;top:56px;cursor:pointer;font-size:13px}
-.hud img{width:22px;height:22px}
-#topRight{position:absolute;right:14px;top:12px;z-index:20;display:flex;gap:6px}
+  padding:5px 13px 6px;font-size:20px;font-weight:700}
+#hudCoins{left:16px;top:14px}
+#hudDex{left:16px;top:66px;cursor:pointer;font-size:17px}
+.hud img{width:28px;height:28px}
+#topRight{position:absolute;right:16px;top:14px;z-index:20;display:flex;gap:8px}
 
 /* ---------- snack tray ---------- */
-#trayWrap{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:20;
-  max-width:min(95vw,900px);padding:7px 9px 8px}
-#tray{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+#bottomBar{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:20;
+  display:flex;align-items:flex-end;gap:12px;max-width:97vw}
+#trayWrap{padding:9px 11px 10px;max-width:min(78vw,880px)}
+#toolWrap{padding:9px 11px 10px;flex:none}
+.barLabel{font-size:13px;color:#f0e0bc;text-align:center;margin-bottom:5px;
+  text-shadow:0 2px 0 #3a2a14}
+#tools{display:flex;gap:7px}
+#hudFresh{left:16px;top:118px;gap:9px}
+#hudFresh img{width:24px;height:24px}
+#freshBar{display:flex;gap:3px}
+#freshBar i{display:block;width:11px;height:17px;border:2px solid #3a2a14;background:#5c5040}
+#freshBar i.on{background:#8fd0e8;box-shadow:inset 0 -4px 0 #4a9dc0}
+#tray{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:3px}
 #tray::-webkit-scrollbar{display:none}
-.slot{width:50px;min-width:50px;height:58px;cursor:pointer;position:relative;
-  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:1px;
-  border-style:solid;border-width:7px;border-image:var(--frame-slot) 7 fill repeat;
+.slot{width:66px;min-width:66px;height:76px;cursor:pointer;position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;
+  border-style:solid;border-width:9px;border-image:var(--frame-slot) 7 fill repeat;
   transition:transform .11s cubic-bezier(.34,2,.64,1)}
-.slot img{width:30px;height:30px;margin-top:2px}
-.slot .cost{font-size:10px;color:#5b4a2e;font-weight:700}
+.slot img{width:40px;height:40px;margin-top:3px}
+.slot .cost{font-size:13px;color:#4e3f22;font-weight:700}
 .slot:hover{transform:translateY(-4px)}
-.slot.sel{transform:translateY(-9px);border-image:var(--frame-slotS) 7 fill repeat}
+.slot.sel{transform:translateY(-11px) scale(1.06);border-image:var(--frame-slotS) 7 fill repeat}
 .slot.locked{filter:grayscale(.85) brightness(.72)}
-.slot .lk{position:absolute;top:-6px;right:-5px;font-size:11px}
+.slot .lk{position:absolute;top:-7px;right:-6px;font-size:14px}
 
 /* ---------- phone ---------- */
 #phoneBtn{position:absolute;right:14px;bottom:16px;z-index:30;width:62px;height:62px;
@@ -142,27 +152,27 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .unread{width:11px;height:11px;border-radius:6px;background:#d0453f;border:2px solid var(--ink);flex:none}
 
 /* ---------- frog card ---------- */
-#fcard{position:absolute;left:14px;bottom:96px;width:236px;z-index:25;display:none;padding:9px}
+#fcard{position:absolute;left:16px;bottom:118px;width:300px;z-index:25;display:none;padding:11px}
 #fcard.on{display:block;animation:pop .3s cubic-bezier(.34,1.8,.64,1)}
 @keyframes pop{0%{transform:scale(.62)}70%{transform:scale(1.05)}100%{transform:scale(1)}}
 #fcard .hd{display:flex;gap:8px;align-items:center}
-#fcFace{width:58px;height:58px;object-fit:contain}
-#fcName{font-size:15px;font-weight:700}
-#fcSpec{font-size:11px;color:#5f5138;margin-top:3px}
-#fcSnack{font-size:11px;margin:7px 0;display:flex;align-items:center;gap:5px}
-#fcSnack img{width:20px;height:20px}
-#fcBtns{display:flex;gap:5px;flex-wrap:wrap}
-#fcHint{font-size:10px;color:#5f5138;margin-top:6px;line-height:1.45}
-#fcX{position:absolute;top:-11px;right:-11px;width:25px;height:25px;border-radius:13px;cursor:pointer;
-  background:#d0453f;color:#fff;border:3px solid var(--ink);font-family:'Pix';font-size:12px}
+#fcFace{width:74px;height:74px;object-fit:contain}
+#fcName{font-size:19px;font-weight:700}
+#fcSpec{font-size:13px;color:#5f5138;margin-top:4px}
+#fcSnack{font-size:13px;margin:9px 0;display:flex;align-items:center;gap:6px}
+#fcSnack img{width:26px;height:26px}
+#fcBtns{display:flex;gap:7px;flex-wrap:wrap}
+#fcHint{font-size:12px;color:#5f5138;margin-top:8px;line-height:1.5}
+#fcX{position:absolute;top:-13px;right:-13px;width:31px;height:31px;border-radius:16px;cursor:pointer;
+  background:#d0453f;color:#fff;border:3px solid var(--ink);font-family:'Pix';font-size:15px}
 
 /* ---------- toasts ---------- */
 #toasts{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:60;
   display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none;width:max-content}
-.toast{display:flex;align-items:center;gap:8px;padding:5px 11px 6px;font-size:13px;
+.toast{display:flex;align-items:center;gap:10px;padding:7px 14px 8px;font-size:16px;
   max-width:86vw;animation:tin .36s cubic-bezier(.34,1.8,.64,1);
-  border-style:solid;border-width:9px;border-image:var(--frame-sign) 9 fill repeat}
-.toast img{width:26px;height:26px;object-fit:contain}
+  border-style:solid;border-width:11px;border-image:var(--frame-sign) 9 fill repeat}
+.toast img{width:34px;height:34px;object-fit:contain}
 .toast.gold{border-image:var(--frame-signG) 9 fill repeat}
 @keyframes tin{0%{transform:translateY(-26px) scale(.72);opacity:0}
   70%{transform:translateY(3px) scale(1.03);opacity:1}100%{transform:none;opacity:1}}
@@ -249,9 +259,14 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 
 <div id="hudCoins" class="hud panelWood gated"><img id="icCoin"><span id="coins">0</span></div>
 <div id="hudDex" class="hud panelWood gated" title="FrogDex"><img id="icBook"><span id="dexN">0/0</span></div>
+<div id="hudFresh" class="hud panelWood gated" title="pond freshness — sprinkle the droplets to top it up">
+  <img id="icDrop"><span id="freshBar"></span></div>
 <div id="topRight" class="gated"><button id="bMute" class="btn gray sm">♪</button><button id="bHelp" class="btn gray sm">?</button></div>
 
-<div id="trayWrap" class="panelWood gated"><div id="tray"></div></div>
+<div id="bottomBar" class="gated">
+  <div id="toolWrap" class="panelWood"><div class="barLabel">tools</div><div id="tools"></div></div>
+  <div id="trayWrap" class="panelWood"><div class="barLabel">snacks</div><div id="tray"></div></div>
+</div>
 
 <div id="phoneBtn" class="gated"><img id="icPhone"><div id="phoneBadge">1</div></div>
 <div id="phone">
@@ -385,6 +400,10 @@ const SFX={
   msg:()=>{tone(1046,1046,.055,'square',.06);tone(1568,1568,.085,'square',.06,.06)},
   love:()=>{tone(523,523,.08,'sine',.09);tone(659,659,.08,'sine',.09,.08);tone(784,784,.12,'sine',.09,.16)},
   snore:()=>tone(150,105,.3,'sine',.035),
+  lift:()=>tone(300,720,.07,'sine',.06),
+  tonic:()=>{tone(520,300,.09,'sine',.07);tone(760,1040,.07,'sine',.05,.09)},
+  sprinkle:()=>{tone(1400,1600,.04,'sine',.03);tone(1650,1850,.04,'sine',.03,.025);
+    tone(1900,2100,.04,'sine',.025,.05)},
 };
 function toggleMute(){muted=!muted;
   if(ambGain)ambGain.gain.value=muted?0:0.05;
@@ -432,7 +451,83 @@ function buildFrames(){
 }
 
 /* ---------------- little UI icons (procedural pixels) ---------------- */
-const ICON={};
+const ICON={},ICONCV={};
+/* 16x16 icons, hand-drawn as char grids. o=outline, and each icon brings its own keys. */
+const BIG_ICONS={grids:{
+  hand:[
+   '................',
+   '.....oo..oo.....',
+   '....occoocco....',
+   '....occooccoo...',
+   '..oo occ ccc oo.',
+   '.occooccocccocc.',
+   '.occcocccccccco.',
+   '.occcccccccccco.',
+   '..occccccccccco.',
+   '..occcccccccco..',
+   '...occccccccco..',
+   '...occcccccco...',
+   '....occcccco....',
+   '.....oooooo.....',
+   '................',
+   '................'],
+  tonic:[
+   '................',
+   '......oooo......',
+   '......oggo......',
+   '......oggo......',
+   '.....ooggoo....',
+   '....oppppppo....',
+   '...opppwppppo...',
+   '...opphhhpppo...',
+   '...opphhhpppo...',
+   '...oppppppppo...',
+   '...oppppppppo...',
+   '....oppppppo....',
+   '.....oooooo.....',
+   '.......pp.......',
+   '......oppo......',
+   '.......oo.......'],
+  droplet:[
+   '................',
+   '.......oo.......',
+   '.......bb.......',
+   '......obbo......',
+   '......obbbo.....',
+   '.....obwbbbo....',
+   '....obbwbbbbo...',
+   '....obbwbbbbo...',
+   '...obbbwbbbbbo..',
+   '...obbbbbbbbbo..',
+   '...obbbbbbbbbo..',
+   '....obbbbbbbo...',
+   '.....obbbbbo....',
+   '......oooooo....',
+   '................',
+   '................'],
+  flytoy:[
+   '................',
+   '..........oooo..',
+   '.........owwwwo.',
+   '.........owwwo..',
+   '.........o......',
+   '........o.......',
+   '.......o........',
+   '......o.........',
+   '..gg.o..gg......',
+   '.ghhgo.ghhg.....',
+   '.ghhhoohhhg.....',
+   '..goffffog......',
+   '...offffo.......',
+   '....offo........',
+   '.....oo.........',
+   '................'],
+},maps:{
+  hand:{o:'#2a2118',c:'#f6dcbc'},
+  tonic:{o:'#2a2118',g:'#7e8a7e',p:'#f28cae',h:'#a84568',w:'#ffd0e0'},
+  droplet:{o:'#20323a',b:'#7fc4e0',w:'#eaffff'},
+  flytoy:{o:'#2a2118',w:'#c08a58',g:'#bcd8e8',h:'#ffffff',f:'#42424e'},
+}};
 function buildIcons(){
   const G={
     coin:['..oooo..','.oyyyyo.','oyywyyyo','oywyyyyo','oyyyyyyo','oyyyywyo','.oyyyyo.','..oooo..'],
@@ -454,10 +549,12 @@ function buildIcons(){
     phone:{o:'#211c14',w:'#a8d68c',g:'#2f5a26',b:'#211c14'},
     egg:{o:'#6f7d68',w:'#fdfdf6',s:'#a8d68c'},
   };
+  Object.assign(G,BIG_ICONS.grids);Object.assign(M,BIG_ICONS.maps);
   for(const k in G){
-    const g=G[k],x=mkCtx(8,8);
-    for(let y=0;y<8;y++)for(let i=0;i<8;i++){const c=M[k][g[y][i]];if(c){x.fillStyle=c;x.fillRect(i,y,1,1)}}
+    const g=G[k],h=g.length,w=g[0].length,x=mkCtx(w,h);
+    for(let y=0;y<h;y++)for(let i=0;i<w;i++){const c=M[k][g[y][i]];if(c){x.fillStyle=c;x.fillRect(i,y,1,1)}}
     ICON[k]=x.canvas.toDataURL();
+    ICONCV[k]=x.canvas;
   }
 }
 
@@ -586,6 +683,45 @@ function randWater(){
   return {x:320,y:280};
 }
 
+/* ---------------- tools ---------------- */
+const TOOLS=[
+ {id:'hand',name:'Gentle Hand',cost:0,
+  desc:'lift a frog and set it down wherever you like.',
+  tip:'drag a frog onto the love-pad or onto a snack.'},
+ {id:'tonic',name:'Breed Tonic',cost:10,
+  desc:'one drop and breeding forgives almost everything.',
+  tip:'click a frog. for 2 minutes it will make the best baby it can.'},
+ {id:'droplets',name:'Droplets',cost:0,
+  desc:'sprinkle fresh water; the whole pond perks up.',
+  tip:'sprinkle the water to freshen it, or a frog to make it hungry again.'},
+ {id:'flytoy',name:'Fly Toy',cost:0,
+  desc:'dangle it and watch every frog lose composure.',
+  tip:'just wave it over the pond. no clicking needed.'},
+];
+const TL={};TOOLS.forEach(t=>TL[t.id]=t);
+const fly={x:320,y:260,vx:0,vy:0,on:false};
+let buzzOsc=null,buzzGain=null;
+function startBuzz(){
+  if(!AC||muted||buzzOsc)return;
+  buzzOsc=AC.createOscillator();buzzGain=AC.createGain();
+  buzzOsc.type='sawtooth';buzzOsc.frequency.value=105;
+  buzzGain.gain.value=0;
+  buzzOsc.connect(buzzGain);buzzGain.connect(AC.destination);buzzOsc.start();
+}
+function stopBuzz(){
+  if(!buzzOsc)return;
+  try{buzzOsc.stop();buzzOsc.disconnect();buzzGain.disconnect()}catch(e){}
+  buzzOsc=null;buzzGain=null;
+}
+function selectTool(id){
+  initAudio();
+  G.tool=(G.tool===id)?null:id;
+  if(G.tool)G.sel=null;
+  if(G.tool!=='flytoy')stopBuzz(); else startBuzz();
+  updateTray();updateToolRack();
+  if(G.tool)toast(TL[G.tool].tip,ICON[TOOL_ICON[G.tool]]||null);
+}
+
 /* ---------------- state ---------------- */
 const POND_CAP=12;
 const NAMES=['Mochi','Pip','Sprout','Bubbles','Tadeus','Clover','Miso','Pudding','Nori','Beans',
@@ -613,7 +749,8 @@ const COZY=['no frog needed today, just wanted to say your pond looks lovely.',
 'the water is very good today. carry on.'];
 
 const G={coins:GD.startCoins,frogs:[],food:[],discovered:{},unlocked:{},sel:null,
-  offers:[],read:{},nextCust:0,time:0,hint:0,won:false};
+  offers:[],read:{},nextCust:0,time:0,hint:0,won:false,
+  tool:null,drag:null,fresh:0,freshWarn:0,lastSprinkle:0};
 let frogSeq=1,offerSeq=1,selFrog=null;
 
 /* ---------------- frog ---------------- */
@@ -621,12 +758,13 @@ class Frog{
   constructor(id,x,y,stage='adult'){
     this.uid=frogSeq++;this.spec=id;this.i=SP[id].i;
     this.name=pick(NAMES);this.x=x;this.y=y;this.z=0;
-    this.stage=stage;this.growAt=stage==='adult'?0:G.time+T(48000);
+    this.stage=stage;this.growAt=stage==='adult'?0:G.time+T(26000);
     this.sx=1;this.sy=1;this.rot=0;this.flip=Math.random()<.5;
     this.state='idle';this.stateT=rand(300,2000);this.hop=null;
     this.lastFood=null;this.fedUntil=0;this.coolUntil=0;this.slot=-1;
     this.walkF=0;this.walkT=0;this.bob=rand(0,7);
     this.zoomUntil=0;this.glowUntil=0;this.sleep=false;this.bubble=null;
+    this.tonicUntil=0;this.playUntil=0;
   }
   get img(){return this.stage==='adult'?FROG_A[this.i]:FROG_B[this.i]}
   get busy(){return this.slot>=0}
@@ -641,6 +779,8 @@ class Frog{
   }
   update(dt){
     if(this.bubble&&G.time>this.bubble.until)this.bubble=null;
+    if(this.state==='held')return;                 // the hand has it; AI suspended
+    if(this.state==='play')return this.stepPlay(dt);
     if(this.stage==='froglet'&&G.time>this.growAt){
       this.stage='adult';puff(this.x,this.y-9,'#ffe9a8',9);SFX.pop();
       toast(`${this.name} grew up`,FROG_URL[this.i]);
@@ -702,12 +842,54 @@ class Frog{
       squish(this,1.05,.95,170);this.stateT=rand(700,2600);
     }
   }
+  stepPlay(dt){
+    if(!G.tool||G.tool!=='flytoy'||G.time>this.playUntil){
+      this.state='idle';this.stateT=rand(200,700);this.rot=0;return;
+    }
+    const dx=fly.x-this.x,dy=(fly.y+10)-this.y,d=Math.hypot(dx,dy);
+    this.flip=dx<0;
+    if(d>44){                                       // shuffle toward it
+      const sp=.014*dt;
+      const nx=this.x+dx/d*sp,ny=this.y+dy/d*sp;
+      if(usable(nx,ny)){this.x=nx;this.y=ny}
+      this.walkT+=dt;
+      if(this.walkT>110){this.walkT=0;this.walkF^=1}
+      this.sy=this.walkF?.97:1.03;this.sx=this.walkF?1.03:.98;
+      this.rot=Math.sin(G.time*.022)*.06;
+    }else{
+      this.lunge(d);
+    }
+  }
+  lunge(d){
+    if(G.time<(this.nextLunge||0))return;
+    this.nextLunge=G.time+rand(700,1200);
+    const mouthY=this.y-this.img.height*.42;
+    tongues.push({f:this,x:fly.x,y:fly.y,t:0,life:180});
+    squish(this,1.2,.8,220);
+    const caught=Math.hypot(fly.x-this.x,fly.y-mouthY)<26;
+    this.startHop(clamp(fly.x+rand(-6,6),22,VW-22),
+                  clamp(this.y+rand(-6,6),148,TRAY.y-4),{h:20});
+    this.state='hop';
+    if(caught){
+      this.zoomUntil=G.time+T(12000);
+      this.coolUntil=Math.max(0,this.coolUntil-T(8000));
+      if(this.stage==='froglet')this.growAt=Math.max(0,this.growAt-T(4000));
+      hearts(this.x,this.y-20,2);puff(fly.x,fly.y,'#ffffff',5);
+      SFX.pop();
+      fly.vx+=rand(-.5,.5);fly.vy-=.4;
+      if(Math.random()<.25){G.coins+=1;coinFx(this.x,this.y-14,1);hud()}
+    }else{
+      this.bubble={t:'note',until:G.time+700};
+    }
+  }
   nearestFood(){
     let b=null,bd=1e9;
     for(const f of G.food){
       if(f.gone||f.flying)continue;
       const d=dist(this,f);
-      if(G.time<this.fedUntil&&d>80)continue;
+      // a dosed frog will cross the whole pond for the next snack, which is how
+      // you get one particular snack into one particular frog
+      if(G.time<this.fedUntil&&d>80&&!dosed(this))continue;
       if(d<bd){bd=d;b=f}
     }
     return b;
@@ -791,6 +973,30 @@ function throwFood(kind,tx,ty){
   hint(1);
 }
 
+function handFeed(fr,kind){
+  const f=FD[kind];
+  if(G.coins<f.cost){toast('not enough coins');SFX.buzz();return}
+  G.coins-=f.cost;hud();
+  const spr=FOOD_W[kind];
+  // a snack floats down into the frog's mouth
+  const o={kind,x:fr.x,y:fr.y,gone:false,flying:true,born:G.time,bob:0};
+  tween({dur:420,ease:'outQuad',
+    upd:t=>{o.fx=fr.x+Math.sin(t*Math.PI)*10;o.fy=lerp(fr.y-58,fr.y-fr.img.height*.42,t);o.spin=t*3},
+    done:()=>{
+      o.gone=true;
+      const i=G.food.indexOf(o);if(i>=0)G.food.splice(i,1);
+      fr.lastFood=kind;fr.fedUntil=G.time+T(100000);fr.sleep=false;
+      if(kind===GD.zoomFood)fr.zoomUntil=G.time+T(20000);
+      if(kind===GD.glowFood)fr.glowUntil=G.time+T(30000);
+      squish(fr,1.3,.7,340);SFX.eat();hearts(fr.x,fr.y-20,2);
+      toast(`${fr.name} ate the ${f.name}`,FOOD_URL[kind]);
+      if(selFrog===fr)showCard(fr);
+      saveSoon();
+    }});
+  G.food.push(o);
+  SFX.toss();hint(2);
+}
+
 /* ---------------- breeding ---------------- */
 const nest={a:null,b:null,egg:null,ht:0,timer:0};
 function toNest(f){
@@ -805,6 +1011,23 @@ function toNest(f){
   f.state='idle';f.stateT=0;f.sleep=false;
   toast(`${f.name} hops to the love-pad`,ICON.heart);SFX.love();hint(3);
 }
+/* what the love-pad should be telling the player right now */
+function nestPreview(){
+  if(nest.egg)return null;
+  if(!nest.a&&!nest.b)return {kind:'empty',text:'love-pad · send two frogs here'};
+  if(!nest.a||!nest.b){
+    const one=nest.a||nest.b;
+    return {kind:'one',text:`${one.name} is waiting for a partner`};
+  }
+  const m=matchRecipe(nest.a,nest.b);
+  if(m&&!m.__needs)
+    return {kind:'good',spid:m.id,
+      text:`this pair will make a ${G.discovered[m.id]?m.name:'NEW species'}`};
+  if(m&&m.__needs)
+    return {kind:'needs',food:m.__needs,
+      text:`feed either one ${FD[m.__needs].name} for a new species`};
+  return {kind:'plain',text:'this pair will make a copy of a parent'};
+}
 function stepNest(dt){
   if(nest.a&&nest.b&&!nest.egg){
     const a=nest.a,b=nest.b;
@@ -814,24 +1037,44 @@ function stepNest(dt){
       nest.timer+=dt;
       if(nest.timer>T(2600)){
         const child=resolve(a,b);
-        nest.egg={spec:child,hatch:G.time+T(30000),wob:0};
-        a.lastFood=b.lastFood=null;
-        a.coolUntil=b.coolUntil=G.time+T(60000);
+        const boon=dosed(a)||dosed(b);
+        nest.egg={spec:child,hatch:G.time+T(boon?10000:16000),wob:0};
+        a.coolUntil=b.coolUntil=G.time+T(boon?12000:22000);
         a.slot=b.slot=-1;nest.a=nest.b=null;nest.timer=0;
         a.startHop(a.x-rand(16,30),a.y+rand(-8,12));
         b.startHop(b.x+rand(16,30),b.y+rand(-8,12));
-        SFX.chime();toast('an egg appeared on the love-pad',ICON.egg);
+        SFX.chime();
+        toast(boon?'the tonic worked — an egg appeared':'an egg appeared on the love-pad',ICON.egg);
       }
     }else nest.timer=0;
   }
   if(nest.egg){nest.egg.wob+=dt;if(G.time>nest.egg.hatch)hatch()}
 }
-function resolve(a,b){
+/* Which species would this pair make right now? Used both to resolve a real
+   breeding and to preview it on the love-pad, so the two can never disagree. */
+function matchRecipe(a,b){
   const pair=[a.spec,b.spec].sort().join('+');
   for(const s of SPECIES){
     if(!s.recipe||s.recipe.length!==3)continue;
-    if([s.recipe[0],s.recipe[1]].sort().join('+')===pair
-       && a.lastFood===s.recipe[2] && b.lastFood===s.recipe[2]) return s.id;
+    if([s.recipe[0],s.recipe[1]].sort().join('+')!==pair)continue;
+    // EITHER parent having eaten the snack is enough (both was too fiddly, since
+    // snacks land in shared water and the nearest frog gets the bite)
+    if(a.lastFood===s.recipe[2]||b.lastFood===s.recipe[2])return s;
+    return {...s,__needs:s.recipe[2]};   // right pair, wrong snack
+  }
+  return null;
+}
+function dosed(f){return f&&G.time<f.tonicUntil}
+function resolve(a,b){
+  const m=matchRecipe(a,b);
+  if(m&&!m.__needs)return m.id;
+  // Breed Tonic: this pair will make the best thing it can, snack or no snack
+  if(dosed(a)||dosed(b)){
+    if(m)return m.id;                                  // right pair, wrong snack -> works anyway
+    const opts=SPECIES.filter(sp=>sp.recipe&&sp.recipe.length===3&&!G.discovered[sp.id]
+      &&(sp.recipe[0]===a.spec||sp.recipe[1]===a.spec||sp.recipe[0]===b.spec||sp.recipe[1]===b.spec));
+    if(opts.length)return pick(opts).id;
+    return SP[a.spec].sell>=SP[b.spec].sell?a.spec:b.spec;  // never a wasted pairing
   }
   return Math.random()<.5?a.spec:b.spec;
 }
@@ -983,6 +1226,11 @@ function drawFrog(f,reflect){
   const sw=Math.max(3.5,img.width*.34*(1-f.z*.018));
   cx.fillStyle='rgba(8,26,16,.3)';
   cx.beginPath();cx.ellipse(f.x,f.y+2,sw,Math.max(1.6,sw*.4),0,0,Math.PI*2);cx.fill();
+  if(G.time<f.tonicUntil){
+    cx.fillStyle=`rgba(245,128,156,${.12+.06*Math.sin(G.time*.005)})`;
+    cx.beginPath();cx.ellipse(f.x,f.y-img.height*.45-f.z,img.width*.58,img.height*.5,0,0,Math.PI*2);cx.fill();
+    if(Math.random()<.05)puff(f.x+rand(-8,8),f.y-rand(6,20),'#f5809c',1);
+  }
   if(G.time<f.glowUntil){
     cx.fillStyle=`rgba(168,214,140,${.13+.07*Math.sin(G.time*.006)})`;
     cx.beginPath();cx.ellipse(f.x,f.y-img.height*.45-f.z,img.width*.62,img.height*.55,0,0,Math.PI*2);cx.fill();
@@ -1027,6 +1275,7 @@ function draw(){
     cx.drawImage(PADIMG,Math.round(NEST.x-PADIMG.width/2),Math.round(NEST.y-PADIMG.height/2));
     if(!nest.a&&!nest.b&&!nest.egg&&Math.random()<.012)
       hearts(NEST.x+rand(-6,6),NEST.y-8,1);
+    drawNestLabel();
   }
   // ripples
   for(const r of ripples){
@@ -1063,8 +1312,14 @@ function draw(){
         cx.fillRect(f.x-spr.width/2,f.y-spr.height+b,spr.width,spr.height);cx.globalAlpha=1}
     }
   }
-  // frogs
-  for(const f of sorted)drawFrog(f,false);
+  // frogs; a carried frog always draws above the rest
+  for(const f of sorted)if(f.state!=='held')drawFrog(f,false);
+  if(G.drag){
+    // the shadow stays where it was picked up, so the lift reads clearly
+    cx.fillStyle='rgba(8,26,16,.22)';
+    cx.beginPath();cx.ellipse(G.drag.f.x,G.drag.homeY+2,8,3.4,0,0,Math.PI*2);cx.fill();
+    drawFrog(G.drag.f,false);
+  }
   // tongues
   for(const t of tongues){
     const f=t.f,k=t.t/t.life,e=Math.sin(k*Math.PI),ih=f.img.height;
@@ -1095,6 +1350,39 @@ function draw(){
     else if(p.k==='drop'){cx.fillStyle='#c8ead4';cx.fillRect(p.x,p.y,1,2)}
     cx.globalAlpha=1;
   }
+  // the fly toy: rod, string and a buzzing fly
+  if(G.tool==='flytoy'&&mouse.on){
+    cx.strokeStyle='rgba(240,240,220,.55)';cx.lineWidth=1;
+    cx.beginPath();cx.moveTo(mouse.x,mouse.y-26);cx.lineTo(fly.x,fly.y);cx.stroke();
+    cx.fillStyle='#5c3a1e';cx.fillRect(mouse.x-1,mouse.y-30,3,5);
+    cx.fillStyle='#2a2a33';cx.fillRect(fly.x-1,fly.y-1,3,3);
+    if(Math.floor(G.time/60)%2){cx.fillStyle='rgba(223,236,244,.85)';
+      cx.fillRect(fly.x-3,fly.y-2,2,1);cx.fillRect(fly.x+2,fly.y-2,2,1)}
+  }
+  // tool reticles
+  if(G.tool==='hand'&&mouse.on&&!G.drag){
+    cx.fillStyle='#f6ead2';cx.strokeStyle='#2a2118';
+    const hx=Math.round(mouse.x),hy=Math.round(mouse.y);
+    cx.fillRect(hx-4,hy-2,9,6);
+    for(let i=0;i<4;i++)cx.fillRect(hx-4+i*3,hy-6,2,4);
+  }
+  if(G.tool==='droplets'&&mouse.on){
+    const ok=usable(mouse.x,mouse.y);
+    cx.strokeStyle=ok?'rgba(190,235,255,.9)':'rgba(208,69,63,.8)';
+    cx.beginPath();cx.ellipse(mouse.x,mouse.y,10,5,0,0,Math.PI*2);cx.stroke();
+    cx.fillStyle='#bfe6f2';
+    cx.fillRect(mouse.x-1,mouse.y-14,2,4);cx.fillRect(mouse.x-2,mouse.y-11,4,3);
+  }
+  if(G.tool==='tonic'&&mouse.on){
+    const f=frogAt(mouse);
+    if(f){
+      cx.strokeStyle='rgba(245,128,156,.9)';cx.lineWidth=1;
+      cx.strokeRect(Math.round(f.x-f.img.width/2)-1,Math.round(f.y-f.img.height)-1,
+        f.img.width+2,f.img.height+2);
+    }
+    cx.fillStyle='#f28cae';cx.fillRect(mouse.x-2,mouse.y-13,4,7);
+    cx.fillStyle='#a84568';cx.fillRect(mouse.x-1,mouse.y-16,2,3);
+  }
   // aim
   if(G.sel&&mouse.on){
     const ok=usable(mouse.x,mouse.y);
@@ -1108,30 +1396,212 @@ function draw(){
 }
 const ICONC={};
 
+/* a tiny 3x5 / 5x5 pixel font, for text that lives in the world */
+const PXFONT_W=3;
+const PXFONT={'a':'010101111101101','b':'110101110101110','c':'011100100100011','d':'110101101101110','e':'111100110100111','f':'111100110100100','g':'011100101101011','h':'101101111101101','i':'111010010010111','j':'001001001101010','k':'101101110101101','l':'100100100100111','m':'10001110110101101011000110001','n':'101111111101101','o':'010101101101010','p':'110101110100100','q':'010101101111001','r':'110101110101101','s':'011100010001110','t':'111010010010010','u':'101101101101011','v':'101101101010010','w':'10001000110101101011010101010','x':'101101010101101','y':'101101010010010','z':'111001010100111','0':'111101101101111','1':'010010010010010','2':'110001010100111','3':'111001011001111','4':'101101111001001','5':'111100110001111','6':'011100111101111','7':'111001010010010','8':'111101111101111','9':'111101111001001',' ':'000000000000000','.':'000000000000010','·':'000000010000000','—':'000000111000000','-':'000000111000000','\'':'010010000000000','!':'010010010000010','?':'110001010000010',':':'000010000010000',',':'000000000010100','(':'010100100100010',')':'010001001001010'};
+/* The love-pad narrates itself, so breeding never depends on the player guessing.
+   Drawn on the canvas in pixel text so it sits in the world, not over the UI. */
+function pxText(txt,cx_,y,col,scale){
+  const W=PXFONT_W;
+  let w=0;for(const ch of txt)w+=((PXFONT[ch]||PXFONT['?']).length/5)+1;
+  let x=Math.round(cx_-w*scale/2);
+  for(const ch of txt.toLowerCase()){
+    const g=PXFONT[ch]||PXFONT['?'];
+    const cw=g.length/5;
+    for(let r=0;r<5;r++)for(let c=0;c<cw;c++){
+      if(g[r*cw+c]==='1'){cx.fillStyle=col;cx.fillRect(x+c*scale,y+r*scale,scale,scale)}
+    }
+    x+=(cw+1)*scale;
+  }
+  return w*scale;
+}
+function pxTextWidth(txt,scale){
+  let w=0;for(const ch of txt.toLowerCase())w+=((PXFONT[ch]||PXFONT['?']).length/5)+1;
+  return w*scale;
+}
+function drawNestLabel(){
+  const pv=nestPreview();
+  if(!pv)return;
+  if(pv.kind==='empty'&&G.time%9000>4200)return;      // idle hint blinks in and out
+  const sc=1, pad=4;
+  const w=Math.ceil(pxTextWidth(pv.text,sc))+pad*2;
+  const h=5*sc+pad*2;
+  const bx=Math.round(NEST.x-w/2), by=Math.round(NEST.y-40);
+  const tone=pv.kind==='good'?[255,233,168]:pv.kind==='needs'?[242,140,174]:[214,228,196];
+  cx.fillStyle='rgba(20,28,18,.82)';cx.fillRect(bx,by,w,h);
+  cx.fillStyle=`rgba(${tone[0]},${tone[1]},${tone[2]},.55)`;
+  cx.fillRect(bx,by,w,1);cx.fillRect(bx,by+h-1,w,1);
+  cx.fillRect(bx,by,1,h);cx.fillRect(bx+w-1,by,1,h);
+  pxText(pv.text,NEST.x,by+pad,`rgb(${tone[0]},${tone[1]},${tone[2]})`,sc);
+  // little tail pointing at the pad
+  cx.fillStyle='rgba(20,28,18,.82)';
+  cx.fillRect(NEST.x-2,by+h,4,2);cx.fillRect(NEST.x-1,by+h+2,2,2);
+  if(pv.kind==='needs'&&FOOD_W[pv.food]){
+    const s=FOOD_W[pv.food];
+    cx.drawImage(s,Math.round(NEST.x-s.width/2),by-s.height-2);
+  }
+}
+
 /* ---------------- input ---------------- */
-const mouse={x:0,y:0,on:false};
+const mouse={x:0,y:0,vx:0,on:false,down:false};
 function toGame(e){
   return {x:(e.clientX-OX)/SC,y:(e.clientY-OY)/SC};
 }
-addEventListener('mousemove',e=>{const p=toGame(e);mouse.x=p.x;mouse.y=p.y;
-  mouse.on=p.x>=0&&p.y>=0&&p.x<VW&&p.y<VH});
-addEventListener('mouseout',()=>mouse.on=false);
-cv.addEventListener('click',e=>{
-  if(mode!=='play')return;
-  initAudio();
+addEventListener('mousemove',e=>{
   const p=toGame(e);
-  if(p.x<0||p.y<0||p.x>=VW||p.y>=VH)return;
-  if(G.sel){
-    if(usable(p.x,p.y))throwFood(G.sel,p.x,p.y);
-    else toast('aim at the open water');
-    return;
-  }
+  mouse.vx=p.x-mouse.x;
+  mouse.x=p.x;mouse.y=p.y;
+  mouse.on=p.x>=0&&p.y>=0&&p.x<VW&&p.y<VH;
+  if(G.drag)G.drag.moved=G.drag.moved||Math.hypot(p.x-G.drag.x0,p.y-G.drag.y0)>4;
+  if(G.tool==='droplets'&&mouse.down&&mouse.on)sprinkle(p.x,p.y);
+});
+addEventListener('mouseout',()=>{mouse.on=false;mouse.down=false});
+
+function frogAt(p){
   let hit=null,hd=1e9;
   for(const f of G.frogs){
     const ih=f.img.height,iw=f.img.width;
     const d=Math.hypot(p.x-f.x,(p.y-(f.y-ih*.45))*1.2);
     if(d<Math.max(iw,ih)*.55&&d<hd){hd=d;hit=f}
   }
+  return hit;
+}
+
+/* ---- Gentle Hand: press to lift, release to set down ---- */
+cv.addEventListener('mousedown',e=>{
+  if(mode!=='play')return;
+  mouse.down=true;
+  if(G.tool!=='hand')return;
+  const p=toGame(e);
+  const f=frogAt(p);
+  if(!f)return;
+  e.preventDefault();
+  if(f.slot>=0){if(nest.a===f)nest.a=null;if(nest.b===f)nest.b=null;f.slot=-1}
+  f.state='held';f.hop=null;f.sleep=false;
+  G.drag={f,x0:p.x,y0:p.y,homeY:f.y,moved:false,since:G.time,drip:0,warm:false};
+  ripple(f.x,f.y+2);SFX.lift();
+});
+addEventListener('mouseup',e=>{
+  mouse.down=false;
+  if(!G.drag)return;
+  const {f,moved}=G.drag;
+  const p=toGame(e);
+  G.drag=null;
+  if(!moved){                                  // a tap, not a drag: inspect it
+    f.state='idle';f.stateT=rand(200,600);f.z=0;f.rot=0;f.sx=f.sy=1;
+    selFrog=f;squish(f,1.2,.8,300);showCard(f);return;
+  }
+  const land=()=>{
+    f.z=0;f.rot=0;f.state='idle';f.stateT=rand(200,600);
+    squish(f,1.26,.74,300);ripple(f.x,f.y+2);splash(f.x,f.y,4);SFX.plop();
+  };
+  if(!usable(f.x,f.y)){                        // never punish: it wriggles back to water
+    f.state='idle';f.z=0;f.rot=0;
+    const w=randWater();f.startHop(w.x,w.y);
+    puff(f.x,f.y-10,'#cfe8a8',4);toast('no dry land, please');
+    return;
+  }
+  // drop onto the love-pad = the obvious second way to breed
+  if(dist(f,NEST)<24&&!nest.egg&&(!nest.a||!nest.b)){land();toNest(f);return}
+  // drop onto a snack = you choose exactly who eats what
+  const snack=G.food.find(o=>!o.gone&&!o.flying&&dist(o,f)<16);
+  if(snack){land();f.eat(snack);return}
+  land();
+});
+cv.addEventListener('contextmenu',e=>{
+  e.preventDefault();
+  if(G.tool||G.sel){G.tool=null;G.sel=null;stopBuzz();updateTray();updateToolRack()}
+});
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&(G.tool||G.sel)){
+    G.tool=null;G.sel=null;stopBuzz();updateTray();updateToolRack();
+  }
+});
+
+/* ---- Droplets ---- */
+function sprinkle(x,y){
+  if(G.time-G.lastSprinkle<180)return;
+  G.lastSprinkle=G.time;
+  if(!usable(x,y))return;
+  ripple(x,y);splash(x,y,9);
+  for(let i=0;i<6;i++)puff(x+rand(-9,9),y+rand(-6,4),'#dff4ff',1);
+  SFX.sprinkle();
+  G.fresh=Math.min(1,G.fresh+.2);
+  for(const f of G.frogs){
+    if(f.state==='held')continue;
+    const d=dist(f,{x,y});
+    if(d<34){f.sleep=false;f.stateT=0}
+    else if(d<110&&(f.state==='idle'||f.state==='waddle')&&f.slot<0&&Math.random()<.5){
+      f.startHop(clamp(x+rand(-16,16),22,VW-22),clamp(y+rand(-12,12),148,TRAY.y-4));
+    }
+  }
+  updateFreshBar();
+}
+function rinseFrog(f){
+  f.sleep=false;f.fedUntil=0;                  // hungry again -> will chase the next snack
+  hearts(f.x,f.y-20,2);
+  for(let i=0;i<8;i++)puff(f.x+rand(-10,10),f.y-rand(0,18),'#ffffff',1);
+  let n=0;
+  const iv=setInterval(()=>{f.flip=!f.flip;if(++n>3)clearInterval(iv)},65);
+  squish(f,1.14,.88,280);SFX.sprinkle();
+  if(Math.random()<.6)SFX.ribbit();
+  toast(`${f.name} is rinsed and hungry again`,ICON.droplet||ICON.heart);
+  if(selFrog===f)showCard(f);
+}
+
+/* ---- Breed Tonic ---- */
+function doseTonic(f){
+  const cost=TL.tonic.cost;
+  if(G.coins<cost){toast('not enough coins');SFX.buzz();return}
+  G.coins-=cost;hud();
+  f.tonicUntil=G.time+T(120000);
+  f.sleep=false;
+  squish(f,1.24,.78,340);hearts(f.x,f.y-20,2);
+  f.bubble={t:'note',until:G.time+1100};
+  for(let i=0;i<5;i++)puff(f.x+rand(-6,6),f.y-rand(10,26),'#f5809c',1);
+  SFX.tonic();
+  toast(`${f.name} feels lovey`,ICON.heart);
+  if(selFrog===f)showCard(f);
+  saveSoon();
+}
+cv.addEventListener('click',e=>{
+  if(mode!=='play')return;
+  initAudio();
+  const p=toGame(e);
+  if(p.x<0||p.y<0||p.x>=VW||p.y>=VH)return;
+  if(G.tool){
+    const f=frogAt(p);
+    if(G.tool==='hand')return;                       // handled by mousedown/up
+    if(G.tool==='flytoy')return;                     // passive
+    if(G.tool==='tonic'){
+      if(f)doseTonic(f); else toast('aim the tonic at a frog');
+      return;
+    }
+    if(G.tool==='droplets'){
+      if(f)rinseFrog(f); else sprinkle(p.x,p.y);
+      return;
+    }
+  }
+  const pickFrog=()=>{
+    let hit=null,hd=1e9;
+    for(const f of G.frogs){
+      const ih=f.img.height,iw=f.img.width;
+      const d=Math.hypot(p.x-f.x,(p.y-(f.y-ih*.45))*1.2);
+      if(d<Math.max(iw,ih)*.55&&d<hd){hd=d;hit=f}
+    }
+    return hit;
+  };
+  if(G.sel){
+    // clicking a frog hand-feeds it directly: the whole point of a recipe snack is
+    // getting it into a PARTICULAR frog, and the throw-and-swarm lottery made that
+    // the hardest part of breeding
+    const target=pickFrog();
+    if(target)handFeed(target,G.sel);
+    else if(usable(p.x,p.y))throwFood(G.sel,p.x,p.y);
+    else toast('aim at the open water, or click a frog to hand-feed it');
+    return;
+  }
+  let hit=pickFrog(),hd=0;
   if(hit){
     selFrog=hit;squish(hit,1.25,.75,330);hearts(hit.x,hit.y-20,1);
     Math.random()<.45?SFX.ribbit():SFX.pop();
@@ -1159,7 +1629,9 @@ function buildTray(){
     el.onclick=()=>{
       initAudio();SFX.click();
       if(!G.unlocked[f.id]){toast(`unlock ${f.name} in ShopHop (${f.unlock}c)`);openPhone('shop');return}
-      G.sel=G.sel===f.id?null:f.id;updateTray();
+      G.sel=G.sel===f.id?null:f.id;
+      if(G.sel){G.tool=null;stopBuzz();updateToolRack()}
+      updateTray();
     };
     t.appendChild(el);
   }
@@ -1175,6 +1647,33 @@ function updateTray(){
     else if(lk)lk.remove();
   }
 }
+const TOOL_ICON={hand:'hand',tonic:'tonic',droplets:'droplet',flytoy:'flytoy'};
+function buildTools(){
+  const box=document.getElementById('tools');box.innerHTML='';
+  for(const t of TOOLS){
+    const el=document.createElement('div');
+    el.className='slot tool';el.id='tl_'+t.id;
+    el.innerHTML=`<img src="${ICON[TOOL_ICON[t.id]]}"><div class="cost">${t.cost?t.cost+'c':'free'}</div>`;
+    el.title=`${t.name} — ${t.desc}`;
+    el.onclick=()=>{SFX.click();selectTool(t.id)};
+    box.appendChild(el);
+  }
+  updateToolRack();
+}
+function updateToolRack(){
+  for(const t of TOOLS){
+    const el=document.getElementById('tl_'+t.id);
+    if(el)el.classList.toggle('sel',G.tool===t.id);
+  }
+}
+function updateFreshBar(){
+  const bar=document.getElementById('freshBar');
+  if(!bar)return;
+  if(bar.children.length!==4){bar.innerHTML='';
+    for(let i=0;i<4;i++)bar.appendChild(document.createElement('i'))}
+  const lit=G.fresh<=0?0:Math.max(1,Math.round(G.fresh*4));
+  [...bar.children].forEach((c,i)=>c.classList.toggle('on',i<lit));
+}
 function showCard(f){
   const s=SP[f.spec];
   document.getElementById('fcFace').src=FROG_URL[s.i];
@@ -1184,6 +1683,10 @@ function showCard(f){
   sn.innerHTML=f.lastFood
     ?`last snack: <img src="${FOOD_URL[f.lastFood]}"> ${FD[f.lastFood].name}`
     :`last snack: none (tummy empty)`;
+  if(G.time<f.tonicUntil){
+    sn.innerHTML+=`<span style="color:#a84568;margin-left:6px">tonic ${
+      Math.ceil((f.tonicUntil-G.time)/1000)}s</span>`;
+  }
   const bs=document.getElementById('fcBtns');bs.innerHTML='';
   const bB=document.createElement('button');bB.className='btn pink sm';
   const cd=Math.ceil(Math.max(0,f.coolUntil-G.time)/1000);
@@ -1426,7 +1929,9 @@ function saveNow(){
   try{
     localStorage.setItem(SAVE,JSON.stringify({
       coins:G.coins,discovered:G.discovered,unlocked:G.unlocked,muted,hint:G.hint,won:G.won,
-      frogs:G.frogs.map(f=>({spec:f.spec,name:f.name,x:f.x,y:f.y,stage:f.stage,lastFood:f.lastFood})),
+      fresh:G.fresh,
+      frogs:G.frogs.map(f=>({spec:f.spec,name:f.name,x:f.x,y:f.y,stage:f.stage,lastFood:f.lastFood,
+        tonic:Math.max(0,f.tonicUntil-G.time)})),
       egg:nest.egg?{spec:nest.egg.spec,left:Math.max(0,nest.egg.hatch-G.time)}:null,
       offers:G.offers.slice(-8).map(o=>({id:o.id,cust:o.cust,spid:o.spid,price:o.price,
         state:o.state,lines:o.lines,left:o.state==='open'?Math.max(0,o.exp-G.time):0})),
@@ -1438,11 +1943,12 @@ function load(){
     const raw=localStorage.getItem(SAVE);if(!raw)return false;
     const d=JSON.parse(raw);
     G.coins=d.coins??GD.startCoins;G.discovered=d.discovered||{};
-    G.unlocked=d.unlocked||{};muted=!!d.muted;G.hint=d.hint||0;G.won=!!d.won;
+    G.unlocked=d.unlocked||{};muted=!!d.muted;G.hint=d.hint||0;G.won=!!d.won;G.fresh=d.fresh||0;
     for(const fd of d.frogs||[]){
       if(!SP[fd.spec])continue;
       const f=new Frog(fd.spec,fd.x,fd.y,fd.stage);
       f.name=fd.name;f.lastFood=(fd.lastFood&&FD[fd.lastFood])?fd.lastFood:null;
+      if(fd.tonic>0)f.tonicUntil=G.time+fd.tonic;
       G.frogs.push(f);
     }
     if(d.egg&&SP[d.egg.spec])nest.egg={spec:d.egg.spec,hatch:d.egg.left,wob:0};
@@ -1481,6 +1987,54 @@ function loop(ts){
   if(mode==='load')return;
   G.time+=dt;
   stepTweens(dt);
+  // the carried frog swings along behind the cursor
+  if(G.drag){
+    const f=G.drag.f;
+    f.x=lerp(f.x,mouse.x,Math.min(1,.014*dt));
+    f.y=lerp(f.y,mouse.y,Math.min(1,.014*dt));
+    f.z=lerp(f.z,15,Math.min(1,.012*dt));
+    f.rot=clamp(mouse.vx*.02,-.22,.22)+Math.sin(G.time*.012)*.05;
+    f.sx=lerp(f.sx,.94,.1);f.sy=lerp(f.sy,1.08,.1);
+    G.drag.drip+=dt;
+    if(G.drag.drip>400){G.drag.drip=0;parts.push({k:'drop',x:f.x+rand(-4,4),y:f.y-f.z,
+      vx:0,vy:.02,g:.0004,life:420,t:0})}
+    if(!G.drag.warm&&G.time-G.drag.since>1500){
+      G.drag.warm=true;hearts(f.x,f.y-f.z-22,1);f.bubble={t:'note',until:G.time+1000};
+    }
+    f.walkT+=dt;if(f.walkT>110){f.walkT=0;f.walkF^=1}
+  }
+  // the fly toy is a little spring on a string
+  if(G.tool==='flytoy'&&mouse.on){
+    fly.on=true;
+    fly.vx=(fly.vx+(mouse.x-fly.x)*.02*dt*.06)*.88;
+    fly.vy=(fly.vy+((mouse.y+26)-fly.y)*.02*dt*.06)*.88;
+    fly.x+=fly.vx;fly.y+=fly.vy+Math.sin(G.time*.006)*.12;
+    if(buzzGain)buzzGain.gain.value=muted?0:Math.min(.03,Math.abs(mouse.vx)*.004);
+    for(const f of G.frogs){
+      if(f.slot>=0||f.state==='held'||f.state==='hop')continue;
+      const r=(f.stage==='froglet'?126:90);
+      if(dist(f,fly)<r){
+        if(f.state!=='play'){f.state='play';f.nextLunge=G.time+rand(120,420)}
+        f.playUntil=G.time+700;
+      }
+    }
+  }else{
+    fly.on=false;
+    if(buzzGain)buzzGain.gain.value=0;
+  }
+  // pond freshness makes everything happen a little sooner
+  if(G.fresh>0){
+    const before=G.fresh;
+    G.fresh=Math.max(0,G.fresh-dt/T(180000));
+    if(Math.ceil(before*4)!==Math.ceil(G.fresh*4))updateFreshBar();
+    if(G.fresh>.5){
+      for(const f of G.frogs){
+        if(f.stage==='froglet')f.growAt-=dt*.5;
+        if(f.coolUntil>G.time)f.coolUntil-=dt*.5;
+      }
+      for(const o of G.food)if(!o.flying)o.born+=dt*.5;
+    }
+  }
   for(const f of G.frogs)f.update(dt);
   stepNest(dt);
   for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.t+=dt;
@@ -1614,7 +2168,7 @@ function startGame(){
   for(const f of FOODS)if(f.unlock===0)G.unlocked[f.id]=true;
   if(nest.egg)nest.egg.hatch=G.time+nest.egg.hatch;
   for(const o of G.offers)if(o.state==='open')o.exp=G.time+o.exp;
-  updateTray();hud();notify();
+  updateTray();updateToolRack();updateFreshBar();hud();notify();
   document.getElementById('bMute').textContent=muted?'✕':'♪';
   G.nextCust=G.time+T(18000);
   mode='play';
@@ -1645,7 +2199,7 @@ async function boot(){
   document.getElementById('icBook').src=ICON.book;
   document.getElementById('icPhone').src=ICON.phone;
   document.getElementById('winHero').src=FROG_URL[SP[GD.winFrog].i];
-  buildTray();initFlies();buildTitle();
+  buildTray();buildTools();updateFreshBar();initFlies();buildTitle();
   // attract mode: a few random frogs pottering about behind the menu
   for(let i=0;i<5;i++){
     const p=randWater(),sp=pick(SPECIES);
@@ -1659,7 +2213,7 @@ async function boot(){
   requestAnimationFrame(loop);
 }
 window.G=G;window.SPECIES=SPECIES;window.FOODS=FOODS;
-window.__dbg={nest,toNest,Frog,throwFood,startGame,peekSave,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
+window.__dbg={nest,toNest,Frog,throwFood,startGame,nestPreview,matchRecipe,handFeed,selectTool,sprinkle,rinseFrog,doseTonic,fly,TOOLS,frogAt,dosed,peekSave,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
   FROG_URL,geom:GEOM,discover};
 boot();
 </script>
