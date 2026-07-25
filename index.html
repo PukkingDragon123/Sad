@@ -175,8 +175,8 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 
 /* ---------- overlays ---------- */
 .ov{position:absolute;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:14px;text-align:center;cursor:pointer;
-  background:linear-gradient(rgba(8,20,12,.82),rgba(8,20,12,.9))}
+  justify-content:center;gap:12px;text-align:center;
+  background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(8,20,12,.42),rgba(6,16,10,.78))}
 .ov h1{font-size:clamp(24px,5.4vw,52px);color:#cdf0b0;text-shadow:0 4px 0 #14200f,0 0 22px rgba(120,220,140,.25)}
 .ov .sub{font-size:clamp(12px,1.9vw,15px);line-height:1.9;color:#e2eecf;
   max-width:620px;padding:0 18px}
@@ -187,12 +187,66 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   82%{transform:translateY(0) scale(1.09,.9)}}
 .ov .go{font-size:15px;color:var(--gold);animation:blink 1.25s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
-#win{display:none}
+#win{display:none;background:linear-gradient(rgba(10,6,20,.86),rgba(8,4,16,.93));cursor:pointer}
+
+/* ---------- title screen ---------- */
+#title{gap:0;display:none}
+#title.on{display:flex}
+#tCol{display:flex;flex-direction:column;align-items:center;gap:0}
+#tWord{display:flex;gap:1px;cursor:default;user-select:none}
+#tWord span{display:inline-block;font-size:clamp(26px,6vw,58px);color:#d6f5b4;
+  text-shadow:0 4px 0 #16240f,0 0 26px rgba(120,220,140,.3);
+  animation:tw 2.6s ease-in-out infinite}
+@keyframes tw{0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-8px) rotate(-2.5deg)}}
+#tWord:hover span{animation:twh .5s cubic-bezier(.34,1.9,.64,1)}
+@keyframes twh{0%{transform:translateY(0)}40%{transform:translateY(-15px) scale(1.14)}
+  100%{transform:translateY(0)}}
+#tSub{font-size:clamp(11px,1.7vw,14px);color:#dff0c8;line-height:1.7;margin:2px 0 12px;
+  text-shadow:0 2px 0 #16240f,0 0 10px rgba(0,0,0,.85)}
+#tMascotWrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px}
+#tMascot{width:118px;height:118px;object-fit:contain;cursor:pointer;
+  animation:bob 1.3s ease-in-out infinite;
+  filter:drop-shadow(0 6px 6px rgba(0,0,0,.45))}
+#tMascot.pet{animation:petsquish .45s cubic-bezier(.34,1.8,.64,1)}
+@keyframes petsquish{0%{transform:scale(1,1)}25%{transform:scale(1.28,.7)}
+  55%{transform:scale(.86,1.2) translateY(-12px)}100%{transform:scale(1,1)}}
+#tName{font-size:14px;color:#ffe9a8;min-height:18px;margin-top:4px;
+  text-shadow:0 2px 0 #16240f,0 0 10px rgba(0,0,0,.9)}
+#tPetHint{font-size:11px;color:#c2dcae;min-height:15px;max-width:min(90vw,360px);line-height:1.5;
+  text-shadow:0 2px 0 #16240f,0 0 10px rgba(0,0,0,.9)}
+#tCast{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;max-width:min(94vw,520px);
+  margin:14px 0 10px;padding:5px 8px;border-radius:6px;background:rgba(6,16,10,.42)}
+#tCast img{width:42px;height:42px;object-fit:contain;cursor:pointer;
+  animation:castbob 2.2s ease-in-out infinite;
+  transition:transform .12s cubic-bezier(.34,2.2,.64,1);opacity:.92}
+#tCast img:hover{transform:scale(1.3) translateY(-4px);opacity:1;
+  filter:drop-shadow(0 0 7px rgba(255,233,168,.7))}
+@keyframes castbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+#tBtns{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+#tBtns .btn{font-size:15px;padding:4px 12px 5px}
+#tSave{font-size:12px;color:#b9e09c;min-height:16px;margin-bottom:9px;
+  text-shadow:0 2px 0 #16240f,0 0 10px rgba(0,0,0,.9)}
+#tHelp{display:none;max-width:min(92vw,430px);margin-top:11px;padding:9px 12px;text-align:left;
+  font-size:12px;line-height:1.75;color:#2a2416;
+  border-style:solid;border-width:9px;border-image:var(--frame-paper) 9 fill repeat}
+#tHelp.on{display:block;animation:pop .3s cubic-bezier(.34,1.8,.64,1)}
+.tHeart{position:absolute;pointer-events:none;font-size:15px;
+  animation:floatUp .95s ease-out forwards}
+@keyframes floatUp{0%{transform:translate(0,0) scale(.6);opacity:0}
+  25%{opacity:1;transform:translate(0,-14px) scale(1.1)}
+  100%{transform:translate(var(--dx,0),-58px) scale(.85);opacity:0}}
+
+/* ---------- loading screen ---------- */
 #loading{position:absolute;inset:0;z-index:200;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:16px;background:#0e1c11;color:#a8d68c}
-#loading .lb{width:220px;height:14px;border:3px solid #3b5a34;background:#16261a}
-#loading .lb i{display:block;height:100%;width:0;background:linear-gradient(90deg,#5f9c46,#cbe28a);
-  transition:width .18s}
+  align-items:center;justify-content:center;gap:12px;color:#bfe6a0;
+  background:radial-gradient(ellipse 65% 55% at 50% 48%,rgba(9,22,14,.74),rgba(6,14,9,.93))}
+#loadTitle{font-size:clamp(22px,5vw,40px);color:#d6f5b4;
+  text-shadow:0 3px 0 #16240f,0 0 22px rgba(120,220,140,.28)}
+#loadCv{width:384px;height:104px;max-width:92vw}
+#lmsg{min-height:34px;font-size:13px}
+#loadTip{font-size:12px;color:#a6c88f;min-height:36px;max-width:min(90vw,420px);line-height:1.6;
+  text-shadow:0 2px 0 rgba(0,0,0,.6)}
 .gated{visibility:hidden}
 #credit{display:none;position:absolute;right:8px;bottom:2px;z-index:5;font-size:9px;
   color:rgba(240,255,220,.5);pointer-events:none}
@@ -233,14 +287,21 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 <div id="toasts"></div>
 
 <div id="title" class="ov">
-  <h1>FROGGY POND</h1>
-  <img id="titleHero" class="hero">
-  <div class="sub">a cozy pond of round friends.<br><br>
-    throw snacks · watch them swarm · breed strange new species<br>
-    sell rare frogs to collectors on your phone<br>
-    and fill the FrogDex — catch all <span id="titleN">36</span>
+  <div id="tWord"></div>
+  <div id="tSub">a cozy pond of round friends</div>
+  <div id="tMascotWrap">
+    <img id="tMascot" title="pet me">
+    <div id="tName"></div>
+    <div id="tPetHint">click to pet · click a friend below to meet them</div>
   </div>
-  <div class="go">▶ click to hop in ◀</div>
+  <div id="tCast"></div>
+  <div id="tSave"></div>
+  <div id="tBtns">
+    <button id="btnStart" class="btn green">▶ hop in</button>
+    <button id="btnHelp" class="btn">how to play</button>
+    <button id="btnFresh" class="btn gray" style="display:none">start fresh</button>
+  </div>
+  <div id="tHelp"></div>
 </div>
 
 <div id="win" class="ov">
@@ -251,9 +312,11 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   <div class="go">▶ keep vibing ◀</div>
 </div>
 
-<div id="loading"><div style="font-size:18px">🐸 waking the frogs…</div>
-  <div class="lb"><i id="lbar"></i></div>
-  <div class="tiny" id="lmsg" style="color:#a8d68c;text-align:center;line-height:1.7">loading pond</div>
+<div id="loading">
+  <div id="loadTitle">froggy pond</div>
+  <canvas id="loadCv" width="384" height="104"></canvas>
+  <div class="tiny" id="lmsg" style="color:#a8d68c;text-align:center;line-height:1.7">waking the frogs…</div>
+  <div id="loadTip"></div>
   <button id="lretry" class="btn" style="display:none">retry</button></div>
 
 <script>
@@ -417,6 +480,86 @@ function buildIcons(){
     ICON[k]=x.canvas.toDataURL();
   }
 }
+
+/* ---------------- cute loading screen ----------------
+   Drawn procedurally: it has to be charming BEFORE any sprite has loaded. */
+const LOAD_TIPS=[
+  'the pea bowl is free. always.',
+  'both parents must eat the SAME snack to make a new species.',
+  'collectors on your phone pay far more than the shop.',
+  'the frogdex remembers every frog you have ever met.',
+  'a matcha latte gives a frog the zoomies.',
+  'froglets need to grow up before they can breed.',
+  'tap a frog to pet it. this has no gameplay purpose.',
+];
+const LFROG=[
+  '...oooooo...',
+  '..obbbbbbo..',
+  '.obwwbbwwbo.',
+  '.obwkbbwkbo.',
+  'obbbbbbbbbbo',
+  'obcbbbbbbcbo',
+  'obbllllllbbo',
+  '.obllllllbo.',
+  '..obbbbbbo..',
+  '...oooooo...',
+];
+const LMAP={o:'#24401f',b:'#6ab54d',l:'#cfe8a8',w:'#ffffff',k:'#1d1b26',c:'#f5808c'};
+function drawLoadFrog(x,g,y,blink,px){
+  for(let r=0;r<LFROG.length;r++)for(let c=0;c<LFROG[r].length;c++){
+    let ch=LFROG[r][c];
+    if(blink&&(ch==='w'||ch==='k'))ch=(r===2)?'b':'o';   // squint
+    const col=LMAP[ch];
+    if(col){g.fillStyle=col;g.fillRect(x+c*px,y+r*px,px,px)}
+  }
+}
+let loadAnim=null,loadProg=0,loadTipI=0;
+function startLoadAnim(){
+  const cv=document.getElementById('loadCv');
+  if(!cv)return;
+  const g=cv.getContext('2d');g.imageSmoothingEnabled=false;
+  const tip=document.getElementById('loadTip');
+  const PADS=8,PX=4,FW=12*PX;
+  const x0=18,x1=cv.width-18-FW;
+  let t=0,shown=0,blinkAt=900;
+  tip.textContent=LOAD_TIPS[loadTipI=Math.floor(Math.random()*LOAD_TIPS.length)];
+  const step=()=>{
+    t+=16;
+    if(t>2400&&t%2400<20){loadTipI=(loadTipI+1)%LOAD_TIPS.length;tip.textContent=LOAD_TIPS[loadTipI]}
+    shown+=(loadProg-shown)*0.12;                  // ease toward real progress
+    g.clearRect(0,0,cv.width,cv.height);
+    // lily pads along the track, lighting up as it fills
+    for(let i=0;i<PADS;i++){
+      const px=x0+FW/2+(x1-x0)*(i/(PADS-1)),py=82;
+      const lit=shown>=(i)/(PADS-1)-0.001;
+      g.fillStyle=lit?'#6fae4a':'#22381d';
+      for(let j=-5;j<=5;j++){
+        const w=14*Math.sqrt(Math.max(0,1-(j/5)**2));
+        g.fillRect(Math.round(px-w),py+j,Math.round(w*2),1);
+      }
+      g.fillStyle=lit?'#8fd45e':'#2c4726';
+      g.fillRect(Math.round(px-4),py-5,8,1);
+      if(lit){g.fillStyle='#ffe9a8';g.fillRect(Math.round(px)+4,py-2,1,1);
+        g.fillRect(Math.round(px)-6,py+2,1,1)}
+    }
+    // the frog rides the progress, hopping as it goes
+    const hopT=(t%620)/620, arc=Math.sin(hopT*Math.PI);
+    const fx=Math.round(x0+(x1-x0)*shown);
+    const fy=Math.round(34-arc*18);
+    // shadow
+    g.fillStyle='rgba(0,0,0,.3)';
+    const sw=Math.max(5,13-arc*5);
+    g.fillRect(Math.round(fx+FW/2-sw),77,Math.round(sw*2),2);
+    if(t>blinkAt){if(t>blinkAt+160)blinkAt=t+rand(1400,3600)}
+    drawLoadFrog(fx,g,fy,t>blinkAt&&t<blinkAt+160,PX);
+    // ripple where it lands
+    if(arc<.08){g.strokeStyle='rgba(180,225,170,.5)';g.beginPath();
+      g.ellipse(fx+FW/2,80,13,4,0,0,Math.PI*2);g.stroke()}
+    loadAnim=requestAnimationFrame(step);
+  };
+  step();
+}
+function stopLoadAnim(){if(loadAnim)cancelAnimationFrame(loadAnim),loadAnim=null}
 
 /* ---------------- asset loading ---------------- */
 const IMG={};
@@ -1040,6 +1183,7 @@ addEventListener('mousemove',e=>{const p=toGame(e);mouse.x=p.x;mouse.y=p.y;
   mouse.on=p.x>=0&&p.y>=0&&p.x<VW&&p.y<VH});
 addEventListener('mouseout',()=>mouse.on=false);
 cv.addEventListener('click',e=>{
+  if(mode!=='play')return;
   initAudio();
   const p=toGame(e);
   if(p.x<0||p.y<0||p.x>=VW||p.y>=VH)return;
@@ -1344,6 +1488,7 @@ const SAVE='froggy_pond_v2';
 let saveT=null;
 function saveSoon(){clearTimeout(saveT);saveT=setTimeout(saveNow,800)}
 function saveNow(){
+  if(mode!=='play')return;
   try{
     localStorage.setItem(SAVE,JSON.stringify({
       coins:G.coins,discovered:G.discovered,unlocked:G.unlocked,muted,hint:G.hint,won:G.won,
@@ -1392,12 +1537,14 @@ function stepTint(){
 }
 
 /* ---------------- loop ---------------- */
-let last=0,started=false;
+/* mode: 'load' -> nothing running | 'title' -> pond animates behind the menu
+   (attract mode: no customers, no saving, no input) | 'play' -> the real game */
+let last=0,mode='load';
 function loop(ts){
   requestAnimationFrame(loop);
   if(!last)last=ts;
   const dt=Math.min(50,ts-last);last=ts;
-  if(!started)return;
+  if(mode==='load')return;
   G.time+=dt;
   stepTweens(dt);
   for(const f of G.frogs)f.update(dt);
@@ -1418,22 +1565,141 @@ function loop(ts){
   }
   for(let i=G.food.length-1;i>=0;i--){const f=G.food[i];
     if(!f.flying&&G.time-f.born>T(45000)){G.food.splice(i,1);ripple(f.x,f.y)}}
-  if(G.time>G.nextCust){spawnCust();schedCust()}
-  stepOffers();
+  if(mode==='play'){
+    if(G.time>G.nextCust){spawnCust();schedCust()}
+    stepOffers();
+  }
   stepTint();
   if(phoneOpen&&app==='thread'&&((G.time/1000)|0)!==(((G.time-dt)/1000)|0))renderApp();
   draw();
 }
 
 /* ---------------- boot ---------------- */
+/* ---------------- title screen ---------------- */
+function peekSave(){
+  try{
+    const d=JSON.parse(localStorage.getItem(SAVE)||'null');
+    if(!d)return null;
+    return {coins:d.coins|0,frogs:(d.frogs||[]).length,
+            dex:Object.keys(d.discovered||{}).length,won:!!d.won};
+  }catch(e){return null}
+}
+function titleHeart(el){
+  const h=document.createElement('div');
+  h.className='tHeart';h.textContent=pick(['💚','💛','🩷','✨']);
+  h.style.setProperty('--dx',rand(-26,26).toFixed(0)+'px');
+  h.style.left=(38+rand(-14,14))+'%';h.style.top='42%';
+  el.appendChild(h);setTimeout(()=>h.remove(),1000);
+}
+let mascotId=null;
+function setMascot(id,quiet){
+  mascotId=id;
+  const s=SP[id];
+  document.getElementById('tMascot').src=FROG_URL[s.i];
+  document.getElementById('tName').textContent=s.name;
+  document.getElementById('tPetHint').textContent=s.desc;
+  if(!quiet){
+    const m=document.getElementById('tMascot');
+    m.classList.remove('pet');void m.offsetWidth;m.classList.add('pet');
+    titleHeart(document.getElementById('tMascotWrap'));
+    Math.random()<.5?SFX.ribbit():SFX.pop();
+  }
+}
+function buildTitle(){
+  // wordmark, one bobbing letter at a time
+  const word=document.getElementById('tWord');
+  word.innerHTML='';
+  [...'FROGGY POND'].forEach((ch,i)=>{
+    const sp=document.createElement('span');
+    sp.textContent=ch===' '?'\u00a0':ch;
+    sp.style.animationDelay=(i*0.075)+'s';
+    word.appendChild(sp);
+  });
+  // a rotating cast you can click through
+  const cast=document.getElementById('tCast');
+  cast.innerHTML='';
+  const picks=[...SPECIES].sort(()=>Math.random()-.5).slice(0,9);
+  picks.forEach((sp,i)=>{
+    const im=document.createElement('img');
+    im.src=FROG_URL[sp.i];im.title=sp.name+' — '+sp.desc;
+    im.style.animationDelay=(i*0.16)+'s';
+    im.onclick=ev=>{ev.stopPropagation();initAudio();setMascot(sp.id)};
+    cast.appendChild(im);
+  });
+  setMascot(pick(picks).id,true);
+  document.getElementById('tMascot').onclick=ev=>{
+    ev.stopPropagation();initAudio();
+    // pet it, and every so often it introduces a different friend
+    const m=document.getElementById('tMascot');
+    m.classList.remove('pet');void m.offsetWidth;m.classList.add('pet');
+    titleHeart(document.getElementById('tMascotWrap'));
+    Math.random()<.55?SFX.ribbit():SFX.love();
+    if(Math.random()<.35)setTimeout(()=>setMascot(pick(SPECIES).id,true),300);
+  };
+  // save-aware buttons
+  const sv=peekSave();
+  const start=document.getElementById('btnStart'),fresh=document.getElementById('btnFresh');
+  document.getElementById('tSave').textContent = sv
+    ? `your pond: ${sv.frogs} frog${sv.frogs===1?'':'s'} · ${sv.dex}/${SPECIES.length} in the dex · ${sv.coins} coins`
+    : `${SPECIES.length} species to meet · 8 in the shop, 28 to breed`;
+  start.textContent = sv ? '▶ continue' : '▶ hop in';
+  if(sv){
+    fresh.style.display='block';
+    let armed=false;
+    fresh.onclick=ev=>{ev.stopPropagation();SFX.click();
+      if(!armed){armed=true;fresh.textContent='erase pond?';
+        setTimeout(()=>{armed=false;fresh.textContent='start fresh'},2200);return}
+      localStorage.removeItem(SAVE);location.reload()};
+  }
+  start.onclick=ev=>{ev.stopPropagation();startGame()};
+  const help=document.getElementById('tHelp');
+  help.innerHTML='<b>1.</b> pick a snack from the tray, then click the water to toss it in.'
+    +'<br><b>2.</b> frogs swarm the snack — the closest one gets the bite.'
+    +'<br><b>3.</b> click a frog then <b>breed</b> to send it to the pink love-pad. send two.'
+    +'<br><b>4.</b> matching snacks + the right pair = a brand new species.'
+    +'<br><b>5.</b> your phone sells frogs to collectors and tracks the frogdex.';
+  document.getElementById('btnHelp').onclick=ev=>{ev.stopPropagation();SFX.click();
+    help.classList.toggle('on')};
+  // clicking the empty backdrop also starts, but never the interactive bits
+  document.getElementById('title').addEventListener('click',ev=>{
+    if(ev.target.id==='title')startGame();
+  });
+}
+function startGame(){
+  if(mode==='play')return;
+  initAudio();
+  document.getElementById('title').style.display='none';
+  document.querySelectorAll('.gated').forEach(e=>e.classList.remove('gated'));
+  // clear the attract-mode frogs, then bring in the real pond
+  G.frogs.length=0;
+  const loaded=load();
+  if(!loaded)for(const id of GD.starterGift){
+    const p=randWater();const f=new Frog(id,p.x,p.y);
+    G.frogs.push(f);G.discovered[id]=true;
+  }
+  for(const f of FOODS)if(f.unlock===0)G.unlocked[f.id]=true;
+  if(nest.egg)nest.egg.hatch=G.time+nest.egg.hatch;
+  for(const o of G.offers)if(o.state==='open')o.exp=G.time+o.exp;
+  updateTray();hud();notify();
+  document.getElementById('bMute').textContent=muted?'✕':'♪';
+  G.nextCust=G.time+T(18000);
+  mode='play';
+  if(G.hint===0)setTimeout(()=>toast(HINTS[0]),1100);
+  if(G.won)document.getElementById('win').style.display='none';
+  SFX.chime();
+}
+
 async function boot(){
   buildFrames();buildIcons();decodeGeom();buildNestPad();
-  const bar=document.getElementById('lbar'),msg=document.getElementById('lmsg');
+  resize();          // scale/centre the stage now, so the still pond is the
+  startLoadAnim();   // backdrop of the loading screen instead of a corner patch
+  const msg=document.getElementById('lmsg');
   const retry=document.getElementById('lretry');
   try{
-    await loadCritical((p,k)=>{bar.style.width=(p*100)+'%';msg.textContent='loading '+k});
+    await loadCritical((p,k)=>{loadProg=p;msg.textContent='waking the frogs… '+Math.round(p*100)+'%'});
   }catch(e){
-    bar.style.width='100%';
+    stopLoadAnim();
+    document.getElementById('loadTip').textContent='';
     msg.innerHTML='could not load the sprite art.<br><br>'+
       '<b>'+e.message+'</b><br><br>'+
       'if you opened this file directly, serve the folder over http instead<br>'+
@@ -1442,6 +1708,7 @@ async function boot(){
     retry.onclick=()=>location.reload();
     return;
   }
+  loadProg=1;
   loadPondAnimation();   // fire and forget; the still frame is already showing
   sliceAtlases();
   // canvas copies of icons for in-world drawing
@@ -1453,42 +1720,25 @@ async function boot(){
   document.getElementById('icCoin').src=ICON.coin;
   document.getElementById('icBook').src=ICON.book;
   document.getElementById('icPhone').src=ICON.phone;
-  document.getElementById('titleN').textContent=SPECIES.length;
-  document.getElementById('titleHero').src=FROG_URL[SP[GD.heroFrog].i];
   document.getElementById('winHero').src=FROG_URL[SP[GD.winFrog].i];
   buildTray();resize();initFlies();
-  const loaded=load();
-  if(!loaded){
-    for(const id of GD.starterGift){
-      const p=randWater();const f=new Frog(id,p.x,p.y);
-      G.frogs.push(f);G.discovered[id]=true;
-    }
-    for(const f of FOODS)if(f.unlock===0)G.unlocked[f.id]=true;
-  }else{
-    for(const f of FOODS)if(f.unlock===0)G.unlocked[f.id]=true;
+  buildTitle();
+  // attract mode: a few random frogs pottering about behind the menu
+  for(let i=0;i<5;i++){
+    const p=randWater(),sp=pick(SPECIES);
+    G.frogs.push(new Frog(sp.id,p.x,p.y));
   }
-  updateTray();hud();notify();
-  document.getElementById('bMute').textContent=muted?'✕':'♪';
+  mode='title';
+  stopLoadAnim();
   document.getElementById('loading').style.display='none';
-  document.getElementById('title').addEventListener('click',()=>{
-    initAudio();
-    document.getElementById('title').style.display='none';
-    document.querySelectorAll('.gated').forEach(e=>e.classList.remove('gated'));
-    started=true;
-    if(nest.egg)nest.egg.hatch=G.time+nest.egg.hatch;
-    for(const o of G.offers)if(o.state==='open')o.exp=G.time+o.exp;
-    G.nextCust=G.time+T(18000);
-    if(G.hint===0)setTimeout(()=>toast(HINTS[0]),1100);
-    if(G.won)document.getElementById('win').style.display='none';
-    SFX.chime();
-  });
+  document.getElementById('title').classList.add('on');
   document.getElementById('win').addEventListener('click',()=>{
     document.getElementById('win').style.display='none'});
   setInterval(saveNow,6000);
   requestAnimationFrame(loop);
 }
 window.G=G;window.SPECIES=SPECIES;window.FOODS=FOODS;
-window.__dbg={nest,toNest,Frog,throwFood,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
+window.__dbg={nest,toNest,Frog,throwFood,startGame,peekSave,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
   FROG_URL,geom:GEOM,discover};
 boot();
 </script>

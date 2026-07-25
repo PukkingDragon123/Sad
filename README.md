@@ -5,6 +5,8 @@ A little pixel-art pond where you feed, breed, collect and sell round frogs.
 
 ![the pond](docs/pond.png)
 
+![the title screen](docs/title.png)
+
 ## Play
 
 The game loads its art from `assets/`, so open it over http rather than as a
@@ -45,6 +47,12 @@ deeper you sell frogs you've already recorded to make room.
 Frogs squash and stretch on every hop, waddle between nearby spots, doze off
 with a little `z`, croak, cast reflections in the water, and get the zoomies off
 a matcha latte. Petting is free.
+
+The **title screen** is a live pond — frogs potter about behind the menu while a
+mascot introduces itself. Pet it, click any of the nine friends below to meet
+them instead, and it remembers your pond: returning players get **continue** with
+a summary of their frogs, dex and coins. The **loading screen** is a frog hopping
+across lily pads that light up as the art arrives, with a rotating pond tip.
 
 ## Tech notes
 
