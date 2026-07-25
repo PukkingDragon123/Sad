@@ -44,8 +44,8 @@ FOOD_ROWS = [(29, 182), (202, 355), (375, 528), (549, 702), (722, 875),
              (895, 1048), (1069, 1222), (1242, 1395), (1415, 1568), (1589, 1741)]
 FOOD_COLS = [(15, 180), (293, 446), (564, 717), (834, 988), (1105, 1259)]
 
-ADULT_H, BABY_H = 36, 24                # frog sprite heights, in game pixels
-FOOD_WORLD_H, FOOD_UI_H = 20, 30
+ADULT_H, BABY_H = 44, 30                # frog sprite heights, in game pixels
+FOOD_WORLD_H, FOOD_UI_H = 24, 40
 AMBIENT = np.array([196, 214, 150], float)   # the pond's warm green-gold light
 
 
@@ -106,7 +106,7 @@ def grade(rgba, amt=0.12):
     return np.dstack([np.clip(lit, 0, 255).astype(np.uint8), al.astype(np.uint8)])
 
 
-def pixelate(rgba, target_h, ncolors=13, sat=1.25, val=1.05, alpha_cut=112):
+def pixelate(rgba, target_h, ncolors=15, sat=1.22, val=1.05, alpha_cut=112):
     """Painted / upscaled art -> crisp pixel art of exactly target_h pixels tall."""
     img = Image.fromarray(rgba)
     a = np.asarray(img).astype(float)
@@ -152,50 +152,66 @@ def pack(imgs, path, cols):
 
 
 # ---------------------------------------------------------------- frogs
+def find_cuts(ink, n, span):
+    """Cut positions for n cells along one axis: near each expected grid line,
+    pick the row/column with the LEAST ink. The stickers overlap a uniform grid,
+    so cutting at the emptiest line minimises how much of any sticker crosses."""
+    step = len(ink) / n
+    cuts = [0]
+    for i in range(1, n):
+        e = int(i * step)
+        lo, hi = max(0, e - span), min(len(ink), e + span)
+        cuts.append(lo + int(np.argmin(ink[lo:hi])))
+    cuts.append(len(ink))
+    return cuts
+
+
 def cut_frogs():
-    """Split the 6x6 sticker sheet. Cells overlap, so anchor on the blob whose
-    mass sits in the middle of the cell and reject anything touching the window
-    edge (that belongs to the neighbour)."""
+    """Split the 6x6 sticker sheet with zero-margin gutter cuts.
+
+    Neighbouring stickers touch, so any margin window inevitably drags in
+    flat-cut chunks of the sprite next door. Instead we cut exactly along the
+    detected ink-minimum gutters (nothing outside a cell can ever appear in it)
+    and, inside each cell, keep the central blob plus only detached bits that
+    sit fully interior — anything touching a cell edge is neighbour residue.
+    A sticker's own overhang past a gutter is lost, but it is a few source
+    pixels (<1 game pixel after downsampling) and the outline pass re-rounds
+    the silhouette."""
     im = Image.open(FROG_SHEET).convert('RGB').crop(FROG_CROP)
     A = np.asarray(im).astype(int)
-    H, W, _ = A.shape
-    CW, CH = W / FROG_COLS, H / FROG_ROWS
-    M = 20                                       # margin so overhanging feet survive
+    mxA, mnA = A.max(axis=2), A.min(axis=2)
+    ink = ~((mnA > 232) & ((mxA - mnA) < 30))
+    colcut = find_cuts(ink.sum(axis=0), FROG_COLS, 22)
+    rowcut = find_cuts(ink.sum(axis=1), FROG_ROWS, 22)
     out = []
     for r in range(FROG_ROWS):
         for c in range(FROG_COLS):
-            px0, py0 = max(0, int(c * CW) - M), max(0, int(r * CH) - M)
-            px1, py1 = min(W, int((c + 1) * CW) + M), min(H, int((r + 1) * CH) + M)
-            cell = A[py0:py1, px0:px1]
+            cell = A[rowcut[r]:rowcut[r + 1], colcut[c]:colcut[c + 1]]
             mx, mn = cell.max(axis=2), cell.min(axis=2)
-            m = ~((mn > 232) & ((mx - mn) < 30))          # not near-white
-            m = ndimage.binary_opening(m, np.ones((3, 3)))  # break noise bridges
+            m = ~((mn > 232) & ((mx - mn) < 30))            # not near-white
+            m = ndimage.binary_opening(m, np.ones((3, 3)))  # break jpeg noise
             lab, n = ndimage.label(m)
             if n == 0:
                 out.append(None); continue
-            iy0, iy1 = int(r * CH) - py0 + int(CH * .18), int((r + 1) * CH) - py0 - int(CH * .18)
-            ix0, ix1 = int(c * CW) - px0 + int(CW * .18), int((c + 1) * CW) - px0 - int(CW * .18)
+            h, w = m.shape
             central = np.zeros_like(m)
-            central[max(0, iy0):iy1, max(0, ix0):ix1] = True
+            central[int(h * .18):int(h * .82), int(w * .18):int(w * .82)] = True
             sizes = ndimage.sum(m, lab, range(1, n + 1))
             main = int(np.argmax(ndimage.sum(m & central, lab, range(1, n + 1)))) + 1
             far = ndimage.distance_transform_edt(~(lab == main))
             keep = {main}
-            ay0, ay1 = int(r * CH) - py0 - M // 2, int((r + 1) * CH) - py0 + M // 2
-            ax0, ax1 = int(c * CW) - px0 - M // 2, int((c + 1) * CW) - px0 + M // 2
             for i in range(1, n + 1):
                 if i == main or sizes[i - 1] < sizes[main - 1] * .012:
                     continue
                 ys, xs = np.where(lab == i)
-                if ys.min() < ay0 or ys.max() > ay1 or xs.min() < ax0 or xs.max() > ax1:
-                    continue                                  # neighbour bleed
-                if far[lab == i].min() < 16:
+                # detached bits are kept only if fully interior and near the body;
+                # anything at a cell edge is residue of the sprite next door
+                if ys.min() < 3 or xs.min() < 3 or ys.max() > h - 4 or xs.max() > w - 4:
+                    continue
+                if far[lab == i].min() <= 14:
                     keep.add(i)
             m2 = np.isin(lab, list(keep))
-            m2 = ndimage.binary_fill_holes(ndimage.binary_closing(m2, np.ones((5, 5))))
-            win = np.zeros_like(m2)
-            win[max(0, ay0):ay1, max(0, ax0):ax1] = True
-            m2 &= win
+            m2 = ndimage.binary_fill_holes(ndimage.binary_closing(m2, np.ones((3, 3))))
             if m2.sum() < 400:
                 out.append(None); continue
             out.append(trim(np.dstack([cell.astype(np.uint8), (m2 * 255).astype(np.uint8)])))
@@ -306,7 +322,7 @@ def main():
 
     foods = cut_foods()
     for tag, th, amt in (('world', FOOD_WORLD_H, .08), ('ui', FOOD_UI_H, 0)):
-        imgs = [grade(outline(pixelate(f, th, ncolors=12, sat=1.18, val=1.03, alpha_cut=118),
+        imgs = [grade(outline(pixelate(f, th, ncolors=13, sat=1.18, val=1.03, alpha_cut=118),
                               col=(30, 26, 20), keep=.62), amt)
                 for f in foods if f is not None]
         manifest['food_' + tag] = pack(imgs, os.path.join(a.out, f'foods_{tag}.png'), 10)
