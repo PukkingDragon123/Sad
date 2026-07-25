@@ -1,0 +1,140 @@
+{
+ "cell": 4,
+ "gw": 160,
+ "gh": 100,
+ "b64": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//4AAAAAAAAAAAAAAAAAAAAAAf////gAAAAAAAAAAAAAAAAAAA///////+AAAAAAAAAAAAAAAAAB////////+AAAAAAAAAAAAAAAAAH////////4AAAAAAAAAAAAAAAAAf////////wAAAAAAAAAAAAAAAA//////////8AAAAAAAAAAAAAH/////////////gAAAAAAAAAAH///////////////+AAAAAAAAAf////////////////4AAAAAAAAH/////////////////AAAAAAAAAf////////////////4AAAAAAAAD////////////////+AAAAAAAAA/////////////////4AAAAAAAAH/////////////////gAAAAAAAD/////////////////+AAAAAAAA///////////////////8AAAAAAD////////////////////4AAAAAP/////////////////////4AAAAB/////////////////////wAAAAAP////////////////////AAAAAA////////////////////8AAAAAD////////////////////wAAAAAP////////////////////AAAAAP////////////////////8AAAA//////////////////////gAAD//////////////////////+AAf///////////////////////4Af////////////////////////gf/////////////////////////D/////////////////////////8P/////////////////////////w//////////////////////////D//j//////////////////////8P/+P8P////////////////////w/448A///////////////////x/D/jDgD//////////////////+H8P+MAAf//////////////////wPw/wAAD//////////////////8AfDwAAA///////////////////gB8PAAAH//////////////////gAAA4AAAf/////////////////+AAADgAAAD///j/////////////gAAAOAAAAP//+P////////////8AAAA4AAAA///4/////////////wAAABAAAAH///D/////////////AAAAAAAAA///AAf///////////wAAAAAAAAAAAAAB///////////+AAAAAAAAAAAAAAH///////////wAAAAAAAAAAAAAAf/////////jAAAAAAAAAAAAAAAB/////////8AAAAAAAAAAAAAAAAB/////////gAAAAAAAAAAAAAAAAH////////+AAAAAAAAAAAAAAAAAf////////wAAAAAAAAAAAAAAAAD/////////AAAAAAAAAAAAAAAAAP////////4AAAAAAAAAAAAAAAAA/////////gAAAAAAAAAAAAAAAAA////////8AAAAAAAAAAAAAAAAAD////////wAAAAAAAAAAAAAAAAAP////////AAAAAAAAAAAAAAAAAA//////+AcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+ "pads": [
+  {
+   "x": 415.8,
+   "y": 198.2,
+   "r": 31.5,
+   "a": 764
+  },
+  {
+   "x": 267.4,
+   "y": 232.3,
+   "r": 20.5,
+   "a": 536
+  },
+  {
+   "x": 414.6,
+   "y": 247.9,
+   "r": 14.5,
+   "a": 384
+  },
+  {
+   "x": 351.8,
+   "y": 365.9,
+   "r": 15.5,
+   "a": 376
+  },
+  {
+   "x": 413.7,
+   "y": 286.9,
+   "r": 24.5,
+   "a": 352
+  },
+  {
+   "x": 417.9,
+   "y": 227.2,
+   "r": 15.5,
+   "a": 332
+  },
+  {
+   "x": 223.9,
+   "y": 248.8,
+   "r": 17.5,
+   "a": 332
+  },
+  {
+   "x": 620.8,
+   "y": 263.3,
+   "r": 14.5,
+   "a": 332
+  },
+  {
+   "x": 325.5,
+   "y": 280.7,
+   "r": 19.5,
+   "a": 324
+  },
+  {
+   "x": 378.2,
+   "y": 379.6,
+   "r": 15.5,
+   "a": 304
+  },
+  {
+   "x": 352.9,
+   "y": 220.7,
+   "r": 17.5,
+   "a": 288
+  },
+  {
+   "x": 453.2,
+   "y": 281.4,
+   "r": 11.5,
+   "a": 256
+  },
+  {
+   "x": 309.2,
+   "y": 382.7,
+   "r": 15.5,
+   "a": 252
+  },
+  {
+   "x": 356.1,
+   "y": 261.2,
+   "r": 16.5,
+   "a": 248
+  },
+  {
+   "x": 586.4,
+   "y": 255.4,
+   "r": 12.5,
+   "a": 232
+  },
+  {
+   "x": 278.6,
+   "y": 291.6,
+   "r": 11.5,
+   "a": 232
+  },
+  {
+   "x": 450.1,
+   "y": 230.7,
+   "r": 12.5,
+   "a": 216
+  },
+  {
+   "x": 465.1,
+   "y": 243.5,
+   "r": 10.5,
+   "a": 216
+  },
+  {
+   "x": 552.3,
+   "y": 260.0,
+   "r": 12.5,
+   "a": 212
+  },
+  {
+   "x": 383.6,
+   "y": 229.6,
+   "r": 11.5,
+   "a": 204
+  },
+  {
+   "x": 435.1,
+   "y": 216.2,
+   "r": 9.5,
+   "a": 196
+  },
+  {
+   "x": 405.8,
+   "y": 331.8,
+   "r": 13.5,
+   "a": 188
+  }
+ ]
+}
