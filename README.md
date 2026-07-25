@@ -9,13 +9,10 @@ A little pixel-art pond where you feed, breed, collect and sell round frogs.
 
 ## Play
 
-The game loads its art from `assets/`, so open it over http rather than as a
-bare file (opening `index.html` directly will tell you so, with a retry button):
-
-```bash
-npx http-server        # then visit the printed URL
-# or: python3 -m http.server
-```
+**Just open `index.html`.** Double-click it, or drag it into a browser — the
+sprite art is inlined, so there is no loading screen, nothing to install and no
+server needed. Serving the folder over http (`npx http-server`) only adds the
+pond's animated background, which is optional.
 
 Progress saves automatically in your browser.
 
@@ -51,19 +48,20 @@ a matcha latte. Petting is free.
 The **title screen** is a live pond — frogs potter about behind the menu while a
 mascot introduces itself. Pet it, click any of the nine friends below to meet
 them instead, and it remembers your pond: returning players get **continue** with
-a summary of their frogs, dex and coins. The **loading screen** is a frog hopping
-across lily pads that light up as the art arrives, with a rotating pond tip.
+a summary of their frogs, dex and coins. The menu sits in deep forest shade so the
+pond behind it reads as a shaded hollow; the game itself stays bright and legible.
 
 ## Tech notes
 
-- One `index.html` (~101 KB) plus `assets/`. Vanilla JS, no build step, no
+- A single self-contained `index.html` (~291 KB). Vanilla JS, no build step, no
   dependencies. Canvas renders at 640×400 and scales in crisp quarter-steps.
-- **Loads in ~240 KB.** Only the four sprite atlases (~118 KB) block startup;
-  the pond's half-megabyte animation is *not* awaited. A 17 KB still first frame
-  is in the markup, so the pond is on screen instantly and the animated version
-  swaps itself in whenever it arrives — if it never does, the game plays on
-  happily with the still. Every fetch has a timeout, and a genuine failure shows
-  what broke plus a retry button rather than a stuck progress bar.
+- **No loading screen, and nothing that can hang.** Every sprite atlas and the
+  still pond are inlined as data URIs, so playing needs exactly one HTTP request
+  (the page) and works from `file://` with the network unplugged. The title
+  screen is up in ~150 ms. The only external file is the pond's animated gif,
+  which is a pure upgrade over the still frame already on screen and is never
+  awaited. If a decode somehow failed, the game falls back to procedural
+  placeholder sprites rather than blocking.
 - Atlases are palette PNGs with one reserved transparent index — lossless for
   this art (each sprite has ~15 colours) and about a third the size of RGBA.
 - The **animated pond is the GIF itself**, layered under a transparent canvas —
