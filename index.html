@@ -12,6 +12,11 @@
   --leaf:#4e8a3a; --leaf-d:#2f5a26; --leaf-l:#7fbf54;
   --gold:#f2c14e; --pink:#f28cae; --water:#3d6b52;
   --frame-wood:none; --frame-paper:none; --frame-leaf:none; --frame-dark:none;
+  --sc:2;                           /* set from resize(): UI scale, 1 .. 2.5 */
+  --t-body:calc(var(--sc)*6.5px);   /* small print */
+  --t-label:calc(var(--sc)*7px);    /* card titles */
+  --t-btn:calc(var(--sc)*8px);      /* buttons     */
+  --t-big:calc(var(--sc)*9.5px);    /* headings    */
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{width:100%;height:100%;overflow:hidden;background:#0c160e}
@@ -37,7 +42,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .panelWood{border-style:solid;border-width:12px;border-image:var(--frame-wood) 9 fill repeat}
 .panelLeaf{border-style:solid;border-width:12px;border-image:var(--frame-leaf) 9 fill repeat}
 
-.btn{font-family:'Pix';font-size:17px;font-weight:700;color:#2a1e12;cursor:pointer;
+.btn{font-family:'Pix';font-size:var(--t-btn);font-weight:700;color:#2a1e12;cursor:pointer;
   border-style:solid;border-width:11px;border-image:var(--frame-btn) 9 fill repeat;
   padding:3px 10px 4px;background:none;line-height:1.15;
   transition:transform .09s cubic-bezier(.34,1.9,.64,1),filter .09s}
@@ -47,14 +52,14 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .btn.pink{border-image:var(--frame-btnP) 9 fill repeat;color:#4a1128}
 .btn.gray{border-image:var(--frame-btnN) 9 fill repeat;color:#2e2a22}
 .btn:disabled{filter:grayscale(.75) brightness(.85);cursor:not-allowed;transform:none}
-.btn.sm{font-size:14px;border-width:9px;padding:2px 7px 3px}
+.btn.sm{font-size:var(--t-label);border-width:9px;padding:2px 7px 3px}
 
 /* ---------- HUD ---------- */
 .hud{position:absolute;z-index:20;display:flex;align-items:center;gap:7px;
-  padding:5px 13px 6px;font-size:20px;font-weight:700}
+  padding:5px 13px 6px;font-size:var(--t-big);font-weight:700}
 #hudCoins{left:16px;top:14px}
-#hudDex{left:16px;top:66px;cursor:pointer;font-size:17px}
-.hud img{width:28px;height:28px}
+#hudDex{left:16px;top:66px;cursor:pointer;font-size:var(--t-btn)}
+.hud img{width:32px;height:32px}
 #topRight{position:absolute;right:16px;top:14px;z-index:20;display:flex;gap:8px}
 
 /* ---------- snack tray ---------- */
@@ -62,34 +67,34 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   display:flex;align-items:flex-end;gap:12px;max-width:97vw}
 #trayWrap{padding:9px 11px 10px;max-width:min(78vw,880px)}
 #toolWrap{padding:9px 11px 10px;flex:none}
-.barLabel{font-size:13px;color:#f0e0bc;text-align:center;margin-bottom:5px;
+.barLabel{font-size:var(--t-body);color:#f0e0bc;text-align:center;margin-bottom:5px;
   text-shadow:0 2px 0 #3a2a14}
 #tools{display:flex;gap:7px}
 #hudFresh{left:16px;top:118px;gap:9px}
-#hudFresh img{width:24px;height:24px}
+#hudFresh img{width:32px;height:32px}
 #freshBar{display:flex;gap:3px}
 #freshBar i{display:block;width:11px;height:17px;border:2px solid #3a2a14;background:#5c5040}
 #freshBar i.on{background:#8fd0e8;box-shadow:inset 0 -4px 0 #4a9dc0}
 #tray{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:3px}
 #tray::-webkit-scrollbar{display:none}
-.slot{width:66px;min-width:66px;height:76px;cursor:pointer;position:relative;
+.slot{width:80px;min-width:80px;height:96px;cursor:pointer;position:relative;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;
   border-style:solid;border-width:9px;border-image:var(--frame-slot) 7 fill repeat;
   transition:transform .11s cubic-bezier(.34,2,.64,1)}
-.slot img{width:40px;height:40px;margin-top:3px}
-.slot .cost{font-size:13px;color:#4e3f22;font-weight:700}
+.slot img{width:48px;height:48px;margin-top:3px}
+.slot .cost{font-size:var(--t-body);color:#4e3f22;font-weight:700}
 .slot:hover{transform:translateY(-4px)}
 .slot.sel{transform:translateY(-11px) scale(1.06);border-image:var(--frame-slotS) 7 fill repeat}
 .slot.locked{filter:grayscale(.85) brightness(.72)}
 .slot .lk{position:absolute;top:-7px;right:-6px;font-size:14px}
 
 /* ---------- phone ---------- */
-#phoneBtn{position:absolute;right:14px;bottom:16px;z-index:30;width:62px;height:62px;
+#phoneBtn{position:absolute;right:14px;bottom:16px;z-index:30;width:74px;height:74px;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
   border-style:solid;border-width:9px;border-image:var(--frame-wood) 9 fill repeat;
   transition:transform .12s cubic-bezier(.34,2,.64,1)}
 #phoneBtn:hover{transform:translateY(-3px) rotate(-4deg)}
-#phoneBtn img{width:36px;height:36px}
+#phoneBtn img{width:48px;height:48px}
 #phoneBadge{position:absolute;top:-9px;right:-9px;min-width:21px;height:21px;
   display:none;align-items:center;justify-content:center;font-size:11px;font-weight:700;
   color:#fff;background:#d0453f;border:3px solid var(--ink);border-radius:11px}
@@ -126,7 +131,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   background:#e9f2dc;border-radius:32px;position:relative}
 #homeInd{position:absolute;left:50%;bottom:5px;transform:translateX(-50%);
   width:96px;height:5px;border-radius:3px;background:rgba(20,30,14,.4);z-index:4;pointer-events:none}
-#appHead{display:none;align-items:center;gap:8px;padding:9px 11px;font-size:16px;font-weight:700;
+#appHead{display:none;align-items:center;gap:8px;padding:9px 11px;font-size:var(--t-btn);font-weight:700;
   background:var(--gold);flex:none;border-bottom:3px solid var(--ink);
   border-radius:29px 29px 0 0}
 #appBack{cursor:pointer;font-size:15px;padding:2px 8px 3px;background:var(--paper);
@@ -136,10 +141,10 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 
 /* home screen */
 #appBody.home{padding:0;display:flex;flex-direction:column;
-  background:linear-gradient(#bfe0a4,#8dc47a 55%,#6aa85e)}
-#hsTop{text-align:center;padding:12px 0 4px;font-size:15px;color:#26400f;
-  text-shadow:0 1px 0 rgba(255,255,255,.45)}
-#hsTop small{display:block;font-size:11px;color:#3d5c22;margin-top:2px}
+  background:linear-gradient(#3a5f45,#27412f 60%,#1e3325);background-size:cover}
+#hsTop{text-align:center;padding:12px 0 4px;font-size:var(--t-btn);color:#e8f0d4;
+  text-shadow:0 2px 0 rgba(0,0,0,.5)}
+#hsTop small{display:block;font-size:var(--t-body);color:#b9cfa4;margin-top:3px}
 .appGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 6px;padding:12px 12px 6px;flex:1;
   align-content:start}
 .appIcon{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;position:relative;
@@ -148,29 +153,30 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .appIcon:active{transform:scale(.94)}
 .appIcon .ic{width:62px;height:62px;border-radius:16px;display:flex;align-items:center;
   justify-content:center;box-shadow:0 3px 0 rgba(0,0,0,.28),inset 0 2px 0 rgba(255,255,255,.35)}
-.appIcon .ic img{width:42px;height:42px}
-.appIcon span{font-size:11px;font-weight:700;color:#20340e;
-  text-shadow:0 1px 0 rgba(255,255,255,.5);text-align:center;line-height:1.15}
+.appIcon .ic img{width:48px;height:48px}
+.appIcon span{font-size:var(--t-body);font-weight:700;color:#f2e6c6;
+  text-shadow:0 2px 0 rgba(0,0,0,.55);text-align:center;line-height:1.15;
+  min-height:calc(var(--sc)*17px)}
 .appIcon .dot{position:absolute;top:-5px;right:4px;min-width:19px;height:19px;border-radius:10px;
   background:#d0453f;border:2px solid #fff;display:none;align-items:center;justify-content:center;
   color:#fff;font-size:11px}
 #hsDots{display:flex;gap:5px;justify-content:center;padding:2px 0 6px}
-#hsDots i{display:block;width:6px;height:6px;border-radius:3px;background:rgba(30,50,16,.3)}
-#hsDots i.on{background:rgba(30,50,16,.75)}
+#hsDots i{display:block;width:6px;height:6px;border-radius:3px;background:rgba(240,250,225,.32)}
+#hsDots i.on{background:rgba(240,250,225,.85)}
 #dock{margin:0 8px 16px;padding:9px 6px;border-radius:22px;
-  background:rgba(240,250,225,.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.6);
+  background:rgba(230,244,214,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.28);
   display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
 #dock .appIcon .ic{width:54px;height:54px;border-radius:14px}
-#dock .appIcon .ic img{width:36px;height:36px}
+#dock .appIcon .ic img{width:32px;height:32px}
 #dock .appIcon span{display:none}
 
 .card{display:flex;align-items:center;gap:9px;margin-bottom:8px;padding:6px;
   border-style:solid;border-width:10px;border-image:var(--frame-card) 8 fill repeat}
 .card img.face{width:48px;height:48px;flex:none;object-fit:contain}
 .card .inf{flex:1;min-width:0}
-.card .nm{font-size:14px;font-weight:700;margin-bottom:2px}
-.card .ds{font-size:12px;line-height:1.45;color:#5b4d33}
-.card .pr{font-size:13px;color:#7d4c12;font-weight:700;margin-top:3px}
+.card .nm{font-size:var(--t-label);font-weight:700;margin-bottom:2px}
+.card .ds{font-size:var(--t-body);line-height:1.45;color:#5b4d33}
+.card .pr{font-size:var(--t-body);color:#7d4c12;font-weight:700;margin-top:3px}
 
 .dexGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .dexCell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;cursor:pointer;
@@ -184,13 +190,13 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .detail{padding:9px;text-align:center;border-style:solid;border-width:8px;
   border-image:var(--frame-card) 8 fill repeat}
 .detail img.big{width:104px;height:104px;object-fit:contain}
-.detail .nm{font-size:17px;font-weight:700;margin:6px 0}
-.detail .ds{font-size:13px;line-height:1.5;color:#5b4d33;margin-bottom:8px}
-.detail .how{font-size:13px;line-height:1.65;background:#ffe9a8;
+.detail .nm{font-size:var(--t-big);font-weight:700;margin:6px 0}
+.detail .ds{font-size:var(--t-body);line-height:1.5;color:#5b4d33;margin-bottom:8px}
+.detail .how{font-size:var(--t-body);line-height:1.65;background:#ffe9a8;
   border:2px solid var(--ink);border-radius:8px;padding:7px 10px;display:inline-block}
-.tiny{font-size:12px;color:#5b4d33;line-height:1.5}
+.tiny{font-size:var(--t-body);color:#5b4d33;line-height:1.5}
 
-.bub{max-width:86%;padding:7px 9px;font-size:12px;line-height:1.5;
+.bub{max-width:86%;padding:7px 9px;font-size:var(--t-body);line-height:1.5;
   margin-bottom:7px;background:#fff;border:2px solid #4a3d28;border-radius:10px}
 .bub.me{margin-left:auto;background:#d3ecb0;border-radius:10px}
 .bub img.f{width:46px;height:46px;display:block;margin:3px auto;object-fit:contain}
@@ -204,27 +210,27 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 @keyframes pop{0%{transform:scale(.62)}70%{transform:scale(1.05)}100%{transform:scale(1)}}
 #fcard .hd{display:flex;gap:8px;align-items:center}
 #fcFace{width:74px;height:74px;object-fit:contain}
-#fcName{font-size:19px;font-weight:700}
-#fcSpec{font-size:13px;color:#5f5138;margin-top:4px}
-#fcSnack{font-size:13px;margin:9px 0;display:flex;align-items:center;gap:6px}
-#fcSnack img{width:26px;height:26px}
+#fcName{font-size:var(--t-big);font-weight:700}
+#fcSpec{font-size:var(--t-body);color:#5f5138;margin-top:4px}
+#fcSnack{font-size:var(--t-body);margin:9px 0;display:flex;align-items:center;gap:6px}
+#fcSnack img{width:32px;height:32px}
 #fcBtns{display:flex;gap:7px;flex-wrap:wrap}
-#fcHint{font-size:12px;color:#5f5138;margin-top:8px;line-height:1.5}
+#fcHint{font-size:var(--t-body);color:#5f5138;margin-top:8px;line-height:1.5}
 #fcX{position:absolute;top:-13px;right:-13px;width:31px;height:31px;border-radius:16px;cursor:pointer;
   background:#d0453f;color:#fff;border:3px solid var(--ink);font-family:'Pix';font-size:15px}
 
 /* ---------- toasts ---------- */
 #handHint{position:absolute;left:50%;bottom:180px;transform:translateX(-50%);z-index:21;
-  font-size:14px;color:#f6ead2;padding:5px 14px 6px;border-radius:14px;
+  font-size:var(--t-label);color:#f6ead2;padding:5px 14px 6px;border-radius:14px;
   background:rgba(16,26,14,.78);text-shadow:0 2px 0 rgba(0,0,0,.6);
   display:none;pointer-events:none;white-space:nowrap}
 #handHint.on{display:block;animation:tin .3s cubic-bezier(.34,1.8,.64,1)}
 #toasts{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:60;
   display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none;width:max-content}
-.toast{display:flex;align-items:center;gap:10px;padding:7px 14px 8px;font-size:16px;
+.toast{display:flex;align-items:center;gap:10px;padding:7px 14px 8px;font-size:var(--t-btn);
   max-width:86vw;animation:tin .36s cubic-bezier(.34,1.8,.64,1);
   border-style:solid;border-width:11px;border-image:var(--frame-sign) 9 fill repeat}
-.toast img{width:34px;height:34px;object-fit:contain}
+.toast img{width:32px;height:32px;object-fit:contain}
 .toast.gold{border-image:var(--frame-signG) 9 fill repeat}
 @keyframes tin{0%{transform:translateY(-26px) scale(.72);opacity:0}
   70%{transform:translateY(3px) scale(1.03);opacity:1}100%{transform:none;opacity:1}}
@@ -877,7 +883,21 @@ function inWater(x,y){
 }
 /* the snack tray sits over the bottom-centre, so keep frogs and food out of
    that strip — otherwise they hide behind it and look lost. */
+/* Frogs must stay out from behind the bottom furniture. Measured from the live
+   DOM box so it can never drift when the bar's contents change. */
 const TRAY={y:342,x0:76,x1:566};
+function syncTrayRect(){
+  const bar=document.getElementById('bottomBar');
+  if(!bar)return;
+  const r=bar.getBoundingClientRect();
+  if(r.width<40||r.height<20)return;      // not built yet: keep the safe default
+  TRAY.x0=Math.max(0,(r.left-OX)/SC-6);
+  TRAY.x1=Math.min(VW,(r.right-OX)/SC+6);
+  TRAY.y=Math.max(200,(r.top-OY)/SC-4);
+  // park the hint strip just above the bar, whatever height the bar ends up
+  const hint=document.getElementById('handHint');
+  if(hint)hint.style.bottom=Math.round(innerHeight-r.top+12)+'px';
+}
 function behindTray(x,y){return y>TRAY.y&&x>TRAY.x0&&x<TRAY.x1}
 function usable(x,y){return inWater(x,y)&&!behindTray(x,y)}
 const PADS=GEOM.pads;
@@ -923,12 +943,12 @@ const THEMES=[
   blend:'screen'},
  {id:'moonlit',name:'Moonlit Night',price:1250,tint:'#4a6ea8',particles:'fireflies',
   desc:'cool blue hush, with small lights over the water.',
-  filter:'brightness(.56) saturate(.72) contrast(1.12) hue-rotate(20deg)',
+  filter:'brightness(.7) saturate(.75) contrast(1.1) hue-rotate(20deg)',
   overlay:'linear-gradient(180deg,rgba(30,52,92,.44),rgba(38,66,104,.3) 55%,rgba(16,30,58,.44))',
   blend:'multiply'},
- {id:'storm',name:'Thunderhead',price:1700,tint:'#5a5f78',particles:'rain',
+ {id:'storm',name:'Thunderhead',price:1700,tint:'#59657a',particles:'rain',
   desc:'bruised sky. count the seconds after each flash.',
-  filter:'saturate(.45) brightness(.66) contrast(1.2)',
+  filter:'saturate(.6) brightness(.8) contrast(1.12)',
   overlay:'linear-gradient(180deg,rgba(40,44,64,.58),rgba(60,64,84,.42) 55%,rgba(24,26,40,.55))',
   blend:'multiply',lightning:true},
  {id:'snow',name:'First Snow',price:2200,tint:'#e8f1f7',particles:'snow',
@@ -936,9 +956,9 @@ const THEMES=[
   filter:'saturate(.4) brightness(1.1) contrast(.9) hue-rotate(10deg)',
   overlay:'linear-gradient(180deg,rgba(232,242,250,.5),rgba(212,228,242,.28) 60%,rgba(226,238,248,.4))',
   blend:'screen'},
- {id:'aurora',name:'Aurora Pond',price:3000,tint:'#6ef2c0',particles:'stars',
+ {id:'aurora',name:'Aurora Pond',price:3000,tint:'#74d4ad',particles:'stars',
   desc:'green ribbons overhead, doubled in the water.',
-  filter:'brightness(.52) saturate(.85) contrast(1.15) hue-rotate(30deg)',
+  filter:'brightness(.66) saturate(.85) contrast(1.12) hue-rotate(30deg)',
   overlay:'linear-gradient(180deg,rgba(18,32,58,.58),rgba(24,44,66,.42) 55%,rgba(10,20,38,.55))',
   blend:'multiply',aurora:true},
 ];
@@ -978,7 +998,7 @@ const TOOLS=[
  {id:'hand',name:'Gentle Hand',cost:0,
   desc:'lift a frog and set it down wherever you like.',
   tip:'drag a frog onto the love-pad or onto a snack.'},
- {id:'tonic',name:'Breed Tonic',cost:10,
+ {id:'tonic',name:'Love Tonic',cost:10,
   desc:'one drop and breeding forgives almost everything.',
   tip:'click a frog. for 2 minutes it will make the best baby it can.'},
  {id:'droplets',name:'Droplets',cost:0,
@@ -1168,7 +1188,9 @@ class Frog{
       hearts(this.x,this.y-20,2);puff(fly.x,fly.y,'#ffffff',5);
       SFX.pop();
       fly.vx+=rand(-.5,.5);fly.vy-=.4;
-      if(Math.random()<.25){G.coins+=1;coinFx(this.x,this.y-14,1);hud()}
+      // deliberately pays nothing: with a dozen frogs lunging every ~1s this was
+      // ~150 coins/minute for holding the mouse still, which paid for the entire
+      // cosmetic ladder without playing the game
     }else{
       this.bubble={t:'note',until:G.time+700};
     }
@@ -1336,7 +1358,7 @@ function drawWeather(){
   }
   // lightning flash
   if(G.flash>0){
-    cx.fillStyle=`rgba(232,240,255,${Math.min(.5,G.flash/420)})`;
+    cx.fillStyle=`rgba(232,240,255,${Math.min(.35,G.flash/620)})`;
     cx.fillRect(0,0,VW,VH);
   }
 }
@@ -1435,7 +1457,7 @@ function handFeed(fr,kind){
 }
 
 /* ---------------- breeding ---------------- */
-const nest={a:null,b:null,egg:null,ht:0,timer:0};
+const nest={a:null,b:null,egg:null,ht:0,timer:0,force:false};
 function toNest(f){
   if(f.stage!=='adult'){toast('still a lil froglet');return}
   if(f.slot<0&&G.frogs.length>=POND_CAP){toast(`pond is full (max ${POND_CAP}) — sell one first`);SFX.buzz();return}
@@ -1462,7 +1484,8 @@ function nestPreview(){
       text:`this pair will make a ${G.discovered[m.id]?m.name:'NEW species'}`};
   if(m&&m.__needs)
     return {kind:'needs',food:m.__needs,
-      text:`feed either one ${FD[m.__needs].name} for a new species`};
+      text:nest.force?'making a copy of a parent…'
+        :`waiting: feed either one ${FD[m.__needs].name}`};
   return {kind:'plain',text:'this pair will make a copy of a parent'};
 }
 function stepNest(dt){
@@ -1471,13 +1494,18 @@ function stepNest(dt){
     if(dist(a,NEST)<17&&dist(b,NEST)<17&&a.state!=='hop'&&b.state!=='hop'){
       nest.ht+=dt;
       if(nest.ht>300){nest.ht=0;hearts(NEST.x,NEST.y-15,1)}
-      nest.timer+=dt;
+      // Only count down toward an egg when the pairing would actually produce the
+      // thing the sign is promising. Otherwise hold the pair and wait, instead of
+      // laying a parent copy and burning two cooldowns and the snack.
+      const pv=nestPreview();
+      if(pv&&(pv.kind==='needs')&&!nest.force){nest.timer=0}
+      else nest.timer+=dt;
       if(nest.timer>T(2600)){
         const child=resolve(a,b);
         const boon=dosed(a)||dosed(b);
         nest.egg={spec:child,hatch:G.time+T(boon?10000:16000),wob:0};
         a.coolUntil=b.coolUntil=G.time+T(boon?12000:22000);
-        a.slot=b.slot=-1;nest.a=nest.b=null;nest.timer=0;
+        a.slot=b.slot=-1;nest.a=nest.b=null;nest.timer=0;nest.force=false;
         a.startHop(a.x-rand(16,30),a.y+rand(-8,12));
         b.startHop(b.x+rand(16,30),b.y+rand(-8,12));
         SFX.chime();
@@ -1505,14 +1533,10 @@ function dosed(f){return f&&G.time<f.tonicUntil}
 function resolve(a,b){
   const m=matchRecipe(a,b);
   if(m&&!m.__needs)return m.id;
-  // Breed Tonic: this pair will make the best thing it can, snack or no snack
-  if(dosed(a)||dosed(b)){
-    if(m)return m.id;                                  // right pair, wrong snack -> works anyway
-    const opts=SPECIES.filter(sp=>sp.recipe&&sp.recipe.length===3&&!G.discovered[sp.id]
-      &&(sp.recipe[0]===a.spec||sp.recipe[1]===a.spec||sp.recipe[0]===b.spec||sp.recipe[1]===b.spec));
-    if(opts.length)return pick(opts).id;
-    return SP[a.spec].sell>=SP[b.spec].sell?a.spec:b.spec;  // never a wasted pairing
-  }
+  // Breed Tonic forgives ONE specific thing: the right pair with the wrong snack.
+  // It must never invent a species out of an unrelated pair, or the recipe tree
+  // collapses into "dose two frogs repeatedly until something new appears".
+  if(m&&m.__needs&&(dosed(a)||dosed(b)))return m.id;
   return Math.random()<.5?a.spec:b.spec;
 }
 function hatch(){
@@ -1526,9 +1550,13 @@ function hatch(){
   logDiary(`${f.name} the ${SP[id].name} hatched on the love-pad.`,id);
   saveSoon();
 }
+/* G.time is session-local, so deriving the day from it made the diary write
+   "day 1" above saved "day 4" entries after every reload. Day now comes from a
+   persisted counter that advances with real elapsed time. */
+function pondDay(){return (G.day||1)+Math.floor((G.time-(G.dayStart||0))/T(240000))}
 function logDiary(txt,spid){
   G.diary=G.diary||[];
-  const day=Math.floor(G.time/T(240000))+1;
+  const day=pondDay();
   const k=(G.time/T(240000))%1;
   const part=k<.3?'morning':k<.6?'afternoon':k<.85?'dusk':'night';
   G.diary.push({d:day,part,txt,spid:spid||null});
@@ -1653,6 +1681,11 @@ function resize(){
   SC=fit<1?fit:Math.max(1,Math.floor(fit*4)/4);
   OX=Math.round((w-VW*SC)/2);OY=Math.round((h-VH*SC)/2);
   stage.style.transform=`translate(${OX}px,${OY}px) scale(${SC})`;
+  // UI type tracks the stage scale, clamped to whole steps so the pixel font
+  // never lands on a fractional cell
+  const UISC=Math.min(2.5,Math.max(1,Math.round(SC*2)/2));
+  document.documentElement.style.setProperty('--sc',UISC);
+  syncTrayRect();
 }
 addEventListener('resize',resize);
 
@@ -1932,6 +1965,20 @@ cv.addEventListener('mousedown',e=>{
   G.drag={f,x0:p.x,y0:p.y,homeY:f.y,moved:false,since:G.time,drip:0,warm:false};
   ripple(f.x,f.y+2);SFX.lift();
 });
+/* Releasing the button outside the window never fired mouseup, which left the
+   frog stuck in 'held' forever: unbreedable, unfeedable and glued to the cursor.
+   Every path that can end a drag now goes through here. */
+function releaseDrag(safe){
+  if(!G.drag)return;
+  const f=G.drag.f;
+  G.drag=null;
+  f.z=0;f.rot=0;f.sx=f.sy=1;f.state='idle';f.stateT=rand(200,600);
+  if(!safe||!usable(f.x,f.y)){
+    const w=randWater();f.x=w.x;f.y=w.y;
+    puff(f.x,f.y-10,'#cfe8a8',4);
+  }
+}
+addEventListener('blur',()=>{mouse.down=false;releaseDrag(false)});
 addEventListener('mouseup',e=>{
   mouse.down=false;
   if(!G.drag)return;
@@ -1961,23 +2008,25 @@ addEventListener('mouseup',e=>{
 });
 cv.addEventListener('contextmenu',e=>{
   e.preventDefault();
+  releaseDrag(true);
   if(G.tool||G.sel){G.tool=null;G.sel=null;stopBuzz();updateTray();updateToolRack()}
 });
 addEventListener('keydown',e=>{
-  if(e.key==='Escape'&&(G.tool||G.sel)){
-    G.tool=null;G.sel=null;stopBuzz();updateTray();updateToolRack();
+  if(e.key==='Escape'){
+    releaseDrag(true);
+    if(G.tool||G.sel){G.tool=null;G.sel=null;stopBuzz();updateTray();updateToolRack()}
   }
 });
 
 /* ---- Droplets ---- */
 function sprinkle(x,y){
-  if(G.time-G.lastSprinkle<180)return;
+  if(G.time-G.lastSprinkle<T(180))return;
   G.lastSprinkle=G.time;
   if(!usable(x,y))return;
   ripple(x,y);splash(x,y,9);
   for(let i=0;i<6;i++)puff(x+rand(-9,9),y+rand(-6,4),'#dff4ff',1);
   SFX.sprinkle();
-  G.fresh=Math.min(1,G.fresh+.2);
+  G.fresh=Math.min(1,G.fresh+.06);
   for(const f of G.frogs){
     if(f.state==='held')continue;
     const d=dist(f,{x,y});
@@ -2169,9 +2218,20 @@ function showCard(f){
   const bP=document.createElement('button');bP.className='btn green sm';bP.textContent='pet';
   bP.onclick=()=>{squish(f,1.35,.66,380);hearts(f.x,f.y-20,3);SFX.love()};
   bs.appendChild(bP);
+  if(f.slot>=0&&nest.a&&nest.b){
+    const pv=nestPreview();
+    if(pv&&pv.kind==='needs'){
+      const bAny=document.createElement('button');bAny.className='btn sm gray';
+      bAny.textContent='egg anyway';
+      bAny.title='make a copy of a parent instead of waiting for the snack';
+      bAny.onclick=()=>{SFX.click();nest.force=true;
+        toast('alright — a copy of a parent it is');hideCard()};
+      bs.appendChild(bAny);
+    }
+  }
   document.getElementById('fcHint').textContent=f.slot>=0
     ?'waiting on the love-pad… pick a partner.'
-    :'both parents need the SAME special snack to make a new species.';
+    :'a new species needs the right pair, with its snack in either one.';
   document.getElementById('fcard').classList.add('on');
 }
 function hideCard(){document.getElementById('fcard').classList.remove('on');selFrog=null}
@@ -2185,9 +2245,9 @@ function toast(txt,icon,gold){
   setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),450)},gold?4200:2600);
 }
 const HINTS=['welcome. pick a snack below, then click the water to toss it in.',
-'frogs swarm to food — the closest one gets the bite.',
+'or click a frog directly to hand-feed it that exact snack.',
 'click a frog, then hit breed to send it to the pink love-pad. pick two.',
-'matching snacks + the right parents = a brand new species. see the FrogDex.'];
+'the right pair plus that snack in EITHER of them = a brand new species.'];
 function hint(step){
   if(G.hint!==step-1)return;
   G.hint=step;
@@ -2243,9 +2303,22 @@ function avatar(name){
 function grabPond(w,h){
   const c=mkCtx(w,h);
   const pond=document.getElementById('pond');
-  try{ if(pond&&pond.complete)c.drawImage(pond,0,0,VW,VH,0,0,w,h); }catch(e){}
   const th=TH[G.theme]||THEMES[0];
-  if(th.tint){c.globalAlpha=.16;c.fillStyle=th.tint;c.fillRect(0,0,w,h);c.globalAlpha=1}
+  // the theme is a CSS filter on the <img>, which drawImage does NOT see, so the
+  // photo has to re-apply it or every keepsake comes out in stock colours
+  try{
+    if(th.filter)c.filter=th.filter;
+    if(pond&&pond.complete)c.drawImage(pond,0,0,VW,VH,0,0,w,h);
+    c.filter='none';
+  }catch(e){c.filter='none'}
+  if(th.overlay){
+    const g=c.createLinearGradient(0,0,0,h);
+    g.addColorStop(0,th.tint);g.addColorStop(1,'#0e1a10');
+    c.globalAlpha=th.blend==='multiply'?.34:.22;
+    c.globalCompositeOperation=th.blend==='screen'?'lighter':'source-over';
+    c.fillStyle=g;c.fillRect(0,0,w,h);
+    c.globalCompositeOperation='source-over';c.globalAlpha=1;
+  }
   c.drawImage(cv,0,0,VW,VH,0,0,w,h);
   return c.canvas.toDataURL();
 }
@@ -2342,11 +2415,11 @@ const APPS=[
  {id:'chat', name:'RibbitChat', ic:'chat',    tint:'#f28cae', dock:true, dom:'icChat'},
  {id:'set',  name:'Settings',   ic:'gear',    tint:'#cfc6ae', dock:true},
  {id:'scape',name:'Pondscape',  ic:'scape',   tint:'#a8d8b0'},
- {id:'cam',  name:'PondCam',    ic:'cam',     tint:'#a9a2d8'},
+ {id:'cam',  name:'PondCam',    ic:'cam',     tint:'#c08a58'},
  {id:'fm',   name:'RibbitFM',   ic:'fm',      tint:'#f0a860'},
- {id:'weather',name:'Bogcast',  ic:'weather', tint:'#cfe8f7'},
- {id:'hop',  name:'HopTracker', ic:'hop',     tint:'#7fd6b5'},
- {id:'star', name:'Croakoscope',ic:'star',    tint:'#8f7ac4'},
+ {id:'weather',name:'Cloudpad', ic:'weather', tint:'#cfe8f7'},
+ {id:'hop',  name:'Hopcount',   ic:'hop',     tint:'#7fd6b5'},
+ {id:'star', name:'Frogscope',  ic:'star',    tint:'#5f7fbe'},
  {id:'diary',name:'PondDiary',  ic:'diary',   tint:'#e8c98f'},
  {id:'photos',name:'Album',     ic:'album',   tint:'#f2c14e'},
 ];
@@ -2369,7 +2442,7 @@ function renderApp(){
   if(app==='home'){
     head.style.display='none';body.innerHTML='';
     const top=document.createElement('div');top.id='hsTop';
-    const day=Math.floor(G.time/T(240000))+1;
+    const day=pondDay();
     top.innerHTML=`day ${day} at the pond<small>${G.frogs.length} frogs · `+
       `${Object.keys(G.discovered).length}/${SPECIES.length} in the dex</small>`;
     body.appendChild(top);
@@ -2548,11 +2621,11 @@ function renderApp(){
     btn.textContent='◉ take a photo';btn.style.cssText='display:block;margin:0 auto 10px';
     btn.onclick=()=>{
       SFX.click();
-      const snap=grabPond(150,94);
-      G.snaps=G.snaps||[];G.snaps.push({url:snap,day:Math.floor(G.time/T(240000))+1,
-        n:G.frogs.length});
+      const snap=grabPond(320,200);
+      G.snaps=G.snaps||[];G.snaps.push({url:snap,day:pondDay(),n:G.frogs.length});
       if(G.snaps.length>6)G.snaps.shift();
-      SFX.chime();toast('saved to your album');saveSoon();renderApp();
+      saveSnaps();
+      SFX.chime();toast('saved to your keepsakes');renderApp();
     };
     body.appendChild(btn);
     if((G.snaps||[]).length){
@@ -2626,7 +2699,7 @@ function renderApp(){
     body.appendChild(note);
   }
   else if(app==='weather'){
-    title.textContent='Bogcast';
+    title.textContent='Cloudpad';
     const sky=document.createElement('canvas');sky.id='skyCv';sky.width=290;sky.height=110;
     sky.style.cssText='width:100%;border:3px solid var(--ink);border-radius:8px;image-rendering:pixelated';
     body.appendChild(sky);
@@ -2652,8 +2725,8 @@ function renderApp(){
     drawSky();
   }
   else if(app==='hop'){
-    title.textContent='HopTracker';
-    const goal=300,tot=G.hops||0;
+    title.textContent='Hopcount';
+    const tot=G.hops||0, goal=Math.max(120,Math.ceil((tot+40)/60)*60);
     const ring=document.createElement('canvas');ring.width=110;ring.height=110;
     ring.style.cssText='display:block;margin:2px auto 6px;width:132px;height:132px;image-rendering:pixelated';
     const r=ring.getContext('2d');r.imageSmoothingEnabled=false;
@@ -2670,7 +2743,7 @@ function renderApp(){
     big.textContent=tot;body.appendChild(big);
     const sub=document.createElement('div');sub.className='tiny';
     sub.style.cssText='text-align:center;margin-bottom:10px';
-    sub.textContent=`about ${Math.round(tot*0.42)} lilypads travelled · goal ${goal}`;
+    sub.textContent=`about ${Math.round(tot*0.42)} lilypads travelled today`;
     body.appendChild(sub);
     const board=[...G.frogs].sort((x,y)=>(y.hops||0)-(x.hops||0)).slice(0,6);
     board.forEach((f,i)=>{
@@ -2685,8 +2758,8 @@ function renderApp(){
     if(!board.length)body.innerHTML+='<div class="tiny" style="text-align:center">no frogs to track yet.</div>';
   }
   else if(app==='star'){
-    title.textContent='Croakoscope';
-    const seed=Math.floor(G.time/T(240000));
+    title.textContent='Frogscope';
+    const seed=pondDay();   // stable for the whole pond-day, across reloads
     const pool=G.frogs.length?G.frogs:[];
     const READ=[
       'today is a good day to sit very still.',
@@ -2721,7 +2794,7 @@ function renderApp(){
   }
   else if(app==='diary'){
     title.textContent='PondDiary';
-    const day=Math.floor(G.time/T(240000))+1;
+    const day=pondDay();
     const head2=document.createElement('div');head2.className='tiny';
     head2.style.margin='0 0 8px';
     head2.textContent=`day ${day} · ${G.frogs.length} frogs · `+
@@ -2756,7 +2829,7 @@ function renderApp(){
     const rb=document.createElement('button');rb.className='btn pink sm';rb.textContent='reset';
     let armed=false;
     rb.onclick=()=>{if(!armed){armed=true;rb.textContent='SURE?';return}
-      localStorage.removeItem(SAVE);location.reload()};
+      localStorage.removeItem(SAVE);localStorage.removeItem(SNAPKEY);location.reload()};
     r2.appendChild(rb);
     const cr=document.createElement('div');cr.className='tiny';
     cr.style.cssText='text-align:center;margin-top:10px;line-height:1.7';
@@ -2775,9 +2848,15 @@ function dexDetail(s){
   if(s.buy>0)how=`ShopHop · ${s.buy}c`;
   else{
     const [pa,pb,fd]=s.recipe;
-    const ka=G.discovered[pa],kb=G.discovered[pb],both=ka&&kb;
+    const ka=G.discovered[pa],kb=G.discovered[pb];
+    // one known parent is enough to reveal the recipe: the payoff is the frog
+    // itself, and hiding the method was the main reason breeding felt opaque
+    const known=ka||kb;
     how=`breed only<br>${ka?SP[pa].name:'???'} + ${kb?SP[pb].name:'???'}<br>snack: `+
-      (both?`<img src="${FOOD_URL[fd]}" style="width:15px;height:15px;vertical-align:middle"> ${FD[fd].name}`:'???');
+      (known?`<img src="${FOOD_URL[fd]}" style="width:15px;height:15px;vertical-align:middle"> ${FD[fd].name}`:'???');
+    if(known&&!(ka&&kb))
+      how+=`<br><span style="font-size:11px">you have 1 of the 2 parents</span>`;
+    if(known)how+=`<br><span style="font-size:11px">either parent may hold the snack</span>`;
   }
   const d=document.createElement('div');d.className='detail';
   d.innerHTML=`<img class="big" src="${known?FROG_URL[s.i]:FROG_SIL[s.i]}">
@@ -2792,7 +2871,16 @@ function dexDetail(s){
 }
 
 /* ---------------- save / load ---------------- */
-const SAVE='froggy_pond_v2';
+const SAVE='froggy_pond_v2', SNAPKEY='froggy_pond_snaps';
+/* Photos are 15-20KB data URLs each. Keeping them in the main save meant a
+   ~100KB stringify on an 800ms debounce after every eat, feed, buy and sell. */
+function saveSnaps(){
+  try{localStorage.setItem(SNAPKEY,JSON.stringify((G.snaps||[]).slice(-6)))}
+  catch(e){toast('could not save the photo — storage is full')}
+}
+function loadSnaps(){
+  try{return JSON.parse(localStorage.getItem(SNAPKEY)||'[]')}catch(e){return []}
+}
 let saveT=null;
 function saveSoon(){clearTimeout(saveT);saveT=setTimeout(saveNow,800)}
 function saveNow(){
@@ -2801,7 +2889,8 @@ function saveNow(){
     localStorage.setItem(SAVE,JSON.stringify({
       coins:G.coins,discovered:G.discovered,unlocked:G.unlocked,muted,hint:G.hint,won:G.won,
       fresh:G.fresh,theme:G.theme,themes:G.themes,decor:G.decor,
-      snaps:(G.snaps||[]).slice(-6),diary:(G.diary||[]).slice(-40),hops:G.hops,
+      diary:(G.diary||[]).slice(-40),hops:G.hops,
+      day:pondDay(),stamp:1,
       frogs:G.frogs.map(f=>({spec:f.spec,name:f.name,x:f.x,y:f.y,stage:f.stage,lastFood:f.lastFood,
         tonic:Math.max(0,f.tonicUntil-G.time)})),
       egg:nest.egg?{spec:nest.egg.spec,left:Math.max(0,nest.egg.hatch-G.time)}:null,
@@ -2818,7 +2907,9 @@ function load(){
     G.unlocked=d.unlocked||{};muted=!!d.muted;G.hint=d.hint||0;G.won=!!d.won;G.fresh=d.fresh||0;
     G.theme=(d.theme&&TH[d.theme])?d.theme:'emerald';
     G.themes=d.themes||{emerald:true};G.themes.emerald=true;
-    G.decor=d.decor||{};G.snaps=d.snaps||[];G.diary=d.diary||[];G.hops=d.hops||0;
+    G.decor=d.decor||{};G.diary=d.diary||[];G.hops=d.hops||0;
+    G.day=d.day||1;G.dayStart=G.time;
+    G.snaps=loadSnaps();
     for(const fd of d.frogs||[]){
       if(!SP[fd.spec])continue;
       const f=new Frog(fd.spec,fd.x,fd.y,fd.stage);
@@ -2836,7 +2927,9 @@ function load(){
     return true;
   }catch(e){return false}
 }
-addEventListener('visibilitychange',()=>{if(document.hidden)saveNow()});
+addEventListener('visibilitychange',()=>{
+  if(document.hidden){mouse.down=false;releaseDrag(false);stopBuzz();saveNow()}
+});
 
 /* ---------------- day tint ---------------- */
 const TINTS=[[0,'rgba(255,236,180,0)'],[.34,'rgba(255,206,120,.30)'],
@@ -2862,6 +2955,7 @@ function loop(ts){
   if(mode==='load')return;
   G.time+=dt;
   stepTweens(dt);
+  mouse.vx*=Math.pow(.86,dt/16);      // decay, or the buzz drones and the dangle sticks
   // the carried frog swings along behind the cursor
   if(G.drag){
     const f=G.drag.f;
@@ -2884,7 +2978,8 @@ function loop(ts){
     fly.vx=(fly.vx+(mouse.x-fly.x)*.02*dt*.06)*.88;
     fly.vy=(fly.vy+((mouse.y+26)-fly.y)*.02*dt*.06)*.88;
     fly.x+=fly.vx;fly.y+=fly.vy+Math.sin(G.time*.006)*.12;
-    if(buzzGain)buzzGain.gain.value=muted?0:Math.min(.03,Math.abs(mouse.vx)*.004);
+    if(buzzGain&&AC)buzzGain.gain.setTargetAtTime(
+      muted?0:Math.min(.03,Math.abs(mouse.vx)*.004),AC.currentTime,.05);
     for(const f of G.frogs){
       if(f.slot>=0||f.state==='held'||f.state==='hop')continue;
       const r=(f.stage==='froglet'?126:90);
@@ -2895,20 +2990,16 @@ function loop(ts){
     }
   }else{
     fly.on=false;
-    if(buzzGain)buzzGain.gain.value=0;
+    if(buzzGain&&AC)buzzGain.gain.setTargetAtTime(0,AC.currentTime,.05);
   }
   // pond freshness makes everything happen a little sooner
   if(G.fresh>0){
     const before=G.fresh;
-    G.fresh=Math.max(0,G.fresh-dt/T(180000));
+    G.fresh=Math.max(0,G.fresh-dt/T(90000));
     if(Math.ceil(before*4)!==Math.ceil(G.fresh*4))updateFreshBar();
-    if(G.fresh>.5){
-      for(const f of G.frogs){
-        if(f.stage==='froglet')f.growAt-=dt*.5;
-        if(f.coolUntil>G.time)f.coolUntil-=dt*.5;
-      }
-      for(const o of G.food)if(!o.flying)o.born+=dt*.5;
-    }
+    // one visible benefit only. Three invisible multipliers on a free, spammable
+    // tool meant the pond permanently ran at 1.5x with nothing to notice or spend.
+    if(G.fresh>.5)for(const f of G.frogs)if(f.stage==='froglet')f.growAt-=dt*.5;
   }
   for(const f of G.frogs)f.update(dt);
   stepNest(dt);
@@ -2932,7 +3023,8 @@ function loop(ts){
     if(G.time>G.nextCust){spawnCust();schedCust()}
     stepOffers();
   }
-  stepTint();
+  stepTint();stepWeather(dt);
+  if(((G.time/700)|0)!==(((G.time-dt)/700)|0))syncTrayRect();
   if(phoneOpen&&app==='thread'&&((G.time/1000)|0)!==(((G.time-dt)/1000)|0))renderApp();
   draw();
 }
@@ -3012,14 +3104,14 @@ function buildTitle(){
     fresh.onclick=ev=>{ev.stopPropagation();SFX.click();
       if(!armed){armed=true;fresh.textContent='erase pond?';
         setTimeout(()=>{armed=false;fresh.textContent='start fresh'},2200);return}
-      localStorage.removeItem(SAVE);location.reload()};
+      localStorage.removeItem(SAVE);localStorage.removeItem(SNAPKEY);location.reload()};
   }
   start.onclick=ev=>{ev.stopPropagation();startGame()};
   const help=document.getElementById('tHelp');
   help.innerHTML='<b>1.</b> pick a snack from the tray, then click the water to toss it in.'
     +'<br><b>2.</b> frogs swarm the snack — the closest one gets the bite.'
     +'<br><b>3.</b> click a frog then <b>breed</b> to send it to the pink love-pad. send two.'
-    +'<br><b>4.</b> matching snacks + the right pair = a brand new species.'
+    +'<br><b>4.</b> the right pair, with its snack in either one, = a new species.'
     +'<br><b>5.</b> your phone sells frogs to collectors and tracks the frogdex.';
   document.getElementById('btnHelp').onclick=ev=>{ev.stopPropagation();SFX.click();
     help.classList.toggle('on')};
@@ -3036,6 +3128,7 @@ function startGame(){
   // clear the attract-mode frogs, then bring in the real pond
   G.frogs.length=0;
   const loaded=load();
+  if(!loaded){G.snaps=loadSnaps();G.day=1;G.dayStart=G.time}
   if(!loaded)for(const id of GD.starterGift){
     const p=randWater();const f=new Frog(id,p.x,p.y);
     G.frogs.push(f);G.discovered[id]=true;
@@ -3075,6 +3168,7 @@ async function boot(){
   document.getElementById('icPhone').src=ICON.phone;
   document.getElementById('winHero').src=FROG_URL[SP[GD.winFrog].i];
   buildTray();buildTools();buildDecor();updateFreshBar();initFlies();applyTheme();buildTitle();
+  syncTrayRect();                        // now that the bar actually has contents
   // attract mode: a few random frogs pottering about behind the menu
   for(let i=0;i<5;i++){
     const p=randWater(),sp=pick(SPECIES);
@@ -3088,7 +3182,7 @@ async function boot(){
   requestAnimationFrame(loop);
 }
 window.G=G;window.SPECIES=SPECIES;window.FOODS=FOODS;
-window.__dbg={nest,toNest,Frog,throwFood,startGame,avatar,THEMES,DECOR,applyTheme,nestPreview,matchRecipe,handFeed,selectTool,sprinkle,rinseFrog,doseTonic,fly,TOOLS,frogAt,dosed,peekSave,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
+window.__dbg={nest,toNest,Frog,throwFood,startGame,weather,weatherPositions:()=>weather.map(w=>[Math.round(w.x*10),Math.round(w.y*10),Math.round((w.ph||0)*1000)]),avatar,THEMES,DECOR,applyTheme,nestPreview,matchRecipe,handFeed,selectTool,sprinkle,rinseFrog,doseTonic,fly,TOOLS,frogAt,dosed,peekSave,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
   FROG_URL,geom:GEOM,discover};
 boot();
 </script>
