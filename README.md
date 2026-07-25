@@ -8,7 +8,7 @@ A little pixel-art pond where you feed, breed, collect and sell round frogs.
 ## Play
 
 The game loads its art from `assets/`, so open it over http rather than as a
-bare file:
+bare file (opening `index.html` directly will tell you so, with a retry button):
 
 ```bash
 npx http-server        # then visit the printed URL
@@ -48,8 +48,16 @@ a matcha latte. Petting is free.
 
 ## Tech notes
 
-- One `index.html` (~99 KB) plus `assets/` (~740 KB). Vanilla JS, no build step,
-  no dependencies. Canvas renders at 640×400 and scales in crisp quarter-steps.
+- One `index.html` (~101 KB) plus `assets/`. Vanilla JS, no build step, no
+  dependencies. Canvas renders at 640×400 and scales in crisp quarter-steps.
+- **Loads in ~240 KB.** Only the four sprite atlases (~118 KB) block startup;
+  the pond's half-megabyte animation is *not* awaited. A 17 KB still first frame
+  is in the markup, so the pond is on screen instantly and the animated version
+  swaps itself in whenever it arrives — if it never does, the game plays on
+  happily with the still. Every fetch has a timeout, and a genuine failure shows
+  what broke plus a retry button rather than a stuck progress bar.
+- Atlases are palette PNGs with one reserved transparent index — lossless for
+  this art (each sprite has ~15 colours) and about a third the size of RGBA.
 - The **animated pond is the GIF itself**, layered under a transparent canvas —
   20 frames of drifting light for ~0 CPU. The game derives its **walkable water
   mask** from that same art (a 160×100 bitmask, base64-inlined) so frogs and food

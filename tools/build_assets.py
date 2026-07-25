@@ -133,6 +133,25 @@ def pixelate(rgba, target_h, ncolors=15, sat=1.22, val=1.05, alpha_cut=112):
     return trim(drop_fragments(out))
 
 
+def save_paletted(im, path, colors=255):
+    """Save an RGBA image as a palette PNG with one reserved transparent index.
+
+    The sprites use hard alpha and few colours, so this is lossless in practice
+    and roughly a third the size of RGBA — which matters a lot when the game is
+    served over a plain static host."""
+    a = np.asarray(im.convert('RGBA'))
+    opaque = a[..., 3] >= 128
+    q = (Image.fromarray(a[..., :3])
+         .quantize(colors=colors, method=Image.MEDIANCUT, dither=Image.NONE))
+    idx = np.asarray(q).copy()
+    pal = list(q.getpalette()[:colors * 3]) + [0, 0, 0]
+    idx[~opaque] = colors                       # reserved transparent index
+    out = Image.fromarray(idx, mode='P')
+    out.putpalette(pal)
+    out.info.pop('transparency', None)
+    out.save(path, 'PNG', optimize=True, transparency=colors)
+
+
 def pack(imgs, path, cols):
     """Grid atlas; every sprite is centred horizontally and bottom-aligned."""
     cw = max(i.shape[1] for i in imgs)
@@ -147,7 +166,7 @@ def pack(imgs, path, cols):
         pi = Image.fromarray(im)
         at.paste(pi, (ox, oy), pi)
         rects.append(dict(x=ox, y=oy, w=w, h=h))
-    at.save(path)
+    save_paletted(at, path)
     return dict(file=os.path.basename(path), cw=cw, ch=ch, cols=cols, rects=rects)
 
 
@@ -330,7 +349,17 @@ def main():
               f'{manifest["food_"+tag]["cw"]}x{manifest["food_"+tag]["ch"]}')
 
     shutil.copyfile(POND_GIF, os.path.join(a.out, 'pond.gif'))
-    print('pond.gif    copied (animated background, used as-is)')
+    gif_kb = os.path.getsize(os.path.join(a.out, 'pond.gif')) // 1024
+    print(f'pond.gif    copied, {gif_kb} KB (animated background, used as-is)')
+
+    # A still first frame, ~17 KB, so the game can paint and play immediately and
+    # stream the half-megabyte animation in afterwards instead of blocking on it.
+    still = Image.open(POND_GIF).convert('RGB')
+    still.info.pop('transparency', None)
+    still.quantize(colors=128, method=Image.MEDIANCUT, dither=Image.NONE) \
+         .save(os.path.join(a.out, 'pond_still.png'), 'PNG', optimize=True)
+    print(f'pond_still.png  {os.path.getsize(os.path.join(a.out,"pond_still.png"))//1024} KB'
+          ' (instant background; the gif swaps in when it arrives)')
 
     json.dump(manifest, open(os.path.join(a.data, 'atlas_manifest.json'), 'w'), indent=1)
     geom = pond_geometry()
