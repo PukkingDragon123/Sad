@@ -3,6 +3,8 @@
 A little pixel-art pond where you feed, breed, collect and sell round frogs.
 36 species, 22 snacks, 8 tools, four pond tracks, one very sleepy pond.
 
+You start with one free snack — the **pea bowl** — and everything else is earned.
+
 ![the pond](docs/pond.png)
 
 ![the title screen](docs/title.png)
@@ -31,6 +33,11 @@ Progress saves automatically in your browser.
   Every frog remembers its **last snack**.
   You can also **tap a frog** with a snack selected to hand-feed it directly —
   the reliable way to get one particular snack into one particular frog.
+- **The pea bowl is the only free snack.** It sits first in the tray and never
+  costs anything, and it opens two species on its own. Every other snack has to
+  be unlocked in ShopHop first — the tray shows each locked slot's *unlock* price
+  and runs cheapest-first, so it reads left-to-right as the ladder it is. Selling
+  the frogs the peas give you is how you climb the first rung.
 - **Breed with a breeding tool.** Take the **Love Wand**, tap one frog, tap
   another, and they walk to the pink **love-pad** by themselves. (The Gentle Hand
   works too — just drop a frog on the pad. `breed` on a frog's card hands you the
@@ -39,6 +46,11 @@ Progress saves automatically in your browser.
   other pairing gives you a copy of a parent — still worth selling. Parents aren't
   consumed and keep their snack, so a working pair keeps giving. The love-pad tells
   you on screen what the current pair will make, or which snack it still wants.
+- **Breeding is the slow part of the pond, on purpose.** The pair courts for a
+  while (there's a pink bar under the love-pad sign), then the egg warms for a
+  good while longer (a green bar under the egg fills as it goes), then the froglet
+  grows up, and both parents rest before they'll pair again. The **Sun Lamp** is
+  the paid way to skip any of those three waits.
 - **Froglets** hatch small and grow up before they can breed or be sold.
 - **Tools** — eight of them, in the strip beside the snacks.
 
@@ -56,9 +68,9 @@ Progress saves automatically in your browser.
     If nothing in the pond matches, it tells you so and costs nothing.
 
   *Speed-up:*
-  - **Sun Lamp** (8c) — tap the egg on the love-pad and it hatches in well under
-    half the time. Tap a resting frog and its rest ends; tap a froglet and it
-    grows up much sooner.
+  - **Sun Lamp** (8c) — the answer to every wait. Tap the egg on the love-pad and
+    it hatches in well under half the time; tap a resting frog and its rest ends;
+    tap a froglet and it grows up much sooner.
 
   *Toys:*
   - **Bouncy Ball** (free) — tap the water to bounce it. Frogs hop after it and
@@ -70,7 +82,8 @@ Progress saves automatically in your browser.
     is on, and every frog nearby gathers round and bops on the beat. Tap the box
     again to pick it up.
 - **The phone** (bottom right) — a frog-themed handset with twelve apps:
-  - 🛒 **ShopHop** — buy the 8 starter frogs, unlock deeper snacks.
+  - 🛒 **ShopHop** — buy the 8 starter frogs, and unlock snacks. Since only the
+    pea bowl is free, this is where most of your coins go early on.
   - 📖 **FrogDex** — the collection. Unmet frogs are silhouettes; once you've met
     both parents of a recipe, the Dex reveals which snack it needs. It remembers
     every frog you've met even after you sell it, so selling never costs you progress.
@@ -104,9 +117,9 @@ a bigger squish, and by the fourth pet they bounce off in delight.
 
 ## The main menu
 
-The menu is a **wooden sign hung over the pond** — nailed at both corners, lit
-by a slow lantern glow, with fireflies drifting through the shade behind it while
-frogs potter about in the live pond. A mascot sits on the sign and introduces
+The menu is a **green-painted sign hung over the pond** — nailed at both corners,
+draped in a leaf garland, lit by a slow lantern glow, with fireflies drifting
+through the shade behind it while frogs potter about in the live pond. A mascot sits on the sign and introduces
 itself; pet it, or tap any of the nine friends below to meet one of them instead.
 
 Under the big **hop in** are three panes, and only one is ever open — the button
@@ -127,6 +140,12 @@ their frogs, dex and coins, and a **start fresh** button that asks twice.
 
 - A single self-contained `index.html` (~390 KB). Vanilla JS, no build step, no
   dependencies. Canvas renders at 640×400 and scales in crisp quarter-steps.
+- **The chrome is garden woodwork.** Every panel, button and slot is a 9-slice
+  pixel frame drawn at boot from a small colour spec, so the whole UI was
+  recoloured from brown wood to mossy green planks, leaf-speckled paper and
+  painted trim by editing one list. The vines and leaf sprigs draped over the
+  snack bar and the menu sign are pixel art painted from char grids the same way
+  the icons are, then handed to CSS as background images — no extra markup.
 - **Input is pointer events only** — one code path for mouse and touch, so there
   is no duplicated mouse/touch logic to drift apart. The canvas takes
   `touch-action:none` so pinch-zoom and pull-to-scroll can't fight a drag, and
