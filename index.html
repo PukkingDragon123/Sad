@@ -15,6 +15,7 @@
   --frame-wood:none; --frame-paper:none; --frame-leaf:none; --frame-dark:none;
   --frame-board:none; --frame-btnB:none;
   --vine:none; --sprig:none; --sprigL:none;
+  --frame-cardF:none; --frame-paperF:none;
   --tex-moss:none; --tex-bark:none; --tex-parch:none; --tex-stone:none;
   --texZ:32px;                      /* 16px materials tile at 2x */
   --texZbark:64px;                  /* the plank tile is 32px, so 2x is 64 */
@@ -200,8 +201,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #dock .appIcon span{display:none}
 
 .card{display:flex;align-items:center;gap:9px;margin-bottom:8px;padding:6px;
-  border-style:solid;border-width:10px;border-image:var(--frame-card) 8 repeat;
-  background:var(--tex-parch) repeat;background-size:var(--texZ)}
+  border-style:solid;border-width:10px;border-image:var(--frame-cardF) 8 fill repeat}
 .card img.face{width:48px;height:48px;flex:none;object-fit:contain}
 .card .inf{flex:1;min-width:0}
 .card .nm{font-size:var(--t-label);font-weight:700;margin-bottom:2px}
@@ -218,8 +218,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .bar{height:13px;border:2px solid var(--ink);background:#c9bfa2;margin:5px 0 9px;overflow:hidden}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--leaf-l),var(--gold))}
 .detail{padding:9px;text-align:center;border-style:solid;border-width:8px;
-  border-image:var(--frame-card) 8 repeat;
-  background:var(--tex-parch) repeat;background-size:var(--texZ)}
+  border-image:var(--frame-cardF) 8 fill repeat}
 .detail img.big{width:104px;height:104px;object-fit:contain}
 .detail .nm{font-size:var(--t-big);font-weight:700;margin:6px 0}
 .detail .ds{font-size:var(--t-body);line-height:1.5;color:#5b4d33;margin-bottom:8px}
@@ -302,8 +301,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 /* the menu is a wooden sign hung over the pond, so it reads as part of the world
    instead of floating text on a dark wash */
 .panelBoard{border-style:solid;border-width:14px;
-  border-image:var(--frame-board) 9 repeat;
-  background:var(--tex-bark) repeat;background-size:var(--texZbark)}
+  border-image:var(--frame-board) 9 fill repeat}
 #tBoard{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0;
   width:min(94vw,540px);max-height:92vh;overflow-y:auto;scrollbar-width:none;
   padding:16px 20px 18px;
@@ -364,8 +362,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   text-shadow:0 2px 0 #1d3a12}
 #tHelp{display:none;width:100%;margin-top:12px;padding:10px 13px;text-align:left;
   font-size:12px;line-height:1.75;color:#2a2416;
-  border-style:solid;border-width:9px;border-image:var(--frame-paper) 9 repeat;
-  background:var(--tex-parch) repeat;background-size:var(--texZ)}
+  border-style:solid;border-width:9px;border-image:var(--frame-paperF) 9 fill repeat}
 #tHelp.on{display:block;animation:pop .3s cubic-bezier(.34,1.8,.64,1)}
 #tHelp .row{display:flex;align-items:center;justify-content:space-between;gap:9px;
   padding:5px 0;border-bottom:2px dotted rgba(74,90,44,.38)}
@@ -874,8 +871,12 @@ function buildFrames(){
   r.setProperty('--frame-paper', frame({fill:'#f7f0d8',edge:'#28401c',dark:'#cfd3a8',light:'#fffdf2',mat:'parch'}));
   r.setProperty('--frame-leaf',  frame({fill:'#57993f',edge:'#1a3514',dark:'#356028',light:'#a3dd6c',mat:'moss'}));
   r.setProperty('--frame-phone', frame({fill:'#3f7534',edge:'#0f2409',dark:'#26491d',light:'#79bb58'}));
-  r.setProperty('--frame-board', frame({fill:'#2c5527',edge:'#0a1a07',dark:'#173413',light:'#5f9a4a',mat:'bark'}));
+  // the menu sign and the phone stay flat on purpose: the material belongs to the
+  // pondside woodwork, and it fought the menu's type and the phone's app cards
+  r.setProperty('--frame-board', frame({fill:'#2c5527',edge:'#0a1a07',dark:'#173413',light:'#5f9a4a',plank:'#274d22'}));
   r.setProperty('--frame-card',  frame({fill:'#f4efd4',edge:'#334a24',dark:'#d0d1a6',light:'#fffdf2',mat:'parch'}));
+  r.setProperty('--frame-cardF', frame({fill:'#f4efd4',edge:'#334a24',dark:'#d0d1a6',light:'#fffdf2'}));
+  r.setProperty('--frame-paperF',frame({fill:'#f7f0d8',edge:'#28401c',dark:'#cfd3a8',light:'#fffdf2',dot:'#cfe0ac'}));
   r.setProperty('--frame-sign',  frame({fill:'#f7f0d8',edge:'#223a17',dark:'#cfd3a8',light:'#fffdf2',mat:'parch'}));
   r.setProperty('--frame-signG', frame({fill:'#ffe9a8',edge:'#4a4410',dark:'#e0c274',light:'#fff8d8'}));
   r.setProperty('--frame-slot',  frame({fill:'#eaf2d4',edge:'#2c4520',dark:'#bccf9c',light:'#fcfff0',mat:'stone'}));

@@ -151,16 +151,20 @@ their frogs, dex and coins, and a **start fresh** button that asks twice.
 
 - A single self-contained `index.html` (~390 KB). Vanilla JS, no build step, no
   dependencies. Canvas renders at 640×400 and scales in crisp quarter-steps.
-- **The chrome is built from block materials.** Four tiling pixel textures —
-  moss, green-stained planks, parchment and mossy stone — are painted pixel by
-  pixel at boot: a dithered base, then features on top (plank seams, grain,
-  knots, moss clumps, paper fibres), the way a texture pack does it. A tiny LCG
-  stands in for `Math.random` so a material is byte-identical every reload and the
-  frame always agrees with the background. Each material is used twice: tiled into
-  the 9-slice frame so the bevelled edges are textured too, and as a repeating
-  background at 2× for the large flat middles. That's why the panels drop
-  `fill` from their `border-image` — the frame supplies the bevel, the material
-  supplies the surface.
+- **The pondside chrome is built from block materials.** Four tiling pixel
+  textures — moss, green-stained planks, parchment and mossy stone — are painted
+  pixel by pixel at boot: a dithered base, then features on top (plank seams,
+  grain, knots, moss clumps, paper fibres), the way a texture pack does it. A tiny
+  LCG stands in for `Math.random` so a material is byte-identical every reload and
+  the frame always agrees with the background. Each material is used twice: tiled
+  into the 9-slice frame so the bevelled edges are textured too, and as a
+  repeating background at 2× for the large flat middles. That's why the textured
+  panels drop `fill` from their `border-image` — the frame supplies the bevel, the
+  material supplies the surface.
+- **The menu sign and the phone stay flat**, on purpose. The material belongs to
+  the woodwork standing in the pond — the tool and snack racks, the HUD chips, the
+  frog card, the toasts. On the menu it fought the type, and inside the phone it
+  fought the app cards, so both keep clean painted panels.
 - The vines and leaf sprigs draped over the snack bar and the menu sign are pixel
   art painted from char grids the same way the icons are, then handed to CSS as
   background images — no extra markup.
