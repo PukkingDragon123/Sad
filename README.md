@@ -1,7 +1,7 @@
 # 🐸 Froggy Pond — a cozy frog breeder simulator
 
 A little pixel-art pond where you feed, breed, collect and sell round frogs.
-36 species, 22 snacks, 8 tools, four pond tracks, one very sleepy pond.
+36 species, 22 snacks, 8 tools, 14 phone apps, four pond tracks, one sleepy pond.
 
 You start with one free snack — the **pea bowl** — and everything else is earned.
 
@@ -81,12 +81,21 @@ Progress saves automatically in your browser.
   - **Music Box** (free) — set it down in the pond and it plays whatever RibbitFM
     is on, and every frog nearby gathers round and bops on the beat. Tap the box
     again to pick it up.
-- **The phone** (bottom right) — a frog-themed handset with twelve apps:
+- **The phone** (bottom right) — a frog-themed handset with fourteen apps:
   - 🛒 **ShopHop** — buy the 8 starter frogs, and unlock snacks. Since only the
     pea bowl is free, this is where most of your coins go early on.
   - 📖 **FrogDex** — the collection. Unmet frogs are silhouettes; once you've met
-    both parents of a recipe, the Dex reveals which snack it needs. It remembers
-    every frog you've met even after you sell it, so selling never costs you progress.
+    either parent of a recipe, the Dex reveals it. It remembers every frog you've
+    met even after you sell it, so selling never costs you progress.
+  - 📗 **BreedBook** — buy **breeding guides**. Field Notes I–III and the Legend
+    Ledger (70c / 200c / 520c / 1100c) each hand you a whole tier of recipes up
+    front, parents and snack spelled out, whether or not you've met anybody. Own
+    one and it becomes a readable notebook: every pairing in that tier, with both
+    parent portraits and the snack it wants. It also says how many of the 28
+    recipes you can currently read.
+  - 🥗 **SnackDex** — all 22 snacks: art, description, what a throw costs, and
+    what each one breeds (subject to the same "can you read it yet" rule). Locked
+    snacks can be unlocked straight from here.
   - 💬 **RibbitChat** — collectors message you wanting a specific frog and pay
     1.4–1.9× the shelf price. This is the main way to fund the fancy snacks.
   - ⚙️ **Settings** — sound, music and a pond reset.
@@ -131,6 +140,8 @@ for the open one lights up:
 - **credits** — art & code by **Pukking Dragon**, plus the pond backdrop artist,
   the music and the typeface.
 
+![a breeding guide](docs/breedbook.png)
+
 ![the credits pane](docs/credits.png)
 
 It remembers your pond, too: returning players get **continue** with a summary of
@@ -140,12 +151,19 @@ their frogs, dex and coins, and a **start fresh** button that asks twice.
 
 - A single self-contained `index.html` (~390 KB). Vanilla JS, no build step, no
   dependencies. Canvas renders at 640×400 and scales in crisp quarter-steps.
-- **The chrome is garden woodwork.** Every panel, button and slot is a 9-slice
-  pixel frame drawn at boot from a small colour spec, so the whole UI was
-  recoloured from brown wood to mossy green planks, leaf-speckled paper and
-  painted trim by editing one list. The vines and leaf sprigs draped over the
-  snack bar and the menu sign are pixel art painted from char grids the same way
-  the icons are, then handed to CSS as background images — no extra markup.
+- **The chrome is built from block materials.** Four tiling pixel textures —
+  moss, green-stained planks, parchment and mossy stone — are painted pixel by
+  pixel at boot: a dithered base, then features on top (plank seams, grain,
+  knots, moss clumps, paper fibres), the way a texture pack does it. A tiny LCG
+  stands in for `Math.random` so a material is byte-identical every reload and the
+  frame always agrees with the background. Each material is used twice: tiled into
+  the 9-slice frame so the bevelled edges are textured too, and as a repeating
+  background at 2× for the large flat middles. That's why the panels drop
+  `fill` from their `border-image` — the frame supplies the bevel, the material
+  supplies the surface.
+- The vines and leaf sprigs draped over the snack bar and the menu sign are pixel
+  art painted from char grids the same way the icons are, then handed to CSS as
+  background images — no extra markup.
 - **Input is pointer events only** — one code path for mouse and touch, so there
   is no duplicated mouse/touch logic to drift apart. The canvas takes
   `touch-action:none` so pinch-zoom and pull-to-scroll can't fight a drag, and

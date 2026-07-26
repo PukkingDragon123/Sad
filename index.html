@@ -15,6 +15,9 @@
   --frame-wood:none; --frame-paper:none; --frame-leaf:none; --frame-dark:none;
   --frame-board:none; --frame-btnB:none;
   --vine:none; --sprig:none; --sprigL:none;
+  --tex-moss:none; --tex-bark:none; --tex-parch:none; --tex-stone:none;
+  --texZ:32px;                      /* 16px materials tile at 2x */
+  --texZbark:64px;                  /* the plank tile is 32px, so 2x is 64 */
   --sc:2;                           /* set from resize(): UI scale, 1 .. 2.5 */
   --t-body:calc(var(--sc)*6.5px);   /* small print */
   --t-label:calc(var(--sc)*7px);    /* card titles */
@@ -42,10 +45,14 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #tint{position:absolute;inset:0;z-index:4;pointer-events:none;mix-blend-mode:soft-light;opacity:0}
 
 /* ---------- pixel-framed chrome ---------- */
-.panel{border-style:solid;border-width:12px;border-image:var(--frame-paper) 9 fill repeat;
-  image-rendering:pixelated}
-.panelWood{border-style:solid;border-width:12px;border-image:var(--frame-wood) 9 fill repeat}
-.panelLeaf{border-style:solid;border-width:12px;border-image:var(--frame-leaf) 9 fill repeat}
+/* Each panel is a block: the 9-slice supplies the bevel, the tiling material
+   supplies the surface. `fill` is deliberately absent so the material shows. */
+.panel{border-style:solid;border-width:12px;border-image:var(--frame-paper) 9 repeat;
+  image-rendering:pixelated;background:var(--tex-parch) repeat;background-size:var(--texZ)}
+.panelWood{border-style:solid;border-width:12px;border-image:var(--frame-wood) 9 repeat;
+  background:var(--tex-moss) repeat;background-size:var(--texZ)}
+.panelLeaf{border-style:solid;border-width:12px;border-image:var(--frame-leaf) 9 repeat;
+  background:var(--tex-moss) repeat;background-size:var(--texZ)}
 
 .btn{font-family:'Pix';font-size:var(--t-btn);font-weight:700;color:#2a1e12;cursor:pointer;
   border-style:solid;border-width:11px;border-image:var(--frame-btn) 9 fill repeat;
@@ -77,8 +84,9 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
    viewport and half the snacks sat off-screen. */
 #trayWrap{padding:9px 11px 10px;max-width:min(78vw,880px);min-width:0;flex:1 1 auto}
 #toolWrap{padding:9px 11px 10px;flex:0 0 auto}
-.barLabel{font-size:var(--t-body);color:#e6f7c8;text-align:center;margin-bottom:5px;
-  letter-spacing:.5px;text-shadow:0 2px 0 #16300e}
+.barLabel{font-size:var(--t-body);color:#eaffd0;text-align:center;margin-bottom:5px;
+  letter-spacing:.5px;text-shadow:0 2px 0 #0e2409;
+  background:rgba(10,26,8,.42);border-radius:9px;padding:1px 0 2px}
 /* a vine growing along the top of the bar, with a leafy sprig at each end */
 #bottomBar::before{content:'';position:absolute;left:-4px;right:-4px;top:-19px;height:24px;
   pointer-events:none;image-rendering:pixelated;
@@ -96,7 +104,8 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #tray::-webkit-scrollbar{display:none}
 .slot{width:80px;min-width:80px;height:96px;cursor:pointer;position:relative;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;
-  border-style:solid;border-width:9px;border-image:var(--frame-slot) 7 fill repeat;
+  border-style:solid;border-width:9px;border-image:var(--frame-slot) 7 repeat;
+  background:var(--tex-stone) repeat;background-size:var(--texZ);
   transition:transform .11s cubic-bezier(.34,2,.64,1)}
 .slot img{width:48px;height:48px;margin-top:3px}
 .slot .cost{font-size:var(--t-body);color:#3f5228;font-weight:700}
@@ -110,7 +119,8 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 /* ---------- phone ---------- */
 #phoneBtn{position:absolute;right:14px;bottom:16px;z-index:30;width:74px;height:74px;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
-  border-style:solid;border-width:9px;border-image:var(--frame-wood) 9 fill repeat;
+  border-style:solid;border-width:9px;border-image:var(--frame-wood) 9 repeat;
+  background:var(--tex-moss) repeat;background-size:var(--texZ);
   transition:transform .12s cubic-bezier(.34,2,.64,1)}
 #phoneBtn:hover{transform:translateY(-3px) rotate(-4deg)}
 #phoneBtn img{width:48px;height:48px}
@@ -164,18 +174,18 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #hsTop{text-align:center;padding:12px 0 4px;font-size:var(--t-btn);color:#e8f0d4;
   text-shadow:0 2px 0 rgba(0,0,0,.5)}
 #hsTop small{display:block;font-size:var(--t-body);color:#b9cfa4;margin-top:3px}
-.appGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 6px;padding:12px 12px 6px;flex:1;
+.appGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px 4px;padding:10px 9px 5px;flex:1;
   align-content:start}
 .appIcon{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;position:relative;
   transition:transform .12s cubic-bezier(.34,2.2,.64,1)}
 .appIcon:hover{transform:scale(1.12) translateY(-2px)}
 .appIcon:active{transform:scale(.94)}
-.appIcon .ic{width:62px;height:62px;border-radius:16px;display:flex;align-items:center;
+.appIcon .ic{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;
   justify-content:center;box-shadow:0 3px 0 rgba(0,0,0,.28),inset 0 2px 0 rgba(255,255,255,.35)}
-.appIcon .ic img{width:48px;height:48px}
-.appIcon span{font-size:var(--t-body);font-weight:700;color:#f2e6c6;
+.appIcon .ic img{width:40px;height:40px}
+.appIcon span{font-size:calc(var(--sc)*5.1px);font-weight:700;color:#f2e6c6;
   text-shadow:0 2px 0 rgba(0,0,0,.55);text-align:center;line-height:1.15;
-  min-height:calc(var(--sc)*17px)}
+  min-height:calc(var(--sc)*13px);white-space:nowrap;letter-spacing:-.2px}
 .appIcon .dot{position:absolute;top:-5px;right:4px;min-width:19px;height:19px;border-radius:10px;
   background:#d0453f;border:2px solid #fff;display:none;align-items:center;justify-content:center;
   color:#fff;font-size:11px}
@@ -190,7 +200,8 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #dock .appIcon span{display:none}
 
 .card{display:flex;align-items:center;gap:9px;margin-bottom:8px;padding:6px;
-  border-style:solid;border-width:10px;border-image:var(--frame-card) 8 fill repeat}
+  border-style:solid;border-width:10px;border-image:var(--frame-card) 8 repeat;
+  background:var(--tex-parch) repeat;background-size:var(--texZ)}
 .card img.face{width:48px;height:48px;flex:none;object-fit:contain}
 .card .inf{flex:1;min-width:0}
 .card .nm{font-size:var(--t-label);font-weight:700;margin-bottom:2px}
@@ -207,7 +218,8 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .bar{height:13px;border:2px solid var(--ink);background:#c9bfa2;margin:5px 0 9px;overflow:hidden}
 .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--leaf-l),var(--gold))}
 .detail{padding:9px;text-align:center;border-style:solid;border-width:8px;
-  border-image:var(--frame-card) 8 fill repeat}
+  border-image:var(--frame-card) 8 repeat;
+  background:var(--tex-parch) repeat;background-size:var(--texZ)}
 .detail img.big{width:104px;height:104px;object-fit:contain}
 .detail .nm{font-size:var(--t-big);font-weight:700;margin:6px 0}
 .detail .ds{font-size:var(--t-body);line-height:1.5;color:#5b4d33;margin-bottom:8px}
@@ -248,9 +260,10 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none;width:max-content}
 .toast{display:flex;align-items:center;gap:10px;padding:7px 14px 8px;font-size:var(--t-btn);
   max-width:86vw;animation:tin .36s cubic-bezier(.34,1.8,.64,1);
-  border-style:solid;border-width:11px;border-image:var(--frame-sign) 9 fill repeat}
+  border-style:solid;border-width:11px;border-image:var(--frame-sign) 9 repeat;
+  background:var(--tex-parch) repeat;background-size:var(--texZ)}
 .toast img{width:32px;height:32px;object-fit:contain}
-.toast.gold{border-image:var(--frame-signG) 9 fill repeat}
+.toast.gold{border-image:var(--frame-signG) 9 fill repeat;background:none}
 @keyframes tin{0%{transform:translateY(-26px) scale(.72);opacity:0}
   70%{transform:translateY(3px) scale(1.03);opacity:1}100%{transform:none;opacity:1}}
 .toast.out{transition:opacity .4s,transform .4s;opacity:0;transform:translateY(-14px)}
@@ -289,7 +302,8 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 /* the menu is a wooden sign hung over the pond, so it reads as part of the world
    instead of floating text on a dark wash */
 .panelBoard{border-style:solid;border-width:14px;
-  border-image:var(--frame-board) 9 fill repeat}
+  border-image:var(--frame-board) 9 repeat;
+  background:var(--tex-bark) repeat;background-size:var(--texZbark)}
 #tBoard{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0;
   width:min(94vw,540px);max-height:92vh;overflow-y:auto;scrollbar-width:none;
   padding:16px 20px 18px;
@@ -350,7 +364,8 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   text-shadow:0 2px 0 #1d3a12}
 #tHelp{display:none;width:100%;margin-top:12px;padding:10px 13px;text-align:left;
   font-size:12px;line-height:1.75;color:#2a2416;
-  border-style:solid;border-width:9px;border-image:var(--frame-paper) 9 fill repeat}
+  border-style:solid;border-width:9px;border-image:var(--frame-paper) 9 repeat;
+  background:var(--tex-parch) repeat;background-size:var(--texZ)}
 #tHelp.on{display:block;animation:pop .3s cubic-bezier(.34,1.8,.64,1)}
 #tHelp .row{display:flex;align-items:center;justify-content:space-between;gap:9px;
   padding:5px 0;border-bottom:2px dotted rgba(74,90,44,.38)}
@@ -365,7 +380,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #tByline b{color:#ffe9a8}
 /* a warm top-light on the sign, and two little blooms nailed to the corners */
 #tBoard::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(rgba(255,226,150,.16),rgba(255,226,150,0) 46%,rgba(0,0,0,.26))}
+  background:linear-gradient(rgba(255,232,164,.20),rgba(255,226,150,0) 44%,rgba(0,0,0,.34))}
 /* a leaf garland draped along the top of the sign — the same vine that grows
    along the snack bar, so the two read as one garden */
 #tBoard::after{content:'';position:absolute;left:-8px;right:-8px;top:-18px;height:26px;
@@ -749,11 +764,92 @@ function toggleMute(){muted=!muted;
 /* ---------------- pixel UI frames (9-slice, drawn once) ---------------- */
 function mkCtx(w,h){const c=document.createElement('canvas');c.width=w;c.height=h;
   const x=c.getContext('2d');x.imageSmoothingEnabled=false;return x}
+
+/* ---------------- materials ----------------
+   One tiling 16x16 block per material, painted pixel by pixel the way a texture
+   pack does it: a dithered base, then a few features on top. A tiny LCG stands in
+   for Math.random so a frame and its background always agree, and so the texture
+   is identical on every reload. Each is used twice: tiled into the 9-slice frame
+   so the bevel edges are textured too, and as a repeating background at 2x for
+   the large flat middles. */
+let _tsd=1;
+function tsr(){_tsd=(_tsd*1664525+1013904223)&0x7fffffff;return _tsd/0x7fffffff}
+function tpick(a){return a[Math.floor(tsr()*a.length)]}
+function tdither(x,w,h,cols){
+  for(let y=0;y<h;y++)for(let i=0;i<w;i++){x.fillStyle=tpick(cols);x.fillRect(i,y,1,1)}
+}
+function tspeck(x,w,h,col,n,run){
+  for(let k=0;k<n;k++){
+    x.fillStyle=col;
+    x.fillRect(Math.floor(tsr()*w),Math.floor(tsr()*h),1+Math.floor(tsr()*(run||1)),1);
+  }
+}
+/* planks: horizontal boards with a dark seam and lengthwise grain */
+function tplanks(x,w,h,base,seam,grainD,grainL,band){
+  const B=band||8;
+  for(let y=0;y<h;y++)for(let i=0;i<w;i++){
+    x.fillStyle=(y%B===0)?seam:tpick(base);
+    x.fillRect(i,y,1,1);
+  }
+  for(let k=0;k<Math.round(w*h/26);k++){
+    const gy=Math.floor(tsr()*h);
+    if(gy%B===0)continue;
+    x.fillStyle=tsr()<.5?grainD:grainL;
+    x.fillRect(Math.floor(tsr()*w),gy,1+Math.floor(tsr()*3),1);
+  }
+  // a knot or two
+  for(let k=0;k<2;k++){
+    const kx=Math.floor(tsr()*(w-3))+1,ky=Math.floor(tsr()*(h-3))+1;
+    x.fillStyle=grainD;x.fillRect(kx,ky,2,1);x.fillRect(kx,ky+1,2,1);
+    x.fillStyle=seam;x.fillRect(kx,ky,1,1);
+  }
+}
+const MAT={
+  moss:{seed:7,paint(x,w,h){
+    tdither(x,w,h,['#3a6430','#427135','#487d39','#325a26','#2a4f21','#4b8039']);
+    for(let k=0;k<Math.round(w*h/22);k++){
+      const px=Math.floor(tsr()*w),py=Math.floor(tsr()*h);
+      x.fillStyle='#5f9840';x.fillRect(px,py,1,1);
+      if(tsr()<.6)x.fillRect((px+1)%w,py,1,1);
+      if(tsr()<.5)x.fillRect(px,(py+1)%h,1,1);
+    }
+    tspeck(x,w,h,'#79b84c',Math.round(w*h/90));
+    tspeck(x,w,h,'#1e3c18',Math.round(w*h/26));
+  }},
+  /* 32px tile with 16px boards: at 2x that is a 32px-tall plank, which reads as
+     timber. A 16px tile with 8px bands tiled into basketwork instead. */
+  bark:{seed:23,size:32,paint(x,w,h){
+    tplanks(x,w,h,['#2b5324','#305c27','#275020','#356428'],'#132c0d','#1c3d15','#4f8a3c',16);
+    tspeck(x,w,h,'#3f7534',Math.round(w*h/70),3);
+  }},
+  parch:{seed:41,paint(x,w,h){
+    tdither(x,w,h,['#f7f0d8','#f3ecd1','#fbf6e3','#eee5c8','#f6efd5']);
+    tspeck(x,w,h,'#e4dab7',Math.round(w*h/22),3);
+    tspeck(x,w,h,'#fffdf2',Math.round(w*h/40),2);
+    tspeck(x,w,h,'#d8ce9f',Math.round(w*h/90));
+  }},
+  stone:{seed:59,paint(x,w,h){
+    tdither(x,w,h,['#e6eed0','#dde7c5','#eef4dd','#d5e0ba']);
+    tspeck(x,w,h,'#c7d6a8',Math.round(w*h/20),2);
+    tspeck(x,w,h,'#fdfff0',Math.round(w*h/34),2);
+    // a few moss creeping in at the edges
+    for(let k=0;k<Math.round(w*h/70);k++){
+      x.fillStyle='#9ec27c';x.fillRect(Math.floor(tsr()*w),Math.floor(tsr()*h),1,1);
+    }
+  }},
+};
+function paintMat(k,x,w,h){_tsd=MAT[k].seed;MAT[k].paint(x,w,h)}
+function matURL(k,size){
+  const s=size||MAT[k].size||16,x=mkCtx(s,s);
+  paintMat(k,x,s,s);
+  return `url(${x.canvas.toDataURL()})`;
+}
 function frame(opts){
   // 27x27 canvas, 9px slices -> border-image
   const S=9,N=S*3,x=mkCtx(N,N);
-  const {fill,edge,dark,light,plank,dot}=opts;
+  const {fill,edge,dark,light,plank,dot,mat}=opts;
   x.fillStyle=fill;x.fillRect(0,0,N,N);
+  if(mat)paintMat(mat,x,N,N);   // the bevel then sits on real texture
   if(plank){ // horizontal plank seams in the centre tile
     x.fillStyle=plank;
     for(let y=S+2;y<S*2;y+=4)x.fillRect(S,y,S,1);
@@ -774,21 +870,25 @@ function buildFrames(){
   const r=document.documentElement.style;
   // the chrome is garden woodwork now: mossy planks, leaf-speckled paper and
   // painted-green trim, so the UI belongs to the same pond as the frogs
-  r.setProperty('--frame-wood',  frame({fill:'#4a7a3a',edge:'#0f2409',dark:'#2c5222',light:'#8fd45e',plank:'#3d6a2f'}));
-  r.setProperty('--frame-paper', frame({fill:'#f7f0d8',edge:'#28401c',dark:'#cfd3a8',light:'#fffdf2',dot:'#cfe0ac'}));
-  r.setProperty('--frame-leaf',  frame({fill:'#57993f',edge:'#1a3514',dark:'#356028',light:'#a3dd6c'}));
+  r.setProperty('--frame-wood',  frame({fill:'#4a7a3a',edge:'#0f2409',dark:'#2c5222',light:'#8fd45e',mat:'moss'}));
+  r.setProperty('--frame-paper', frame({fill:'#f7f0d8',edge:'#28401c',dark:'#cfd3a8',light:'#fffdf2',mat:'parch'}));
+  r.setProperty('--frame-leaf',  frame({fill:'#57993f',edge:'#1a3514',dark:'#356028',light:'#a3dd6c',mat:'moss'}));
   r.setProperty('--frame-phone', frame({fill:'#3f7534',edge:'#0f2409',dark:'#26491d',light:'#79bb58'}));
-  r.setProperty('--frame-board', frame({fill:'#2c5527',edge:'#0a1a07',dark:'#173413',light:'#5f9a4a',plank:'#274d22'}));
-  r.setProperty('--frame-card',  frame({fill:'#f4efd4',edge:'#334a24',dark:'#d0d1a6',light:'#fffdf2'}));
-  r.setProperty('--frame-sign',  frame({fill:'#f7f0d8',edge:'#223a17',dark:'#cfd3a8',light:'#fffdf2',dot:'#d8e6b8'}));
+  r.setProperty('--frame-board', frame({fill:'#2c5527',edge:'#0a1a07',dark:'#173413',light:'#5f9a4a',mat:'bark'}));
+  r.setProperty('--frame-card',  frame({fill:'#f4efd4',edge:'#334a24',dark:'#d0d1a6',light:'#fffdf2',mat:'parch'}));
+  r.setProperty('--frame-sign',  frame({fill:'#f7f0d8',edge:'#223a17',dark:'#cfd3a8',light:'#fffdf2',mat:'parch'}));
   r.setProperty('--frame-signG', frame({fill:'#ffe9a8',edge:'#4a4410',dark:'#e0c274',light:'#fff8d8'}));
-  r.setProperty('--frame-slot',  frame({fill:'#eaf2d4',edge:'#2c4520',dark:'#bccf9c',light:'#fcfff0'}));
+  r.setProperty('--frame-slot',  frame({fill:'#eaf2d4',edge:'#2c4520',dark:'#bccf9c',light:'#fcfff0',mat:'stone'}));
   r.setProperty('--frame-slotS', frame({fill:'#ffe08a',edge:'#4a3410',dark:'#dcb95c',light:'#fff6c8'}));
   r.setProperty('--frame-btn',   frame({fill:'#f2c14e',edge:'#4a3410',dark:'#c99a2c',light:'#ffe294'}));
   r.setProperty('--frame-btnG',  frame({fill:'#8fd45e',edge:'#1d4014',dark:'#5fa63c',light:'#c3ee94'}));
   r.setProperty('--frame-btnP',  frame({fill:'#f28cae',edge:'#5c1c33',dark:'#cc6288',light:'#ffb9cf'}));
   r.setProperty('--frame-btnB',  frame({fill:'#7fc4e8',edge:'#1b3c52',dark:'#4d97c2',light:'#bbe6fa'}));
   r.setProperty('--frame-btnN',  frame({fill:'#d4d6b4',edge:'#2f3a26',dark:'#a9ad8a',light:'#eef0d6'}));
+  r.setProperty('--tex-moss',  matURL('moss'));
+  r.setProperty('--tex-bark',  matURL('bark'));
+  r.setProperty('--tex-parch', matURL('parch'));
+  r.setProperty('--tex-stone', matURL('stone'));
   r.setProperty('--vine',   plant(PLANT.vine,  PLANT.map));
   r.setProperty('--sprig',  plant(PLANT.sprig, PLANT.map));
   r.setProperty('--sprigL', plant(PLANT.sprigL,PLANT.map));
@@ -973,6 +1073,40 @@ const BIG_ICONS={grids:{
    '.........obwo...',
    '..........oo....',
    '................'],
+  book2:[
+   '................',
+   '..oooooooooooo..',
+   '.oGGGGGGGGGGGGo.',
+   '.oGwwwwwwwwwwGo.',
+   '.oGwwppwwppwwGo.',
+   '.oGwppppppppwGo.',
+   '.oGwppppppppwGo.',
+   '.oGwwppppppwwGo.',
+   '.oGwwwppppwwwGo.',
+   '.oGwwwwppwwwwGo.',
+   '.oGwwwwwwwwwwGo.',
+   '.oGGGGGGGGGGGGo.',
+   '..oooooooooooo..',
+   '...o.o....o.o...',
+   '................',
+   '................'],
+  sdex:[
+   '................',
+   '.....oooooo.....',
+   '....ogGGGGgo....',
+   '.....oooooo.....',
+   '..oooooooooooo..',
+   '.oWWWWWWWWWWWWo.',
+   '.oWkkkkkkkkkWWo.',
+   '.oWWWWWWWWWWWWo.',
+   '.oWkkkkkkkWWWWo.',
+   '.oWWWWWWWWWWWWo.',
+   '.oWkkkkkkkkkWWo.',
+   '.oWWWWWWWWWWWWo.',
+   '.oWkkkkkkWWWWWo.',
+   '..oooooooooooo..',
+   '................',
+   '................'],
   box:[
    '....y...........',
    '...yyy..........',
@@ -1135,6 +1269,8 @@ const BIG_ICONS={grids:{
   ball:{o:'#2a2118',p:'#e0577f',P:'#ffd0e0',w:'#f28cae'},
   bubbles:{o:'#2b4a58',b:'#8fd0e8',w:'#eaffff'},
   box:{o:'#2a2118',W:'#c08a58',p:'#f28cae',P:'#ffd0e0',y:'#f2c14e'},
+  book2:{o:'#16260f',G:'#3f7534',w:'#f7f0d8',p:'#f28cae'},
+  sdex:{o:'#2c4520',W:'#f7f0d8',k:'#5a6b3e',g:'#2c5222',G:'#8fd45e'},
   cam:{'B':'#bfe6f2','G':'#7fbf54','b':'#4a7d94','d':'#2f5a26','g':'#4e8a3a','n':'#ffffff','o':'#2a2118'},
   fm:{'D':'#a87a1e','G':'#7fbf54','Y':'#ffe9a8','f':'#f6ead2','g':'#4e8a3a','o':'#2a2118','y':'#f2c14e'},
   weather:{'B':'#bfe6f2','Y':'#ffe9a8','b':'#4a7d94','n':'#ffffff','o':'#2a2118','y':'#f2c14e'},
@@ -1401,6 +1537,52 @@ function applyTheme(){
     ov.style.opacity=t.overlay?'1':'0';
   }
   initWeather(t.particles);
+}
+
+/* ---------------- breeding guides ----------------
+   The FrogDex already reveals a recipe once you have met one of its parents. A
+   guide buys you the rest of that tier up front, which is the thing coins were
+   short of a sink for. */
+const GUIDES=[
+ {id:'g1',tier:1,name:'Field Notes I',   cost:70,
+  desc:'twelve first-generation pairings, written out longhand.'},
+ {id:'g2',tier:2,name:'Field Notes II',  cost:200,
+  desc:'the second rung: nine deeper crosses and their snacks.'},
+ {id:'g3',tier:3,name:'Field Notes III', cost:520,
+  desc:'five rare pairings. the handwriting gets excited here.'},
+ {id:'g4',tier:4,name:'Legend Ledger',   cost:1100,
+  desc:'the last two frogs in the world, and how to ask for them.'},
+];
+const GL={};GUIDES.forEach(g=>GL[g.id]=g);
+function ownGuide(tier){return !!(G.guides&&G.guides['g'+tier])}
+/* how many recipes the player can actually read right now */
+function readable(){
+  return SPECIES.filter(s=>{
+    const r=s.recipe;
+    if(!r||r.length!==3)return false;
+    return ownGuide(s.tier)||G.discovered[r[0]]||G.discovered[r[1]];
+  }).length;
+}
+/* one place to unlock a snack, so ShopHop and the SnackDex cannot drift apart */
+function unlockFood(id){
+  const f=FD[id];
+  if(!f||G.unlocked[id])return false;
+  if(G.coins<f.unlock){toast(`${f.name} unlocks for ${f.unlock}c`);SFX.buzz();return false}
+  G.coins-=f.unlock;G.unlocked[id]=true;
+  SFX.coin();toast(`${f.name} unlocked`,FOOD_URL[id]);
+  hud();updateTray();saveSoon();
+  return true;
+}
+function buyGuide(id){
+  const g=GL[id];
+  if(!g||ownGuide(g.tier))return;
+  if(G.coins<g.cost){toast('not enough coins for that one');SFX.buzz();return}
+  G.coins-=g.cost;G.guides=G.guides||{};G.guides[id]=true;
+  hud();SFX.chime();
+  const n=SPECIES.filter(s=>s.tier===g.tier&&s.recipe).length;
+  toast(`${g.name} — ${n} recipes are yours to read`,ICON.book2,true);
+  logDiary(`bought ${g.name} from the BreedBook.`);
+  saveSoon();renderApp();
 }
 
 /* ---------------- tools ---------------- */
@@ -1688,7 +1870,7 @@ const COZY=['no frog needed today, just wanted to say your pond looks lovely.',
 const G={coins:GD.startCoins,frogs:[],food:[],discovered:{},unlocked:{},sel:null,
   offers:[],read:{},nextCust:0,time:0,hint:0,won:false,
   tool:'hand',drag:null,pets:0,
-  theme:'emerald',themes:{emerald:true},decor:{},snaps:[],diary:[],hops:0,flash:0};
+  theme:'emerald',themes:{emerald:true},decor:{},snaps:[],diary:[],hops:0,flash:0,guides:{}};
 let frogSeq=1,offerSeq=1,selFrog=null;
 
 /* ---------------- frog ---------------- */
@@ -3129,7 +3311,7 @@ function startAppTick(){
 function stopAppTick(){if(appTick){clearInterval(appTick);appTick=null}}
 
 /* ---------------- phone ---------------- */
-let phoneOpen=false,app='home',thread=null;
+let phoneOpen=false,app='home',thread=null,guideTier=1;
 function openPhone(a){phoneOpen=true;app=a||'home';
   document.getElementById('phone').classList.add('open');renderApp()}
 document.getElementById('phoneBtn').onclick=()=>{initAudio();SFX.click();
@@ -3137,7 +3319,8 @@ document.getElementById('phoneBtn').onclick=()=>{initAudio();SFX.click();
   document.getElementById('phone').classList.toggle('open',phoneOpen);
   if(phoneOpen){app='home';renderApp()} else stopAppTick()};
 document.getElementById('appBack').onclick=()=>{SFX.click();
-  app=(app==='thread')?'chat':(app==='dexDetail'?'dex':'home');renderApp()};
+  app=(app==='thread')?'chat':(app==='dexDetail'?'dex'
+     :(app==='guideTier'?'guide':'home'));renderApp()};
 document.getElementById('hudDex').onclick=()=>{initAudio();SFX.click();openPhone('dex')};
 document.getElementById('bMute').onclick=()=>{initAudio();toggleMute();SFX.click()};
 document.getElementById('bHelp').onclick=()=>{SFX.click();
@@ -3155,6 +3338,8 @@ const APPS=[
  {id:'weather',name:'Cloudpad', ic:'weather', tint:'#cfe8f7'},
  {id:'hop',  name:'Hopcount',   ic:'hop',     tint:'#7fd6b5'},
  {id:'star', name:'Frogscope',  ic:'star',    tint:'#5f7fbe'},
+ {id:'guide',name:'BreedBook',  ic:'book2',   tint:'#a8d8b0'},
+ {id:'sdex', name:'SnackDex',   ic:'sdex',    tint:'#e8c98f'},
  {id:'diary',name:'PondDiary',  ic:'diary',   tint:'#e8c98f'},
  {id:'photos',name:'Album',     ic:'album',   tint:'#f2c14e'},
 ];
@@ -3219,8 +3404,7 @@ function renderApp(){
         <div class="pr">${own?f.cost+'c per throw':'unlock '+f.unlock+'c'}</div></div>`;
       const b=document.createElement('button');b.className='btn sm '+(own?'gray':'');
       b.textContent=own?'owned':'unlock';b.disabled=own||G.coins<f.unlock;
-      b.onclick=()=>{SFX.click();G.coins-=f.unlock;G.unlocked[f.id]=true;SFX.coin();
-        toast(`${f.name} unlocked`,FOOD_URL[f.id]);hud();updateTray();renderApp();saveSoon()};
+      b.onclick=()=>{SFX.click();unlockFood(f.id);renderApp()};
       row.appendChild(b);body.appendChild(row);
     }
   }
@@ -3552,6 +3736,107 @@ function renderApp(){
       body.appendChild(row);
     }
   }
+  else if(app==='guide'){
+    title.textContent='BreedBook';
+    const top=document.createElement('div');top.className='tiny';
+    top.style.cssText='text-align:center;margin:0 0 9px;line-height:1.6';
+    const total=SPECIES.filter(s=>s.recipe&&s.recipe.length===3).length;
+    top.innerHTML=`<b>${readable()} of ${total}</b> recipes readable`+
+      `<br>the dex shows a pairing once you have met a parent —<br>a guide hands you the whole tier at once.`;
+    body.appendChild(top);
+    for(const g of GUIDES){
+      const own=ownGuide(g.tier);
+      const n=SPECIES.filter(s=>s.tier===g.tier&&s.recipe).length;
+      const row=document.createElement('div');row.className='card';
+      row.style.cursor=own?'pointer':'default';
+      row.innerHTML=`<img class="face" src="${ICON.book2}"
+          style="${own?'':'filter:saturate(.35) brightness(.8)'}">
+        <div class="inf"><div class="nm">${own?'':'🔒 '}${g.name}</div>
+        <div class="ds">${g.desc}</div>
+        <div class="pr">${own?`${n} recipes · tap to read`:`${g.cost}c · tier ${g.tier}`}</div></div>`;
+      if(own){
+        row.onclick=()=>{SFX.click();guideTier=g.tier;app='guideTier';renderApp()};
+      }else{
+        const b=document.createElement('button');b.className='btn green sm';b.textContent='buy';
+        b.disabled=G.coins<g.cost;
+        b.onclick=ev=>{ev.stopPropagation();SFX.click();buyGuide(g.id)};
+        row.appendChild(b);
+      }
+      body.appendChild(row);
+    }
+    const note=document.createElement('div');note.className='tiny';
+    note.style.cssText='text-align:center;margin-top:10px;line-height:1.6';
+    note.textContent='the matchmaker bell reads out of the same notebook, if you would rather ask a frog.';
+    body.appendChild(note);
+  }
+  else if(app==='guideTier'){
+    const t=guideTier;
+    title.textContent=GL['g'+t]?GL['g'+t].name:'BreedBook';
+    if(!ownGuide(t)){app='guide';renderApp();return}
+    for(const s of SPECIES.filter(s=>s.tier===t&&s.recipe&&s.recipe.length===3)){
+      const [pa,pb,fd]=s.recipe;
+      const row=document.createElement('div');row.className='card';
+      row.style.flexDirection='column';row.style.alignItems='stretch';
+      row.innerHTML=`
+        <div style="display:flex;align-items:center;gap:7px">
+          <img class="face" style="width:40px;height:40px"
+            src="${G.discovered[s.id]?FROG_URL[s.i]:FROG_SIL[s.i]}">
+          <div class="inf"><div class="nm">${s.name}</div>
+          <div class="ds">sells for ${s.sell}c</div></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:5px;
+             margin-top:5px;font-size:var(--t-body)">
+          <img src="${FROG_URL[SP[pa].i]}" style="width:30px;height:30px" title="${SP[pa].name}">
+          <span>+</span>
+          <img src="${FROG_URL[SP[pb].i]}" style="width:30px;height:30px" title="${SP[pb].name}">
+          <span>+</span>
+          <img src="${FOOD_URL[fd]}" style="width:26px;height:26px" title="${FD[fd].name}">
+        </div>
+        <div class="ds" style="text-align:center;margin-top:4px">
+          ${SP[pa].name} + ${SP[pb].name}<br>with a ${FD[fd].name} in either one</div>`;
+      row.onclick=()=>{SFX.click();dexDetail(s)};
+      row.style.cursor='pointer';
+      body.appendChild(row);
+    }
+    const b=document.createElement('button');b.className='btn sm';b.style.marginTop='7px';
+    b.textContent='◀ back to the shelf';
+    b.onclick=()=>{SFX.click();app='guide';renderApp()};
+    body.appendChild(b);
+  }
+  else if(app==='sdex'){
+    title.textContent='SnackDex';
+    const top=document.createElement('div');top.className='tiny';
+    top.style.cssText='text-align:center;margin:0 0 9px';
+    const open=FOODS.filter(f=>G.unlocked[f.id]).length;
+    top.innerHTML=`<b>${open} of ${FOODS.length}</b> snacks unlocked`;
+    body.appendChild(top);
+    for(const f of FOODS){
+      const own=!!G.unlocked[f.id];
+      // which species this snack makes — the same knowledge rule as the dex
+      const makes=SPECIES.filter(s=>(s.recipe||[])[2]===f.id);
+      const shown=makes.map(s=>{
+        const r=s.recipe;
+        const see=G.discovered[s.id]||ownGuide(s.tier)||G.discovered[r[0]]||G.discovered[r[1]];
+        return see?s.name:'???';
+      });
+      const uniq=[...new Set(shown)];
+      const row=document.createElement('div');row.className='card';
+      row.innerHTML=`<img class="face" src="${FOOD_URL[f.id]}"
+          style="${own?'':'filter:saturate(.35) brightness(.8)'}">
+        <div class="inf"><div class="nm">${own?'':'🔒 '}${f.name}</div>
+        <div class="ds">${f.desc}</div>
+        <div class="pr">${own?(f.cost?f.cost+'c a throw':'free, always'):`unlocks for ${f.unlock}c`}
+          ${uniq.length?`<br><span style="color:#3f7534">makes ${uniq.join(', ')}</span>`
+            :'<br><span style="opacity:.7">a treat, nothing more</span>'}</div></div>`;
+      if(!own){
+        const b=document.createElement('button');b.className='btn green sm';b.textContent='unlock';
+        b.disabled=G.coins<f.unlock;
+        b.onclick=()=>{SFX.click();unlockFood(f.id);renderApp()};
+        row.appendChild(b);
+      }
+      body.appendChild(row);
+    }
+  }
   else if(app==='set'){
     title.textContent='Settings';
     const mk=(nm,ds)=>{const r=document.createElement('div');r.className='card';
@@ -3596,12 +3881,18 @@ function dexDetail(s){
     const [pa,pb,fd]=s.recipe;
     const ka=G.discovered[pa],kb=G.discovered[pb];
     // one known parent is enough to reveal the recipe: the payoff is the frog
-    // itself, and hiding the method was the main reason breeding felt opaque
-    const known=ka||kb;
-    how=`breed only<br>${ka?SP[pa].name:'???'} + ${kb?SP[pb].name:'???'}<br>snack: `+
+    // itself, and hiding the method was the main reason breeding felt opaque.
+    // A bought guide reveals its whole tier whether you have met anyone or not.
+    const guide=ownGuide(s.tier);
+    const known=ka||kb||guide;
+    // a guide names the parents as well as the snack — naming only the snack was
+    // the one thing a bought guide could not tell you, which is most of its point
+    how=`breed only<br>${(ka||guide)?SP[pa].name:'???'} + ${(kb||guide)?SP[pb].name:'???'}<br>snack: `+
       (known?`<img src="${FOOD_URL[fd]}" style="width:15px;height:15px;vertical-align:middle"> ${FD[fd].name}`:'???');
-    if(known&&!(ka&&kb))
+    if(known&&!(ka&&kb)&&(ka||kb))
       how+=`<br><span style="font-size:11px">you have 1 of the 2 parents</span>`;
+    if(guide&&!ka&&!kb)
+      how+=`<br><span style="font-size:11px">read from your ${GL['g'+s.tier].name}</span>`;
     if(known)how+=`<br><span style="font-size:11px">either parent may hold the snack</span>`;
   }
   const d=document.createElement('div');d.className='detail';
@@ -3634,7 +3925,8 @@ function saveNow(){
   try{
     localStorage.setItem(SAVE,JSON.stringify({
       coins:G.coins,discovered:G.discovered,unlocked:G.unlocked,muted,hint:G.hint,won:G.won,
-      theme:G.theme,themes:G.themes,decor:G.decor,music:G.music!==false,track:G.track|0,pets:G.pets|0,
+      theme:G.theme,themes:G.themes,decor:G.decor,guides:G.guides||{},
+      music:G.music!==false,track:G.track|0,pets:G.pets|0,
       diary:(G.diary||[]).slice(-40),hops:G.hops,
       day:pondDay(),stamp:1,
       frogs:G.frogs.map(f=>({spec:f.spec,name:f.name,x:f.x,y:f.y,stage:f.stage,lastFood:f.lastFood,
@@ -3654,7 +3946,7 @@ function load(){
     G.music=d.music!==false;G.track=d.track|0;G.pets=d.pets|0;
     G.theme=(d.theme&&TH[d.theme])?d.theme:'emerald';
     G.themes=d.themes||{emerald:true};G.themes.emerald=true;
-    G.decor=d.decor||{};G.diary=d.diary||[];G.hops=d.hops||0;
+    G.decor=d.decor||{};G.diary=d.diary||[];G.hops=d.hops||0;G.guides=d.guides||{};
     G.day=d.day||1;G.dayStart=G.time;
     G.snaps=loadSnaps();
     for(const fd of d.frogs||[]){
@@ -4006,7 +4298,8 @@ window.__dbg={nest,toNest,Frog,throwFood,startGame,weather,weatherPositions:()=>
   ball,bubs,box,kickBall,blowBubbles,stepBubbles,stepBall,placeBox,takeBox,chasingBall,dancingTo,
   wandTap,ringBell,sunLamp,petFrog,clearWandPick,
   TRACKS,mus,musStart,musStop,musSkip,tapAt,leavePad,getWandPick:()=>wandPick,
-  getMuted:()=>muted,openTitlePane,getPane:()=>tPane,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
+  getMuted:()=>muted,openTitlePane,getPane:()=>tPane,
+  GUIDES,buyGuide,ownGuide,readable,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
   FROG_URL,geom:GEOM,discover};
 boot();
 </script>
