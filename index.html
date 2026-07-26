@@ -13,7 +13,7 @@
   --gold:#f2c14e; --pink:#f28cae; --water:#3d6b52;
   --sky:#7fc4e8; --berry:#e0577f; --bloom:#ffd0e0;
   --frame-wood:none; --frame-paper:none; --frame-leaf:none; --frame-dark:none;
-  --frame-board:none; --frame-btnB:none;
+  --frame-btnB:none;
   --vine:none; --sprig:none; --sprigL:none;
   --frame-cardF:none; --frame-paperF:none;
   --tex-moss:none; --tex-bark:none; --tex-parch:none; --tex-stone:none;
@@ -285,7 +285,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 
 /* ---------- title screen ---------- */
 #title{gap:0;display:none;padding:10px 0 4px;overflow:hidden;
-  background:radial-gradient(ellipse 60% 56% at 50% 44%,rgba(26,36,18,.30),rgba(4,10,6,.90))}
+  background:radial-gradient(ellipse 62% 58% at 50% 44%,rgba(16,28,12,.50),rgba(3,8,5,.93))}
 /* a few fireflies drifting over the shade: pure cosiness, no canvas needed */
 #tFlies{position:absolute;inset:0;pointer-events:none;z-index:0}
 #tFlies i{position:absolute;width:3px;height:3px;border-radius:3px;background:#fff29a;
@@ -298,29 +298,17 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   82%{opacity:.75}
   100%{opacity:0;transform:translate(calc(var(--fx,30px)*1.7),calc(var(--fy,-52px)*1.9)) scale(.8)}}
 #title.on{display:flex}
-/* the menu is a wooden sign hung over the pond, so it reads as part of the world
-   instead of floating text on a dark wash */
-.panelBoard{border-style:solid;border-width:14px;
-  border-image:var(--frame-board) 9 fill repeat}
+/* No sign: the menu sits straight on the pond, with a lamplit hollow behind it
+   and a hard dark outline on every glyph so it reads over moving water. */
 #tBoard{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0;
-  width:min(94vw,540px);max-height:92vh;overflow-y:auto;scrollbar-width:none;
-  padding:16px 20px 18px;
-  animation:lantern 7s ease-in-out infinite}
+  width:min(94vw,540px);max-height:94vh;overflow-y:auto;scrollbar-width:none;
+  padding:6px 12px 10px}
 #tBoard::-webkit-scrollbar{display:none}
-/* the sign breathes with lamplight rather than swaying: rotating a pixel-art
-   panel resamples every glyph, and it left every button in permanent motion */
-@keyframes lantern{
-  0%,100%{box-shadow:0 0 52px 12px rgba(255,198,116,.08),0 20px 44px rgba(0,0,0,.62)}
-  50%{box-shadow:0 0 78px 22px rgba(255,206,128,.16),0 20px 44px rgba(0,0,0,.62)}}
-#tNails{position:absolute;left:0;right:0;top:5px;display:flex;
-  justify-content:space-between;padding:0 9px;pointer-events:none}
-#tNails i{display:block;width:9px;height:9px;border-radius:5px;background:#f6e0a8;
-  box-shadow:0 0 0 2px #3a2a14,inset -2px -2px 0 rgba(0,0,0,.35)}
 #tCol{display:flex;flex-direction:column;align-items:center;gap:0}
 #tWord{display:flex;gap:1px;cursor:default;user-select:none;margin-top:2px}
-#tWord span{display:inline-block;font-size:clamp(28px,5.6vw,52px);color:#fff2b0;
-  text-shadow:0 2px 0 #d08a2a,0 4px 0 #8a4d12,0 6px 0 #1d3a12,0 8px 10px rgba(0,0,0,.6),
-    0 0 22px rgba(255,220,140,.4);
+#tWord span{display:inline-block;font-size:clamp(30px,6vw,56px);color:#fff2b0;
+  text-shadow:0 2px 0 #d08a2a,0 4px 0 #8a4d12,0 6px 0 #10240b,0 8px 0 #060f04,
+    0 9px 12px rgba(0,0,0,.85),0 0 26px rgba(255,220,140,.45);
   animation:tw 2.6s ease-in-out infinite}
 @keyframes tw{0%,100%{transform:translateY(0) rotate(0deg)}
   50%{transform:translateY(-8px) rotate(-2.5deg)}}
@@ -328,22 +316,22 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 @keyframes twh{0%{transform:translateY(0)}40%{transform:translateY(-15px) scale(1.14)}
   100%{transform:translateY(0)}}
 #tSub{font-size:clamp(12px,1.8vw,15px);color:#e9f7cc;line-height:1.7;margin:5px 0 4px;
-  text-shadow:0 2px 0 #1d3a12}
+  text-shadow:0 2px 0 #0c1c08,0 0 12px rgba(0,0,0,.95)}
 #tSub::before,#tSub::after{content:'❀';color:#ffb0c8;margin:0 8px;font-size:.9em}
 #tMascotWrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px}
 #tMascotWrap{padding:6px 0 2px}
-#tMascot{width:118px;height:118px;object-fit:contain;cursor:pointer;
+#tMascot{width:124px;height:124px;object-fit:contain;cursor:pointer;
   animation:bob 1.3s ease-in-out infinite;
-  filter:drop-shadow(0 7px 7px rgba(0,0,0,.55)) brightness(1.04)}
+  filter:drop-shadow(0 8px 8px rgba(0,0,0,.75)) brightness(1.06)}
 #tMascot.pet{animation:petsquish .45s cubic-bezier(.34,1.8,.64,1)}
 @keyframes petsquish{0%{transform:scale(1,1)}25%{transform:scale(1.28,.7)}
   55%{transform:scale(.86,1.2) translateY(-12px)}100%{transform:scale(1,1)}}
-#tName{font-size:15px;color:#ffe9a8;min-height:19px;margin-top:4px;
-  text-shadow:0 2px 0 #1d3a12}
+#tName{font-size:16px;color:#ffe9a8;min-height:20px;margin-top:4px;
+  text-shadow:0 2px 0 #0c1c08,0 0 12px rgba(0,0,0,.95)}
 #tPetHint{font-size:11px;color:#dbeec0;min-height:15px;max-width:min(90vw,360px);line-height:1.5;
-  text-shadow:0 2px 0 #1d3a12;opacity:.88}
-#tPetTip{font-size:10px;color:#a8c489;margin-top:5px;letter-spacing:.3px;
-  text-shadow:0 2px 0 #16300e}
+  text-shadow:0 2px 0 #0c1c08,0 0 10px rgba(0,0,0,.95);opacity:.92}
+#tPetTip{font-size:10px;color:#b6cf96;margin-top:5px;letter-spacing:.3px;
+  text-shadow:0 2px 0 #0c1c08,0 0 10px rgba(0,0,0,.95)}
 #tCast{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;max-width:100%;
   margin:10px 0 8px;padding:6px 9px;border-radius:7px;background:rgba(14,32,10,.55);
   box-shadow:inset 0 2px 0 rgba(0,0,0,.32),inset 0 0 22px rgba(0,0,0,.38)}
@@ -353,10 +341,16 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #tCast img:hover{transform:scale(1.3) translateY(-4px);opacity:1;filter:brightness(1.08)
   drop-shadow(0 0 8px rgba(232,207,140,.65))}
 @keyframes castbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-#tBtns{display:flex;flex-direction:column;align-items:center;gap:8px}
+#tBtns{display:flex;flex-direction:column;align-items:center;gap:9px}
 #tBtns2{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
-#tBtns .btn.big{font-size:clamp(17px,2.5vw,21px);padding:7px 26px 9px;border-width:13px}
-#tBtns .btn.sm{font-size:12px;padding:3px 10px 4px}
+#tBtns .btn.big{font-size:clamp(17px,2.5vw,21px);padding:7px 24px 9px;border-width:13px}
+#tBtns .btn.sm{font-size:12px;padding:3px 9px 4px}
+/* every menu button wears its own pixel icon */
+.btn.ico{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.ico img{image-rendering:pixelated;flex:none;width:20px;height:20px;
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,.35))}
+.btn.big.ico{gap:11px}
+.btn.big.ico img{width:30px;height:30px}
 #tSave{font-size:12px;color:#fff0bc;min-height:16px;margin:0 0 10px;
   padding:3px 11px 4px;border-radius:11px;background:rgba(10,26,8,.46);
   text-shadow:0 2px 0 #1d3a12}
@@ -375,17 +369,13 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   padding:3px 14px 4px;border-radius:12px;background:rgba(6,16,8,.55);
   text-shadow:0 2px 0 #0a1408,0 0 12px rgba(0,0,0,.9)}
 #tByline b{color:#ffe9a8}
-/* a warm top-light on the sign, and two little blooms nailed to the corners */
-#tBoard::before{content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(rgba(255,232,164,.20),rgba(255,226,150,0) 44%,rgba(0,0,0,.34))}
-/* a leaf garland draped along the top of the sign — the same vine that grows
-   along the snack bar, so the two read as one garden */
-#tBoard::after{content:'';position:absolute;left:-8px;right:-8px;top:-18px;height:26px;
-  pointer-events:none;image-rendering:pixelated;
-  background-image:var(--sprigL),var(--sprig),var(--vine);
-  background-position:left bottom,right bottom,34px bottom;
-  background-size:34px 26px,34px 26px,auto 26px;
-  background-repeat:no-repeat,no-repeat,repeat-x}
+/* a soft lamplit pool behind the menu, breathing, so the type has something to
+   sit on without putting a panel in the way */
+#tBoard::before{content:'';position:absolute;left:-6%;right:-6%;top:-2%;bottom:-2%;
+  pointer-events:none;border-radius:50%/40%;
+  background:radial-gradient(ellipse 62% 58% at 50% 42%,rgba(255,226,150,.10),transparent 72%);
+  animation:lantern 7s ease-in-out infinite}
+@keyframes lantern{0%,100%{opacity:.7}50%{opacity:1}}
 .tHeart{position:absolute;pointer-events:none;font-size:15px;
   animation:floatUp .95s ease-out forwards}
 @keyframes floatUp{0%{transform:translate(0,0) scale(.6);opacity:0}
@@ -481,8 +471,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 
 <div id="title" class="ov">
   <div id="tFlies"></div>
-  <div id="tBoard" class="panelBoard">
-    <div id="tNails"><i></i><i></i></div>
+  <div id="tBoard">
     <div id="tWord"></div>
     <div id="tSub">a cozy pond of round friends</div>
     <div id="tMascotWrap">
@@ -494,12 +483,12 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
     <div id="tCast"></div>
     <div id="tSave"></div>
     <div id="tBtns">
-      <button id="btnStart" class="btn green big">▶ hop in</button>
+      <button id="btnStart" class="btn green big ico"><img><span>hop in</span></button>
       <div id="tBtns2">
-        <button id="btnHelp" class="btn sm">how to play</button>
-        <button id="btnSet" class="btn gray sm">settings</button>
-        <button id="btnCred" class="btn gray sm">credits</button>
-        <button id="btnFresh" class="btn gray sm" style="display:none">start fresh</button>
+        <button id="btnHelp" class="btn sm ico"><img><span>how to play</span></button>
+        <button id="btnSet" class="btn gray sm ico"><img><span>settings</span></button>
+        <button id="btnCred" class="btn gray sm ico"><img><span>credits</span></button>
+        <button id="btnFresh" class="btn gray sm ico" style="display:none"><img><span>start fresh</span></button>
       </div>
     </div>
     <div id="tHelp"></div>
@@ -871,9 +860,6 @@ function buildFrames(){
   r.setProperty('--frame-paper', frame({fill:'#f7f0d8',edge:'#28401c',dark:'#cfd3a8',light:'#fffdf2',mat:'parch'}));
   r.setProperty('--frame-leaf',  frame({fill:'#57993f',edge:'#1a3514',dark:'#356028',light:'#a3dd6c',mat:'moss'}));
   r.setProperty('--frame-phone', frame({fill:'#3f7534',edge:'#0f2409',dark:'#26491d',light:'#79bb58'}));
-  // the menu sign and the phone stay flat on purpose: the material belongs to the
-  // pondside woodwork, and it fought the menu's type and the phone's app cards
-  r.setProperty('--frame-board', frame({fill:'#2c5527',edge:'#0a1a07',dark:'#173413',light:'#5f9a4a',plank:'#274d22'}));
   r.setProperty('--frame-card',  frame({fill:'#f4efd4',edge:'#334a24',dark:'#d0d1a6',light:'#fffdf2',mat:'parch'}));
   r.setProperty('--frame-cardF', frame({fill:'#f4efd4',edge:'#334a24',dark:'#d0d1a6',light:'#fffdf2'}));
   r.setProperty('--frame-paperF',frame({fill:'#f7f0d8',edge:'#28401c',dark:'#cfd3a8',light:'#fffdf2',dot:'#cfe0ac'}));
@@ -1074,6 +1060,91 @@ const BIG_ICONS={grids:{
    '.........obwo...',
    '..........oo....',
    '................'],
+  mplay:[
+   '................',
+   '...oo......oo...',
+   '..oGGo....oGGo..',
+   '..owwo....owwo..',
+   '.oGGGGGGGGGGGGo.',
+   'oGGGGGGGGGGGGGGo',
+   'oGGGGGGGGGGGGGGo',
+   'oGGGooooooooGGGo',
+   'oGGGGGGGGGGGGGGo',
+   '.oGGGGGGGGGGGGo.',
+   '..oGGGGGGGGGGo..',
+   '...oooooooooo...',
+   '................',
+   '................',
+   '................',
+   '................'],
+  mhelp:[
+   '................',
+   '................',
+   '..oooooooooooo..',
+   '.oWWWWooWWWWWWo.',
+   '.oWkkWooWkkkkWo.',
+   '.oWkkWooWkkkkWo.',
+   '.oWWWWooWWWWWWo.',
+   '.oWkkkWoWkkkWWo.',
+   '.oWkkkWoWkkkWWo.',
+   '.oWWWWWoWWWWWWo.',
+   '.oWkkWWoWkkkWWo.',
+   '.oWWWWWoWWWWWWo.',
+   '..oooooooooooo..',
+   '................',
+   '................',
+   '................'],
+  mset:[
+   '................',
+   '.....oo..oo.....',
+   '.....oo..oo.....',
+   '...oooooooooo...',
+   '...osssssssso...',
+   '..oossssssssoo..',
+   '..oossoooossoo..',
+   '..oossoooossoo..',
+   '..oossssssssoo..',
+   '...osssssssso...',
+   '...oooooooooo...',
+   '.....oo..oo.....',
+   '.....oo..oo.....',
+   '................',
+   '................',
+   '................'],
+  mcred:[
+   '................',
+   '..y.............',
+   '.yYy............',
+   '.....pp..pp.....',
+   '....pppppppp....',
+   '....pppppppp....',
+   '.....pppppp.....',
+   '......pppp......',
+   '.......pp.......',
+   '................',
+   '...........y....',
+   '..........yYy...',
+   '...........y....',
+   '................',
+   '................',
+   '................'],
+  mfresh:[
+   '................',
+   '.......oo.......',
+   '......oGGo......',
+   '..oo..oGGo..oo..',
+   '.oGGo.oGGo.oGGo.',
+   'oGGGGooGGoooGGGo',
+   'oGGGGGoGGoGGGGGo',
+   '.oGGGooGGooGGGo.',
+   '..oooooGGooooo..',
+   '.......oo.......',
+   '....oooooooo....',
+   '...okkkkkkkko...',
+   '...okkkkkkkko...',
+   '....oooooooo....',
+   '................',
+   '................'],
   book2:[
    '................',
    '..oooooooooooo..',
@@ -1271,6 +1342,11 @@ const BIG_ICONS={grids:{
   bubbles:{o:'#2b4a58',b:'#8fd0e8',w:'#eaffff'},
   box:{o:'#2a2118',W:'#c08a58',p:'#f28cae',P:'#ffd0e0',y:'#f2c14e'},
   book2:{o:'#16260f',G:'#3f7534',w:'#f7f0d8',p:'#f28cae'},
+  mplay:{o:'#0a1a06',G:'#2c5527',w:'#fffdf2'},
+  mhelp:{o:'#2c4520',W:'#f7f0d8',k:'#5a6b3e'},
+  mset:{o:'#2f3a26',s:'#d4d6b4'},
+  mcred:{o:'#5c1c33',p:'#f28cae',y:'#f2c14e',Y:'#fff2b0'},
+  mfresh:{o:'#16330f',G:'#8fd45e',k:'#8a5a34'},
   sdex:{o:'#2c4520',W:'#f7f0d8',k:'#5a6b3e',g:'#2c5222',G:'#8fd45e'},
   cam:{'B':'#bfe6f2','G':'#7fbf54','b':'#4a7d94','d':'#2f5a26','g':'#4e8a3a','n':'#ffffff','o':'#2a2118'},
   fm:{'D':'#a87a1e','G':'#7fbf54','Y':'#ffe9a8','f':'#f6ead2','g':'#4e8a3a','o':'#2a2118','y':'#f2c14e'},
@@ -4075,8 +4151,23 @@ function setMascot(id,quiet){
     Math.random()<.5?SFX.ribbit():SFX.pop();
   }
 }
+/* the label of an icon button lives in its span, so writing to the button itself
+   would blow the icon away */
+function btnLabel(b,txt){
+  const s=b.querySelector('span');
+  if(s)s.textContent=txt; else b.textContent=txt;
+}
+const MENU_ICONS={btnStart:'mplay',btnHelp:'mhelp',btnSet:'mset',
+                  btnCred:'mcred',btnFresh:'mfresh'};
+function paintMenuIcons(){
+  for(const id in MENU_ICONS){
+    const img=document.querySelector('#'+id+' img');
+    if(img)img.src=ICON[MENU_ICONS[id]];
+  }
+}
 function buildTitle(){
-  // fireflies drifting across the shade behind the sign
+  paintMenuIcons();
+  // fireflies drifting across the shade behind the menu
   const flies=document.getElementById('tFlies');
   flies.innerHTML='';
   for(let i=0;i<9;i++){
@@ -4125,13 +4216,13 @@ function buildTitle(){
   document.getElementById('tSave').textContent = sv
     ? `your pond: ${sv.frogs} frog${sv.frogs===1?'':'s'} · ${sv.dex}/${SPECIES.length} in the dex · ${sv.coins} coins`
     : `${SPECIES.length} species to meet · 8 in the shop, 28 to breed`;
-  start.textContent = sv ? '▶ continue' : '▶ hop in';
+  btnLabel(start, sv ? 'continue' : 'hop in');
   if(sv){
     fresh.style.display='block';
     let armed=false;
     fresh.onclick=ev=>{ev.stopPropagation();SFX.click();
-      if(!armed){armed=true;fresh.textContent='erase pond?';
-        setTimeout(()=>{armed=false;fresh.textContent='start fresh'},2200);return}
+      if(!armed){armed=true;btnLabel(fresh,'erase pond?');
+        setTimeout(()=>{armed=false;btnLabel(fresh,'start fresh')},2200);return}
       localStorage.removeItem(SAVE);localStorage.removeItem(SNAPKEY);location.reload()};
   }
   start.onclick=ev=>{ev.stopPropagation();startGame()};

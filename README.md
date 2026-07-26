@@ -126,13 +126,15 @@ a bigger squish, and by the fourth pet they bounce off in delight.
 
 ## The main menu
 
-The menu is a **green-painted sign hung over the pond** — nailed at both corners,
-draped in a leaf garland, lit by a slow lantern glow, with fireflies drifting
-through the shade behind it while frogs potter about in the live pond. A mascot sits on the sign and introduces
-itself; pet it, or tap any of the nine friends below to meet one of them instead.
+The menu sits **straight on the pond** — no panel, no sign. The wordmark and its
+type carry a heavy dark outline so they read over moving water, a slow lamplit
+pool breathes behind them, and fireflies drift through the shade while frogs
+potter about in the live pond. A mascot introduces itself in the middle; pet it,
+or tap any of the nine friends below to meet one of them instead.
 
-Under the big **hop in** are three panes, and only one is ever open — the button
-for the open one lights up:
+Every button wears its own pixel icon — a frog for **hop in**, an open book, a
+cog, a heart, a sprout for *start fresh*. Under the big **hop in** are three
+panes, and only one is ever open, with the open one's button lit:
 
 - **how to play** — the six things worth knowing, in order.
 - **settings** — sound on/off, music on/off, and a track picker with the blurb
