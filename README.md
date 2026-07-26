@@ -102,11 +102,26 @@ with a little `z`, croak, cast reflections in the water, and get the zoomies off
 a matcha latte. Petting is free, and keeping at it builds a combo: more hearts,
 a bigger squish, and by the fourth pet they bounce off in delight.
 
-The **title screen** is a live pond — frogs potter about behind the menu while a
-mascot introduces itself. Pet it, click any of the nine friends below to meet
-them instead, and it remembers your pond: returning players get **continue** with
-a summary of their frogs, dex and coins. The menu sits in deep forest shade so the
-pond behind it reads as a shaded hollow; the game itself stays bright and legible.
+## The main menu
+
+The menu is a **wooden sign hung over the pond** — nailed at both corners, lit
+by a slow lantern glow, with fireflies drifting through the shade behind it while
+frogs potter about in the live pond. A mascot sits on the sign and introduces
+itself; pet it, or tap any of the nine friends below to meet one of them instead.
+
+Under the big **hop in** are three panes, and only one is ever open — the button
+for the open one lights up:
+
+- **how to play** — the six things worth knowing, in order.
+- **settings** — sound on/off, music on/off, and a track picker with the blurb
+  for whatever is cued up. All of it works from the menu, before you start.
+- **credits** — art & code by **Pukking Dragon**, plus the pond backdrop artist,
+  the music and the typeface.
+
+![the credits pane](docs/credits.png)
+
+It remembers your pond, too: returning players get **continue** with a summary of
+their frogs, dex and coins, and a **start fresh** button that asks twice.
 
 ## Tech notes
 
@@ -159,12 +174,14 @@ the art.
 
 ## Credits
 
-- **Pond background** — animated pixel art by **@anasabdin** (watermark left
-  intact in the artwork; also credited in-game under Settings).
-- **Frog and snack sprite sheets** — supplied by the repo owner; original artists
-  unknown to me. If you know who made them, please add proper credit here.
-  Everything in `assets/` is derived from those sheets, so the same terms apply.
-- Code and the asset pipeline in this repo: written for this project.
+- **Art & code — Pukking Dragon.** Every frog, snack and icon, and the game
+  itself. Also shown in-game under *credits* on the menu and in Settings.
+- **Music** — the four pond tracks were written for this game and are synthesised
+  in the browser; there are no audio files.
+- **Animated pond backdrop** — pixel art by **@anasabdin**, whose watermark is
+  left intact in the artwork.
+- **Typeface** — [Pixelify Sans](https://fonts.google.com/specimen/Pixelify+Sans),
+  under the Open Font License.
 
 ## Spoilers — the full recipe book
 
