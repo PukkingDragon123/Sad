@@ -4,6 +4,7 @@ A little pixel-art pond where you feed, breed, collect and sell round frogs.
 36 species, 22 snacks, 8 tools, 14 phone apps, four pond tracks, one sleepy pond.
 
 You start with one free snack — the **pea bowl** — and everything else is earned.
+Every frog has its own diet, and nobody breeds on an empty stomach.
 
 ![the pond](docs/pond.png)
 
@@ -38,6 +39,18 @@ Progress saves automatically in your browser.
   be unlocked in ShopHop first — the tray shows each locked slot's *unlock* price
   and runs cheapest-first, so it reads left-to-right as the ladder it is. Selling
   the frogs the peas give you is how you climb the first rung.
+- **Feed a frog full before it will breed.** Every frog has a **tummy** of four
+  pips, shown on its card and over its head while you're holding a snack. An empty
+  frog is turned away from the love-pad; a full one is welcome. Laying an egg
+  empties both parents, so a working pair needs feeding again each round.
+- **Every frog has a diet** — *leafy*, *savoury* or *sweet*. Its own kind of food
+  fills it **twice as fast**: two bites of a favourite, four of anything else.
+  Nothing is ever refused, and the free pea bowl is leafy, so a fresh pond can
+  always fill anybody — just slowly, for the frogs that would rather have cake. A
+  bred frog inherits the diet of the snack it hatched from, and ShopHop tells you
+  what a frog eats before you buy it.
+
+  ![a frog's card](docs/frogcard.png)
 - **Breed with a breeding tool.** Take the **Love Wand**, tap one frog, tap
   another, and they walk to the pink **love-pad** by themselves. (The Gentle Hand
   works too — just drop a frog on the pad. `breed` on a frog's card hands you the
@@ -247,7 +260,8 @@ the art.
 <details>
 <summary>all 28 breed-only recipes (click if you're truly stuck)</summary>
 
-**Either** parent needs to have eaten the listed snack — not both.
+**Either** parent needs to have eaten the listed snack — not both. Both have to be
+**full**, and each baby inherits its snack's diet group.
 
 | Baby | Parents | Snack | Sells for |
 |---|---|---|---|

@@ -244,6 +244,15 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #fcSpec{font-size:var(--t-body);color:#55603c;margin-top:4px}
 #fcSnack{font-size:var(--t-body);margin:9px 0;display:flex;align-items:center;gap:6px}
 #fcSnack img{width:32px;height:32px}
+#fcDiet{font-size:var(--t-body);margin:0 0 8px;display:flex;align-items:center;gap:7px;
+  line-height:1.4}
+#fcDiet img{width:30px;height:30px;flex:none}
+#fcDiet b{color:#3f5228}
+#fcFull{display:flex;align-items:center;gap:7px;margin:0 0 9px;font-size:var(--t-body)}
+#fcPips{display:flex;gap:3px}
+#fcPips i{display:block;width:13px;height:16px;border:2px solid #2c4520;background:#b9c39c}
+#fcPips i.on{background:#8fd45e;box-shadow:inset 0 -4px 0 #4a7a3a}
+#fcPips i.done{background:#f2c14e;box-shadow:inset 0 -4px 0 #c99a2c}
 #fcBtns{display:flex;gap:7px;flex-wrap:wrap}
 #fcHint{font-size:var(--t-body);color:#55603c;margin-top:8px;line-height:1.5}
 #fcX{position:absolute;top:-13px;right:-13px;width:31px;height:31px;border-radius:16px;cursor:pointer;
@@ -462,6 +471,8 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   <div id="fcX">✕</div>
   <div class="hd"><img id="fcFace"><div><div id="fcName"></div><div id="fcSpec"></div></div></div>
   <div id="fcSnack"></div>
+  <div id="fcFull"></div>
+  <div id="fcDiet"></div>
   <div id="fcBtns"></div>
   <div id="fcHint"></div>
 </div>
@@ -514,7 +525,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
    ========================================================================== */
 
 /* ---------------- data (injected at build) ---------------- */
-const GD = {"species":[{"idx":0,"id":"bunnytongue","name":"Bunny Tongue Frog","desc":"tongue out always. this is simply how it is.","tier":0,"buy":110,"sell":61,"recipe":[]},{"idx":1,"id":"tabbymouser","name":"Tabby Mouser Frog","desc":"purrs at the mouse. the mouse is a friend.","tier":1,"buy":0,"sell":120,"recipe":["bunnytongue","freshloaf","milk-carton"]},{"idx":2,"id":"mosscap","name":"Mosscap Frog","desc":"never takes the little hat off, not even to nap.","tier":0,"buy":50,"sell":28,"recipe":[]},{"idx":3,"id":"nigiri","name":"Nigiri Frog","desc":"keeps one slice of salmon warm, just in case.","tier":1,"buy":0,"sell":150,"recipe":["silkie","greenapple","onigiri"]},{"idx":4,"id":"emberegg","name":"Ember Egg Frog","desc":"glows faintly through the shell it kept.","tier":1,"buy":0,"sell":140,"recipe":["mosscap","freshloaf","hearty-stew"]},{"idx":5,"id":"bunnypile","name":"Bunny Pile Frog","desc":"wears a small crowd of rabbits. they all agreed.","tier":1,"buy":0,"sell":110,"recipe":["mosscap","cocoanap","pea-bowl"]},{"idx":6,"id":"redswirl","name":"Redswirl Frog","desc":"the red spirals were always there. sleep well.","tier":1,"buy":0,"sell":135,"recipe":["speckleddrool","silkie","loopy-cereal"]},{"idx":7,"id":"silkie","name":"Silkie Frog","desc":"clucks at dawn, then denies everything.","tier":0,"buy":140,"sell":77,"recipe":[]},{"idx":8,"id":"monocle","name":"Monocle Frog","desc":"reads the tiny print. judges you kindly.","tier":2,"buy":0,"sell":320,"recipe":["tabbymouser","sardinetin","maki-rolls"]},{"idx":9,"id":"ramshorn","name":"Ramshorn Frog","desc":"sheds one soft cloud every spring.","tier":1,"buy":0,"sell":115,"recipe":["silkie","cocoanap","pea-bowl"]},{"idx":10,"id":"greenapple","name":"Green Apple Frog","desc":"crisp, tart, and a little embarrassed.","tier":0,"buy":85,"sell":47,"recipe":[]},{"idx":11,"id":"daruma","name":"Daruma Frog","desc":"make a wish. it is already keeping count.","tier":3,"buy":0,"sell":820,"recipe":["porcelainkoi","stoneguardian","matcha-latte"]},{"idx":12,"id":"hazardflask","name":"Hazard Flask Frog","desc":"shake gently. it will not tell you why.","tier":2,"buy":0,"sell":270,"recipe":["emberegg","kiosk","matcha-latte"]},{"idx":13,"id":"shrimpcharm","name":"Shrimp Charm Frog","desc":"festival charms and one very small shrimp friend.","tier":3,"buy":0,"sell":535,"recipe":["crimsoncoil","kaerushiba","candy-apple"]},{"idx":14,"id":"porcelainkoi","name":"Porcelain Koi Frog","desc":"glazed, faintly chipped, and proud of both.","tier":2,"buy":0,"sell":340,"recipe":["nigiri","redswirl","creme-brulee"]},{"idx":15,"id":"peonybloom","name":"Peony Bloom Frog","desc":"shares the top petal with one regular bee.","tier":2,"buy":0,"sell":285,"recipe":["blossompuff","doorway","heart-cupcake"]},{"idx":16,"id":"handheld","name":"Handheld Frog","desc":"blow on the cartridge. it likes that.","tier":1,"buy":0,"sell":160,"recipe":["doorway","mosscap","toaster-tart"]},{"idx":17,"id":"sardinetin","name":"Sardine Tin Frog","desc":"packed in oil and sleeping just like that.","tier":1,"buy":0,"sell":100,"recipe":["speckleddrool","doorway","maki-rolls"]},{"idx":18,"id":"blossompuff","name":"Blossom Puff Frog","desc":"keeps one flower on for luck. never removes it.","tier":1,"buy":0,"sell":125,"recipe":["silkie","bunnytongue","butter-toast"]},{"idx":19,"id":"littleplanet","name":"Little Planet Frog","desc":"carries its own weather. one volcano, one cloud.","tier":4,"buy":0,"sell":1500,"recipe":["ringedsaucer","emberegg","pie-a-la-mode"]},{"idx":20,"id":"speckleddrool","name":"Speckled Drool Frog","desc":"spotted, dewy, and unbothered by both.","tier":0,"buy":55,"sell":30,"recipe":[]},{"idx":21,"id":"stoneguardian","name":"Stone Guardian Frog","desc":"centuries of standing watch, mostly over moss.","tier":2,"buy":0,"sell":230,"recipe":["mosscap","kiosk","dirt-pot"]},{"idx":22,"id":"kiosk","name":"Kiosk Frog","desc":"boxy and patient. hums faintly as you pass.","tier":1,"buy":0,"sell":145,"recipe":["doorway","freshloaf","popcorn-tub"]},{"idx":23,"id":"liondance","name":"Lion Dance Frog","desc":"arrives with drums. leaves with all your snacks.","tier":3,"buy":0,"sell":725,"recipe":["crimsoncoil","lantern","kebab-skewer"]},{"idx":24,"id":"crimsoncoil","name":"Crimson Coil Frog","desc":"coiled up tight in red lacquer. mostly asleep.","tier":2,"buy":0,"sell":300,"recipe":["sardinetin","redswirl","candy-apple"]},{"idx":25,"id":"freshloaf","name":"Fresh Loaf Frog","desc":"warm crust, smells like the morning shelf.","tier":0,"buy":70,"sell":39,"recipe":[]},{"idx":26,"id":"ringedsaucer","name":"Ringed Saucer Frog","desc":"beams down one tiny cousin, green light and all.","tier":3,"buy":0,"sell":630,"recipe":["hazardflask","handheld","sprinkle-donut"]},{"idx":27,"id":"doorway","name":"Doorway Frog","desc":"knock twice; the little bell answers for it.","tier":0,"buy":95,"sell":52,"recipe":[]},{"idx":28,"id":"kaerushiba","name":"Kaeru Shiba Frog","desc":"answers to the name on the tag, eventually.","tier":2,"buy":0,"sell":215,"recipe":["handheld","freshloaf","kebab-skewer"]},{"idx":29,"id":"omuricelove","name":"Omurice Love Frog","desc":"ketchup says love; the chef hat agrees.","tier":1,"buy":0,"sell":165,"recipe":["silkie","freshloaf","fried-egg"]},{"idx":30,"id":"bouquet","name":"Bouquet Frog","desc":"brought flowers. is the flowers. still a frog.","tier":2,"buy":0,"sell":250,"recipe":["blossompuff","bunnypile","heart-cupcake"]},{"idx":31,"id":"gemfist","name":"Gemfist Frog","desc":"wears every gem it has found. still looking.","tier":4,"buy":0,"sell":2600,"recipe":["daruma","bluering","candy-brownie"]},{"idx":32,"id":"cocoanap","name":"Cocoa Nap Frog","desc":"sleeps rooted, sprouts greens, dreams of rain.","tier":0,"buy":65,"sell":36,"recipe":[]},{"idx":33,"id":"piggyback","name":"Piggyback Frog","desc":"two faces, one nap schedule, zero arguments.","tier":1,"buy":0,"sell":95,"recipe":["speckleddrool","cocoanap","twin-pop"]},{"idx":34,"id":"lantern","name":"Lantern Frog","desc":"keeps one small flame lit for late walks home.","tier":2,"buy":0,"sell":355,"recipe":["emberegg","ramshorn","hearty-stew"]},{"idx":35,"id":"bluering","name":"Blue Ring Frog","desc":"do not lick. it will not stop you, but do not.","tier":3,"buy":0,"sell":440,"recipe":["hazardflask","porcelainkoi","creme-brulee"]}],"foods":[{"idx":32,"id":"pea-bowl","name":"Pea Bowl","desc":"free from the garden. everyone eats a few.","cost":0,"unlock":0},{"idx":42,"id":"butter-toast","name":"Butter Toast","desc":"warm, buttery, gone in one hop.","cost":3,"unlock":40},{"idx":35,"id":"fried-egg","name":"Fried Egg","desc":"sunny side, still a little wobbly.","cost":3,"unlock":40},{"idx":15,"id":"hearty-stew","name":"Hearty Stew","desc":"simmered slow. steams up the whole pond.","cost":3,"unlock":40},{"idx":37,"id":"loopy-cereal","name":"Loopy Cereal","desc":"little rings that spiral in the milk.","cost":3,"unlock":40},{"idx":21,"id":"maki-rolls","name":"Maki Rolls","desc":"cold rice and seafood in neat coins.","cost":3,"unlock":40},{"idx":28,"id":"milk-carton","name":"Milk Carton","desc":"cold milk. the cats notice first.","cost":3,"unlock":40},{"idx":19,"id":"onigiri","name":"Onigiri","desc":"a neat rice triangle for tidy frogs.","cost":3,"unlock":40},{"idx":38,"id":"popcorn-tub","name":"Popcorn Tub","desc":"salty, crunchy, endlessly rustling.","cost":3,"unlock":40},{"idx":6,"id":"toaster-tart","name":"Toaster Tart","desc":"frosted, retro, faintly warm.","cost":3,"unlock":40},{"idx":45,"id":"twin-pop","name":"Twin Pop","desc":"snaps in two. best shared, obviously.","cost":3,"unlock":40},{"idx":30,"id":"deluxe-burger","name":"Deluxe Burger","desc":"the tall one. worth the coins.","cost":5,"unlock":60},{"idx":3,"id":"pancake-stack","name":"Pancake Stack","desc":"three high, syrup already sinking in.","cost":5,"unlock":60},{"idx":18,"id":"candy-apple","name":"Candy Apple","desc":"red lacquer shell, sticky underneath.","cost":7,"unlock":90},{"idx":31,"id":"creme-brulee","name":"Creme Brulee","desc":"torched sugar, one satisfying crack.","cost":7,"unlock":90},{"idx":43,"id":"dirt-pot","name":"Dirt Pot","desc":"crumbs, gummy worms, honest earth.","cost":7,"unlock":90},{"idx":49,"id":"heart-cupcake","name":"Heart Cupcake","desc":"frosted pink. hard to eat alone.","cost":7,"unlock":90},{"idx":48,"id":"kebab-skewer","name":"Kebab Skewer","desc":"grilled at the festival stall.","cost":7,"unlock":90},{"idx":26,"id":"matcha-latte","name":"Matcha Latte","desc":"green, quiet, faintly ceremonial.","cost":7,"unlock":90},{"idx":9,"id":"sprinkle-donut","name":"Sprinkle Donut","desc":"a little frosted saucer of stars.","cost":13,"unlock":220},{"idx":47,"id":"candy-brownie","name":"Candy Brownie","desc":"chewy, studded with candy gems.","cost":22,"unlock":400},{"idx":40,"id":"pie-a-la-mode","name":"Pie a la Mode","desc":"warm slice, cold scoop, own weather.","cost":22,"unlock":400}],"startCoins":320,"nest":{"x":388,"y":264},"heroFrog":"bunnytongue","winFrog":"gemfist","zoomFood":"matcha-latte","glowFood":"creme-brulee","starterGift":["bunnytongue","mosscap"]};
+const GD = {"species":[{"idx":0,"id":"bunnytongue","name":"Bunny Tongue Frog","desc":"tongue out always. this is simply how it is.","tier":0,"buy":110,"sell":61,"recipe":[],"diet":"leafy"},{"idx":1,"id":"tabbymouser","name":"Tabby Mouser Frog","desc":"purrs at the mouse. the mouse is a friend.","tier":1,"buy":0,"sell":120,"recipe":["bunnytongue","freshloaf","milk-carton"],"diet":"sweet"},{"idx":2,"id":"mosscap","name":"Mosscap Frog","desc":"never takes the little hat off, not even to nap.","tier":0,"buy":50,"sell":28,"recipe":[],"diet":"leafy"},{"idx":3,"id":"nigiri","name":"Nigiri Frog","desc":"keeps one slice of salmon warm, just in case.","tier":1,"buy":0,"sell":150,"recipe":["silkie","greenapple","onigiri"],"diet":"savoury"},{"idx":4,"id":"emberegg","name":"Ember Egg Frog","desc":"glows faintly through the shell it kept.","tier":1,"buy":0,"sell":140,"recipe":["mosscap","freshloaf","hearty-stew"],"diet":"savoury"},{"idx":5,"id":"bunnypile","name":"Bunny Pile Frog","desc":"wears a small crowd of rabbits. they all agreed.","tier":1,"buy":0,"sell":110,"recipe":["mosscap","cocoanap","pea-bowl"],"diet":"leafy"},{"idx":6,"id":"redswirl","name":"Redswirl Frog","desc":"the red spirals were always there. sleep well.","tier":1,"buy":0,"sell":135,"recipe":["speckleddrool","silkie","loopy-cereal"],"diet":"sweet"},{"idx":7,"id":"silkie","name":"Silkie Frog","desc":"clucks at dawn, then denies everything.","tier":0,"buy":140,"sell":77,"recipe":[],"diet":"leafy"},{"idx":8,"id":"monocle","name":"Monocle Frog","desc":"reads the tiny print. judges you kindly.","tier":2,"buy":0,"sell":320,"recipe":["tabbymouser","sardinetin","maki-rolls"],"diet":"savoury"},{"idx":9,"id":"ramshorn","name":"Ramshorn Frog","desc":"sheds one soft cloud every spring.","tier":1,"buy":0,"sell":115,"recipe":["silkie","cocoanap","pea-bowl"],"diet":"leafy"},{"idx":10,"id":"greenapple","name":"Green Apple Frog","desc":"crisp, tart, and a little embarrassed.","tier":0,"buy":85,"sell":47,"recipe":[],"diet":"savoury"},{"idx":11,"id":"daruma","name":"Daruma Frog","desc":"make a wish. it is already keeping count.","tier":3,"buy":0,"sell":820,"recipe":["porcelainkoi","stoneguardian","matcha-latte"],"diet":"leafy"},{"idx":12,"id":"hazardflask","name":"Hazard Flask Frog","desc":"shake gently. it will not tell you why.","tier":2,"buy":0,"sell":270,"recipe":["emberegg","kiosk","matcha-latte"],"diet":"leafy"},{"idx":13,"id":"shrimpcharm","name":"Shrimp Charm Frog","desc":"festival charms and one very small shrimp friend.","tier":3,"buy":0,"sell":535,"recipe":["crimsoncoil","kaerushiba","candy-apple"],"diet":"sweet"},{"idx":14,"id":"porcelainkoi","name":"Porcelain Koi Frog","desc":"glazed, faintly chipped, and proud of both.","tier":2,"buy":0,"sell":340,"recipe":["nigiri","redswirl","creme-brulee"],"diet":"sweet"},{"idx":15,"id":"peonybloom","name":"Peony Bloom Frog","desc":"shares the top petal with one regular bee.","tier":2,"buy":0,"sell":285,"recipe":["blossompuff","doorway","heart-cupcake"],"diet":"sweet"},{"idx":16,"id":"handheld","name":"Handheld Frog","desc":"blow on the cartridge. it likes that.","tier":1,"buy":0,"sell":160,"recipe":["doorway","mosscap","toaster-tart"],"diet":"sweet"},{"idx":17,"id":"sardinetin","name":"Sardine Tin Frog","desc":"packed in oil and sleeping just like that.","tier":1,"buy":0,"sell":100,"recipe":["speckleddrool","doorway","maki-rolls"],"diet":"savoury"},{"idx":18,"id":"blossompuff","name":"Blossom Puff Frog","desc":"keeps one flower on for luck. never removes it.","tier":1,"buy":0,"sell":125,"recipe":["silkie","bunnytongue","butter-toast"],"diet":"leafy"},{"idx":19,"id":"littleplanet","name":"Little Planet Frog","desc":"carries its own weather. one volcano, one cloud.","tier":4,"buy":0,"sell":1500,"recipe":["ringedsaucer","emberegg","pie-a-la-mode"],"diet":"sweet"},{"idx":20,"id":"speckleddrool","name":"Speckled Drool Frog","desc":"spotted, dewy, and unbothered by both.","tier":0,"buy":55,"sell":30,"recipe":[],"diet":"savoury"},{"idx":21,"id":"stoneguardian","name":"Stone Guardian Frog","desc":"centuries of standing watch, mostly over moss.","tier":2,"buy":0,"sell":230,"recipe":["mosscap","kiosk","dirt-pot"],"diet":"leafy"},{"idx":22,"id":"kiosk","name":"Kiosk Frog","desc":"boxy and patient. hums faintly as you pass.","tier":1,"buy":0,"sell":145,"recipe":["doorway","freshloaf","popcorn-tub"],"diet":"leafy"},{"idx":23,"id":"liondance","name":"Lion Dance Frog","desc":"arrives with drums. leaves with all your snacks.","tier":3,"buy":0,"sell":725,"recipe":["crimsoncoil","lantern","kebab-skewer"],"diet":"savoury"},{"idx":24,"id":"crimsoncoil","name":"Crimson Coil Frog","desc":"coiled up tight in red lacquer. mostly asleep.","tier":2,"buy":0,"sell":300,"recipe":["sardinetin","redswirl","candy-apple"],"diet":"sweet"},{"idx":25,"id":"freshloaf","name":"Fresh Loaf Frog","desc":"warm crust, smells like the morning shelf.","tier":0,"buy":70,"sell":39,"recipe":[],"diet":"leafy"},{"idx":26,"id":"ringedsaucer","name":"Ringed Saucer Frog","desc":"beams down one tiny cousin, green light and all.","tier":3,"buy":0,"sell":630,"recipe":["hazardflask","handheld","sprinkle-donut"],"diet":"sweet"},{"idx":27,"id":"doorway","name":"Doorway Frog","desc":"knock twice; the little bell answers for it.","tier":0,"buy":95,"sell":52,"recipe":[],"diet":"sweet"},{"idx":28,"id":"kaerushiba","name":"Kaeru Shiba Frog","desc":"answers to the name on the tag, eventually.","tier":2,"buy":0,"sell":215,"recipe":["handheld","freshloaf","kebab-skewer"],"diet":"savoury"},{"idx":29,"id":"omuricelove","name":"Omurice Love Frog","desc":"ketchup says love; the chef hat agrees.","tier":1,"buy":0,"sell":165,"recipe":["silkie","freshloaf","fried-egg"],"diet":"savoury"},{"idx":30,"id":"bouquet","name":"Bouquet Frog","desc":"brought flowers. is the flowers. still a frog.","tier":2,"buy":0,"sell":250,"recipe":["blossompuff","bunnypile","heart-cupcake"],"diet":"sweet"},{"idx":31,"id":"gemfist","name":"Gemfist Frog","desc":"wears every gem it has found. still looking.","tier":4,"buy":0,"sell":2600,"recipe":["daruma","bluering","candy-brownie"],"diet":"sweet"},{"idx":32,"id":"cocoanap","name":"Cocoa Nap Frog","desc":"sleeps rooted, sprouts greens, dreams of rain.","tier":0,"buy":65,"sell":36,"recipe":[],"diet":"leafy"},{"idx":33,"id":"piggyback","name":"Piggyback Frog","desc":"two faces, one nap schedule, zero arguments.","tier":1,"buy":0,"sell":95,"recipe":["speckleddrool","cocoanap","twin-pop"],"diet":"sweet"},{"idx":34,"id":"lantern","name":"Lantern Frog","desc":"keeps one small flame lit for late walks home.","tier":2,"buy":0,"sell":355,"recipe":["emberegg","ramshorn","hearty-stew"],"diet":"savoury"},{"idx":35,"id":"bluering","name":"Blue Ring Frog","desc":"do not lick. it will not stop you, but do not.","tier":3,"buy":0,"sell":440,"recipe":["hazardflask","porcelainkoi","creme-brulee"],"diet":"sweet"}],"foods":[{"idx":32,"id":"pea-bowl","name":"Pea Bowl","desc":"free from the garden. everyone eats a few.","cost":0,"unlock":0,"diet":"leafy"},{"idx":42,"id":"butter-toast","name":"Butter Toast","desc":"warm, buttery, gone in one hop.","cost":3,"unlock":40,"diet":"leafy"},{"idx":35,"id":"fried-egg","name":"Fried Egg","desc":"sunny side, still a little wobbly.","cost":3,"unlock":40,"diet":"savoury"},{"idx":15,"id":"hearty-stew","name":"Hearty Stew","desc":"simmered slow. steams up the whole pond.","cost":3,"unlock":40,"diet":"savoury"},{"idx":37,"id":"loopy-cereal","name":"Loopy Cereal","desc":"little rings that spiral in the milk.","cost":3,"unlock":40,"diet":"sweet"},{"idx":21,"id":"maki-rolls","name":"Maki Rolls","desc":"cold rice and seafood in neat coins.","cost":3,"unlock":40,"diet":"savoury"},{"idx":28,"id":"milk-carton","name":"Milk Carton","desc":"cold milk. the cats notice first.","cost":3,"unlock":40,"diet":"sweet"},{"idx":19,"id":"onigiri","name":"Onigiri","desc":"a neat rice triangle for tidy frogs.","cost":3,"unlock":40,"diet":"savoury"},{"idx":38,"id":"popcorn-tub","name":"Popcorn Tub","desc":"salty, crunchy, endlessly rustling.","cost":3,"unlock":40,"diet":"leafy"},{"idx":6,"id":"toaster-tart","name":"Toaster Tart","desc":"frosted, retro, faintly warm.","cost":3,"unlock":40,"diet":"sweet"},{"idx":45,"id":"twin-pop","name":"Twin Pop","desc":"snaps in two. best shared, obviously.","cost":3,"unlock":40,"diet":"sweet"},{"idx":30,"id":"deluxe-burger","name":"Deluxe Burger","desc":"the tall one. worth the coins.","cost":5,"unlock":60,"diet":"savoury"},{"idx":3,"id":"pancake-stack","name":"Pancake Stack","desc":"three high, syrup already sinking in.","cost":5,"unlock":60,"diet":"leafy"},{"idx":18,"id":"candy-apple","name":"Candy Apple","desc":"red lacquer shell, sticky underneath.","cost":7,"unlock":90,"diet":"sweet"},{"idx":31,"id":"creme-brulee","name":"Creme Brulee","desc":"torched sugar, one satisfying crack.","cost":7,"unlock":90,"diet":"sweet"},{"idx":43,"id":"dirt-pot","name":"Dirt Pot","desc":"crumbs, gummy worms, honest earth.","cost":7,"unlock":90,"diet":"leafy"},{"idx":49,"id":"heart-cupcake","name":"Heart Cupcake","desc":"frosted pink. hard to eat alone.","cost":7,"unlock":90,"diet":"sweet"},{"idx":48,"id":"kebab-skewer","name":"Kebab Skewer","desc":"grilled at the festival stall.","cost":7,"unlock":90,"diet":"savoury"},{"idx":26,"id":"matcha-latte","name":"Matcha Latte","desc":"green, quiet, faintly ceremonial.","cost":7,"unlock":90,"diet":"leafy"},{"idx":9,"id":"sprinkle-donut","name":"Sprinkle Donut","desc":"a little frosted saucer of stars.","cost":13,"unlock":220,"diet":"sweet"},{"idx":47,"id":"candy-brownie","name":"Candy Brownie","desc":"chewy, studded with candy gems.","cost":22,"unlock":400,"diet":"sweet"},{"idx":40,"id":"pie-a-la-mode","name":"Pie a la Mode","desc":"warm slice, cold scoop, own weather.","cost":22,"unlock":400,"diet":"sweet"}],"startCoins":320,"nest":{"x":388,"y":264},"heroFrog":"bunnytongue","winFrog":"gemfist","zoomFood":"matcha-latte","glowFood":"creme-brulee","starterGift":["bunnytongue","mosscap"]};
 const GEOM = {"cell":4,"gw":160,"gh":100,"b64":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//4AAAAAAAAAAAAAAAAAAAAAAf////gAAAAAAAAAAAAAAAAAAA///////+AAAAAAAAAAAAAAAAAB////////+AAAAAAAAAAAAAAAAAH////////4AAAAAAAAAAAAAAAAAf////////wAAAAAAAAAAAAAAAA//////////8AAAAAAAAAAAAAH/////////////gAAAAAAAAAAH///////////////+AAAAAAAAAf////////////////4AAAAAAAAH/////////////////AAAAAAAAAf////////////////4AAAAAAAAD////////////////+AAAAAAAAA/////////////////4AAAAAAAAH/////////////////gAAAAAAAD/////////////////+AAAAAAAA///////////////////8AAAAAAD////////////////////4AAAAAP/////////////////////4AAAAB/////////////////////wAAAAAP////////////////////AAAAAA////////////////////8AAAAAD////////////////////wAAAAAP////////////////////AAAAAP////////////////////8AAAA//////////////////////gAAD//////////////////////+AAf///////////////////////4Af////////////////////////gf/////////////////////////D/////////////////////////8P/////////////////////////w//////////////////////////D//j//////////////////////8P/+P8P////////////////////w/448A///////////////////x/D/jDgD//////////////////+H8P+MAAf//////////////////wPw/wAAD//////////////////8AfDwAAA///////////////////gB8PAAAH//////////////////gAAA4AAAf/////////////////+AAADgAAAD///j/////////////gAAAOAAAAP//+P////////////8AAAA4AAAA///4/////////////wAAABAAAAH///D/////////////AAAAAAAAA///AAf///////////wAAAAAAAAAAAAAB///////////+AAAAAAAAAAAAAAH///////////wAAAAAAAAAAAAAAf/////////jAAAAAAAAAAAAAAAB/////////8AAAAAAAAAAAAAAAAB/////////gAAAAAAAAAAAAAAAAH////////+AAAAAAAAAAAAAAAAAf////////wAAAAAAAAAAAAAAAAD/////////AAAAAAAAAAAAAAAAAP////////4AAAAAAAAAAAAAAAAA/////////gAAAAAAAAAAAAAAAAA////////8AAAAAAAAAAAAAAAAAD////////wAAAAAAAAAAAAAAAAAP////////AAAAAAAAAAAAAAAAAA//////+AcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=","pads":[{"x":415.8,"y":198.2,"r":31.5,"a":764},{"x":267.4,"y":232.3,"r":20.5,"a":536},{"x":414.6,"y":247.9,"r":14.5,"a":384},{"x":351.8,"y":365.9,"r":15.5,"a":376},{"x":413.7,"y":286.9,"r":24.5,"a":352},{"x":417.9,"y":227.2,"r":15.5,"a":332},{"x":223.9,"y":248.8,"r":17.5,"a":332},{"x":620.8,"y":263.3,"r":14.5,"a":332},{"x":325.5,"y":280.7,"r":19.5,"a":324},{"x":378.2,"y":379.6,"r":15.5,"a":304},{"x":352.9,"y":220.7,"r":17.5,"a":288},{"x":453.2,"y":281.4,"r":11.5,"a":256},{"x":309.2,"y":382.7,"r":15.5,"a":252},{"x":356.1,"y":261.2,"r":16.5,"a":248},{"x":586.4,"y":255.4,"r":12.5,"a":232},{"x":278.6,"y":291.6,"r":11.5,"a":232},{"x":450.1,"y":230.7,"r":12.5,"a":216},{"x":465.1,"y":243.5,"r":10.5,"a":216},{"x":552.3,"y":260.0,"r":12.5,"a":212},{"x":383.6,"y":229.6,"r":11.5,"a":204},{"x":435.1,"y":216.2,"r":9.5,"a":196},{"x":405.8,"y":331.8,"r":13.5,"a":188}]};
 const ATLAS = {"frog_adult":{"file":"frogs_adult.png","cw":58,"ch":46,"cols":6,"rects":[{"x":0,"y":0,"w":58,"h":46},{"x":62,"y":0,"w":49,"h":46},{"x":117,"y":0,"w":55,"h":46},{"x":175,"y":0,"w":56,"h":46},{"x":234,"y":0,"w":53,"h":46},{"x":293,"y":0,"w":51,"h":46},{"x":2,"y":46,"w":53,"h":46},{"x":62,"y":46,"w":50,"h":46},{"x":118,"y":46,"w":53,"h":46},{"x":177,"y":46,"w":52,"h":46},{"x":236,"y":46,"w":50,"h":46},{"x":294,"y":46,"w":49,"h":46},{"x":3,"y":92,"w":52,"h":46},{"x":63,"y":92,"w":47,"h":46},{"x":122,"y":92,"w":46,"h":46},{"x":178,"y":92,"w":49,"h":46},{"x":237,"y":92,"w":47,"h":46},{"x":295,"y":92,"w":48,"h":46},{"x":6,"y":138,"w":46,"h":46},{"x":62,"y":138,"w":50,"h":46},{"x":120,"y":138,"w":49,"h":46},{"x":177,"y":138,"w":51,"h":46},{"x":239,"y":138,"w":44,"h":46},{"x":292,"y":138,"w":53,"h":46},{"x":7,"y":184,"w":44,"h":46},{"x":64,"y":184,"w":46,"h":46},{"x":123,"y":184,"w":44,"h":46},{"x":179,"y":184,"w":48,"h":46},{"x":240,"y":184,"w":42,"h":46},{"x":295,"y":184,"w":47,"h":46},{"x":6,"y":230,"w":45,"h":46},{"x":63,"y":230,"w":47,"h":46},{"x":122,"y":230,"w":46,"h":46},{"x":175,"y":230,"w":56,"h":46},{"x":235,"y":230,"w":51,"h":46},{"x":292,"y":230,"w":53,"h":46}]},"frog_baby":{"file":"frogs_baby.png","cw":40,"ch":32,"cols":6,"rects":[{"x":0,"y":0,"w":40,"h":32},{"x":43,"y":0,"w":34,"h":32},{"x":81,"y":0,"w":38,"h":32},{"x":120,"y":0,"w":39,"h":32},{"x":161,"y":0,"w":37,"h":32},{"x":202,"y":0,"w":36,"h":32},{"x":1,"y":32,"w":37,"h":32},{"x":43,"y":32,"w":34,"h":32},{"x":81,"y":32,"w":37,"h":32},{"x":122,"y":32,"w":36,"h":32},{"x":162,"y":32,"w":35,"h":32},{"x":203,"y":32,"w":34,"h":32},{"x":2,"y":64,"w":36,"h":32},{"x":44,"y":64,"w":32,"h":32},{"x":84,"y":64,"w":32,"h":32},{"x":123,"y":64,"w":34,"h":32},{"x":163,"y":64,"w":33,"h":32},{"x":203,"y":64,"w":33,"h":32},{"x":4,"y":96,"w":32,"h":32},{"x":43,"y":96,"w":34,"h":32},{"x":83,"y":96,"w":34,"h":32},{"x":122,"y":96,"w":35,"h":32},{"x":164,"y":96,"w":31,"h":32},{"x":201,"y":96,"w":37,"h":32},{"x":4,"y":128,"w":31,"h":32},{"x":44,"y":128,"w":32,"h":32},{"x":84,"y":128,"w":31,"h":32},{"x":123,"y":128,"w":33,"h":32},{"x":165,"y":128,"w":29,"h":32},{"x":203,"y":128,"w":33,"h":32},{"x":4,"y":160,"w":31,"h":32},{"x":44,"y":160,"w":32,"h":32},{"x":84,"y":160,"w":32,"h":32},{"x":121,"y":160,"w":38,"h":32},{"x":162,"y":160,"w":35,"h":32},{"x":201,"y":160,"w":37,"h":32}]},"food_world":{"file":"foods_world.png","cw":41,"ch":26,"cols":10,"rects":[{"x":6,"y":0,"w":29,"h":26},{"x":48,"y":0,"w":26,"h":26},{"x":89,"y":0,"w":26,"h":26},{"x":130,"y":0,"w":26,"h":26},{"x":169,"y":0,"w":31,"h":26},{"x":212,"y":0,"w":26,"h":26},{"x":253,"y":0,"w":26,"h":26},{"x":294,"y":0,"w":26,"h":26},{"x":335,"y":0,"w":27,"h":26},{"x":376,"y":0,"w":26,"h":26},{"x":3,"y":26,"w":34,"h":26},{"x":48,"y":26,"w":26,"h":26},{"x":89,"y":26,"w":26,"h":26},{"x":130,"y":26,"w":26,"h":26},{"x":171,"y":26,"w":26,"h":26},{"x":212,"y":26,"w":26,"h":26},{"x":254,"y":26,"w":25,"h":26},{"x":294,"y":26,"w":26,"h":26},{"x":335,"y":26,"w":26,"h":26},{"x":376,"y":26,"w":26,"h":26},{"x":7,"y":52,"w":26,"h":26},{"x":48,"y":52,"w":26,"h":26},{"x":89,"y":52,"w":26,"h":26},{"x":130,"y":52,"w":26,"h":26},{"x":171,"y":52,"w":26,"h":26},{"x":212,"y":52,"w":26,"h":26},{"x":257,"y":52,"w":19,"h":26},{"x":294,"y":52,"w":26,"h":26},{"x":335,"y":52,"w":26,"h":26},{"x":376,"y":52,"w":26,"h":26},{"x":7,"y":78,"w":26,"h":26},{"x":48,"y":78,"w":26,"h":26},{"x":88,"y":78,"w":29,"h":26},{"x":131,"y":78,"w":24,"h":26},{"x":171,"y":78,"w":26,"h":26},{"x":212,"y":78,"w":26,"h":26},{"x":257,"y":78,"w":19,"h":26},{"x":291,"y":78,"w":32,"h":26},{"x":335,"y":78,"w":26,"h":26},{"x":380,"y":78,"w":19,"h":26},{"x":7,"y":104,"w":26,"h":26},{"x":48,"y":104,"w":26,"h":26},{"x":82,"y":104,"w":41,"h":26},{"x":130,"y":104,"w":26,"h":26},{"x":171,"y":104,"w":26,"h":26},{"x":212,"y":104,"w":26,"h":26},{"x":250,"y":104,"w":33,"h":26},{"x":294,"y":104,"w":26,"h":26},{"x":335,"y":104,"w":26,"h":26},{"x":376,"y":104,"w":26,"h":26}]},"food_ui":{"file":"foods_ui.png","cw":67,"ch":42,"cols":10,"rects":[{"x":10,"y":0,"w":47,"h":42},{"x":79,"y":0,"w":42,"h":42},{"x":146,"y":0,"w":42,"h":42},{"x":213,"y":0,"w":42,"h":42},{"x":276,"y":0,"w":51,"h":42},{"x":347,"y":0,"w":42,"h":42},{"x":414,"y":0,"w":42,"h":42},{"x":481,"y":0,"w":42,"h":42},{"x":548,"y":0,"w":43,"h":42},{"x":615,"y":0,"w":42,"h":42},{"x":6,"y":42,"w":55,"h":42},{"x":79,"y":42,"w":42,"h":42},{"x":146,"y":42,"w":43,"h":42},{"x":213,"y":42,"w":42,"h":42},{"x":280,"y":42,"w":42,"h":42},{"x":347,"y":42,"w":42,"h":42},{"x":415,"y":42,"w":41,"h":42},{"x":481,"y":42,"w":42,"h":42},{"x":548,"y":42,"w":42,"h":42},{"x":615,"y":42,"w":42,"h":42},{"x":12,"y":84,"w":42,"h":42},{"x":79,"y":84,"w":42,"h":42},{"x":146,"y":84,"w":42,"h":42},{"x":213,"y":84,"w":42,"h":42},{"x":280,"y":84,"w":42,"h":42},{"x":347,"y":84,"w":42,"h":42},{"x":420,"y":84,"w":31,"h":42},{"x":481,"y":84,"w":42,"h":42},{"x":548,"y":84,"w":42,"h":42},{"x":615,"y":84,"w":42,"h":42},{"x":12,"y":126,"w":43,"h":42},{"x":80,"y":126,"w":41,"h":42},{"x":144,"y":126,"w":47,"h":42},{"x":215,"y":126,"w":39,"h":42},{"x":280,"y":126,"w":43,"h":42},{"x":347,"y":126,"w":42,"h":42},{"x":420,"y":126,"w":30,"h":42},{"x":476,"y":126,"w":52,"h":42},{"x":548,"y":126,"w":42,"h":42},{"x":621,"y":126,"w":30,"h":42},{"x":12,"y":168,"w":42,"h":42},{"x":79,"y":168,"w":42,"h":42},{"x":134,"y":168,"w":67,"h":42},{"x":212,"y":168,"w":44,"h":42},{"x":280,"y":168,"w":42,"h":42},{"x":347,"y":168,"w":42,"h":42},{"x":409,"y":168,"w":53,"h":42},{"x":481,"y":168,"w":42,"h":42},{"x":548,"y":168,"w":42,"h":42},{"x":615,"y":168,"w":42,"h":42}]}};
 
@@ -1145,6 +1156,57 @@ const BIG_ICONS={grids:{
    '....oooooooo....',
    '................',
    '................'],
+  dleafy:[
+   '................',
+   '..............o.',
+   '.............oGo',
+   '....ooo....ooGo.',
+   '..ooGGGoooGGGGo.',
+   '.oGGGGGGGGGGGo..',
+   'oGGGGGGGGGGGGo..',
+   'oGGGGGGGGGGGo...',
+   '.oGGGGGGGGGo....',
+   '..ooGGGGGGo.....',
+   '....osGGGo......',
+   '...os.ooo.......',
+   '..os............',
+   '..o.............',
+   '................',
+   '................'],
+  dsavoury:[
+   '................',
+   '................',
+   '.....oooo.......',
+   '...oobbbboo.....',
+   '..obbwbbbbbo....',
+   '.obbbbbbbbbbo.o.',
+   'obbbbbbbbbbbboo.',
+   'obbbbbbbbbbbbbbo',
+   'obbbbbbbbbbbboo.',
+   '.obbbbbbbbbbo.o.',
+   '..obbbbbbbbo....',
+   '...oobbbboo.....',
+   '.....oooo.......',
+   '................',
+   '................',
+   '................'],
+  dsweet:[
+   '................',
+   '.......y........',
+   '......oyo.......',
+   '.....oppo.......',
+   '...oopppoo......',
+   '..opppppppo.....',
+   '.oppppppppppo...',
+   '.oPPPPPPPPPPo...',
+   '..oWWWWWWWWo....',
+   '..oWkWkWkWWo....',
+   '..oWWWWWWWWo....',
+   '...oWkWkWWo.....',
+   '...oWWWWWWo.....',
+   '....oooooo......',
+   '................',
+   '................'],
   book2:[
    '................',
    '..oooooooooooo..',
@@ -1347,6 +1409,9 @@ const BIG_ICONS={grids:{
   mset:{o:'#2f3a26',s:'#d4d6b4'},
   mcred:{o:'#5c1c33',p:'#f28cae',y:'#f2c14e',Y:'#fff2b0'},
   mfresh:{o:'#16330f',G:'#8fd45e',k:'#8a5a34'},
+  dleafy:{o:'#16330f',G:'#8fd45e',s:'#4a7a3a'},
+  dsavoury:{o:'#4a3410',b:'#f0a860',w:'#ffe9a8'},
+  dsweet:{o:'#5c1c33',p:'#f28cae',P:'#e0577f',W:'#f7f0d8',k:'#c08a58',y:'#f2c14e'},
   sdex:{o:'#2c4520',W:'#f7f0d8',k:'#5a6b3e',g:'#2c5222',G:'#8fd45e'},
   cam:{'B':'#bfe6f2','G':'#7fbf54','b':'#4a7d94','d':'#2f5a26','g':'#4e8a3a','n':'#ffffff','o':'#2a2118'},
   fm:{'D':'#a87a1e','G':'#7fbf54','Y':'#ffe9a8','f':'#f6ead2','g':'#4e8a3a','o':'#2a2118','y':'#f2c14e'},
@@ -1615,6 +1680,27 @@ function applyTheme(){
   }
   initWeather(t.particles);
 }
+
+/* ---------------- diets and fullness ----------------
+   A frog will not breed until it is full, and it fills twice as fast on its own
+   kind of food. Nothing is ever refused, so the free pea bowl (leafy) can top up
+   anybody — just slowly for the frogs that would rather have cake. Laying an egg
+   empties both parents, which is what the whole loop hangs off. */
+const DIETS={
+  leafy:  {name:'leafy',   ic:'dleafy',  col:'#8fd45e',
+           blurb:'greens, grains and anything that grew in the mud.'},
+  savoury:{name:'savoury', ic:'dsavoury',col:'#f0a860',
+           blurb:'eggs, rice, skewers — a proper meal.'},
+  sweet:  {name:'sweet',   ic:'dsweet',  col:'#f28cae',
+           blurb:'cake, candy and cold milk. no notes.'},
+};
+const BITE_FAV=.5, BITE_OTHER=.25;
+function dietOf(f){return (SP[f.spec]&&SP[f.spec].diet)||'leafy'}
+function likes(f,kind){return !!FD[kind]&&FD[kind].diet===dietOf(f)}
+function biteSize(f,kind){return likes(f,kind)?BITE_FAV:BITE_OTHER}
+function isFull(f){return (f.full||0)>=.999}
+/* the snacks this frog fills fastest on, for the card and the dex */
+function favourites(diet){return FOODS.filter(f=>f.diet===diet)}
 
 /* ---------------- breeding guides ----------------
    The FrogDex already reveals a recipe once you have met one of its parents. A
@@ -1958,7 +2044,7 @@ class Frog{
     this.stage=stage;this.growAt=stage==='adult'?0:G.time+T(GROW);
     this.sx=1;this.sy=1;this.rot=0;this.flip=Math.random()<.5;
     this.state='idle';this.stateT=rand(300,2000);this.hop=null;
-    this.lastFood=null;this.fedUntil=0;this.coolUntil=0;this.slot=-1;
+    this.lastFood=null;this.fedUntil=0;this.coolUntil=0;this.slot=-1;this.full=0;
     this.walkF=0;this.walkT=0;this.bob=rand(0,7);
     this.zoomUntil=0;this.glowUntil=0;this.sleep=false;this.bubble=null;
     this.tonicUntil=0;this.markUntil=0;this.wandUntil=0;this.petN=0;this.petAt=0;
@@ -2132,7 +2218,8 @@ class Frog{
     const i=G.food.indexOf(f);
     if(f.gone||i<0){this.state='idle';this.stateT=300;return}
     f.gone=true;G.food.splice(i,1);
-    this.lastFood=f.kind;this.fedUntil=G.time+T(100000);this.sleep=false;
+    this.fill(f.kind);
+    this.lastFood=f.kind;this.fedUntil=G.time+T(FED_HOLD);this.sleep=false;
     if(f.kind===GD.zoomFood)this.zoomUntil=G.time+T(20000);
     if(f.kind===GD.glowFood)this.glowUntil=G.time+T(30000);
     this.state='idle';this.stateT=rand(450,1400);
@@ -2143,6 +2230,21 @@ class Frog{
 }
 function squish(f,sx,sy,dur){tween({dur,ease:'outElastic',
   upd:t=>{f.sx=lerp(sx,1,t);f.sy=lerp(sy,1,t)}})}
+/* one place where a bite becomes fullness, so a thrown snack and a hand-fed one
+   can never disagree about how much a frog got out of it */
+Frog.prototype.fill=function(kind){
+  const was=isFull(this);
+  this.full=clamp((this.full||0)+biteSize(this,kind),0,1);
+  if(likes(this,kind)){
+    hearts(this.x,this.y-22,1);
+    puff(this.x,this.y-14,DIETS[dietOf(this)].col,3);
+  }
+  if(!was&&isFull(this)){
+    puff(this.x,this.y-16,'#ffe9a8',9);SFX.chime();
+    this.bubble={t:'note',until:G.time+1200};
+    toast(`${this.name} is full — ready to breed`,ICON.heart);
+  }
+};
 
 /* ---------------- particles ---------------- */
 const parts=[],ripples=[],tongues=[],flies=[];
@@ -2339,11 +2441,13 @@ function handFeed(fr,kind){
     done:()=>{
       o.gone=true;
       const i=G.food.indexOf(o);if(i>=0)G.food.splice(i,1);
-      fr.lastFood=kind;fr.fedUntil=G.time+T(100000);fr.sleep=false;
+      fr.fill(kind);
+      fr.lastFood=kind;fr.fedUntil=G.time+T(FED_HOLD);fr.sleep=false;
       if(kind===GD.zoomFood)fr.zoomUntil=G.time+T(20000);
       if(kind===GD.glowFood)fr.glowUntil=G.time+T(30000);
       squish(fr,1.3,.7,340);SFX.eat();hearts(fr.x,fr.y-20,2);
-      toast(`${fr.name} ate the ${f.name}`,FOOD_URL[kind]);
+      toast(likes(fr,kind)?`${fr.name} loved the ${f.name}`
+        :`${fr.name} ate the ${f.name}`,FOOD_URL[kind]);
       if(selFrog===fr)showCard(fr);
       saveSoon();
     }});
@@ -2356,12 +2460,19 @@ function handFeed(fr,kind){
    on the egg, then a froglet growing up, and both parents resting afterwards.
    The Sun Lamp is the paid way to skip any of it. */
 const NEST_BEAT=5200, EGG_WAIT=38000, EGG_WAIT_BOON=24000,
-      REST=48000, REST_BOON=28000, GROW=44000;
+      REST=48000, REST_BOON=28000, GROW=44000, FED_HOLD=45000;
 const nest={a:null,b:null,egg:null,ht:0,timer:0,force:false};
 function toNest(f){
   if(f.stage!=='adult'){toast('still a lil froglet');return}
   if(f.slot<0&&G.frogs.length>=POND_CAP){toast(`pond is full (max ${POND_CAP}) — sell one first`);SFX.buzz();return}
   if(G.time<f.coolUntil){toast(`${f.name} needs a rest first`);return}
+  // nobody breeds on an empty stomach
+  if(f.slot<0&&!isFull(f)){
+    const d=DIETS[dietOf(f)];
+    toast(`${f.name} is only ${Math.round((f.full||0)*100)}% full — it likes ${d.name} food`,
+      ICON[d.ic]);
+    SFX.buzz();return;
+  }
   if(nest.egg){toast('there is already an egg on the pad');return}
   if(f.slot>=0){f.slot=-1;if(nest.a===f)nest.a=null;if(nest.b===f)nest.b=null;
     toast(`${f.name} hops off the love-pad`);return}
@@ -2378,6 +2489,11 @@ function nestPreview(){
     const one=nest.a||nest.b;
     return {kind:'one',text:`${one.name} is waiting for a partner`};
   }
+  const starving=[nest.a,nest.b].filter(f=>!isFull(f));
+  if(starving.length)
+    return {kind:'hungry',
+      text:starving.length>1?'both are still hungry — feed them full'
+        :`${starving[0].name} is still hungry — feed it full`};
   const m=matchRecipe(nest.a,nest.b);
   if(m&&!m.__needs)
     return {kind:'good',spid:m.id,
@@ -2398,7 +2514,7 @@ function stepNest(dt){
       // thing the sign is promising. Otherwise hold the pair and wait, instead of
       // laying a parent copy and burning two cooldowns and the snack.
       const pv=nestPreview();
-      if(pv&&(pv.kind==='needs')&&!nest.force){nest.timer=0}
+      if(pv&&(pv.kind==='needs'||pv.kind==='hungry')&&!nest.force){nest.timer=0}
       else nest.timer+=dt;
       if(nest.timer>T(NEST_BEAT)){
         const child=resolve(a,b);
@@ -2406,6 +2522,7 @@ function stepNest(dt){
         const wait=T(boon?EGG_WAIT_BOON:EGG_WAIT);
         nest.egg={spec:child,hatch:G.time+wait,wob:0,total:wait};
         a.coolUntil=b.coolUntil=G.time+T(boon?REST_BOON:REST);
+        a.full=b.full=0;            // an egg costs both of them their dinner
         a.slot=b.slot=-1;nest.a=nest.b=null;nest.timer=0;nest.force=false;
         a.startHop(a.x-rand(16,30),a.y+rand(-8,12));
         b.startHop(b.x+rand(16,30),b.y+rand(-8,12));
@@ -2649,6 +2766,18 @@ function drawFrog(f,reflect){
     const b=Math.sin(G.time*.01)*1.6,ay=f.y-img.height-14+b;
     cx.fillStyle='#ffe9a8';
     cx.beginPath();cx.moveTo(f.x,ay+6);cx.lineTo(f.x-4,ay);cx.lineTo(f.x+4,ay);cx.closePath();cx.fill();
+  }
+  // A tummy bar over anyone who is not full — but only while it is useful:
+  // holding a snack, on the love-pad, or the frog you have open. Twelve bars all
+  // the time would be noise.
+  if(f.stage==='adult'&&!isFull(f)&&(G.sel||f.slot>=0||selFrog===f)){
+    const w=20,bx=Math.round(f.x-w/2),by=Math.round(f.y-img.height-7);
+    cx.fillStyle='rgba(18,26,14,.78)';cx.fillRect(bx-1,by-1,w+2,5);
+    cx.fillStyle='#3a2f1e';cx.fillRect(bx,by,w,3);
+    cx.fillStyle=DIETS[dietOf(f)].col;
+    cx.fillRect(bx,by,Math.max(1,Math.round(w*(f.full||0))),3);
+    cx.fillStyle='rgba(255,255,255,.3)';
+    cx.fillRect(bx,by,Math.max(1,Math.round(w*(f.full||0))),1);
   }
   if(G.time<f.markUntil||G.time<f.wandUntil){
     const gold=G.time<f.markUntil;
@@ -2909,7 +3038,9 @@ function drawNestLabel(){
   const w=Math.ceil(pxTextWidth(pv.text,sc))+pad*2;
   const h=5*sc+pad*2;
   const bx=Math.round(NEST.x-w/2), by=Math.round(NEST.y-40);
-  const tone=pv.kind==='good'?[255,233,168]:pv.kind==='needs'?[242,140,174]:[214,228,196];
+  const tone=pv.kind==='good'?[255,233,168]
+    :pv.kind==='needs'?[242,140,174]
+    :pv.kind==='hungry'?[240,168,96]:[214,228,196];
   cx.fillStyle='rgba(20,28,18,.82)';cx.fillRect(bx,by,w,h);
   cx.fillStyle=`rgba(${tone[0]},${tone[1]},${tone[2]},.55)`;
   cx.fillRect(bx,by,w,1);cx.fillRect(bx,by+h-1,w,1);
@@ -3183,12 +3314,24 @@ function showCard(f){
     sn.innerHTML+=`<span style="color:#a84568;margin-left:6px">tonic ${
       Math.ceil((f.tonicUntil-G.time)/1000)}s</span>`;
   }
+  // tummy: four pips, because a favourite is half a tummy and anything else a quarter
+  const fu=document.getElementById('fcFull');
+  const pips=Math.round((f.full||0)*4), done=isFull(f);
+  fu.innerHTML=`<span>tummy:</span><span id="fcPips">`+
+    [0,1,2,3].map(i=>`<i class="${i<pips?(done?'done':'on'):''}"></i>`).join('')+
+    `</span><span>${done?'full — ready to breed':'needs '+(4-pips)+' more'}</span>`;
+  // the card is already tall; the diet's full blurb lives in the dex instead
+  const d=DIETS[dietOf(f)];
+  const favs=favourites(d.name).slice(0,2).map(x=>x.name).join(' · ');
+  document.getElementById('fcDiet').innerHTML=
+    `<img src="${ICON[d.ic]}"><div><b>${d.name} eater</b><br>fills fast on ${favs}…</div>`;
   const bs=document.getElementById('fcBtns');bs.innerHTML='';
   const bB=document.createElement('button');bB.className='btn pink sm';
   const cd=Math.ceil(Math.max(0,f.coolUntil-G.time)/1000);
   bB.textContent=f.slot>=0?'leave pad':'breed';
   if(f.stage!=='adult'){bB.disabled=true;bB.textContent='too smol'}
   else if(cd>0&&f.slot<0){bB.disabled=true;bB.textContent=`resting ${cd}s`}
+  else if(!isFull(f)&&f.slot<0){bB.disabled=true;bB.textContent='still hungry'}
   bB.onclick=()=>{SFX.click();
     if(f.slot>=0){toNest(f);showCard(f);return}
     // breeding goes through a breeding tool: this hands you the wand with this
@@ -3222,7 +3365,8 @@ function showCard(f){
   }
   document.getElementById('fcHint').textContent=f.slot>=0
     ?'waiting on the love-pad… pick a partner.'
-    :'a new species needs the right pair, with its snack in either one.';
+    :isFull(f)?'a new species needs the right pair, with its snack in either one.'
+    :'feed it until the tummy is full, then it can go to the love-pad.';
   document.getElementById('fcard').classList.add('on');
 }
 function hideCard(){document.getElementById('fcard').classList.remove('on');selFrog=null}
@@ -3239,9 +3383,9 @@ function toast(txt,icon,gold){
   setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),450)},gold?4200:2600);
 }
 const HINTS=['welcome. the pea bowl is free — pick it below, then tap the water.',
-'or tap a frog directly to hand-feed it that exact snack.',
-'breeding needs a breeding tool: take the love wand and tap two frogs.',
-'peas open two species. every other snack unlocks in ShopHop, so sell frogs.'];
+'tap a frog with a snack in hand to feed it. a frog must be FULL to breed.',
+'each frog has a diet — its own kind of food fills it twice as fast.',
+'full pair + the right snack in either one = a brand new species.'];
 function hint(step){
   if(G.hint!==step-1)return;
   G.hint=step;
@@ -3465,7 +3609,8 @@ function renderApp(){
       const row=document.createElement('div');row.className='card';
       row.innerHTML=`<img class="face" src="${FROG_URL[s.i]}">
         <div class="inf"><div class="nm">${s.name}</div><div class="ds">${s.desc}</div>
-        <div class="pr">${s.buy}c</div></div>`;
+        <div class="pr">${s.buy}c · <img src="${ICON[(DIETS[s.diet]||DIETS.leafy).ic]}"
+          style="width:14px;height:14px;vertical-align:-2px"> ${s.diet} eater</div></div>`;
       const b=document.createElement('button');b.className='btn green sm';b.textContent='buy';
       b.disabled=G.coins<s.buy||G.frogs.length>=POND_CAP;
       b.onclick=()=>{SFX.click();buyFrog(s.id)};
@@ -3903,6 +4048,8 @@ function renderApp(){
         <div class="inf"><div class="nm">${own?'':'🔒 '}${f.name}</div>
         <div class="ds">${f.desc}</div>
         <div class="pr">${own?(f.cost?f.cost+'c a throw':'free, always'):`unlocks for ${f.unlock}c`}
+          <br><span style="color:${DIETS[f.diet].col==='#8fd45e'?'#3f7534':DIETS[f.diet].col}">
+            ${f.diet} food — fills ${f.diet} frogs twice as fast</span>
           ${uniq.length?`<br><span style="color:#3f7534">makes ${uniq.join(', ')}</span>`
             :'<br><span style="opacity:.7">a treat, nothing more</span>'}</div></div>`;
       if(!own){
@@ -3972,6 +4119,9 @@ function dexDetail(s){
       how+=`<br><span style="font-size:11px">read from your ${GL['g'+s.tier].name}</span>`;
     if(known)how+=`<br><span style="font-size:11px">either parent may hold the snack</span>`;
   }
+  const dt=DIETS[s.diet]||DIETS.leafy;
+  if(known)how+=`<br><span style="font-size:11px">eats ${dt.name}: `+
+    `${favourites(dt.name).slice(0,3).map(x=>x.name).join(', ')}…</span>`;
   const d=document.createElement('div');d.className='detail';
   d.innerHTML=`<img class="big" src="${known?FROG_URL[s.i]:FROG_SIL[s.i]}">
     <div class="nm">${known?s.name:'???'}</div>
@@ -4007,6 +4157,7 @@ function saveNow(){
       diary:(G.diary||[]).slice(-40),hops:G.hops,
       day:pondDay(),stamp:1,
       frogs:G.frogs.map(f=>({spec:f.spec,name:f.name,x:f.x,y:f.y,stage:f.stage,lastFood:f.lastFood,
+        full:+(f.full||0).toFixed(2),rest:Math.max(0,f.coolUntil-G.time),
         tonic:Math.max(0,f.tonicUntil-G.time)})),
       egg:nest.egg?{spec:nest.egg.spec,left:Math.max(0,nest.egg.hatch-G.time)}:null,
       offers:G.offers.slice(-8).map(o=>({id:o.id,cust:o.cust,spid:o.spid,price:o.price,
@@ -4030,6 +4181,8 @@ function load(){
       if(!SP[fd.spec])continue;
       const f=new Frog(fd.spec,fd.x,fd.y,fd.stage);
       f.name=fd.name;f.lastFood=(fd.lastFood&&FD[fd.lastFood])?fd.lastFood:null;
+      f.full=clamp(+fd.full||0,0,1);
+      if(fd.rest>0)f.coolUntil=G.time+fd.rest;
       if(fd.tonic>0)f.tonicUntil=G.time+fd.tonic;
       G.frogs.push(f);
     }
@@ -4237,12 +4390,12 @@ function buildTitle(){
 let tPane=null;
 function titleHelpHTML(){
   return '<h4>how to play</h4>'
-    +'<b>1.</b> pick a snack from the tray, then tap the water to toss it in.'
-    +'<br><b>2.</b> frogs swarm the snack — the closest one gets the bite.'
-    +'<br><b>3.</b> take the <b>love wand</b> from the tools and tap two frogs.'
-    +'<br><b>4.</b> the right pair, with its snack in either one, = a new species.'
-    +'<br><b>5.</b> the <b>sun lamp</b> hurries the egg along; the toys are free.'
-    +'<br><b>6.</b> your phone sells frogs to collectors and keeps the frogdex.';
+    +'<b>1.</b> pick a snack, then tap the water — or tap a frog to hand-feed it.'
+    +'<br><b>2.</b> a frog will not breed until its <b>tummy is full</b>: four pips.'
+    +'<br><b>3.</b> every frog has a <b>diet</b> — its own food fills it twice as fast.'
+    +'<br><b>4.</b> take the <b>love wand</b> and tap two full frogs.'
+    +'<br><b>5.</b> the right pair, with its snack in either one, = a new species.'
+    +'<br><b>6.</b> laying an egg empties both parents, so feed them again.';
 }
 function titleCreditsHTML(){
   return '<h4>credits</h4>'
@@ -4391,7 +4544,7 @@ window.__dbg={nest,toNest,Frog,throwFood,startGame,weather,weatherPositions:()=>
   wandTap,ringBell,sunLamp,petFrog,clearWandPick,
   TRACKS,mus,musStart,musStop,musSkip,tapAt,leavePad,getWandPick:()=>wandPick,
   getMuted:()=>muted,openTitlePane,getPane:()=>tPane,
-  GUIDES,buyGuide,ownGuide,readable,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
+  GUIDES,buyGuide,ownGuide,readable,DIETS,dietOf,likes,biteSize,isFull,favourites,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
   FROG_URL,geom:GEOM,discover};
 boot();
 </script>
