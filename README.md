@@ -139,11 +139,12 @@ a bigger squish, and by the fourth pet they bounce off in delight.
 
 ## The main menu
 
-The menu sits **straight on the pond** — no panel, no sign. The wordmark and its
-type carry a heavy dark outline so they read over moving water, a slow lamplit
-pool breathes behind them, and fireflies drift through the shade while frogs
-potter about in the live pond. A mascot introduces itself in the middle; pet it,
-or tap any of the nine friends below to meet one of them instead.
+The menu sits **straight on the pond** — no panel, no sign, and only one line of
+text under the name. The wordmark carries a heavy dark outline so it reads over
+moving water, a slow lamplit pool breathes behind it, and sixteen fireflies drift
+through the shade while frogs potter about in the live pond. A mascot sits on its
+own lily pad in the middle, bobbing a beat behind the pad; pet it, or tap any of
+the six friends below to meet one of them instead.
 
 Every button wears its own pixel icon — a frog for **hop in**, an open book, a
 cog, a heart, a sprout for *start fresh*. Under the big **hop in** are three
@@ -164,7 +165,7 @@ their frogs, dex and coins, and a **start fresh** button that asks twice.
 
 ## Tech notes
 
-- A single self-contained `index.html` (~390 KB). Vanilla JS, no build step, no
+- A single self-contained `index.html` (~425 KB). Vanilla JS, no build step, no
   dependencies. Canvas renders at 640×400 and scales in crisp quarter-steps.
 - **The pondside chrome is built from block materials.** Four tiling pixel
   textures — moss, green-stained planks, parchment and mossy stone — are painted
@@ -176,13 +177,28 @@ their frogs, dex and coins, and a **start fresh** button that asks twice.
   repeating background at 2× for the large flat middles. That's why the textured
   panels drop `fill` from their `border-image` — the frame supplies the bevel, the
   material supplies the surface.
-- **The menu sign and the phone stay flat**, on purpose. The material belongs to
+- **The menu and the phone stay flat**, on purpose. The material belongs to
   the woodwork standing in the pond — the tool and snack racks, the HUD chips, the
   frog card, the toasts. On the menu it fought the type, and inside the phone it
   fought the app cards, so both keep clean painted panels.
-- The vines and leaf sprigs draped over the snack bar and the menu sign are pixel
-  art painted from char grids the same way the icons are, then handed to CSS as
-  background images — no extra markup.
+- **The phone is pixel art too, and so is every rounded corner in the UI.** There
+  is not a `border-radius` or a gradient left on the handset: the shell, the
+  screen, the dock, the app icons and their notification dots are all cut with a
+  two-step `clip-path` (`--px-r`, `--px-R`) so a corner is a couple of square
+  steps, the way a sprite would draw it, and the bezel is inset shadows that
+  follow the same cut. Card buttons take their own full-width row underneath the
+  text, so the bigger type never squeezes a description into a two-word column.
+- The vines and leaf sprigs draped over the snack bar are pixel art painted from
+  char grids the same way the icons are, then handed to CSS as background images —
+  no extra markup.
+- **The pond is alive between the frogs.** Seven lily pads drift on the open
+  water and bounce off the banks, each drawn from the same few ellipses with a
+  wedge notch and, on some, a little bloom; fifteen fireflies pulse with a soft
+  halo and a squared-off sine so the blink has a snap to it; dragonflies cross the
+  pond every few seconds with blurred wings and a streaming tail, and small
+  four-point twinkles pop on the water. All of it is procedural — no extra art,
+  no extra requests — and it draws under the frogs so nothing is ever hidden
+  behind it.
 - **Input is pointer events only** — one code path for mouse and touch, so there
   is no duplicated mouse/touch logic to drift apart. The canvas takes
   `touch-action:none` so pinch-zoom and pull-to-scroll can't fight a drag, and

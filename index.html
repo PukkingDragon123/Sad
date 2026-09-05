@@ -16,14 +16,29 @@
   --frame-btnB:none;
   --vine:none; --sprig:none; --sprigL:none;
   --frame-cardF:none; --frame-paperF:none;
+  --menupad:none;
   --tex-moss:none; --tex-bark:none; --tex-parch:none; --tex-stone:none;
   --texZ:32px;                      /* 16px materials tile at 2x */
   --texZbark:64px;                  /* the plank tile is 32px, so 2x is 64 */
   --sc:2;                           /* set from resize(): UI scale, 1 .. 2.5 */
-  --t-body:calc(var(--sc)*6.5px);   /* small print */
-  --t-label:calc(var(--sc)*7px);    /* card titles */
-  --t-btn:calc(var(--sc)*8px);      /* buttons     */
-  --t-big:calc(var(--sc)*9.5px);    /* headings    */
+  /* one notch up across the board: this is a cozy game read from the sofa, and
+     the old scale was sized for a monitor an arm's length away */
+  --t-body:calc(var(--sc)*7.6px);   /* small print */
+  --t-label:calc(var(--sc)*8.4px);  /* card titles */
+  --t-btn:calc(var(--sc)*9.4px);    /* buttons     */
+  --t-big:calc(var(--sc)*11.5px);   /* headings    */
+  /* a two-step pixel corner, used anywhere a rounded rect would look out of
+     place next to the sprites */
+  --px-r:polygon(4px 0,calc(100% - 4px) 0,calc(100% - 4px) 2px,calc(100% - 2px) 2px,
+    calc(100% - 2px) 4px,100% 4px,100% calc(100% - 4px),calc(100% - 2px) calc(100% - 4px),
+    calc(100% - 2px) calc(100% - 2px),calc(100% - 4px) calc(100% - 2px),
+    calc(100% - 4px) 100%,4px 100%,4px calc(100% - 2px),2px calc(100% - 2px),
+    2px calc(100% - 4px),0 calc(100% - 4px),0 4px,2px 4px,2px 2px,4px 2px);
+  --px-R:polygon(10px 0,calc(100% - 10px) 0,calc(100% - 10px) 5px,calc(100% - 5px) 5px,
+    calc(100% - 5px) 10px,100% 10px,100% calc(100% - 10px),calc(100% - 5px) calc(100% - 10px),
+    calc(100% - 5px) calc(100% - 5px),calc(100% - 10px) calc(100% - 5px),
+    calc(100% - 10px) 100%,10px 100%,10px calc(100% - 5px),5px calc(100% - 5px),
+    5px calc(100% - 10px),0 calc(100% - 10px),0 10px,5px 10px,5px 5px,10px 5px);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{width:100%;height:100%;overflow:hidden;background:#0c160e}
@@ -129,43 +144,50 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   display:none;align-items:center;justify-content:center;font-size:11px;font-weight:700;
   color:#fff;background:#d0453f;border:3px solid var(--ink);border-radius:11px}
 /* ---------- the phone: a frog-themed handset ---------- */
-#phone{position:absolute;right:16px;bottom:104px;width:348px;height:min(76vh,660px);z-index:40;
-  display:flex;flex-direction:column;padding:11px 9px 13px;
-  border-radius:44px;
-  background:linear-gradient(160deg,#5f9a4a,#37642c 42%,#274b1f);
-  box-shadow:0 0 0 3px #16260f, 0 0 0 7px #4b7d3b, 0 0 0 10px #16260f,
-             0 16px 34px rgba(0,0,0,.55), inset 0 2px 0 rgba(255,255,255,.22);
+/* The handset is drawn like everything else in the pond: a pixel bezel with
+   stepped corners, no gradients and no smooth radii. */
+#phone{position:absolute;right:16px;bottom:104px;width:352px;height:min(76vh,660px);z-index:40;
+  display:flex;flex-direction:column;padding:13px 11px 15px;
+  clip-path:var(--px-R);
+  background:#3f7534;
+  box-shadow:0 16px 34px rgba(0,0,0,.55);
   transform:translateY(120%) scale(.93);opacity:0;pointer-events:none;
   transition:transform .42s cubic-bezier(.34,1.5,.64,1),opacity .25s}
 #phone.open{transform:none;opacity:1;pointer-events:auto}
-/* side buttons */
-#phone::before,#phone::after{content:'';position:absolute;background:#1d3316;border-radius:3px}
-#phone::before{left:-13px;top:112px;width:5px;height:54px;box-shadow:0 -70px 0 #1d3316,0 -104px 0 #1d3316}
-#phone::after{right:-13px;top:132px;width:5px;height:82px}
-#island{position:absolute;left:50%;top:15px;transform:translateX(-50%);
-  width:104px;height:22px;border-radius:11px;background:#0c1408;z-index:3;
-  display:flex;align-items:center;justify-content:center;gap:6px}
-#island i{display:block;width:7px;height:7px;border-radius:4px;background:#2c4a22}
-#island i:last-child{width:5px;height:5px;background:#4a7d3b}
+/* the bezel: a hard dark rim and a lit top edge, both painted with box-shadows
+   so they follow the clipped pixel corners instead of a rounded rect */
+#phoneEdge{position:absolute;inset:0;pointer-events:none;z-index:5;
+  clip-path:var(--px-R);
+  box-shadow:inset 0 0 0 3px #16260f,inset 0 0 0 6px #63a04c,inset 0 0 0 9px #16260f,
+             inset 0 11px 0 -9px rgba(255,255,255,.22)}
+/* side buttons, square nubs */
+#phone::before,#phone::after{content:'';position:absolute;background:#16260f}
+#phone::before{left:-9px;top:112px;width:6px;height:54px;box-shadow:0 -70px 0 #16260f,0 -104px 0 #16260f}
+#phone::after{right:-9px;top:132px;width:6px;height:82px}
+#island{position:absolute;left:50%;top:16px;transform:translateX(-50%);
+  width:106px;height:22px;background:#0c1408;z-index:6;clip-path:var(--px-r);
+  display:flex;align-items:center;justify-content:center;gap:7px}
+#island i{display:block;width:8px;height:8px;background:#2c4a22}
+#island i:last-child{width:6px;height:6px;background:#6fb052}
 #phoneTop{display:flex;justify-content:space-between;align-items:center;
-  color:#dff0c8;font-size:12px;padding:2px 12px 8px;font-weight:700;
+  color:#dff0c8;font-size:var(--t-body);padding:3px 13px 8px;font-weight:700;
   text-shadow:0 1px 0 rgba(0,0,0,.5)}
 #phoneTop .sig{display:flex;align-items:flex-end;gap:2px}
 #phoneTop .sig i{display:block;width:3px;background:#dff0c8}
 #phoneTop .batt{display:inline-flex;align-items:center;gap:2px}
-#phoneTop .batt b{display:block;width:17px;height:9px;border:2px solid #dff0c8;border-radius:2px;
+#phoneTop .batt b{display:block;width:18px;height:10px;border:2px solid #dff0c8;
   position:relative;font-size:0}
 #phoneTop .batt b::after{content:'';position:absolute;left:1px;top:1px;bottom:1px;width:70%;
   background:#a8e07c}
 #screen{flex:1;overflow:hidden;display:flex;flex-direction:column;
-  background:#e9f2dc;border-radius:32px;position:relative}
+  background:#e9f2dc;position:relative;clip-path:var(--px-r);
+  box-shadow:inset 0 0 0 2px #16260f}
 #homeInd{position:absolute;left:50%;bottom:5px;transform:translateX(-50%);
-  width:96px;height:5px;border-radius:3px;background:rgba(20,30,14,.4);z-index:4;pointer-events:none}
+  width:96px;height:5px;background:rgba(20,30,14,.45);z-index:4;pointer-events:none}
 #appHead{display:none;align-items:center;gap:8px;padding:9px 11px;font-size:var(--t-btn);font-weight:700;
-  background:var(--gold);flex:none;border-bottom:3px solid var(--ink);
-  border-radius:29px 29px 0 0}
-#appBack{cursor:pointer;font-size:15px;padding:2px 8px 3px;background:var(--paper);
-  border:2px solid var(--ink);border-radius:6px}
+  background:var(--gold);flex:none;border-bottom:3px solid var(--ink)}
+#appBack{cursor:pointer;font-size:var(--t-btn);padding:2px 9px 3px;background:var(--paper);
+  border:2px solid var(--ink)}
 #appBody{flex:1;overflow-y:auto;padding:10px;scrollbar-width:thin}
 #appBody::-webkit-scrollbar{width:6px}#appBody::-webkit-scrollbar-thumb{background:#7fa367;border-radius:3px}
 
@@ -181,27 +203,33 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   transition:transform .12s cubic-bezier(.34,2.2,.64,1)}
 .appIcon:hover{transform:scale(1.12) translateY(-2px)}
 .appIcon:active{transform:scale(.94)}
-.appIcon .ic{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;
-  justify-content:center;box-shadow:0 3px 0 rgba(0,0,0,.28),inset 0 2px 0 rgba(255,255,255,.35)}
+.appIcon .ic{width:56px;height:56px;display:flex;align-items:center;
+  justify-content:center;clip-path:var(--px-r);
+  box-shadow:inset 0 0 0 2px rgba(20,32,12,.55),inset 0 3px 0 -1px rgba(255,255,255,.4),
+             inset 0 -4px 0 -1px rgba(0,0,0,.16)}
 .appIcon .ic img{width:40px;height:40px}
 .appIcon span{font-size:calc(var(--sc)*5.1px);font-weight:700;color:#f2e6c6;
   text-shadow:0 2px 0 rgba(0,0,0,.55);text-align:center;line-height:1.15;
   min-height:calc(var(--sc)*13px);white-space:nowrap;letter-spacing:-.2px}
-.appIcon .dot{position:absolute;top:-5px;right:4px;min-width:19px;height:19px;border-radius:10px;
-  background:#d0453f;border:2px solid #fff;display:none;align-items:center;justify-content:center;
-  color:#fff;font-size:11px}
+.appIcon .dot{position:absolute;top:-5px;right:2px;min-width:20px;height:20px;
+  background:#d0453f;box-shadow:0 0 0 2px #fff8;display:none;align-items:center;
+  justify-content:center;color:#fff;font-size:var(--t-body);clip-path:var(--px-r)}
 #hsDots{display:flex;gap:5px;justify-content:center;padding:2px 0 6px}
-#hsDots i{display:block;width:6px;height:6px;border-radius:3px;background:rgba(240,250,225,.32)}
+#hsDots i{display:block;width:6px;height:6px;background:rgba(240,250,225,.32)}
 #hsDots i.on{background:rgba(240,250,225,.85)}
-#dock{margin:0 8px 16px;padding:9px 6px;border-radius:22px;
-  background:rgba(230,244,214,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.28);
+#dock{margin:0 8px 16px;padding:9px 6px;clip-path:var(--px-r);
+  background:rgba(230,244,214,.22);box-shadow:inset 0 2px 0 -1px rgba(255,255,255,.3);
   display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
-#dock .appIcon .ic{width:54px;height:54px;border-radius:14px}
+#dock .appIcon .ic{width:54px;height:54px}
 #dock .appIcon .ic img{width:32px;height:32px}
 #dock .appIcon span{display:none}
 
 .card{display:flex;align-items:center;gap:9px;margin-bottom:8px;padding:6px;
+  flex-wrap:wrap;
   border-style:solid;border-width:10px;border-image:var(--frame-cardF) 8 fill repeat}
+/* a card's action button takes its own full-width row, so the bigger type never
+   gets squeezed into a two-word column beside it */
+.card>.btn{flex:1 0 100%;margin-top:5px}
 .card img.face{width:48px;height:48px;flex:none;object-fit:contain}
 .card .inf{flex:1;min-width:0}
 .card .nm{font-size:var(--t-label);font-weight:700;margin-bottom:2px}
@@ -297,9 +325,9 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   background:radial-gradient(ellipse 62% 58% at 50% 44%,rgba(16,28,12,.50),rgba(3,8,5,.93))}
 /* a few fireflies drifting over the shade: pure cosiness, no canvas needed */
 #tFlies{position:absolute;inset:0;pointer-events:none;z-index:0}
-#tFlies i{position:absolute;width:3px;height:3px;border-radius:3px;background:#fff29a;
-  box-shadow:0 0 7px 3px rgba(255,238,140,.55);opacity:0;
-  animation:fly 9s ease-in-out infinite}
+#tFlies i{position:absolute;width:4px;height:4px;background:#fff6b8;
+  box-shadow:0 0 10px 5px rgba(255,238,140,.55),0 0 2px 1px rgba(255,255,220,.9);
+  opacity:0;animation:fly 9s ease-in-out infinite}
 @keyframes fly{
   0%{opacity:0;transform:translate(0,0) scale(.7)}
   18%{opacity:.9}
@@ -315,7 +343,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #tBoard::-webkit-scrollbar{display:none}
 #tCol{display:flex;flex-direction:column;align-items:center;gap:0}
 #tWord{display:flex;gap:1px;cursor:default;user-select:none;margin-top:2px}
-#tWord span{display:inline-block;font-size:clamp(30px,6vw,56px);color:#fff2b0;
+#tWord span{display:inline-block;font-size:clamp(34px,6.8vw,64px);color:#fff2b0;
   text-shadow:0 2px 0 #d08a2a,0 4px 0 #8a4d12,0 6px 0 #10240b,0 8px 0 #060f04,
     0 9px 12px rgba(0,0,0,.85),0 0 26px rgba(255,220,140,.45);
   animation:tw 2.6s ease-in-out infinite}
@@ -324,27 +352,33 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #tWord:hover span{animation:twh .5s cubic-bezier(.34,1.9,.64,1)}
 @keyframes twh{0%{transform:translateY(0)}40%{transform:translateY(-15px) scale(1.14)}
   100%{transform:translateY(0)}}
-#tSub{font-size:clamp(12px,1.8vw,15px);color:#e9f7cc;line-height:1.7;margin:5px 0 4px;
+#tSub{font-size:clamp(14px,2.1vw,19px);color:#e9f7cc;line-height:1.7;margin:7px 0 2px;
   text-shadow:0 2px 0 #0c1c08,0 0 12px rgba(0,0,0,.95)}
 #tSub::before,#tSub::after{content:'❀';color:#ffb0c8;margin:0 8px;font-size:.9em}
 #tMascotWrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px}
 #tMascotWrap{padding:6px 0 2px}
-#tMascot{width:124px;height:124px;object-fit:contain;cursor:pointer;
+/* the pad sits behind the mascot and bobs with it, a beat behind */
+#tMascotWrap::before{content:'';position:absolute;left:50%;bottom:36px;
+  transform:translateX(-50%);width:212px;height:64px;pointer-events:none;
+  background-image:var(--menupad);background-size:100% 100%;
+  image-rendering:pixelated;animation:padbob 1.3s ease-in-out infinite;
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,.55))}
+@keyframes padbob{0%,100%{transform:translateX(-50%) translateY(0) scaleX(1)}
+  50%{transform:translateX(-50%) translateY(2px) scaleX(1.03)}}
+#tMascot{width:152px;height:152px;object-fit:contain;cursor:pointer;
   animation:bob 1.3s ease-in-out infinite;
   filter:drop-shadow(0 8px 8px rgba(0,0,0,.75)) brightness(1.06)}
 #tMascot.pet{animation:petsquish .45s cubic-bezier(.34,1.8,.64,1)}
 @keyframes petsquish{0%{transform:scale(1,1)}25%{transform:scale(1.28,.7)}
   55%{transform:scale(.86,1.2) translateY(-12px)}100%{transform:scale(1,1)}}
-#tName{font-size:16px;color:#ffe9a8;min-height:20px;margin-top:4px;
-  text-shadow:0 2px 0 #0c1c08,0 0 12px rgba(0,0,0,.95)}
-#tPetHint{font-size:11px;color:#dbeec0;min-height:15px;max-width:min(90vw,360px);line-height:1.5;
-  text-shadow:0 2px 0 #0c1c08,0 0 10px rgba(0,0,0,.95);opacity:.92}
-#tPetTip{font-size:10px;color:#b6cf96;margin-top:5px;letter-spacing:.3px;
+#tName{font-size:clamp(18px,2.5vw,23px);color:#ffe9a8;min-height:26px;margin-top:12px;
+  text-shadow:0 3px 0 #0c1c08,0 0 12px rgba(0,0,0,.95)}
+#tPetTip{font-size:13px;color:#c3daa2;margin-top:6px;letter-spacing:.3px;
   text-shadow:0 2px 0 #0c1c08,0 0 10px rgba(0,0,0,.95)}
-#tCast{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;max-width:100%;
-  margin:10px 0 8px;padding:6px 9px;border-radius:7px;background:rgba(14,32,10,.55);
+#tCast{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:100%;
+  margin:12px 0 10px;padding:7px 11px;clip-path:var(--px-r);background:rgba(14,32,10,.55);
   box-shadow:inset 0 2px 0 rgba(0,0,0,.32),inset 0 0 22px rgba(0,0,0,.38)}
-#tCast img{width:42px;height:42px;object-fit:contain;cursor:pointer;
+#tCast img{width:56px;height:56px;object-fit:contain;cursor:pointer;
   animation:castbob 2.2s ease-in-out infinite;
   transition:transform .12s cubic-bezier(.34,2.2,.64,1);opacity:.85;filter:brightness(.96)}
 #tCast img:hover{transform:scale(1.3) translateY(-4px);opacity:1;filter:brightness(1.08)
@@ -352,16 +386,16 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 @keyframes castbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 #tBtns{display:flex;flex-direction:column;align-items:center;gap:9px}
 #tBtns2{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
-#tBtns .btn.big{font-size:clamp(17px,2.5vw,21px);padding:7px 24px 9px;border-width:13px}
-#tBtns .btn.sm{font-size:12px;padding:3px 9px 4px}
+#tBtns .btn.big{font-size:clamp(20px,3vw,26px);padding:9px 30px 11px;border-width:15px}
+#tBtns .btn.sm{font-size:15px;padding:5px 13px 6px;border-width:11px}
 /* every menu button wears its own pixel icon */
 .btn.ico{display:inline-flex;align-items:center;justify-content:center;gap:8px}
-.btn.ico img{image-rendering:pixelated;flex:none;width:20px;height:20px;
+.btn.ico img{image-rendering:pixelated;flex:none;width:24px;height:24px;
   filter:drop-shadow(0 2px 0 rgba(0,0,0,.35))}
-.btn.big.ico{gap:11px}
-.btn.big.ico img{width:30px;height:30px}
-#tSave{font-size:12px;color:#fff0bc;min-height:16px;margin:0 0 10px;
-  padding:3px 11px 4px;border-radius:11px;background:rgba(10,26,8,.46);
+.btn.big.ico{gap:13px}
+.btn.big.ico img{width:38px;height:38px}
+#tSave{font-size:14px;color:#fff0bc;min-height:20px;margin:0 0 13px;
+  padding:5px 15px 6px;clip-path:var(--px-r);background:rgba(10,26,8,.5);
   text-shadow:0 2px 0 #1d3a12}
 #tHelp{display:none;width:100%;margin-top:12px;padding:10px 13px;text-align:left;
   font-size:12px;line-height:1.75;color:#2a2416;
@@ -374,8 +408,8 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #tHelp .row .ds{font-size:10px;color:#55603c;line-height:1.45}
 #tHelp h4{font-size:13px;margin-bottom:5px;color:#3f5228}
 #tHelp .who{font-size:15px;font-weight:700;color:#3f7534}
-#tByline{position:relative;z-index:1;margin-top:11px;font-size:12px;color:#e2f0c6;letter-spacing:.5px;
-  padding:3px 14px 4px;border-radius:12px;background:rgba(6,16,8,.55);
+#tByline{position:relative;z-index:1;margin-top:13px;font-size:14px;color:#e2f0c6;letter-spacing:.5px;
+  padding:4px 16px 5px;clip-path:var(--px-r);background:rgba(6,16,8,.55);
   text-shadow:0 2px 0 #0a1408,0 0 12px rgba(0,0,0,.9)}
 #tByline b{color:#ffe9a8}
 /* a soft lamplit pool behind the menu, breathing, so the type has something to
@@ -399,10 +433,10 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
    them past the slot min-widths, so the snacks ended up off-screen to the right. */
 @media (max-width:820px){
   #tBoard{width:96vw;padding:12px 12px 14px;max-height:94vh}
-  #tMascot{width:92px;height:92px}
-  #tCast img{width:30px;height:30px}
-  #tCast{gap:3px;padding:5px}
-  #tPetHint{font-size:10px}
+  #tMascot{width:112px;height:112px}
+  #tMascotWrap::before{width:168px;height:51px;bottom:31px}
+  #tCast img{width:44px;height:44px}
+  #tCast{gap:5px;padding:6px}
   #bottomBar{flex-wrap:wrap;justify-content:center;width:96vw;max-width:96vw;gap:6px;bottom:8px}
   #toolWrap,#trayWrap{border-width:8px}
   #toolWrap{order:1;flex:1 1 100%;padding:6px 8px 7px}
@@ -451,6 +485,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 
 <div id="phoneBtn" class="gated"><img id="icPhone"><div id="phoneBadge">1</div></div>
 <div id="phone">
+  <div id="phoneEdge"></div>
   <div id="island"><i></i><i></i></div>
   <div id="phoneTop">
     <span id="phTime">12:00</span>
@@ -488,9 +523,8 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
     <div id="tMascotWrap">
       <img id="tMascot" title="pet me">
       <div id="tName"></div>
-      <div id="tPetHint"></div>
     </div>
-    <div id="tPetTip">tap to pet · tap a friend below to meet them</div>
+    <div id="tPetTip">tap to pet · tap a friend to meet them</div>
     <div id="tCast"></div>
     <div id="tSave"></div>
     <div id="tBtns">
@@ -887,6 +921,7 @@ function buildFrames(){
   r.setProperty('--tex-bark',  matURL('bark'));
   r.setProperty('--tex-parch', matURL('parch'));
   r.setProperty('--tex-stone', matURL('stone'));
+  r.setProperty('--menupad', menuPad());
   r.setProperty('--vine',   plant(PLANT.vine,  PLANT.map));
   r.setProperty('--sprig',  plant(PLANT.sprig, PLANT.map));
   r.setProperty('--sprigL', plant(PLANT.sprigL,PLANT.map));
@@ -939,6 +974,25 @@ const PLANT={
     '........oo......',
   ],
 };
+/* the menu mascot gets its own pad to sit on: same shapes as the pond's, drawn
+   once at boot and handed to CSS */
+function menuPad(){
+  const w=212,h=64,x=mkCtx(w,h),cxm=w/2,cym=h*.54,r=88;
+  const ell=(a,b,c,d,col)=>{x.fillStyle=col;x.beginPath();x.ellipse(a,b,c,d,0,0,Math.PI*2);x.fill()};
+  ell(cxm,cym+4,r,r*.40,'rgba(6,20,10,.35)');
+  ell(cxm,cym,r+2,r*.42+2,'#16330f');
+  ell(cxm,cym,r,r*.42,'#4e8a3a');
+  ell(cxm-r*.24,cym-r*.12,r*.5,r*.2,'rgba(160,220,120,.32)');
+  x.fillStyle='#0e2409';
+  x.beginPath();x.moveTo(cxm,cym);
+  x.lineTo(cxm+r*.95,cym-r*.16);x.lineTo(cxm+r*.95,cym+r*.16);x.closePath();x.fill();
+  // a bloom on the left so it never sits behind the frog
+  const fx=Math.round(cxm-r*.86),fy=Math.round(cym-4);
+  x.fillStyle='#e8f5d8';x.fillRect(fx-5,fy-2,11,5);x.fillRect(fx-3,fy-5,7,11);
+  x.fillStyle='#ffd0e0';x.fillRect(fx-3,fy,7,3);x.fillRect(fx-1,fy-3,3,9);
+  x.fillStyle='#f2c14e';x.fillRect(fx-1,fy,3,2);
+  return `url(${x.canvas.toDataURL()})`;
+}
 function plant(grid,map){
   const h=grid.length,w=grid[0].length,x=mkCtx(w,h);
   for(let y=0;y<h;y++)for(let i=0;i<w;i++){
@@ -2246,6 +2300,113 @@ Frog.prototype.fill=function(kind){
   }
 };
 
+/* ---------------- pond life ----------------
+   Three little ambient systems that cost nothing and make the water feel lived
+   in: drifting lily pads the frogs share the surface with, fireflies that
+   actually blink, and a dragonfly that skims past now and then. All of it is
+   decoration — nothing here touches the walkable mask or the game rules. */
+const pads=[],dflies=[],twinks=[];
+function initPond(){
+  pads.length=0;dflies.length=0;twinks.length=0;
+  // pads go in open water, well clear of the love-pad and of each other
+  let tries=0;
+  while(pads.length<7&&tries++<400){
+    const w=randWater();
+    if(dist(w,NEST)<52)continue;
+    if(pads.some(q=>dist(q,w)<46))continue;
+    pads.push({x:w.x,y:w.y,r:rint(9,14),ph:rand(0,7),
+      dx:rand(-.0016,.0016),dy:rand(-.0009,.0009),
+      flower:Math.random()<.42,bud:Math.random()<.5,
+      col:pick(['#4e8a3a','#57993f','#437a33','#5fa347'])});
+  }
+  for(let i=0;i<2;i++)dflies.push(newDragonfly());
+}
+function newDragonfly(){
+  const dir=Math.random()<.5?1:-1;
+  return {x:dir>0?-14:VW+14,y:rand(160,VH-40),dir,
+    sp:rand(.055,.1),ph:rand(0,7),wait:rand(3000,14000),t:0,
+    col:pick(['#8ec9e8','#c3a3e8','#f0a860'])};
+}
+function stepPond(dt){
+  for(const q of pads){
+    q.x+=q.dx*dt;q.y+=q.dy*dt;
+    // bounce gently off anything that is not open water
+    if(!inWater(q.x+q.dx*40,q.y))q.dx=-q.dx;
+    if(!inWater(q.x,q.y+q.dy*40))q.dy=-q.dy;
+    q.x=clamp(q.x,18,VW-18);q.y=clamp(q.y,150,VH-14);
+  }
+  for(const d of dflies){
+    if(d.wait>0){d.wait-=dt;continue}
+    d.x+=d.dir*d.sp*dt;
+    d.y+=Math.sin(G.time*.006+d.ph)*.16;
+    if(d.dir>0?d.x>VW+16:d.x<-16)Object.assign(d,newDragonfly());
+  }
+  // a twinkle on the water every so often
+  if(Math.random()<dt/900){
+    const w=randWater();
+    twinks.push({x:w.x,y:w.y,t:0,life:rand(600,1100)});
+  }
+  for(let i=twinks.length-1;i>=0;i--){
+    twinks[i].t+=dt;
+    if(twinks[i].t>=twinks[i].life)twinks.splice(i,1);
+  }
+}
+function drawPads(){
+  for(const q of pads){
+    const b=Math.sin(G.time*.0016+q.ph)*1.1;
+    const x=Math.round(q.x),y=Math.round(q.y+b);
+    // shadow in the water first, then the pad, then its notch and highlight
+    cx.fillStyle='rgba(8,26,16,.22)';
+    cx.beginPath();cx.ellipse(x,y+3,q.r,q.r*.42,0,0,Math.PI*2);cx.fill();
+    cx.fillStyle='#1d3a18';
+    cx.beginPath();cx.ellipse(x,y,q.r+1,q.r*.56+1,0,0,Math.PI*2);cx.fill();
+    cx.fillStyle=q.col;
+    cx.beginPath();cx.ellipse(x,y,q.r,q.r*.56,0,0,Math.PI*2);cx.fill();
+    cx.fillStyle='rgba(160,220,120,.35)';
+    cx.beginPath();cx.ellipse(x-q.r*.22,y-q.r*.16,q.r*.5,q.r*.24,0,0,Math.PI*2);cx.fill();
+    // the wedge every lily pad has
+    cx.fillStyle='rgba(12,28,10,.85)';
+    cx.beginPath();cx.moveTo(x,y);
+    cx.lineTo(x+q.r*.95,y-q.r*.2);cx.lineTo(x+q.r*.95,y+q.r*.2);cx.closePath();cx.fill();
+    if(q.flower){
+      const fy=y-Math.round(q.r*.38);
+      cx.fillStyle='#e8f5d8';
+      cx.fillRect(x-3,fy-1,6,3);cx.fillRect(x-2,fy-3,4,6);
+      cx.fillStyle='#ffd0e0';
+      cx.fillRect(x-2,fy,4,2);cx.fillRect(x-1,fy-2,2,5);
+      cx.fillStyle='#f2c14e';cx.fillRect(x-1,fy,2,1);
+    }else if(q.bud){
+      cx.fillStyle='#3a6b2c';cx.fillRect(x+2,y-q.r*.5,2,3);
+      cx.fillStyle='#ffb0c8';cx.fillRect(x+1,y-q.r*.5-3,4,4);
+      cx.fillStyle='#fff0f6';cx.fillRect(x+2,y-q.r*.5-3,1,2);
+    }
+  }
+}
+function drawPondLife(){
+  // twinkles: a four-point sparkle sitting on the surface
+  for(const t of twinks){
+    const k=t.t/t.life, a=Math.sin(k*Math.PI);
+    if(a<.06)continue;
+    const s=1+Math.round(a*1.6);
+    cx.fillStyle=`rgba(255,252,210,${a*.85})`;
+    cx.fillRect(t.x-s,t.y,s*2+1,1);
+    cx.fillRect(t.x,t.y-s,1,s*2+1);
+    cx.fillStyle=`rgba(255,255,255,${a})`;cx.fillRect(t.x,t.y,1,1);
+  }
+  for(const d of dflies){
+    if(d.wait>0)continue;
+    const x=Math.round(d.x),y=Math.round(d.y);
+    const up=Math.floor(G.time/45)%2;      // wings blur
+    cx.fillStyle='rgba(228,244,255,.55)';
+    cx.fillRect(x-3,y-1-up,3,1);cx.fillRect(x+1,y-1-up,3,1);
+    cx.fillRect(x-3,y+1+up,3,1);cx.fillRect(x+1,y+1+up,3,1);
+    cx.fillStyle=d.col;
+    cx.fillRect(x-1,y,2,1);
+    cx.fillRect(x+(d.dir>0?1:-4),y,4,1);   // tail streams behind
+    cx.fillStyle='#16260f';cx.fillRect(x+(d.dir>0?-2:1),y-1,2,2);
+  }
+}
+
 /* ---------------- particles ---------------- */
 const parts=[],ripples=[],tongues=[],flies=[];
 function puff(x,y,col,n=6){for(let i=0;i<n;i++)parts.push({k:'puff',x:x+rand(-5,5),y:y+rand(-4,4),
@@ -2262,9 +2423,12 @@ function splash(x,y,n=7){for(let i=0;i<n;i++)parts.push({k:'drop',x,y,
 function ripple(x,y){ripples.push({x,y,t:0,life:640})}
 function tongue(f,food){tongues.push({f,x:food.x,y:food.y,t:0,life:170})}
 function initFlies(){
-  for(let i=0;i<7;i++){const p=randWater();
+  flies.length=0;
+  for(let i=0;i<15;i++){const p=randWater();
     flies.push({x:p.x,y:p.y-rand(4,26),ph:rand(0,7),sp:rand(.0007,.0016),
-      ax:rand(16,46),ay:rand(5,14),bx:p.x,by:p.y-rand(6,26)})}
+      ax:rand(16,46),ay:rand(5,14),bx:p.x,by:p.y-rand(6,26),
+      blink:rand(.0012,.0028),hue:Math.random()<.25?'#c8f0ff':'#fff2a0'})}
+  initPond();
 }
 
 /* ---------------- weather ----------------
@@ -2838,6 +3002,7 @@ function drawBubbles(){
 function draw(){
   cx.clearRect(0,0,VW,VH);
   drawDecor();
+  drawPads();          // under everything that swims or hops
   // love-pad, with a slow pink shimmer so it always reads as "the breeding spot"
   if(PADIMG){
     const g=.06+.05*Math.sin(G.time*.0022);
@@ -2902,16 +3067,20 @@ function draw(){
     cx.lineTo(lerp(f.x,t.x,e),lerp(f.y-ih*.42,t.y,e));cx.stroke();cx.lineWidth=1;
   }
   drawBall();drawBubbles();
-  // fireflies
+  // fireflies: a soft halo, a bright core, and a real blink rather than a fade
   for(const fl of flies){
-    const a=.35+.35*Math.sin(G.time*.003+fl.ph);
-    if(a<.12)continue;
-    cx.fillStyle=`rgba(255,240,150,${a})`;
-    cx.fillRect(Math.round(fl.x),Math.round(fl.y),1,1);
-    cx.fillStyle=`rgba(255,240,150,${a*.3})`;
-    cx.fillRect(Math.round(fl.x)-1,Math.round(fl.y),3,1);
-    cx.fillRect(Math.round(fl.x),Math.round(fl.y)-1,1,3);
+    const s=Math.sin(G.time*fl.blink+fl.ph);
+    const a=Math.max(0,s)**2;
+    if(a<.04)continue;
+    const x=Math.round(fl.x),y=Math.round(fl.y);
+    const rgb=fl.hue==='#fff2a0'?'255,240,150':'190,236,255';
+    cx.fillStyle=`rgba(${rgb},${a*.13})`;
+    cx.beginPath();cx.arc(x,y,4.5,0,Math.PI*2);cx.fill();
+    cx.fillStyle=`rgba(${rgb},${a*.34})`;
+    cx.fillRect(x-1,y,3,1);cx.fillRect(x,y-1,1,3);
+    cx.fillStyle=`rgba(255,255,235,${a})`;cx.fillRect(x,y,1,1);
   }
+  drawPondLife();
   drawWeather();
   // particles
   for(const p of parts){
@@ -3970,19 +4139,25 @@ function renderApp(){
       const own=ownGuide(g.tier);
       const n=SPECIES.filter(s=>s.tier===g.tier&&s.recipe).length;
       const row=document.createElement('div');row.className='card';
+      // the title text gets the full width; price and the buy button sit under it,
+      // so the bigger type never squeezes the description into a one-word column
+      row.style.flexDirection='column';row.style.alignItems='stretch';
       row.style.cursor=own?'pointer':'default';
-      row.innerHTML=`<img class="face" src="${ICON.book2}"
-          style="${own?'':'filter:saturate(.35) brightness(.8)'}">
-        <div class="inf"><div class="nm">${own?'':'🔒 '}${g.name}</div>
-        <div class="ds">${g.desc}</div>
-        <div class="pr">${own?`${n} recipes · tap to read`:`${g.cost}c · tier ${g.tier}`}</div></div>`;
+      row.innerHTML=`<div style="display:flex;align-items:center;gap:9px">
+          <img class="face" src="${ICON.book2}"
+            style="${own?'':'filter:saturate(.35) brightness(.8)'}">
+          <div class="inf"><div class="nm">${own?'':'🔒 '}${g.name}</div>
+          <div class="ds">${g.desc}</div></div></div>
+        <div class="grow" style="display:flex;align-items:center;justify-content:space-between;
+             gap:8px;margin-top:5px">
+          <span class="pr" style="margin:0">${own?`${n} recipes · tap to read`:`${g.cost}c · tier ${g.tier}`}</span></div>`;
       if(own){
         row.onclick=()=>{SFX.click();guideTier=g.tier;app='guideTier';renderApp()};
       }else{
         const b=document.createElement('button');b.className='btn green sm';b.textContent='buy';
         b.disabled=G.coins<g.cost;
         b.onclick=ev=>{ev.stopPropagation();SFX.click();buyGuide(g.id)};
-        row.appendChild(b);
+        row.querySelector('.grow').appendChild(b);
       }
       body.appendChild(row);
     }
@@ -4258,6 +4433,7 @@ function loop(ts){
     f.x=f.bx+Math.cos(G.time*f.sp+f.ph)*f.ax;
     f.y=f.by+Math.sin(G.time*f.sp*1.7+f.ph)*f.ay;
   }
+  stepPond(dt);
   for(let i=G.food.length-1;i>=0;i--){const f=G.food[i];
     if(!f.flying&&G.time-f.born>T(45000)){G.food.splice(i,1);ripple(f.x,f.y)}}
   if(mode==='play'){
@@ -4294,9 +4470,8 @@ function setMascot(id,quiet){
   const s=SP[id];
   document.getElementById('tMascot').src=FROG_URL[s.i];
   document.getElementById('tName').textContent=s.name;
-  document.getElementById('tPetHint').textContent=s.desc;
-  const tip=document.getElementById('tPetTip');
-  if(tip)tip.textContent='tap to pet · tap a friend below to meet them';
+  // the species blurb used to sit here too; one line under the name reads better
+  // at this size than three stacked ones
   if(!quiet){
     const m=document.getElementById('tMascot');
     m.classList.remove('pet');void m.offsetWidth;m.classList.add('pet');
@@ -4323,7 +4498,7 @@ function buildTitle(){
   // fireflies drifting across the shade behind the menu
   const flies=document.getElementById('tFlies');
   flies.innerHTML='';
-  for(let i=0;i<9;i++){
+  for(let i=0;i<16;i++){
     const f=document.createElement('i');
     f.style.left=rand(4,94).toFixed(1)+'%';
     f.style.top=rand(24,92).toFixed(1)+'%';
@@ -4345,7 +4520,7 @@ function buildTitle(){
   // a rotating cast you can click through
   const cast=document.getElementById('tCast');
   cast.innerHTML='';
-  const picks=[...SPECIES].sort(()=>Math.random()-.5).slice(0,9);
+  const picks=[...SPECIES].sort(()=>Math.random()-.5).slice(0,6);
   picks.forEach((sp,i)=>{
     const im=document.createElement('img');
     im.src=FROG_URL[sp.i];im.title=sp.name+' — '+sp.desc;
@@ -4539,7 +4714,8 @@ async function boot(){
   requestAnimationFrame(loop);
 }
 window.G=G;window.SPECIES=SPECIES;window.FOODS=FOODS;
-window.__dbg={nest,toNest,Frog,throwFood,startGame,weather,weatherPositions:()=>weather.map(w=>[Math.round(w.x*10),Math.round(w.y*10),Math.round((w.ph||0)*1000)]),avatar,THEMES,DECOR,applyTheme,nestPreview,matchRecipe,handFeed,selectTool,doseTonic,TOOLS,frogAt,dosed,peekSave,
+window.__dbg={pads,dflies,twinks,initPond,stepPond,
+  nest,toNest,Frog,throwFood,startGame,weather,weatherPositions:()=>weather.map(w=>[Math.round(w.x*10),Math.round(w.y*10),Math.round((w.ph||0)*1000)]),avatar,THEMES,DECOR,applyTheme,nestPreview,matchRecipe,handFeed,selectTool,doseTonic,TOOLS,frogAt,dosed,peekSave,
   ball,bubs,box,kickBall,blowBubbles,stepBubbles,stepBall,placeBox,takeBox,chasingBall,dancingTo,
   wandTap,ringBell,sunLamp,petFrog,clearWandPick,
   TRACKS,mus,musStart,musStop,musSkip,tapAt,leavePad,getWandPick:()=>wandPick,
