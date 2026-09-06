@@ -179,7 +179,7 @@ their frogs, dex and coins.
 
 ## Tech notes
 
-- A single self-contained `index.html` (~425 KB). Vanilla JS, no build step, no
+- A single self-contained `index.html` (~423 KB). Vanilla JS, no build step, no
   dependencies. Canvas renders at 640×400 and scales in crisp quarter-steps.
 - **The pondside chrome is built from block materials.** Four tiling pixel
   textures — moss, green-stained planks, parchment and mossy stone — are painted
@@ -242,8 +242,23 @@ their frogs, dex and coins.
   played by a soft triangle lead, a sine bass, a music-box pluck on the chord and
   a brushed shaker, scheduled ~0.3 s ahead off the audio clock. Muting or
   backgrounding the tab stops synthesis instead of queueing it up.
-- Font: [Pixelify Sans](https://fonts.google.com/specimen/Pixelify+Sans) (OFL),
-  embedded so it works offline. UI panels are 9-slice pixel frames drawn at boot.
+- **The typeface is the game's own.** *Froggy Pixel* — 110 glyphs drawn as `#`
+  grids in `tools/make_font.py`, seven rows above the baseline and two below, then
+  turned into TrueType outlines at 100 units per pixel and compressed to WOFF2:
+  **2.3 KB regular, 2.4 KB bold**, both inlined so the game still needs one
+  request. The generator covers each glyph with the fewest rectangles it can
+  rather than one square per pixel, which is what keeps it that small. Bold is the
+  same grid smeared a pixel to the right — except for `M W m w`, whose two 1px
+  gaps a smear would swallow, so those are drawn heavy by hand, and the symbols,
+  which keep their regular shape because a heavier ❀ helps nobody. `G`, `6` and
+  `9` are drawn deliberately apart so a coin count never reads as a word. Run
+  `python3 tools/make_font.py --inline` to redraw a glyph and re-embed it.
+- The **world layer keeps its own 3×5 micro-font** (`PXFONT`), painted straight
+  onto the canvas for the little love-pad sign — at that size a 5×7 face would
+  cover half the pad.
+- UI panels are 9-slice pixel frames drawn at boot.
+
+![the typeface](docs/font.png)
 - The menu's snack drag is the same pointer-event path as the pond's: `pointerdown`
   captures, a fixed ghost follows the finger, and the frog's hitbox is padded 30px
   so a drop never has to be precise. A drag shorter than 5px is treated as a tap
@@ -286,8 +301,9 @@ project, 1280 × 720 viewport, mobile friendly on — and a blurb to paste.
   in the browser; there are no audio files.
 - **Animated pond backdrop** — pixel art by **@anasabdin**, whose watermark is
   left intact in the artwork.
-- **Typeface** — [Pixelify Sans](https://fonts.google.com/specimen/Pixelify+Sans),
-  under the Open Font License.
+- **Typeface** — **Froggy Pixel**, drawn for this game a pixel at a time.
+  The grids live in `tools/make_font.py`; the built faces are in
+  `tools/generated/`, with a specimen page beside them.
 
 ## Spoilers — the full recipe book
 

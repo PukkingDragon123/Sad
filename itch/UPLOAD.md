@@ -28,4 +28,4 @@ Everything here is ready to upload — no build step, no export.
 > Every frog has a diet and will not breed on an empty stomach — find the pair,
 > find the snack, meet somebody new. Plays with a mouse or a finger.
 
-Art & code by Pukking Dragon. Pond backdrop by @anasabdin. Type is Pixelify Sans (OFL).
+Art, code and typeface by Pukking Dragon. Pond backdrop by @anasabdin.
