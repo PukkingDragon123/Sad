@@ -139,29 +139,43 @@ a bigger squish, and by the fourth pet they bounce off in delight.
 
 ## The main menu
 
-The menu sits **straight on the pond** — no panel, no sign, and only one line of
-text under the name. The wordmark carries a heavy dark outline so it reads over
-moving water, a slow lamplit pool breathes behind it, and sixteen fireflies drift
-through the shade while frogs potter about in the live pond. A mascot sits on its
-own lily pad in the middle, bobbing a beat behind the pad; pet it, or tap any of
-the six friends below to meet one of them instead.
+The menu sits **straight on the pond** — no panel, no sign, no lily pad. It is two
+halves: the **name and three buttons on the left**, and a **frog you can feed on
+the right**. Fireflies drift through the shade, the attract-mode frogs keep to the
+low water so they never crowd the mascot, and every button wears its own pixel
+icon — a frog for **hop in**, an open book, a cog.
 
-Every button wears its own pixel icon — a frog for **hop in**, an open book, a
-cog, a heart, a sprout for *start fresh*. Under the big **hop in** are three
-panes, and only one is ever open, with the open one's button lit:
+**The frog on the right is the tutorial.** Drag a snack off the shelf and drop it
+on the frog — a tap works too, so nobody has to learn the drag first — and it
+chomps, hearts pop, and it says something. Its diet decides what: a favourite
+gets *"yum!! ♡"* and fills two of the three pips under its name, anything else
+gets a polite *"not my usual. still nice."* and fills one. Three pips and it is
+full, thanks you, and hands over to a friend who arrives hungry with a fresh
+shelf. That is the game's whole loop — snacks go in frogs, and each frog has a
+favourite — taught before the pond has opened. Tap the frog itself to pet it.
+
+The shelf always holds two snacks from each of the three diets, so a favourite is
+never more than a guess away.
+
+Two panes float over the menu, on a scrim you can tap to dismiss:
 
 - **how to play** — the six things worth knowing, in order.
-- **settings** — sound on/off, music on/off, and a track picker with the blurb
-  for whatever is cued up. All of it works from the menu, before you start.
-- **credits** — art & code by **Pukking Dragon**, plus the pond backdrop artist,
-  the music and the typeface.
+- **settings** — sound, music, a track picker with the blurb for whatever is cued
+  up, **start fresh** (it asks twice), and the **credits**: art & code by
+  **Pukking Dragon**, plus the pond backdrop artist, the music and the typeface.
 
-![a breeding guide](docs/breedbook.png)
+![the settings and credits pane](docs/credits.png)
 
-![the credits pane](docs/credits.png)
+![the menu on a phone](docs/menu-mobile.png)
+
+On a phone the two halves stack — name, buttons, then the frog and its shelf, with
+the byline at the very bottom — and a short-screen pass shrinks the wordmark and
+the frog so a landscape phone still fits the whole menu without scrolling.
 
 It remembers your pond, too: returning players get **continue** with a summary of
-their frogs, dex and coins, and a **start fresh** button that asks twice.
+their frogs, dex and coins.
+
+![a breeding guide](docs/breedbook.png)
 
 ## Tech notes
 
@@ -230,6 +244,10 @@ their frogs, dex and coins, and a **start fresh** button that asks twice.
   backgrounding the tab stops synthesis instead of queueing it up.
 - Font: [Pixelify Sans](https://fonts.google.com/specimen/Pixelify+Sans) (OFL),
   embedded so it works offline. UI panels are 9-slice pixel frames drawn at boot.
+- The menu's snack drag is the same pointer-event path as the pond's: `pointerdown`
+  captures, a fixed ghost follows the finger, and the frog's hitbox is padded 30px
+  so a drop never has to be precise. A drag shorter than 5px is treated as a tap
+  and feeds the frog anyway.
 - `?fast` in the URL runs all timers 10× faster, which is how the tests drive it.
 
 ### Rebuilding the art
@@ -243,6 +261,22 @@ That regenerates everything in `assets/` from `art/source/`, plus
 `tools/generated/{atlas_manifest,pond_geom}.json` — the sprite rects and pond
 geometry that are inlined into `index.html`. Re-inline those two if you change
 the art.
+
+## Shipping it
+
+Both zips are built from this repo and are ready to upload as they are:
+
+| file | contents | for |
+|---|---|---|
+| `dist/froggy-pond-html5.zip` | `index.html` + `assets/pond.gif` | itch.io — tick *This file will be played in the browser* |
+| `dist/froggy-pond-offline.zip` | the single self-contained `index.html` + this README | a download that plays offline, straight off the disk |
+
+`itch/` holds the store art: `cover-630x500.png` (the size itch asks for),
+`thumbnail-315x250.png`, a wide `1280x720` version for social cards, and four
+screenshots. `itch/UPLOAD.md` has the page settings that match the game — HTML
+project, 1280 × 720 viewport, mobile friendly on — and a blurb to paste.
+
+![the itch cover](itch/cover-630x500.png)
 
 ## Credits
 

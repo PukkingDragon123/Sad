@@ -16,7 +16,6 @@
   --frame-btnB:none;
   --vine:none; --sprig:none; --sprigL:none;
   --frame-cardF:none; --frame-paperF:none;
-  --menupad:none;
   --tex-moss:none; --tex-bark:none; --tex-parch:none; --tex-stone:none;
   --texZ:32px;                      /* 16px materials tile at 2x */
   --texZbark:64px;                  /* the plank tile is 32px, so 2x is 64 */
@@ -335,15 +334,19 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   82%{opacity:.75}
   100%{opacity:0;transform:translate(calc(var(--fx,30px)*1.7),calc(var(--fy,-52px)*1.9)) scale(.8)}}
 #title.on{display:flex}
-/* No sign: the menu sits straight on the pond, with a lamplit hollow behind it
-   and a hard dark outline on every glyph so it reads over moving water. */
-#tBoard{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:0;
-  width:min(94vw,540px);max-height:94vh;overflow-y:auto;scrollbar-width:none;
+/* No sign, no panel: two columns straight on the pond. The name and its three
+   buttons hold the left, and the right half is a small toy — a big frog and a
+   shelf of snacks you drag into it. */
+#tBoard{position:relative;z-index:1;display:flex;flex-direction:row;align-items:center;
+  justify-content:center;gap:clamp(14px,3.6vw,58px);
+  width:min(96vw,1010px);max-height:96vh;overflow-y:auto;scrollbar-width:none;
   padding:6px 12px 10px}
 #tBoard::-webkit-scrollbar{display:none}
-#tCol{display:flex;flex-direction:column;align-items:center;gap:0}
-#tWord{display:flex;gap:1px;cursor:default;user-select:none;margin-top:2px}
-#tWord span{display:inline-block;font-size:clamp(34px,6.8vw,64px);color:#fff2b0;
+#tLeft{display:flex;flex-direction:column;align-items:flex-start;text-align:left;
+  flex:0 1 auto;min-width:0}
+#tRight{display:flex;flex-direction:column;align-items:center;flex:0 0 auto}
+#tWord{display:flex;gap:1px;cursor:default;user-select:none;flex-wrap:wrap;margin-top:2px}
+#tWord span{display:inline-block;font-size:clamp(36px,7.2vw,74px);color:#fff2b0;
   text-shadow:0 2px 0 #d08a2a,0 4px 0 #8a4d12,0 6px 0 #10240b,0 8px 0 #060f04,
     0 9px 12px rgba(0,0,0,.85),0 0 26px rgba(255,220,140,.45);
   animation:tw 2.6s ease-in-out infinite}
@@ -352,66 +355,111 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #tWord:hover span{animation:twh .5s cubic-bezier(.34,1.9,.64,1)}
 @keyframes twh{0%{transform:translateY(0)}40%{transform:translateY(-15px) scale(1.14)}
   100%{transform:translateY(0)}}
-#tSub{font-size:clamp(14px,2.1vw,19px);color:#e9f7cc;line-height:1.7;margin:7px 0 2px;
+#tSub{font-size:clamp(15px,2vw,20px);color:#e9f7cc;line-height:1.6;margin:10px 0 0;
   text-shadow:0 2px 0 #0c1c08,0 0 12px rgba(0,0,0,.95)}
-#tSub::before,#tSub::after{content:'❀';color:#ffb0c8;margin:0 8px;font-size:.9em}
-#tMascotWrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px}
-#tMascotWrap{padding:6px 0 2px}
-/* the pad sits behind the mascot and bobs with it, a beat behind */
-#tMascotWrap::before{content:'';position:absolute;left:50%;bottom:36px;
-  transform:translateX(-50%);width:212px;height:64px;pointer-events:none;
-  background-image:var(--menupad);background-size:100% 100%;
-  image-rendering:pixelated;animation:padbob 1.3s ease-in-out infinite;
-  filter:drop-shadow(0 4px 6px rgba(0,0,0,.55))}
-@keyframes padbob{0%,100%{transform:translateX(-50%) translateY(0) scaleX(1)}
-  50%{transform:translateX(-50%) translateY(2px) scaleX(1.03)}}
-#tMascot{width:152px;height:152px;object-fit:contain;cursor:pointer;
-  animation:bob 1.3s ease-in-out infinite;
-  filter:drop-shadow(0 8px 8px rgba(0,0,0,.75)) brightness(1.06)}
-#tMascot.pet{animation:petsquish .45s cubic-bezier(.34,1.8,.64,1)}
-@keyframes petsquish{0%{transform:scale(1,1)}25%{transform:scale(1.28,.7)}
-  55%{transform:scale(.86,1.2) translateY(-12px)}100%{transform:scale(1,1)}}
-#tName{font-size:clamp(18px,2.5vw,23px);color:#ffe9a8;min-height:26px;margin-top:12px;
-  text-shadow:0 3px 0 #0c1c08,0 0 12px rgba(0,0,0,.95)}
-#tPetTip{font-size:13px;color:#c3daa2;margin-top:6px;letter-spacing:.3px;
-  text-shadow:0 2px 0 #0c1c08,0 0 10px rgba(0,0,0,.95)}
-#tCast{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:100%;
-  margin:12px 0 10px;padding:7px 11px;clip-path:var(--px-r);background:rgba(14,32,10,.55);
-  box-shadow:inset 0 2px 0 rgba(0,0,0,.32),inset 0 0 22px rgba(0,0,0,.38)}
-#tCast img{width:56px;height:56px;object-fit:contain;cursor:pointer;
-  animation:castbob 2.2s ease-in-out infinite;
-  transition:transform .12s cubic-bezier(.34,2.2,.64,1);opacity:.85;filter:brightness(.96)}
-#tCast img:hover{transform:scale(1.3) translateY(-4px);opacity:1;filter:brightness(1.08)
-  drop-shadow(0 0 8px rgba(232,207,140,.65))}
-@keyframes castbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-#tBtns{display:flex;flex-direction:column;align-items:center;gap:9px}
-#tBtns2{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
-#tBtns .btn.big{font-size:clamp(20px,3vw,26px);padding:9px 30px 11px;border-width:15px}
-#tBtns .btn.sm{font-size:15px;padding:5px 13px 6px;border-width:11px}
-/* every menu button wears its own pixel icon */
-.btn.ico{display:inline-flex;align-items:center;justify-content:center;gap:8px}
-.btn.ico img{image-rendering:pixelated;flex:none;width:24px;height:24px;
-  filter:drop-shadow(0 2px 0 rgba(0,0,0,.35))}
-.btn.big.ico{gap:13px}
-.btn.big.ico img{width:38px;height:38px}
-#tSave{font-size:14px;color:#fff0bc;min-height:20px;margin:0 0 13px;
+#tSub::after{content:'❀';color:#ffb0c8;margin-left:9px;font-size:.9em}
+#tSave{font-size:14px;color:#fff0bc;min-height:20px;margin:13px 0 15px;
   padding:5px 15px 6px;clip-path:var(--px-r);background:rgba(10,26,8,.5);
   text-shadow:0 2px 0 #1d3a12}
-#tHelp{display:none;width:100%;margin-top:12px;padding:10px 13px;text-align:left;
-  font-size:12px;line-height:1.75;color:#2a2416;
-  border-style:solid;border-width:9px;border-image:var(--frame-paperF) 9 fill repeat}
-#tHelp.on{display:block;animation:pop .3s cubic-bezier(.34,1.8,.64,1)}
-#tHelp .row{display:flex;align-items:center;justify-content:space-between;gap:9px;
-  padding:5px 0;border-bottom:2px dotted rgba(74,90,44,.38)}
-#tHelp .row:last-child{border-bottom:none}
-#tHelp .row .lbl{font-size:12px;font-weight:700}
-#tHelp .row .ds{font-size:10px;color:#55603c;line-height:1.45}
-#tHelp h4{font-size:13px;margin-bottom:5px;color:#3f5228}
-#tHelp .who{font-size:15px;font-weight:700;color:#3f7534}
-#tByline{position:relative;z-index:1;margin-top:13px;font-size:14px;color:#e2f0c6;letter-spacing:.5px;
+#tBtns{display:flex;flex-direction:column;align-items:stretch;gap:10px;
+  width:min(320px,80vw)}
+#tBtns .btn{justify-content:flex-start}
+#tBtns .btn.big{font-size:clamp(22px,3vw,28px);padding:10px 24px 12px;border-width:15px}
+#tBtns .btn.sm{font-size:clamp(15px,1.7vw,18px);padding:7px 20px 8px;border-width:12px}
+/* every menu button wears its own pixel icon */
+.btn.ico{display:inline-flex;align-items:center;justify-content:center;gap:9px}
+.btn.ico img{image-rendering:pixelated;flex:none;width:26px;height:26px;
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,.35))}
+.btn.big.ico{gap:14px}
+.btn.big.ico img{width:40px;height:40px}
+#tByline{margin-top:16px;font-size:14px;color:#e2f0c6;letter-spacing:.5px;
   padding:4px 16px 5px;clip-path:var(--px-r);background:rgba(6,16,8,.55);
   text-shadow:0 2px 0 #0a1408,0 0 12px rgba(0,0,0,.9)}
 #tByline b{color:#ffe9a8}
+
+/* ---- the feeding frog ---- */
+#tMascotWrap{position:relative;display:flex;align-items:flex-end;justify-content:center;
+  width:236px;height:224px}
+#tGlow{position:absolute;inset:-8%;pointer-events:none;border-radius:50%;
+  background:radial-gradient(ellipse 52% 48% at 50% 54%,rgba(255,232,160,.22),transparent 70%);
+  animation:lantern 5.5s ease-in-out infinite}
+/* no pad — just a soft shadow on the water, breathing with the bob */
+#tMascotWrap::after{content:'';position:absolute;left:50%;bottom:8px;z-index:0;
+  transform:translateX(-50%);width:138px;height:22px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 50%,rgba(4,12,4,.6),transparent 72%);
+  animation:shbob 1.3s ease-in-out infinite}
+@keyframes shbob{0%,100%{transform:translateX(-50%) scaleX(1);opacity:.9}
+  50%{transform:translateX(-50%) scaleX(1.08);opacity:.7}}
+#tMascot{position:relative;z-index:1;width:204px;height:204px;object-fit:contain;
+  cursor:pointer;animation:bob 1.3s ease-in-out infinite;
+  filter:drop-shadow(0 10px 10px rgba(0,0,0,.7)) brightness(1.06)}
+#tMascotWrap.over #tMascot{animation:none;transform:scale(1.07) translateY(-4px);
+  filter:drop-shadow(0 10px 10px rgba(0,0,0,.7)) brightness(1.18)
+    drop-shadow(0 0 14px rgba(255,236,160,.85))}
+#tMascot.pet{animation:petsquish .45s cubic-bezier(.34,1.8,.64,1)}
+@keyframes petsquish{0%{transform:scale(1,1)}25%{transform:scale(1.28,.7)}
+  55%{transform:scale(.86,1.2) translateY(-12px)}100%{transform:scale(1,1)}}
+#tMascot.eat{animation:chomp .55s cubic-bezier(.34,1.7,.64,1)}
+@keyframes chomp{0%{transform:scale(1,1)}18%{transform:scale(1.22,.76)}
+  42%{transform:scale(.87,1.17) translateY(-8px)}68%{transform:scale(1.09,.93)}
+  100%{transform:scale(1,1)}}
+#tBub{position:absolute;left:50%;top:-4px;z-index:2;transform:translateX(-50%);
+  padding:5px 13px 7px;white-space:nowrap;font-size:15px;color:#2f2a18;opacity:0;
+  pointer-events:none;
+  border-style:solid;border-width:9px;border-image:var(--frame-paperF) 9 fill repeat}
+#tBub.on{animation:bubpop 1.7s ease-out forwards}
+@keyframes bubpop{0%{opacity:0;transform:translateX(-50%) translateY(10px) scale(.5)}
+  14%{opacity:1;transform:translateX(-50%) translateY(-5px) scale(1.08)}
+  26%{transform:translateX(-50%) translateY(0) scale(1)}
+  78%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+  100%{opacity:0;transform:translateX(-50%) translateY(-16px) scale(.95)}}
+#tName{font-size:clamp(19px,2.4vw,24px);color:#ffe9a8;min-height:26px;margin-top:4px;
+  text-shadow:0 3px 0 #0c1c08,0 0 12px rgba(0,0,0,.95)}
+#tPips{display:flex;gap:7px;margin:8px 0 0;height:13px}
+#tPips i{width:13px;height:13px;clip-path:var(--px-r);background:rgba(8,20,8,.62);
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.16)}
+#tPips i.on{background:#8fd45e;box-shadow:0 0 9px rgba(143,212,94,.85)}
+#tShelf{display:flex;gap:8px;margin-top:12px;padding:8px 10px;clip-path:var(--px-r);
+  background:rgba(14,32,10,.55);
+  box-shadow:inset 0 2px 0 rgba(0,0,0,.32),inset 0 0 22px rgba(0,0,0,.38)}
+.tFood{width:54px;height:54px;display:flex;align-items:center;justify-content:center;
+  clip-path:var(--px-r);background:rgba(240,236,206,.14);cursor:grab;touch-action:none;
+  transition:transform .12s cubic-bezier(.34,2.2,.64,1),background .12s}
+.tFood:hover{transform:translateY(-6px) scale(1.09);background:rgba(240,236,206,.28)}
+.tFood img{width:42px;height:42px;object-fit:contain;image-rendering:pixelated;
+  pointer-events:none;filter:drop-shadow(0 3px 3px rgba(0,0,0,.5))}
+.tFood.taken{opacity:.3;transform:none}
+.tFood.pop{animation:foodpop .4s cubic-bezier(.34,1.9,.64,1) backwards}
+@keyframes foodpop{0%{transform:scale(.3);opacity:0}60%{transform:scale(1.16);opacity:1}
+  100%{transform:scale(1)}}
+#tDrag{position:fixed;left:0;top:0;width:60px;height:60px;margin:-30px 0 0 -30px;
+  pointer-events:none;z-index:40;display:none;image-rendering:pixelated;
+  filter:drop-shadow(0 7px 7px rgba(0,0,0,.65)) brightness(1.1)}
+#tPetTip{font-size:13px;color:#c3daa2;margin-top:10px;letter-spacing:.3px;
+  text-shadow:0 2px 0 #0c1c08,0 0 10px rgba(0,0,0,.95)}
+
+/* the panes float over the whole menu instead of stretching it, on a scrim that
+   dims the pond and gives a tap-anywhere way out */
+#tScrim{display:none;position:absolute;inset:0;z-index:3;background:rgba(3,8,5,.6)}
+#tScrim.on{display:block;animation:fadein .2s ease-out}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+#tHelp{display:none;position:absolute;left:50%;top:50%;z-index:4;
+  transform:translate(-50%,-50%);width:min(93vw,480px);max-height:88vh;
+  overflow-y:auto;scrollbar-width:none;
+  padding:13px 16px 15px;text-align:left;font-size:13px;line-height:1.8;color:#2a2416;
+  border-style:solid;border-width:10px;border-image:var(--frame-paperF) 9 fill repeat}
+#tHelp::-webkit-scrollbar{display:none}
+#tHelp.on{display:block;animation:pop .3s cubic-bezier(.34,1.8,.64,1)}
+#tHelpX{position:absolute;right:7px;top:4px;cursor:pointer;font-size:16px;
+  color:#6b5a3a;padding:1px 7px 3px}
+#tHelpX:hover{color:#2a2416}
+#tHelp .row{display:flex;align-items:center;justify-content:space-between;gap:9px;
+  padding:6px 0;border-bottom:2px dotted rgba(74,90,44,.38)}
+#tHelp .row:last-child{border-bottom:none}
+#tHelp .row .lbl{font-size:13px;font-weight:700}
+#tHelp .row .ds{font-size:11px;color:#55603c;line-height:1.5}
+#tHelp h4{font-size:15px;margin-bottom:6px;color:#3f5228}
+#tHelp .who{font-size:16px;font-weight:700;color:#3f7534}
 /* a soft lamplit pool behind the menu, breathing, so the type has something to
    sit on without putting a panel in the way */
 #tBoard::before{content:'';position:absolute;left:-6%;right:-6%;top:-2%;bottom:-2%;
@@ -432,11 +480,29 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
    Side by side, the two racks are wider than a phone, and flex refused to shrink
    them past the slot min-widths, so the snacks ended up off-screen to the right. */
 @media (max-width:820px){
-  #tBoard{width:96vw;padding:12px 12px 14px;max-height:94vh}
+  /* one column, centred: the name and buttons first, the frog and its shelf under */
+  #tBoard{flex-direction:column;gap:4px;width:96vw;padding:4px 10px 6px;max-height:97vh;
+    text-align:center}
+  #tSub{margin-top:6px;font-size:15px}
+  /* the left column dissolves into the board so the byline can drop to the bottom */
+  #tLeft{display:contents}
+  #tRight{order:5}
+  #tByline{order:9}
+  #tBtns{width:min(340px,88vw);gap:7px}
+  #tBtns .btn{justify-content:center}
+  #tBtns .btn.big{font-size:21px;padding:7px 20px 9px;border-width:12px}
+  #tBtns .btn.sm{font-size:15px;padding:5px 16px 6px;border-width:9px}
+  #tSave{margin:7px 0 9px}
+  #tByline{margin-top:7px}
+  #tMascotWrap{width:148px;height:116px}
   #tMascot{width:112px;height:112px}
-  #tMascotWrap::before{width:168px;height:51px;bottom:31px}
-  #tCast img{width:44px;height:44px}
-  #tCast{gap:5px;padding:6px}
+  #tMascotWrap::after{width:88px;height:16px;bottom:5px}
+  #tName{margin-top:1px;min-height:22px;font-size:19px}
+  #tPips{margin-top:5px}
+  #tShelf{gap:5px;padding:6px;margin-top:6px}
+  .tFood{width:44px;height:44px}
+  .tFood img{width:34px;height:34px}
+  #tPetTip{margin-top:7px;font-size:12px}
   #bottomBar{flex-wrap:wrap;justify-content:center;width:96vw;max-width:96vw;gap:6px;bottom:8px}
   #toolWrap,#trayWrap{border-width:8px}
   #toolWrap{order:1;flex:1 1 100%;padding:6px 8px 7px}
@@ -460,6 +526,26 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   #hudCoins{left:8px;top:8px}
   #hudDex{left:8px;top:52px}
   #topRight{right:8px;top:8px}
+}
+/* ---------- short screens: a shorter menu ----------
+   Landscape phones and small laptop windows have the width for two columns but
+   not the height for a full-size wordmark and a 200px frog. */
+@media (max-height:660px){
+  #tWord span{font-size:clamp(26px,5.4vw,46px)}
+  #tSave{margin:7px 0 9px}
+  #tBtns{gap:7px}
+  #tBtns .btn.big{font-size:20px;padding:7px 20px 9px;border-width:12px}
+  #tBtns .btn.sm{font-size:15px;padding:5px 16px 6px;border-width:9px}
+  #tByline{margin-top:8px}
+  #tMascotWrap{width:140px;height:106px}
+  #tMascot{width:102px;height:102px}
+  #tMascotWrap::after{width:80px;height:14px;bottom:4px}
+  #tName{min-height:22px;font-size:19px;margin-top:0}
+  #tPips{margin-top:3px}
+  #tShelf{margin-top:4px;padding:5px;gap:5px}
+  .tFood{width:44px;height:44px}
+  .tFood img{width:34px;height:34px}
+  #tPetTip{margin-top:3px;font-size:12px}
 }
 
 </style>
@@ -518,27 +604,32 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 <div id="title" class="ov">
   <div id="tFlies"></div>
   <div id="tBoard">
-    <div id="tWord"></div>
-    <div id="tSub">a cozy pond of round friends</div>
-    <div id="tMascotWrap">
-      <img id="tMascot" title="pet me">
-      <div id="tName"></div>
-    </div>
-    <div id="tPetTip">tap to pet · tap a friend to meet them</div>
-    <div id="tCast"></div>
-    <div id="tSave"></div>
-    <div id="tBtns">
-      <button id="btnStart" class="btn green big ico"><img><span>hop in</span></button>
-      <div id="tBtns2">
+    <div id="tLeft">
+      <div id="tWord"></div>
+      <div id="tSub">a cozy pond of round friends</div>
+      <div id="tSave"></div>
+      <div id="tBtns">
+        <button id="btnStart" class="btn green big ico"><img><span>hop in</span></button>
         <button id="btnHelp" class="btn sm ico"><img><span>how to play</span></button>
         <button id="btnSet" class="btn gray sm ico"><img><span>settings</span></button>
-        <button id="btnCred" class="btn gray sm ico"><img><span>credits</span></button>
-        <button id="btnFresh" class="btn gray sm ico" style="display:none"><img><span>start fresh</span></button>
       </div>
+      <div id="tByline">art &amp; code by <b>Pukking Dragon</b></div>
     </div>
-    <div id="tHelp"></div>
+    <div id="tRight">
+      <div id="tMascotWrap">
+        <div id="tGlow"></div>
+        <img id="tMascot" title="pet me">
+        <div id="tBub"></div>
+      </div>
+      <div id="tName"></div>
+      <div id="tPips"></div>
+      <div id="tShelf"></div>
+      <div id="tPetTip">drag a snack to the frog · tap the frog to pet</div>
+    </div>
   </div>
-  <div id="tByline">art &amp; code by <b>Pukking Dragon</b></div>
+  <div id="tScrim"></div>
+  <div id="tHelp"></div>
+  <img id="tDrag" alt="">
 </div>
 
 <div id="win" class="ov">
@@ -921,7 +1012,6 @@ function buildFrames(){
   r.setProperty('--tex-bark',  matURL('bark'));
   r.setProperty('--tex-parch', matURL('parch'));
   r.setProperty('--tex-stone', matURL('stone'));
-  r.setProperty('--menupad', menuPad());
   r.setProperty('--vine',   plant(PLANT.vine,  PLANT.map));
   r.setProperty('--sprig',  plant(PLANT.sprig, PLANT.map));
   r.setProperty('--sprigL', plant(PLANT.sprigL,PLANT.map));
@@ -974,25 +1064,6 @@ const PLANT={
     '........oo......',
   ],
 };
-/* the menu mascot gets its own pad to sit on: same shapes as the pond's, drawn
-   once at boot and handed to CSS */
-function menuPad(){
-  const w=212,h=64,x=mkCtx(w,h),cxm=w/2,cym=h*.54,r=88;
-  const ell=(a,b,c,d,col)=>{x.fillStyle=col;x.beginPath();x.ellipse(a,b,c,d,0,0,Math.PI*2);x.fill()};
-  ell(cxm,cym+4,r,r*.40,'rgba(6,20,10,.35)');
-  ell(cxm,cym,r+2,r*.42+2,'#16330f');
-  ell(cxm,cym,r,r*.42,'#4e8a3a');
-  ell(cxm-r*.24,cym-r*.12,r*.5,r*.2,'rgba(160,220,120,.32)');
-  x.fillStyle='#0e2409';
-  x.beginPath();x.moveTo(cxm,cym);
-  x.lineTo(cxm+r*.95,cym-r*.16);x.lineTo(cxm+r*.95,cym+r*.16);x.closePath();x.fill();
-  // a bloom on the left so it never sits behind the frog
-  const fx=Math.round(cxm-r*.86),fy=Math.round(cym-4);
-  x.fillStyle='#e8f5d8';x.fillRect(fx-5,fy-2,11,5);x.fillRect(fx-3,fy-5,7,11);
-  x.fillStyle='#ffd0e0';x.fillRect(fx-3,fy,7,3);x.fillRect(fx-1,fy-3,3,9);
-  x.fillStyle='#f2c14e';x.fillRect(fx-1,fy,3,2);
-  return `url(${x.canvas.toDataURL()})`;
-}
 function plant(grid,map){
   const h=grid.length,w=grid[0].length,x=mkCtx(w,h);
   for(let y=0;y<h;y++)for(let i=0;i<w;i++){
@@ -4461,7 +4532,7 @@ function titleHeart(el){
   const h=document.createElement('div');
   h.className='tHeart';h.textContent=pick(['💚','💛','🩷','✨']);
   h.style.setProperty('--dx',rand(-26,26).toFixed(0)+'px');
-  h.style.left=(38+rand(-14,14))+'%';h.style.top='42%';
+  h.style.left=(42+rand(-16,16))+'%';h.style.top='38%';
   el.appendChild(h);setTimeout(()=>h.remove(),1000);
 }
 let mascotId=null;
@@ -4470,6 +4541,7 @@ function setMascot(id,quiet){
   const s=SP[id];
   document.getElementById('tMascot').src=FROG_URL[s.i];
   document.getElementById('tName').textContent=s.name;
+  menuFed=0;paintPips();          // a new friend arrives hungry
   // the species blurb used to sit here too; one line under the name reads better
   // at this size than three stacked ones
   if(!quiet){
@@ -4479,14 +4551,123 @@ function setMascot(id,quiet){
     Math.random()<.5?SFX.ribbit():SFX.pop();
   }
 }
+/* ---------------- the menu's feeding frog ----------------
+   The right half of the menu is a little toy rather than decoration: a big frog,
+   a shelf of snacks, and a drag between them. It teaches the one thing the game
+   asks of you — snacks go in frogs, and each frog has a favourite — before the
+   pond has even opened. Three snacks fill it, then it hands over to a friend. */
+const MENU_PIPS=3;
+let menuFed=0,menuBusy=false;
+/* two snacks from each diet, so a favourite is always on the shelf */
+function menuShelfFoods(){
+  const out=[];
+  for(const d of ['leafy','savoury','sweet']){
+    const pool=[...FOODS.filter(f=>f.diet===d)].sort(()=>Math.random()-.5);
+    out.push(pool[0],pool[1]||pool[0]);
+  }
+  return out.sort(()=>Math.random()-.5);
+}
+function paintPips(){
+  const box=document.getElementById('tPips');
+  if(!box)return;
+  box.innerHTML='';
+  for(let i=0;i<MENU_PIPS;i++){
+    const p=document.createElement('i');
+    if(i<menuFed)p.className='on';
+    box.appendChild(p);
+  }
+}
+function menuBubble(txt){
+  const b=document.getElementById('tBub');
+  b.textContent=txt;b.classList.remove('on');void b.offsetWidth;b.classList.add('on');
+}
+const MENU_YUM=['yum!! \u2661','my favourite!','oh this is the one','best snack. thank you'];
+const MENU_OK=['munch munch','not my usual. still nice.','ok. i ate it.','crunch \u00b7 thank you'];
+function menuFeed(kind){
+  if(menuBusy)return;
+  const fav=!!FD[kind]&&FD[kind].diet===(SP[mascotId]||{}).diet;
+  const m=document.getElementById('tMascot'),wrap=document.getElementById('tMascotWrap');
+  m.classList.remove('eat');void m.offsetWidth;m.classList.add('eat');
+  SFX.eat();
+  for(let i=0;i<(fav?4:2);i++)setTimeout(()=>titleHeart(wrap),i*110);
+  menuBubble(fav?pick(MENU_YUM):pick(MENU_OK));
+  menuFed=Math.min(MENU_PIPS,menuFed+(fav?2:1));
+  paintPips();
+  if(menuFed>=MENU_PIPS){
+    menuBusy=true;
+    setTimeout(()=>{menuBubble('so full. thank you!');SFX.love();
+      m.classList.remove('pet');void m.offsetWidth;m.classList.add('pet')},700);
+    setTimeout(()=>{
+      menuBusy=false;
+      const others=SPECIES.filter(sp=>sp.id!==mascotId);
+      setMascot(pick(others.length?others:SPECIES).id,true);
+      SFX.pop();menuBubble('hello! my turn.');
+      buildShelf();
+    },2000);
+  }
+}
+/* the frog's hitbox, generously padded so a finger never has to be precise */
+function overMascot(x,y){
+  const r=document.getElementById('tMascot').getBoundingClientRect(),p=30;
+  return x>=r.left-p&&x<=r.right+p&&y>=r.top-p&&y<=r.bottom+p;
+}
+function wireFoodDrag(el,kind){
+  let id=null,moved=false,sx=0,sy=0;
+  const ghost=()=>document.getElementById('tDrag');
+  const wrap=()=>document.getElementById('tMascotWrap');
+  el.addEventListener('pointerdown',ev=>{
+    if(id!==null||menuBusy)return;
+    ev.preventDefault();ev.stopPropagation();
+    initAudio();SFX.lift();
+    id=ev.pointerId;moved=false;sx=ev.clientX;sy=ev.clientY;
+    try{el.setPointerCapture(id)}catch(e){}
+    el.classList.add('taken');
+    const g=ghost();g.src=FOOD_URL[kind];g.style.display='block';
+    g.style.left=ev.clientX+'px';g.style.top=ev.clientY+'px';
+  });
+  el.addEventListener('pointermove',ev=>{
+    if(ev.pointerId!==id)return;
+    const g=ghost();g.style.left=ev.clientX+'px';g.style.top=ev.clientY+'px';
+    if(Math.abs(ev.clientX-sx)>5||Math.abs(ev.clientY-sy)>5)moved=true;
+    wrap().classList.toggle('over',overMascot(ev.clientX,ev.clientY));
+  });
+  const drop=ev=>{
+    if(ev.pointerId!==id)return;
+    id=null;
+    ghost().style.display='none';
+    el.classList.remove('taken');wrap().classList.remove('over');
+    // a plain tap on a snack feeds it too, so nobody has to learn the drag first
+    if(!moved||overMascot(ev.clientX,ev.clientY))menuFeed(kind);
+    else SFX.pop();
+  };
+  el.addEventListener('pointerup',drop);
+  el.addEventListener('pointercancel',ev=>{
+    if(ev.pointerId!==id)return;
+    id=null;ghost().style.display='none';
+    el.classList.remove('taken');wrap().classList.remove('over');
+  });
+}
+function buildShelf(){
+  const shelf=document.getElementById('tShelf');
+  shelf.innerHTML='';
+  menuShelfFoods().forEach((f,i)=>{
+    const slot=document.createElement('div');
+    slot.className='tFood pop';slot.title=f.name+' \u00b7 '+f.diet;
+    slot.style.animationDelay=(i*.06).toFixed(2)+'s';
+    const im=document.createElement('img');im.src=FOOD_URL[f.id];im.alt=f.name;
+    slot.appendChild(im);
+    wireFoodDrag(slot,f.id);
+    shelf.appendChild(slot);
+  });
+}
+
 /* the label of an icon button lives in its span, so writing to the button itself
    would blow the icon away */
 function btnLabel(b,txt){
   const s=b.querySelector('span');
   if(s)s.textContent=txt; else b.textContent=txt;
 }
-const MENU_ICONS={btnStart:'mplay',btnHelp:'mhelp',btnSet:'mset',
-                  btnCred:'mcred',btnFresh:'mfresh'};
+const MENU_ICONS={btnStart:'mplay',btnHelp:'mhelp',btnSet:'mset'};
 function paintMenuIcons(){
   for(const id in MENU_ICONS){
     const img=document.querySelector('#'+id+' img');
@@ -4517,18 +4698,9 @@ function buildTitle(){
     sp.style.animationDelay=(i*0.075)+'s';
     word.appendChild(sp);
   });
-  // a rotating cast you can click through
-  const cast=document.getElementById('tCast');
-  cast.innerHTML='';
-  const picks=[...SPECIES].sort(()=>Math.random()-.5).slice(0,6);
-  picks.forEach((sp,i)=>{
-    const im=document.createElement('img');
-    im.src=FROG_URL[sp.i];im.title=sp.name+' — '+sp.desc;
-    im.style.animationDelay=(i*0.16)+'s';
-    im.onclick=ev=>{ev.stopPropagation();initAudio();setMascot(sp.id)};
-    cast.appendChild(im);
-  });
-  setMascot(pick(picks).id,true);
+  // the frog on the right, and the snack shelf you feed it from
+  buildShelf();
+  setMascot(pick(SPECIES).id,true);
   document.getElementById('tMascot').onclick=ev=>{
     ev.stopPropagation();initAudio();
     // pet it, and every so often it introduces a different friend
@@ -4536,28 +4708,22 @@ function buildTitle(){
     m.classList.remove('pet');void m.offsetWidth;m.classList.add('pet');
     titleHeart(document.getElementById('tMascotWrap'));
     Math.random()<.55?SFX.ribbit():SFX.love();
-    if(Math.random()<.35)setTimeout(()=>setMascot(pick(SPECIES).id,true),300);
+    if(Math.random()<.4)menuBubble(pick(['ribbit','hello!','\u2661','again please']));
   };
-  // save-aware buttons
+  // save-aware buttons — 'start fresh' lives in settings, so the menu keeps three
   const sv=peekSave();
-  const start=document.getElementById('btnStart'),fresh=document.getElementById('btnFresh');
+  const start=document.getElementById('btnStart');
   document.getElementById('tSave').textContent = sv
     ? `your pond: ${sv.frogs} frog${sv.frogs===1?'':'s'} · ${sv.dex}/${SPECIES.length} in the dex · ${sv.coins} coins`
     : `${SPECIES.length} species to meet · 8 in the shop, 28 to breed`;
   btnLabel(start, sv ? 'continue' : 'hop in');
-  if(sv){
-    fresh.style.display='block';
-    let armed=false;
-    fresh.onclick=ev=>{ev.stopPropagation();SFX.click();
-      if(!armed){armed=true;btnLabel(fresh,'erase pond?');
-        setTimeout(()=>{armed=false;btnLabel(fresh,'start fresh')},2200);return}
-      localStorage.removeItem(SAVE);localStorage.removeItem(SNAPKEY);location.reload()};
-  }
   start.onclick=ev=>{ev.stopPropagation();startGame()};
   wireTitlePanes();
   // clicking the empty backdrop also starts, but never the interactive bits
   document.getElementById('title').addEventListener('click',ev=>{
-    if(ev.target.id==='title')startGame();
+    if(ev.target.id!=='title')return;
+    if(tPane){closeTitlePane();return}
+    startGame();
   });
 }
 /* The sign holds one paper panel that swaps between how-to-play, settings and
@@ -4624,31 +4790,59 @@ function buildTitleSettings(box){
   note.style.marginTop='7px';
   note.textContent='pond looks, photos and the rest live on the phone once you are in.';
   box.appendChild(note);
+
+  // erasing the pond is a settings job, not a fourth button on the menu
+  const sv=peekSave();
+  if(sv){
+    const r4=row('start fresh','erases this pond, its photos and its dex');
+    const fb=mk('erase','gray');let armed=false;
+    fb.onclick=ev=>{ev.stopPropagation();SFX.click();
+      if(!armed){armed=true;fb.textContent='tap again';
+        setTimeout(()=>{armed=false;fb.textContent='erase'},2200);return}
+      localStorage.removeItem(SAVE);localStorage.removeItem(SNAPKEY);location.reload()};
+    r4.appendChild(fb);
+  }
+  const cr=document.createElement('div');
+  cr.style.marginTop='14px';cr.innerHTML=titleCreditsHTML();
+  box.appendChild(cr);
 }
-const T_PANES={help:'btnHelp',set:'btnSet',cred:'btnCred'};
+const T_PANES={help:'btnHelp',set:'btnSet'};
 function paintPaneButtons(){
   for(const k in T_PANES){
     const b=document.getElementById(T_PANES[k]);
     if(b)b.classList.toggle('gray',tPane!==k);
   }
 }
+function closeTitlePane(){
+  tPane=null;
+  document.getElementById('tHelp').classList.remove('on');
+  document.getElementById('tScrim').classList.remove('on');
+  paintPaneButtons();
+}
 function openTitlePane(which){
   const box=document.getElementById('tHelp');
-  if(tPane===which){tPane=null;box.classList.remove('on');paintPaneButtons();return}
+  if(tPane===which){closeTitlePane();return}
   tPane=which;
   if(which==='help')box.innerHTML=titleHelpHTML();
   else if(which==='cred')box.innerHTML=titleCreditsHTML();
   else buildTitleSettings(box);
+  // the pane floats over the menu now, so it brings its own way out
+  const x=document.createElement('div');x.id='tHelpX';x.textContent='\u2715';
+  x.onclick=ev=>{ev.stopPropagation();SFX.click();closeTitlePane()};
+  box.appendChild(x);
+  box.scrollTop=0;
   box.classList.remove('on');void box.offsetWidth;box.classList.add('on');
+  document.getElementById('tScrim').classList.add('on');
   paintPaneButtons();
-  box.scrollIntoView({block:'nearest',behavior:'smooth'});
 }
 function wireTitlePanes(){
   tPane=null;
   document.getElementById('tHelp').classList.remove('on');
   const hook=(id,pane)=>{document.getElementById(id).onclick=ev=>{
     ev.stopPropagation();initAudio();SFX.click();openTitlePane(pane)}};
-  hook('btnHelp','help');hook('btnSet','set');hook('btnCred','cred');
+  hook('btnHelp','help');hook('btnSet','set');
+  document.getElementById('tScrim').onclick=ev=>{
+    ev.stopPropagation();SFX.click();closeTitlePane()};
   paintPaneButtons();
 }
 function startGame(){
@@ -4701,10 +4895,11 @@ async function boot(){
   document.getElementById('winHero').src=FROG_URL[SP[GD.winFrog].i];
   buildTray();buildTools();buildDecor();initFlies();applyTheme();buildTitle();
   syncTrayRect();                        // now that the bar actually has contents
-  // attract mode: a few random frogs pottering about behind the menu
+  // attract mode: a few frogs pottering about in the low water, below the menu
   for(let i=0;i<5;i++){
-    const p=randWater(),sp=pick(SPECIES);
-    G.frogs.push(new Frog(sp.id,p.x,p.y));
+    let p=randWater();
+    for(let t=0;t<40&&p.y<VH*.72;t++)p=randWater();
+    G.frogs.push(new Frog(pick(SPECIES).id,p.x,p.y));
   }
   mode='title';
   document.getElementById('title').classList.add('on');
@@ -4719,7 +4914,8 @@ window.__dbg={pads,dflies,twinks,initPond,stepPond,
   ball,bubs,box,kickBall,blowBubbles,stepBubbles,stepBall,placeBox,takeBox,chasingBall,dancingTo,
   wandTap,ringBell,sunLamp,petFrog,clearWandPick,
   TRACKS,mus,musStart,musStop,musSkip,tapAt,leavePad,getWandPick:()=>wandPick,
-  getMuted:()=>muted,openTitlePane,getPane:()=>tPane,
+  getMuted:()=>muted,openTitlePane,closeTitlePane,getPane:()=>tPane,
+  menuFeed,buildShelf,setMascot,getMascot:()=>mascotId,getMenuFed:()=>menuFed,
   GUIDES,buyGuide,ownGuide,readable,DIETS,dietOf,likes,biteSize,isFull,favourites,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
   FROG_URL,geom:GEOM,discover};
 boot();
