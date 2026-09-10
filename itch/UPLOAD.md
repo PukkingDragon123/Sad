@@ -11,7 +11,7 @@ Everything here is ready to upload — no build step, no export.
 | `cover-630x500.png` | the cover image itch asks for | **Cover image** |
 | `thumbnail-315x250.png` | half-size cover, for anywhere a smaller one is wanted | — |
 | `wide-1280x720.png` | wide version of the same art | social / OG image |
-| `screenshot-1-menu.png` … `screenshot-4-mobile.png` | the menu, the pond, the phone, and a phone screen | **Screenshots** |
+| `screenshot-1-menu.png` … `screenshot-5-training.png` | the menu, the pond, the phone, a phone screen and a training session | **Screenshots** |
 
 ## Page settings that match the game
 

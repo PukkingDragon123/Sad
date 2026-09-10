@@ -83,12 +83,12 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .btn.sm{font-size:var(--t-label);border-width:9px;padding:2px 7px 3px}
 
 /* ---------- HUD ---------- */
-.hud{position:absolute;z-index:20;display:flex;align-items:center;gap:7px;
-  padding:5px 13px 6px;font-size:var(--t-big);font-weight:700}
+.hud{position:absolute;z-index:20;display:flex;align-items:center;gap:6px;
+  padding:4px 10px 5px;font-size:var(--t-btn);font-weight:700}
 #hudCoins{left:16px;top:14px;color:#fff2b0;text-shadow:0 2px 0 #4a3410}
-#hudDex{left:16px;top:66px;cursor:pointer;font-size:var(--t-btn);
+#hudDex{left:16px;top:52px;cursor:pointer;font-size:var(--t-label);
   color:#d8f0ff;text-shadow:0 2px 0 #1b3c52}
-.hud img{width:32px;height:32px}
+.hud img{width:24px;height:24px}
 #topRight{position:absolute;right:16px;top:14px;z-index:20;display:flex;gap:8px}
 
 /* ---------- snack tray ---------- */
@@ -110,19 +110,20 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   background-size:32px 24px,32px 24px,auto 24px;
   background-repeat:no-repeat,no-repeat,repeat-x}
 #toolWrap,#trayWrap{position:relative}
+#toolLabel{text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #tools{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
 /* the tray sets the bar height, so the tools can be as tall as a snack slot */
-.slot.tool{width:63px;min-width:63px;height:92px;gap:1px}
-.slot.tool img{width:46px;height:46px;margin-top:2px}
+.slot.tool{width:56px;min-width:56px;height:80px;gap:1px}
+.slot.tool img{width:38px;height:38px;margin-top:2px}
 .slot.tool .cost{font-size:calc(var(--sc)*6px)}
 #tray{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:3px;min-width:0}
 #tray::-webkit-scrollbar{display:none}
-.slot{width:80px;min-width:80px;height:96px;cursor:pointer;position:relative;
+.slot{width:70px;min-width:70px;height:84px;cursor:pointer;position:relative;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;
   border-style:solid;border-width:9px;border-image:var(--frame-slot) 7 repeat;
   background:var(--tex-stone) repeat;background-size:var(--texZ);
   transition:transform .11s cubic-bezier(.34,2,.64,1)}
-.slot img{width:48px;height:48px;margin-top:3px}
+.slot img{width:42px;height:42px;margin-top:2px}
 .slot .cost{font-size:var(--t-body);color:#3f5228;font-weight:700}
 .slot:hover{transform:translateY(-4px)}
 .slot.sel{transform:translateY(-11px) scale(1.06);border-image:var(--frame-slotS) 7 fill repeat}
@@ -262,11 +263,11 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .unread{width:11px;height:11px;border-radius:6px;background:#d0453f;border:2px solid var(--ink);flex:none}
 
 /* ---------- frog card ---------- */
-#fcard{position:absolute;left:16px;bottom:118px;width:300px;z-index:25;display:none;padding:11px}
+#fcard{position:absolute;left:16px;bottom:118px;width:272px;z-index:25;display:none;padding:9px}
 #fcard.on{display:block;animation:pop .3s cubic-bezier(.34,1.8,.64,1)}
 @keyframes pop{0%{transform:scale(.62)}70%{transform:scale(1.05)}100%{transform:scale(1)}}
 #fcard .hd{display:flex;gap:8px;align-items:center}
-#fcFace{width:74px;height:74px;object-fit:contain}
+#fcFace{width:62px;height:62px;object-fit:contain}
 #fcName{font-size:var(--t-big);font-weight:700}
 #fcSpec{font-size:var(--t-body);color:#55603c;margin-top:4px}
 #fcSnack{font-size:var(--t-body);margin:9px 0;display:flex;align-items:center;gap:6px}
@@ -286,22 +287,101 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   background:#d0453f;color:#fff;border:3px solid var(--ink);font-family:'Pix';font-size:15px}
 
 /* ---------- toasts ---------- */
-#handHint{position:absolute;left:50%;bottom:180px;transform:translateX(-50%);z-index:21;
-  font-size:var(--t-label);color:#f6ead2;padding:5px 14px 6px;border-radius:14px;
-  background:rgba(16,26,14,.78);text-shadow:0 2px 0 rgba(0,0,0,.6);
-  display:none;pointer-events:none;white-space:nowrap}
-#handHint.on{display:block;animation:tin .3s cubic-bezier(.34,1.8,.64,1)}
-#toasts{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:60;
-  display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none;width:max-content}
-.toast{display:flex;align-items:center;gap:10px;padding:7px 14px 8px;font-size:var(--t-btn);
-  max-width:86vw;animation:tin .36s cubic-bezier(.34,1.8,.64,1);
-  border-style:solid;border-width:11px;border-image:var(--frame-sign) 9 repeat;
-  background:var(--tex-parch) repeat;background-size:var(--texZ)}
-.toast img{width:32px;height:32px;object-fit:contain}
+/* the tool tip lives in the rack's own label now, so nothing sits mid-screen */
+#handHint{display:none}
+/* Notes are the quietest channel: a small stack in the top-right corner, out of
+   the pond's way. Anything that deserves more than a note gets its own UI. */
+#toasts{position:absolute;top:58px;right:14px;z-index:60;
+  display:flex;flex-direction:column;align-items:flex-end;gap:6px;
+  pointer-events:none;width:max-content;max-width:min(44vw,330px)}
+.toast{display:flex;align-items:center;gap:7px;padding:5px 10px 6px;font-size:var(--t-body);
+  max-width:100%;animation:tin .3s cubic-bezier(.34,1.8,.64,1);
+  border-style:solid;border-width:9px;border-image:var(--frame-sign) 9 repeat;
+  background:#efe6c8 var(--tex-parch) repeat;background-size:var(--texZ)}
+.toast img{width:22px;height:22px;object-fit:contain;flex:none}
 .toast.gold{border-image:var(--frame-signG) 9 fill repeat;background:none}
-@keyframes tin{0%{transform:translateY(-26px) scale(.72);opacity:0}
-  70%{transform:translateY(3px) scale(1.03);opacity:1}100%{transform:none;opacity:1}}
-.toast.out{transition:opacity .4s,transform .4s;opacity:0;transform:translateY(-14px)}
+@keyframes tin{0%{transform:translateX(26px) scale(.8);opacity:0}
+  70%{transform:translateX(-3px) scale(1.02);opacity:1}100%{transform:none;opacity:1}}
+.toast.out{transition:opacity .35s,transform .35s;opacity:0;transform:translateX(18px)}
+
+/* ---------- training: one small skill test ----------
+   The pond is a game of waiting, so here is the one thing you can be good at:
+   stop the sweep inside the green. Three rounds; a clean sweep is worth two
+   fitness, one hit is worth one, and fitness takes 8% off the rest a frog needs
+   after an egg and adds 4% to what it sells for. The panel sits where the frog
+   card sits, so the middle of the pond stays empty. */
+#train{position:absolute;left:16px;bottom:118px;width:min(272px,86vw);z-index:26;
+  display:none;padding:9px}
+#train.on{display:block;animation:pop .3s cubic-bezier(.34,1.8,.64,1)}
+#trHead{display:flex;align-items:center;gap:8px;position:relative}
+#trFace{width:52px;height:52px;object-fit:contain;image-rendering:pixelated}
+#trName{font-size:var(--t-label);font-weight:700}
+#trSub{font-size:var(--t-body);color:#55603c;margin-top:3px}
+#trX{position:absolute;top:-16px;right:-16px;width:28px;height:28px;border-radius:15px;
+  cursor:pointer;background:#d0453f;color:#fff;border:3px solid var(--ink);
+  font-size:13px;display:flex;align-items:center;justify-content:center}
+#trBar{position:relative;height:26px;margin:10px 0 8px;clip-path:var(--px-r);
+  background:#b9c39c;box-shadow:inset 0 3px 0 rgba(0,0,0,.18)}
+#trZone{position:absolute;top:0;bottom:0;background:#8fd45e;
+  box-shadow:inset 0 0 0 2px rgba(30,64,20,.35)}
+#trPin{position:absolute;top:-3px;bottom:-3px;width:7px;background:#f2c14e;
+  box-shadow:0 0 0 2px #4a3410,0 0 9px rgba(242,193,78,.8)}
+#trPips{display:flex;gap:5px;margin-bottom:7px}
+#trPips i{display:block;width:15px;height:15px;clip-path:var(--px-r);background:#b9c39c;
+  box-shadow:inset 0 0 0 2px rgba(44,69,32,.5)}
+#trPips i.hit{background:#8fd45e}
+#trPips i.miss{background:#d0453f}
+#trHint{font-size:var(--t-body);color:#55603c;line-height:1.5;margin-bottom:8px}
+#train.done #trGo{display:none}
+
+/* ---------- the loop tracker ----------
+   The pond never says what the game wants from you, so this does: one line for
+   the next thing to do, and a five-chip strip of the whole loop underneath, with
+   the stage you are in lit. It doubles as the tutorial on a fresh pond. */
+#quest{position:absolute;left:16px;top:94px;z-index:22;width:min(268px,54vw);
+  padding:7px 10px 8px;cursor:pointer;user-select:none}
+#qHead{display:flex;align-items:center;justify-content:space-between;gap:6px;
+  font-size:var(--t-body);font-weight:700;color:#eaffd0;white-space:nowrap;
+  text-shadow:0 2px 0 rgba(0,0,0,.55)}
+#qTog{font-size:var(--t-body);color:#bfe08f;padding:0 2px}
+#qBody{font-size:var(--t-body);line-height:1.45;color:#f6ead2;margin-top:5px;
+  text-shadow:0 2px 0 rgba(0,0,0,.5)}
+#quest.shut #qBody{display:none}
+#qBody .qs{display:flex;gap:6px;align-items:flex-start}
+#qBody .qs img{width:20px;height:20px;flex:none;image-rendering:pixelated;margin-top:1px}
+#qBody b{color:#ffe9a8}
+#qLoop{display:flex;align-items:center;gap:2px 1px;margin-top:7px;flex-wrap:wrap}
+#qLoop i{font-style:normal;font-size:calc(var(--sc)*4.9px);letter-spacing:0;white-space:nowrap;
+  padding:2px 2px 3px;clip-path:var(--px-r);color:#cfe3ad;background:rgba(10,24,8,.55)}
+#qLoop i.on{color:#12240e;background:#8fd45e;font-weight:700;
+  box-shadow:0 0 8px rgba(143,212,94,.6)}
+#qLoop i.done{color:#9ab87a}
+#qLoop s{color:#7f9a63;text-decoration:none;font-size:calc(var(--sc)*4.4px);padding:0}
+
+/* ---------- the other UI channels ----------
+   One kind of message box for everything reads as noise, so each kind of news
+   gets the shape that suits it: a nudge where you tapped, a banner sliding in
+   from the edge for the big moments, and speech bubbles out in the pond. */
+.nudge{position:absolute;z-index:58;transform:translate(-50%,-100%);pointer-events:none;
+  padding:3px 9px 4px;font-size:var(--t-body);color:#fff2d8;white-space:nowrap;
+  clip-path:var(--px-r);background:rgba(20,12,10,.88);
+  box-shadow:0 0 0 2px rgba(255,180,140,.25);animation:nudgeIn 1.5s ease-out forwards}
+@keyframes nudgeIn{0%{opacity:0;transform:translate(-50%,-86%) scale(.7)}
+  14%{opacity:1;transform:translate(-50%,-104%) scale(1.04)}
+  24%{transform:translate(-50%,-100%) scale(1)}
+  74%{opacity:1}100%{opacity:0;transform:translate(-50%,-124%) scale(.96)}}
+#banners{position:absolute;right:0;top:24%;z-index:59;display:flex;flex-direction:column;
+  align-items:flex-end;gap:8px;pointer-events:none}
+.banner{display:flex;align-items:center;gap:9px;padding:8px 14px 9px 11px;max-width:min(60vw,380px);
+  border-style:solid;border-width:11px;border-image:var(--frame-signG) 9 fill repeat;
+  animation:bannerIn 4.6s cubic-bezier(.2,1.4,.5,1) forwards}
+.banner img{width:44px;height:44px;object-fit:contain;flex:none;
+  filter:drop-shadow(0 3px 3px rgba(0,0,0,.45))}
+.banner .bt{font-size:var(--t-label);font-weight:700;color:#4a2f0c;line-height:1.25}
+.banner .bs{font-size:var(--t-body);color:#6b5326;margin-top:2px;line-height:1.35}
+@keyframes bannerIn{0%{opacity:0;transform:translateX(110%)}
+  9%{opacity:1;transform:translateX(-6%)}14%{transform:translateX(0)}
+  88%{opacity:1;transform:translateX(0)}100%{opacity:0;transform:translateX(108%)}}
 
 /* ---------- overlays ---------- */
 .ov{position:absolute;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;
@@ -508,6 +588,15 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   #toolWrap{order:1;flex:1 1 100%;padding:6px 8px 7px}
   #trayWrap{order:2;flex:1 1 100%;max-width:100%;padding:6px 8px 7px}
   .barLabel{margin-bottom:2px;font-size:calc(var(--sc)*5.6px)}
+  /* a phone letterboxes the pond, which leaves a band of nothing under it:
+     that is where the tracker goes, so it covers no water at all */
+  #quest{left:8px;right:8px;width:auto;top:auto;padding:6px 9px 7px}
+  #qBody{margin-top:4px}
+  #banners{top:8px;left:auto;right:0}
+  .banner{max-width:min(80vw,300px);padding:6px 11px 7px 8px;border-width:9px}
+  .banner img{width:32px;height:32px}
+  #toasts{top:52px;right:8px;max-width:min(64vw,260px)}
+  .slot.tool.sel{transform:translateY(-5px) scale(1.04)}
   #tools{grid-template-columns:repeat(8,1fr);gap:4px}
   .slot.tool{width:auto;min-width:0;height:44px;border-width:6px}
   .slot.tool img{width:24px;height:24px;margin-top:0}
@@ -565,7 +654,7 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 <div id="topRight" class="gated"><button id="bMute" class="btn gray sm">♪</button><button id="bHelp" class="btn gray sm">?</button></div>
 
 <div id="bottomBar" class="gated">
-  <div id="toolWrap" class="panelWood"><div class="barLabel">tools</div><div id="tools"></div></div>
+  <div id="toolWrap" class="panelWood"><div class="barLabel" id="toolLabel">tools</div><div id="tools"></div></div>
   <div id="trayWrap" class="panelWood"><div class="barLabel">snacks</div><div id="tray"></div></div>
 </div>
 
@@ -598,7 +687,21 @@ img,canvas{image-rendering:pixelated;image-rendering:crisp-edges}
   <div id="fcHint"></div>
 </div>
 
+<div id="train" class="panel">
+  <div id="trHead"><img id="trFace"><div><div id="trName"></div><div id="trSub"></div></div>
+    <div id="trX">✕</div></div>
+  <div id="trBar"><i id="trZone"></i><b id="trPin"></b></div>
+  <div id="trPips"></div>
+  <div id="trHint"></div>
+  <button id="trGo" class="btn green sm">tap!</button>
+</div>
+<div id="quest" class="gated panelWood">
+  <div id="qHead"><span id="qTitle">what now?</span><span id="qTog">–</span></div>
+  <div id="qBody"></div>
+  <div id="qLoop"></div>
+</div>
 <div id="handHint" class="gated"></div>
+<div id="banners"></div>
 <div id="toasts"></div>
 
 <div id="title" class="ov">
@@ -1709,6 +1812,15 @@ function syncTrayRect(){
   const narrow=innerWidth<=820;
   const card=document.getElementById('fcard'),pb=document.getElementById('phoneBtn');
   if(card)card.style.bottom=(above+(narrow?30:12))+'px';
+  const tr=document.getElementById('train');
+  if(tr)tr.style.bottom=(above+(narrow?30:12))+'px';
+  const q=document.getElementById('quest');
+  if(q&&narrow){
+    const st=document.getElementById('stage').getBoundingClientRect();
+    const room=r.top-st.bottom;
+    // if the band is tall enough, sit in it; otherwise fall back to the corner
+    q.style.top=(room>66?st.bottom+6:Math.max(84,st.bottom-92))+'px';
+  }else if(q)q.style.top='';
   if(pb)pb.style.bottom=narrow?(above+30)+'px':'';
 }
 function behindTray(x,y){return y>TRAY.y&&x>TRAY.x0&&x<TRAY.x1}
@@ -1855,20 +1967,20 @@ function readable(){
 function unlockFood(id){
   const f=FD[id];
   if(!f||G.unlocked[id])return false;
-  if(G.coins<f.unlock){toast(`${f.name} unlocks for ${f.unlock}c`);SFX.buzz();return false}
+  if(G.coins<f.unlock){nudge(`${f.name} costs ${f.unlock}c`);SFX.buzz();return false}
   G.coins-=f.unlock;G.unlocked[id]=true;
-  SFX.coin();toast(`${f.name} unlocked`,FOOD_URL[id]);
+  SFX.coin();banner(`${f.name} unlocked`,'it is in the snack tray now',FOOD_URL[id]);
   hud();updateTray();saveSoon();
   return true;
 }
 function buyGuide(id){
   const g=GL[id];
   if(!g||ownGuide(g.tier))return;
-  if(G.coins<g.cost){toast('not enough coins for that one');SFX.buzz();return}
+  if(G.coins<g.cost){nudge('not enough coins');SFX.buzz();return}
   G.coins-=g.cost;G.guides=G.guides||{};G.guides[id]=true;
   hud();SFX.chime();
   const n=SPECIES.filter(s=>s.tier===g.tier&&s.recipe).length;
-  toast(`${g.name} — ${n} recipes are yours to read`,ICON.book2,true);
+  banner(g.name,`${n} recipes are yours to read`,ICON.book2);
   logDiary(`bought ${g.name} from the BreedBook.`);
   saveSoon();renderApp();
 }
@@ -1881,7 +1993,7 @@ function buyGuide(id){
 const TOOLS=[
  {id:'hand',name:'Gentle Hand',cost:0,grp:'breeding',
   desc:'lift a frog and set it down wherever you like.',
-  tip:'drag a frog anywhere · onto the love-pad to breed, onto a snack to feed'},
+  tip:'drag a frog · onto the love-pad, or onto a snack'},
  {id:'wand',name:'Love Wand',cost:0,grp:'breeding',
   desc:'the quick way to breed. tap two frogs; they meet at the pad.',
   tip:'tap one frog, then tap another. they walk to the love-pad themselves.'},
@@ -1914,7 +2026,7 @@ function selectTool(id){
   if(G.tool)G.sel=null;
   if(was==='wand'&&G.tool!=='wand')clearWandPick();
   updateTray();updateToolRack();
-  if(G.tool!==was)toast(TL[G.tool].tip,ICON[TOOL_ICON[G.tool]]||null);
+  if(G.tool!==was&&G.tool!=='hand')SFX.lift();
 }
 
 /* ---------------- toys ----------------
@@ -1922,7 +2034,7 @@ function selectTool(id){
    nothing: what they give is zoomies, faster growing-up and a shorter rest. */
 const ball={on:false,x:0,y:0,z:0,vx:0,vy:0,vz:0,spin:0,still:0};
 function kickBall(x,y){
-  if(!usable(x,y)){toast('bounce it on the open water');return}
+  if(!usable(x,y)){nudge('open water only',x,y);SFX.buzz();return}
   if(!ball.on){
     Object.assign(ball,{on:true,x,y,z:30,vx:0,vy:0,vz:0,spin:0,still:0});
     puff(x,y-8,'#ffd0e0',7);SFX.bounce();
@@ -2010,7 +2122,7 @@ function stepBubbles(dt){
 
 const box={on:false,x:0,y:0};
 function placeBox(x,y){
-  if(!usable(x,y)){toast('the box needs open water to sit on');return}
+  if(!usable(x,y)){nudge('needs open water',x,y);SFX.buzz();return}
   box.on=true;box.x=x;box.y=y;
   puff(x,y-6,'#ffe9a8',8);SFX.chime();
   musStart();
@@ -2036,12 +2148,12 @@ function leavePad(f){
   f.slot=-1;
 }
 function wandTap(f){
-  if(f.stage!=='adult'){toast('still a lil froglet');SFX.buzz();return}
-  if(wandPick===f){clearWandPick();toast(`${f.name} steps back off the wand`);return}
+  if(f.stage!=='adult'){nudge('still a lil froglet',f.x,f.y);SFX.buzz();return}
+  if(wandPick===f){clearWandPick();say(f,'ok, stepping off');return}
   if(!wandPick){
     wandPick=f;f.wandUntil=G.time+T(30000);
     hearts(f.x,f.y-20,2);squish(f,1.16,.86,300);SFX.love();
-    toast(`${f.name} is ready — now tap its partner`,ICON.wand);
+    say(f,'ready! now tap my partner',2600);
     return;
   }
   const a=wandPick;
@@ -2056,7 +2168,7 @@ function wandTap(f){
   }
 }
 function ringBell(f){
-  if(f.stage!=='adult'){toast('froglets are too young to pair up');SFX.buzz();return}
+  if(f.stage!=='adult'){nudge('too young to pair',f.x,f.y);SFX.buzz();return}
   let best=null;
   for(const o of G.frogs){
     if(o===f||o.stage!=='adult')continue;
@@ -2066,11 +2178,11 @@ function ringBell(f){
     if(!best||score>best.score)best={o,m,score};
   }
   if(!best){                                     // finds nothing, charges nothing
-    toast(`${f.name} has no partner in this pond yet — check the FrogDex`,ICON.bell);
+    say(f,'no partner here yet',2600);
     SFX.buzz();return;
   }
   const cost=TL.bell.cost;
-  if(G.coins<cost){toast(`the bell costs ${cost}c`);SFX.buzz();return}
+  if(G.coins<cost){nudge(`the bell costs ${cost}c`,f.x,f.y);SFX.buzz();return}
   G.coins-=cost;hud();
   f.markUntil=best.o.markUntil=G.time+T(18000);
   SFX.bell();hearts(f.x,f.y-20,1);hearts(best.o.x,best.o.y-20,1);
@@ -2086,9 +2198,9 @@ function sunLamp(target){
   const cost=TL.warm.cost;
   if(target==='egg'){
     const left=Math.max(0,nest.egg.hatch-G.time);
-    if(left<T(1200)){toast('it is already hatching');return}
-    if(G.coins<cost){toast(`the lamp costs ${cost}c`);SFX.buzz();return}
-    G.coins-=cost;hud();
+    if(left<T(1200)){nudge('already hatching',NEST.x,NEST.y);return}
+    if(G.coins<cost){nudge(`the lamp costs ${cost}c`,NEST.x,NEST.y);SFX.buzz();return}
+    G.coins-=cost;hud();fly('-'+cost+'c',NEST.x,NEST.y-14,'#ffb0a0');
     nest.egg.hatch=G.time+Math.max(T(900),left*.4);
     for(let i=0;i<9;i++)puff(NEST.x+rand(-9,9),NEST.y-rand(0,16),'#ffe9a8',1);
     SFX.warm();
@@ -2096,11 +2208,11 @@ function sunLamp(target){
     saveSoon();return;
   }
   const f=target;
-  if(!f){toast('aim the lamp at the egg, or at a frog');return}
+  if(!f){nudge('aim at the egg or a frog',x,y);return}
   const resting=G.time<f.coolUntil, growing=f.stage==='froglet';
-  if(!resting&&!growing){toast(`${f.name} is already up and about`);return}
-  if(G.coins<cost){toast(`the lamp costs ${cost}c`);SFX.buzz();return}
-  G.coins-=cost;hud();
+  if(!resting&&!growing){say(f,'i am already up!');return}
+  if(G.coins<cost){nudge(`the lamp costs ${cost}c`,f.x,f.y);SFX.buzz();return}
+  G.coins-=cost;hud();fly('-'+cost+'c',f.x,f.y-16,'#ffb0a0');
   if(resting)f.coolUntil=0;
   if(growing)f.growAt=G.time+Math.max(T(1200),(f.growAt-G.time)*.35);
   f.sleep=false;f.stateT=0;
@@ -2108,8 +2220,8 @@ function sunLamp(target){
   squish(f,1.2,.82,320);
   for(let i=0;i<8;i++)puff(f.x+rand(-9,9),f.y-rand(4,22),'#ffe9a8',1);
   SFX.warm();
-  toast(resting&&growing?`${f.name} is warm, rested and growing fast`
-    :resting?`${f.name} is rested and ready to breed`:`${f.name} is growing fast`,ICON.warm);
+  say(f,resting&&growing?'warm · rested · growing'
+    :resting?'rested and ready':'growing fast',2600);
   if(selFrog===f)showCard(f);
   saveSoon();
 }
@@ -2190,7 +2302,7 @@ class Frog{
     if(this.state==='held')return;                 // the hand has it; AI suspended
     if(this.stage==='froglet'&&G.time>this.growAt){
       this.stage='adult';puff(this.x,this.y-9,'#ffe9a8',9);SFX.pop();
-      toast(`${this.name} grew up`,FROG_URL[this.i]);
+      banner(`${this.name} grew up`,SP[this.spec].name+' · all grown',FROG_URL[this.i]);
     }
     if(this.state==='hop')return this.stepHop(dt);
     // a toy in the pond outranks whatever the frog had planned
@@ -2359,6 +2471,7 @@ function squish(f,sx,sy,dur){tween({dur,ease:'outElastic',
    can never disagree about how much a frog got out of it */
 Frog.prototype.fill=function(kind){
   const was=isFull(this);
+  G.everFed=true;
   this.full=clamp((this.full||0)+biteSize(this,kind),0,1);
   if(likes(this,kind)){
     hearts(this.x,this.y-22,1);
@@ -2367,8 +2480,9 @@ Frog.prototype.fill=function(kind){
   if(!was&&isFull(this)){
     puff(this.x,this.y-16,'#ffe9a8',9);SFX.chime();
     this.bubble={t:'note',until:G.time+1200};
-    toast(`${this.name} is full — ready to breed`,ICON.heart);
+    say(this,'full! ready to breed',2600);
   }
+  paintQuest();
 };
 
 /* ---------------- pond life ----------------
@@ -2376,9 +2490,98 @@ Frog.prototype.fill=function(kind){
    in: drifting lily pads the frogs share the surface with, fireflies that
    actually blink, and a dragonfly that skims past now and then. All of it is
    decoration — nothing here touches the walkable mask or the game rules. */
-const pads=[],dflies=[],twinks=[];
+const pads=[],dflies=[],twinks=[],fish=[],leaves=[],reeds=[],farFrogs=[];
+function initScene(){
+  // reeds along the banks: two or three stems each, swaying out of phase
+  reeds.length=0;
+  const spots=[[26,168],[52,152],[74,186],[118,150],[196,146],[268,142],[344,140],
+               [412,146],[486,150],[540,164],[578,182],[612,158],[160,168],[300,158]];
+  for(const [x,y] of spots)
+    reeds.push({x,y,n:rint(2,4),h:rint(11,20),ph:rand(0,7),
+      col:pick(['#2f6b2a','#37792f','#295f24']),head:Math.random()<.55});
+  // three fish, gliding under the surface where the water is deep enough
+  fish.length=0;
+  for(let i=0;i<3;i++){
+    const w=randWater();
+    fish.push({x:w.x,y:Math.max(210,w.y),dir:Math.random()<.5?1:-1,
+      sp:rand(.012,.028),ph:rand(0,7),len:rint(6,10),wait:rand(0,6000)});
+  }
+  // leaves on the breeze
+  leaves.length=0;
+  for(let i=0;i<6;i++)
+    leaves.push({x:rand(0,VW),y:rand(140,VH-20),sp:rand(.008,.022),
+      ph:rand(0,7),spin:rand(0,7),col:pick(['#7fae4a','#c9a24a','#5f8f38','#b8863a'])});
+  // and a few frogs sitting out on the far bank, small and dim: free depth
+  farFrogs.length=0;
+  for(let i=0;i<3;i++){
+    const sp=pick(SPECIES);
+    farFrogs.push({i:sp.i,x:rand(40,VW-40),y:rand(120,140),
+      sc:rand(.42,.56),ph:rand(0,7)});
+  }
+}
+function stepScene(dt){
+  for(const f of fish){
+    if(f.wait>0){f.wait-=dt;continue}
+    f.x+=f.dir*f.sp*dt*(1+Math.sin(G.time*.002+f.ph)*.3);
+    f.y+=Math.sin(G.time*.0013+f.ph)*.06;
+    if(f.x<12||f.x>VW-12||!inWater(f.x+f.dir*10,f.y)){
+      f.dir=-f.dir;f.x=clamp(f.x,14,VW-14);f.wait=rand(600,4000);
+    }
+    f.y=clamp(f.y,205,VH-16);
+  }
+  for(const l of leaves){
+    l.x+=l.sp*dt;l.y+=Math.sin(G.time*.0012+l.ph)*.05;l.spin+=dt*.0016;
+    if(l.x>VW+8){l.x=-8;l.y=rand(140,VH-20)}
+  }
+}
+/* the far bank, the reeds and the fish all sit behind the frogs you own */
+function drawSceneBack(){
+  for(const f of farFrogs){
+    const im=FROG_A[f.i];
+    if(!im)continue;
+    const w=Math.round(im.width*f.sc),h=Math.round(im.height*f.sc);
+    const b=Math.sin(G.time*.0015+f.ph)*1.2;
+    cx.globalAlpha=.55;
+    cx.drawImage(im,Math.round(f.x-w/2),Math.round(f.y-h+b),w,h);
+    cx.globalAlpha=1;
+  }
+  for(const r of reeds){
+    const sway=Math.sin(G.time*.0011+r.ph);
+    for(let i=0;i<r.n;i++){
+      const x=Math.round(r.x+i*3-r.n),h=r.h-i*2;
+      const tipx=Math.round(x+sway*(1.4+i*.4));
+      cx.fillStyle=r.col;
+      for(let k=0;k<h;k++){
+        const t=k/h;
+        cx.fillRect(Math.round(lerp(x,tipx,t*t)),r.y-k,1,1);
+      }
+      if(r.head&&i===0){
+        cx.fillStyle='#6b4a2a';
+        cx.fillRect(tipx-1,r.y-h-3,2,4);
+      }
+    }
+  }
+  for(const f of fish){
+    const wig=Math.sin(G.time*.012+f.ph);
+    const x=Math.round(f.x),y=Math.round(f.y);
+    cx.fillStyle='rgba(10,32,22,.30)';
+    cx.beginPath();cx.ellipse(x,y,f.len,f.len*.34,0,0,Math.PI*2);cx.fill();
+    cx.fillRect(Math.round(x-f.dir*(f.len+2)),Math.round(y+wig),3,1);
+  }
+}
+/* leaves drift over the water, in front of the frogs but behind the UI */
+function drawSceneFront(){
+  for(const l of leaves){
+    const x=Math.round(l.x),y=Math.round(l.y+Math.sin(l.ph+G.time*.002)*1.5);
+    const w=Math.sin(l.spin)>0?3:2;
+    cx.fillStyle='rgba(8,20,8,.18)';cx.fillRect(x,y+2,w,1);
+    cx.fillStyle=l.col;
+    cx.fillRect(x,y,w,1);cx.fillRect(x+(w>2?1:0),y-1,1,1);
+  }
+}
 function initPond(){
   pads.length=0;dflies.length=0;twinks.length=0;
+  initScene();
   // pads go in open water, well clear of the love-pad and of each other
   let tries=0;
   while(pads.length<7&&tries++<400){
@@ -2391,6 +2594,25 @@ function initPond(){
       col:pick(['#4e8a3a','#57993f','#437a33','#5fa347'])});
   }
   for(let i=0;i<2;i++)dflies.push(newDragonfly());
+}
+/* a dragonfly is worth catching: tap one as it crosses and it pays out. It is
+   the only thing in the pond that rewards a fast hand. */
+function dragonflyAt(x,y){
+  for(const d of dflies){
+    if(d.wait>0)continue;
+    if(Math.abs(d.x-x)<11&&Math.abs(d.y-y)<10)return d;
+  }
+  return null;
+}
+function catchDragonfly(d){
+  const pay=rint(6,14);
+  G.coins+=pay;hud();
+  fly('+'+pay+'c',d.x,d.y-6,'#ffe07a');
+  puff(d.x,d.y,'#cfe8ff',7);SFX.coin();SFX.fizz();
+  G.caught=(G.caught|0)+1;
+  if(G.caught===1)note('a caught dragonfly is worth coins — they come and go',ICON.coin);
+  Object.assign(d,newDragonfly());
+  saveSoon();
 }
 function newDragonfly(){
   const dir=Math.random()<.5?1:-1;
@@ -2650,8 +2872,9 @@ function drawDecor(){
 /* ---------------- food throwing ---------------- */
 function throwFood(kind,tx,ty){
   const f=FD[kind];
-  if(G.coins<f.cost){toast('not enough coins');SFX.buzz();return}
+  if(G.coins<f.cost){nudge('not enough coins',tx,ty);SFX.buzz();return}
   G.coins-=f.cost;hud();
+  if(f.cost)fly('-'+f.cost+'c',tx,ty-10,'#ffb0a0');
   const o={kind,x:tx,y:ty,gone:false,flying:true,born:G.time,bob:rand(0,7)};
   G.food.push(o);
   if(G.food.length>6)G.food.shift();
@@ -2666,8 +2889,9 @@ function throwFood(kind,tx,ty){
 
 function handFeed(fr,kind){
   const f=FD[kind];
-  if(G.coins<f.cost){toast('not enough coins');SFX.buzz();return}
+  if(G.coins<f.cost){nudge('not enough coins',fr.x,fr.y);SFX.buzz();return}
   G.coins-=f.cost;hud();
+  if(f.cost)fly('-'+f.cost+'c',fr.x,fr.y-16,'#ffb0a0');
   const spr=FOOD_W[kind];
   // a snack floats down into the frog's mouth
   const o={kind,x:fr.x,y:fr.y,gone:false,flying:true,born:G.time,bob:0};
@@ -2681,8 +2905,7 @@ function handFeed(fr,kind){
       if(kind===GD.zoomFood)fr.zoomUntil=G.time+T(20000);
       if(kind===GD.glowFood)fr.glowUntil=G.time+T(30000);
       squish(fr,1.3,.7,340);SFX.eat();hearts(fr.x,fr.y-20,2);
-      toast(likes(fr,kind)?`${fr.name} loved the ${f.name}`
-        :`${fr.name} ate the ${f.name}`,FOOD_URL[kind]);
+      say(fr,likes(fr,kind)?'yum! my favourite':'munch munch');
       if(selFrog===fr)showCard(fr);
       saveSoon();
     }});
@@ -2698,23 +2921,22 @@ const NEST_BEAT=5200, EGG_WAIT=38000, EGG_WAIT_BOON=24000,
       REST=48000, REST_BOON=28000, GROW=44000, FED_HOLD=45000;
 const nest={a:null,b:null,egg:null,ht:0,timer:0,force:false};
 function toNest(f){
-  if(f.stage!=='adult'){toast('still a lil froglet');return}
+  if(f.stage!=='adult'){nudge('still a lil froglet',f.x,f.y);return}
   if(f.slot<0&&G.frogs.length>=POND_CAP){toast(`pond is full (max ${POND_CAP}) — sell one first`);SFX.buzz();return}
-  if(G.time<f.coolUntil){toast(`${f.name} needs a rest first`);return}
+  if(G.time<f.coolUntil){say(f,'resting '+Math.ceil((f.coolUntil-G.time)/1000)+'s');return}
   // nobody breeds on an empty stomach
   if(f.slot<0&&!isFull(f)){
     const d=DIETS[dietOf(f)];
-    toast(`${f.name} is only ${Math.round((f.full||0)*100)}% full — it likes ${d.name} food`,
-      ICON[d.ic]);
+    say(f,'still hungry \u00b7 likes '+d.name,2600);
     SFX.buzz();return;
   }
-  if(nest.egg){toast('there is already an egg on the pad');return}
+  if(nest.egg){nudge('the pad already has an egg',NEST.x,NEST.y);return}
   if(f.slot>=0){f.slot=-1;if(nest.a===f)nest.a=null;if(nest.b===f)nest.b=null;
-    toast(`${f.name} hops off the love-pad`);return}
-  if(nest.a&&nest.b){toast('the love-pad is full');return}
+    say(f,'hopping off');return}
+  if(nest.a&&nest.b){nudge('the love-pad is full',NEST.x,NEST.y);return}
   if(!nest.a){nest.a=f;f.slot=0}else{nest.b=f;f.slot=1}
   f.state='idle';f.stateT=0;f.sleep=false;
-  toast(`${f.name} hops to the love-pad`,ICON.heart);SFX.love();hint(3);
+  say(f,'off to the love-pad \u2661');SFX.love();hint(3);paintQuest();
 }
 /* what the love-pad should be telling the player right now */
 function nestPreview(){
@@ -2756,13 +2978,14 @@ function stepNest(dt){
         const boon=dosed(a)||dosed(b);
         const wait=T(boon?EGG_WAIT_BOON:EGG_WAIT);
         nest.egg={spec:child,hatch:G.time+wait,wob:0,total:wait};
-        a.coolUntil=b.coolUntil=G.time+T(boon?REST_BOON:REST);
+        a.coolUntil=G.time+T((boon?REST_BOON:REST)*fitRest(a));
+    b.coolUntil=G.time+T((boon?REST_BOON:REST)*fitRest(b));
         a.full=b.full=0;            // an egg costs both of them their dinner
         a.slot=b.slot=-1;nest.a=nest.b=null;nest.timer=0;nest.force=false;
         a.startHop(a.x-rand(16,30),a.y+rand(-8,12));
         b.startHop(b.x+rand(16,30),b.y+rand(-8,12));
         SFX.chime();
-        toast(boon?'the tonic worked — an egg appeared':'an egg appeared on the love-pad',ICON.egg);
+        banner('an egg!',boon?'the tonic did it':'on the love-pad',ICON.egg);paintQuest();
       }
     }else nest.timer=0;
   }
@@ -2799,7 +3022,8 @@ function hatch(){
   puff(NEST.x,NEST.y-8,'#ffffff',12);SFX.pop();
   f.startHop(NEST.x-rand(20,34),NEST.y+rand(-8,10));
   discover(id,true);
-  toast(`${f.name} the ${SP[id].name} hatched`,FROG_URL[SP[id].i]);
+  banner(`${f.name} hatched`,SP[id].name,FROG_URL[SP[id].i]);say(f,'hi! i am new');
+  G.loopDone=true;paintQuest();      // one full turn of the loop is done
   logDiary(`${f.name} the ${SP[id].name} hatched on the love-pad.`,id);
   saveSoon();
 }
@@ -2820,7 +3044,7 @@ function discover(id,celebrate){
   G.discovered[id]=true;
   logDiary(`met a ${SP[id].name} for the first time.`,id);
   if(celebrate){confetti();SFX.chime();
-    toast(`NEW SPECIES — ${SP[id].name}`,FROG_URL[SP[id].i],true)}
+    banner('NEW SPECIES',SP[id].name,FROG_URL[SP[id].i])}
   hud();
   if(Object.keys(G.discovered).length===SPECIES.length&&!G.won){
     G.won=true;
@@ -2831,13 +3055,13 @@ function discover(id,celebrate){
 /* ---------------- economy ---------------- */
 function buyFrog(id){
   const s=SP[id];
-  if(G.frogs.length>=POND_CAP){toast(`pond is full (max ${POND_CAP})`);SFX.buzz();return}
-  if(G.coins<s.buy){toast('not enough coins');SFX.buzz();return}
+  if(G.frogs.length>=POND_CAP){nudge(`pond is full (max ${POND_CAP})`);SFX.buzz();return}
+  if(G.coins<s.buy){nudge('not enough coins');SFX.buzz();return}
   G.coins-=s.buy;hud();
   const p=randWater(),f=new Frog(id,VW/2,VH+14);
   G.frogs.push(f);f.startHop(p.x,p.y,{h:34,dur:640});
   discover(id,!G.discovered[id]);
-  SFX.coin();toast(`${f.name} the ${s.name} hopped in`,FROG_URL[s.i]);
+  SFX.coin();banner(`${f.name} hopped in`,s.name,FROG_URL[s.i]);say(f,'hello!');
   logDiary(`${f.name} the ${s.name} moved into the pond.`,id);
   renderApp();saveSoon();
 }
@@ -2846,7 +3070,7 @@ function sellFrog(f,price,quiet){
   if(f.slot>=0){if(nest.a===f)nest.a=null;if(nest.b===f)nest.b=null;f.slot=-1}
   G.frogs.splice(i,1);G.coins+=price;hud();
   puff(f.x,f.y-9,'#ffe9a8',11);coinFx(f.x,f.y-12,4);SFX.coin();
-  if(!quiet)toast(`sold ${f.name} · +${price}`,ICON.coin);
+  if(!quiet){fly('+'+price+'c',f.x,f.y-16,'#ffe07a');note(`sold ${f.name} · +${price}`,ICON.coin)}
   logDiary(`${f.name} the ${SP[f.spec].name} went to a new home for ${price} coins.`,f.spec);
   hideCard();saveSoon();return true;
 }
@@ -2873,7 +3097,7 @@ function spawnCust(){
   G.offers.push({id:offerSeq++,cust:pick(CUSTOMERS),spid:id,price,state:'open',
     exp:G.time+T(240000),lines:[pick(OPENERS)],at:G.time});
   notify();SFX.msg();
-  toast(`${SP[id].name} wanted — check your phone`,FROG_URL[s.i]);
+  banner('a collector is asking',`${SP[id].name} \u00b7 check RibbitChat`,FROG_URL[s.i]);
 }
 function notify(){
   const n=G.offers.filter(o=>!G.read[o.id]).length;
@@ -3073,6 +3297,7 @@ function drawBubbles(){
 function draw(){
   cx.clearRect(0,0,VW,VH);
   drawDecor();
+  drawSceneBack();     // far bank, reeds, fish shadows
   drawPads();          // under everything that swims or hops
   // love-pad, with a slow pink shimmer so it always reads as "the breeding spot"
   if(PADIMG){
@@ -3152,7 +3377,9 @@ function draw(){
     cx.fillStyle=`rgba(255,255,235,${a})`;cx.fillRect(x,y,1,1);
   }
   drawPondLife();
+  drawSceneFront();    // leaves on the breeze, over the water
   drawWeather();
+  drawTalk();          // bubbles and flyups sit over the pond, under the UI
   // particles
   for(const p of parts){
     const a=1-p.t/p.life;
@@ -3238,7 +3465,9 @@ const ICONC={};
 
 /* a tiny 3x5 / 5x5 pixel font, for text that lives in the world */
 const PXFONT_W=3;
-const PXFONT={'a':'010101111101101','b':'110101110101110','c':'011100100100011','d':'110101101101110','e':'111100110100111','f':'111100110100100','g':'011100101101011','h':'101101111101101','i':'111010010010111','j':'001001001101010','k':'101101110101101','l':'100100100100111','m':'1000111011101011000110001','n':'101111111101101','o':'010101101101010','p':'110101110100100','q':'010101101111001','r':'110101110101101','s':'011100010001110','t':'111010010010010','u':'101101101101011','v':'101101101010010','w':'1000110001101011101101010','x':'101101010101101','y':'101101010010010','z':'111001010100111','0':'111101101101111','1':'010010010010010','2':'110001010100111','3':'111001011001111','4':'101101111001001','5':'111100110001111','6':'011100111101111','7':'111001010010010','8':'111101111101111','9':'111101111001001',' ':'000000000000000','.':'000000000000010','·':'000000010000000','—':'000000111000000','-':'000000111000000','\'':'010010000000000','!':'010010010000010','?':'110001010000010',':':'000010000010000',',':'000000000010100','(':'010100100100010',')':'010001001001010'};
+const PXFONT={'a':'010101111101101','b':'110101110101110','c':'011100100100011','d':'110101101101110','e':'111100110100111','f':'111100110100100','g':'011100101101011','h':'101101111101101','i':'111010010010111','j':'001001001101010','k':'101101110101101','l':'100100100100111','m':'1000111011101011000110001','n':'101111111101101','o':'010101101101010','p':'110101110100100','q':'010101101111001','r':'110101110101101','s':'011100010001110','t':'111010010010010','u':'101101101101011','v':'101101101010010','w':'1000110001101011101101010','x':'101101010101101','y':'101101010010010','z':'111001010100111','0':'111101101101111','1':'010010010010010','2':'110001010100111','3':'111001011001111','4':'101101111001001','5':'111100110001111','6':'011100111101111','7':'111001010010010','8':'111101111101111','9':'111101111001001',' ':'000000000000000','.':'000000000000010','·':'000000010000000','—':'000000111000000','-':'000000111000000','\'':'010010000000000','!':'010010010000010','?':'110001010000010',':':'000010000010000',',':'000000000010100','(':'010100100100010',')':'010001001001010',
+  '\u2661':'101111111010000','\u2665':'101111111010000','+':'000010111010000',
+  '/':'001001010100100','\u2192':'000001111010000','%':'101001010100101'};
 /* The love-pad narrates itself, so breeding never depends on the player guessing.
    Drawn on the canvas in pixel text so it sits in the world, not over the UI. */
 function pxText(txt,cx_,y,col,scale){
@@ -3376,7 +3605,7 @@ function dropFrog(f){
   if(!usable(f.x,f.y)){                        // never punish: it wriggles back to water
     f.state='idle';f.z=0;f.rot=0;f.sx=f.sy=1;
     const w=randWater();f.startHop(w.x,w.y);
-    puff(f.x,f.y-10,'#cfe8a8',4);toast('no dry land, please');
+    puff(f.x,f.y-10,'#cfe8a8',4);nudge('water only',f.x,f.y);
     return;
   }
   // drop onto the love-pad = the hand doubling as a breeding tool
@@ -3423,7 +3652,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape')clearHand()});
 /* ---- Breed Tonic ---- */
 function doseTonic(f){
   const cost=TL.tonic.cost;
-  if(G.coins<cost){toast('not enough coins');SFX.buzz();return}
+  if(G.coins<cost){nudge('not enough coins',f.x,f.y);SFX.buzz();return}
   G.coins-=cost;hud();
   f.tonicUntil=G.time+T(120000);
   f.sleep=false;
@@ -3431,20 +3660,23 @@ function doseTonic(f){
   f.bubble={t:'note',until:G.time+1100};
   for(let i=0;i<5;i++)puff(f.x+rand(-6,6),f.y-rand(10,26),'#f5809c',1);
   SFX.tonic();
-  toast(`${f.name} feels lovey`,ICON.heart);
+  say(f,'ooh, lovey \u2661');
   if(selFrog===f)showCard(f);
   saveSoon();
 }
 /* one tap, whatever is in your hand */
 function tapAt(p){
+  // a dragonfly is the fastest thing on screen: give it first refusal on a tap
+  const dg=dragonflyAt(p.x,p.y);
+  if(dg){catchDragonfly(dg);return}
   if(mode!=='play')return;
   if(p.x<0||p.y<0||p.x>=VW||p.y>=VH)return;
   const f=frogAt(p);
   const onEgg=!!nest.egg&&Math.hypot(p.x-NEST.x,p.y-NEST.y)<20;
   switch(G.tool){
-    case 'wand':    if(f)wandTap(f); else toast('tap a frog, then tap its partner');return;
-    case 'tonic':   if(f)doseTonic(f); else toast('aim the tonic at a frog');return;
-    case 'bell':    if(f)ringBell(f); else toast('ring the bell at a frog');return;
+    case 'wand':    if(f)wandTap(f); else nudge('tap a frog, then its partner',p.x,p.y);return;
+    case 'tonic':   if(f)doseTonic(f); else nudge('aim the tonic at a frog',p.x,p.y);return;
+    case 'bell':    if(f)ringBell(f); else nudge('ring it at a frog',p.x,p.y);return;
     case 'warm':    sunLamp(onEgg?'egg':f);return;
     case 'ball':    kickBall(p.x,p.y);return;
     case 'bubbles': blowBubbles(p.x,p.y);return;
@@ -3458,7 +3690,7 @@ function tapAt(p){
     // the hardest part of breeding
     if(f)handFeed(f,G.sel);
     else if(usable(p.x,p.y))throwFood(G.sel,p.x,p.y);
-    else toast('aim at the open water, or tap a frog to hand-feed it');
+    else nudge('open water, or tap a frog',p.x,p.y);
     return;
   }
   if(f){selFrog=f;petFrog(f);showCard(f);return}
@@ -3530,16 +3762,17 @@ function updateToolRack(){
   }
   updateHandHint();
 }
-/* always say out loud what is currently in your hand */
+/* What is in your hand is written on the rack's own label. It used to be a strip
+   floating mid-screen, which is the last place a pond needs a caption. */
 function updateHandHint(){
-  const el=document.getElementById('handHint');
+  const el=document.getElementById('toolLabel');
   if(!el)return;
-  let txt='';
-  if(G.tool==='wand'&&wandPick)txt=`Love Wand · ${wandPick.name} is ready — now tap its partner`;
-  else if(G.tool)txt=`${TL[G.tool].name} · ${TL[G.tool].tip}`;
-  else if(G.sel)txt=`${FD[G.sel].name} · tap the water to toss it, or a frog to hand-feed it`;
+  let txt='tools';
+  if(G.tool==='wand'&&wandPick)txt=`\u2661 ${wandPick.name} is ready \u00b7 tap its partner`;
+  else if(G.tool&&G.tool!=='hand')txt=`${TL[G.tool].name} \u00b7 ${TL[G.tool].tip}`;
+  else if(G.sel)txt=`${FD[G.sel].name} \u00b7 tap the water, or a frog to hand-feed`;
+  else if(G.tool==='hand')txt=`${TL.hand.name} \u00b7 ${TL.hand.tip}`;
   el.textContent=txt;
-  el.classList.toggle('on',!!txt);
 }
 function showCard(f){
   const s=SP[f.spec];
@@ -3563,8 +3796,10 @@ function showCard(f){
   // the card is already tall; the diet's full blurb lives in the dex instead
   const d=DIETS[dietOf(f)];
   const favs=favourites(d.name).slice(0,2).map(x=>x.name).join(' · ');
+  const fitTxt=fitOf(f)?`<br><b>fitness ${fitOf(f)}/${FIT_MAX}</b> · rests ${
+    Math.round((1-fitRest(f))*100)}% shorter, +${Math.round((fitPrice(f,100)-100))}% price`:'';
   document.getElementById('fcDiet').innerHTML=
-    `<img src="${ICON[d.ic]}"><div><b>${d.name} eater</b><br>fills fast on ${favs}…</div>`;
+    `<img src="${ICON[d.ic]}"><div><b>${d.name} eater</b><br>fills fast on ${favs}…${fitTxt}</div>`;
   const bs=document.getElementById('fcBtns');bs.innerHTML='';
   const bB=document.createElement('button');bB.className='btn pink sm';
   const cd=Math.ceil(Math.max(0,f.coolUntil-G.time)/1000);
@@ -3581,17 +3816,24 @@ function showCard(f){
   };
   bs.appendChild(bB);
   const bS=document.createElement('button');bS.className='btn sm';
-  bS.textContent=`sell ${s.sell}`;
+  const price=fitPrice(f,s.sell);
+  bS.textContent=`sell ${price}`;
   if(f.stage!=='adult')bS.disabled=true;
   let armed=false;
   bS.onclick=()=>{SFX.click();
     if(!armed){armed=true;bS.textContent='sure?';bS.classList.add('pink');
-      setTimeout(()=>{armed=false;bS.textContent=`sell ${s.sell}`;bS.classList.remove('pink')},1800);return}
-    sellFrog(f,s.sell)};
+      setTimeout(()=>{armed=false;bS.textContent=`sell ${price}`;bS.classList.remove('pink')},1800);return}
+    sellFrog(f,price)};
   bs.appendChild(bS);
   const bP=document.createElement('button');bP.className='btn green sm';bP.textContent='pet';
   bP.onclick=()=>petFrog(f);
   bs.appendChild(bP);
+  const bT=document.createElement('button');bT.className='btn sm';
+  bT.textContent=fitOf(f)>=FIT_MAX?'fit \u2605':'train '+fitOf(f)+'/'+FIT_MAX;
+  bT.title='three taps of timing \u2014 fitness shortens rests and raises the price';
+  if(f.stage!=='adult')bT.disabled=true;
+  bT.onclick=()=>{SFX.click();openTrain(f)};
+  bs.appendChild(bT);
   if(f.slot>=0&&nest.a&&nest.b){
     const pv=nestPreview();
     if(pv&&pv.kind==='needs'){
@@ -3611,7 +3853,84 @@ function showCard(f){
 }
 function hideCard(){document.getElementById('fcard').classList.remove('on');selFrog=null}
 document.getElementById('fcX').onclick=()=>{SFX.click();hideCard()};
+document.getElementById('trX').onclick=()=>{SFX.click();closeTrain()};
+document.getElementById('trGo').onclick=ev=>{ev.stopPropagation();trainTap()};
+document.getElementById('trBar').onclick=ev=>{ev.stopPropagation();trainTap()};
 
+/* ---------------- the message channels ----------------
+   note()   a small card in the top-right, for things you may want to read
+   nudge()  a pill right where you tapped, for "you cannot do that there"
+   banner() slides in from the edge, for the moments worth stopping for
+   say()    a pixel speech bubble over a frog, out in the pond
+   fly()    a number floating off a thing, for coins and gains
+   Everything used to be a note, which made every event feel the same weight. */
+function nudge(txt,x,y){
+  const n=document.createElement('div');
+  n.className='nudge';n.textContent=txt;
+  // world coords when given, otherwise the middle of the pond's lower third
+  const sx=OX+(x===undefined?VW/2:x)*SC, sy=OY+(y===undefined?VH*.66:y)*SC;
+  n.style.left=Math.round(sx)+'px';n.style.top=Math.round(sy-6)+'px';
+  document.body.appendChild(n);
+  setTimeout(()=>n.remove(),1600);
+}
+function banner(title,sub,icon){
+  const b=document.createElement('div');
+  b.className='banner';
+  b.innerHTML=(icon?`<img src="${icon}">`:'')+
+    `<div><div class="bt">${title}</div>`+(sub?`<div class="bs">${sub}</div>`:'')+`</div>`;
+  const box=document.getElementById('banners');
+  box.appendChild(b);
+  while(box.children.length>2)box.firstChild.remove();
+  setTimeout(()=>b.remove(),4700);
+}
+const bubbles=[],pops=[];
+function say(f,txt,ms){
+  if(!f)return;
+  for(let i=bubbles.length-1;i>=0;i--)if(bubbles[i].f===f)bubbles.splice(i,1);
+  bubbles.push({f,txt:String(txt),t:0,life:ms||2300});
+  if(bubbles.length>4)bubbles.shift();
+}
+function fly(txt,x,y,col){
+  pops.push({txt:String(txt),x,y,t:0,life:1100,col:col||'#ffe9a8'});
+  if(pops.length>10)pops.shift();
+}
+function stepTalk(dt){
+  for(let i=bubbles.length-1;i>=0;i--){const b=bubbles[i];b.t+=dt;
+    if(b.t>b.life||G.frogs.indexOf(b.f)<0)bubbles.splice(i,1)}
+  for(let i=pops.length-1;i>=0;i--){const p=pops[i];p.t+=dt;
+    if(p.t>p.life)pops.splice(i,1)}
+}
+/* a 3x5-font speech bubble, drawn in the world so the pond does the talking */
+function drawTalk(){
+  for(const b of bubbles){
+    const k=b.t/b.life;
+    const a=k<.12?k/.12:(k>.86?(1-k)/.14:1);
+    const w=Math.ceil(pxTextWidth(b.txt,1))+7, h=11;
+    let x=Math.round(b.f.x-w/2), y=Math.round(b.f.y-(b.f.img?b.f.img.height*.86:26)-h-3);
+    x=clamp(x,2,VW-w-2); y=Math.max(2,y);
+    cx.globalAlpha=a;
+    cx.fillStyle='rgba(12,20,10,.55)';cx.fillRect(x+1,y+2,w,h);
+    cx.fillStyle='#f4efd8';cx.fillRect(x,y,w,h);
+    cx.fillStyle='#2f2a18';
+    cx.fillRect(x,y-1,w,1);cx.fillRect(x,y+h,w,1);
+    cx.fillRect(x-1,y,1,h);cx.fillRect(x+w,y,1,h);
+    // the little tail, pointing at whoever is talking
+    const tx=clamp(Math.round(b.f.x)-2,x+2,x+w-5);
+    cx.fillStyle='#f4efd8';cx.fillRect(tx,y+h,3,2);
+    cx.fillStyle='#2f2a18';cx.fillRect(tx-1,y+h+1,1,1);cx.fillRect(tx+3,y+h+1,1,1);
+    cx.fillRect(tx,y+h+2,3,1);
+    pxText(b.txt,x+w/2,y+3,'#2f2a18',1);
+    cx.globalAlpha=1;
+  }
+  for(const p of pops){
+    const k=p.t/p.life;
+    cx.globalAlpha=k>.6?(1-k)/.4:1;
+    const y=Math.round(p.y-4-k*16);
+    pxText(p.txt,p.x+1,y+1,'rgba(10,16,8,.6)',1);
+    pxText(p.txt,p.x,y,p.col,1);
+    cx.globalAlpha=1;
+  }
+}
 function toast(txt,icon,gold){
   const t=document.createElement('div');
   t.className='toast'+(gold?' gold':'');
@@ -3622,6 +3941,141 @@ function toast(txt,icon,gold){
   while(box.children.length>cap)box.firstChild.remove();
   setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),450)},gold?4200:2600);
 }
+const note=toast;         // the quiet channel, by the name the callers use
+/* ---------------- training (the quick-time bit) ----------------
+   Fitness caps at five and is earned three taps at a time. */
+const TRAIN_ROUNDS=3, FIT_MAX=5;
+const train={f:null,round:0,hits:0,pos:0,dir:1,sp:0,zone:[40,60],raf:0,live:false};
+function fitOf(f){return Math.min(FIT_MAX,f.fit||0)}
+function fitRest(f){return 1-fitOf(f)*.08}      // shorter rest after an egg
+function fitPrice(f,base){return Math.round(base*(1+fitOf(f)*.04))}
+function trainPips(){
+  const box=document.getElementById('trPips');
+  box.innerHTML='';
+  for(let i=0;i<TRAIN_ROUNDS;i++){
+    const p=document.createElement('i');
+    if(i<train.round)p.className=train.marks[i]?'hit':'miss';
+    box.appendChild(p);
+  }
+}
+function openTrain(f){
+  if(f.stage!=='adult'){nudge('froglets train by napping',f.x,f.y);SFX.buzz();return}
+  if(fitOf(f)>=FIT_MAX){say(f,'i am as fit as it gets');return}
+  hideCard();
+  Object.assign(train,{f,round:0,hits:0,marks:[],pos:0,dir:1,live:true});
+  const box=document.getElementById('train');
+  box.classList.add('on');box.classList.remove('done');
+  document.getElementById('trFace').src=FROG_URL[SP[f.spec].i];
+  document.getElementById('trName').textContent=f.name+' is training';
+  document.getElementById('trSub').textContent='fitness '+fitOf(f)+'/'+FIT_MAX;
+  document.getElementById('trGo').textContent='tap!';
+  trainRound();
+}
+function closeTrain(){
+  train.live=false;
+  if(train.raf)cancelAnimationFrame(train.raf);train.raf=0;
+  document.getElementById('train').classList.remove('on');
+}
+function trainRound(){
+  // each round is a touch faster and the green a touch narrower
+  const w=26-train.round*5, c=rand(16,84-w);
+  train.zone=[c,c+w];
+  train.sp=.055+train.round*.022+rand(0,.012);
+  train.pos=rand(0,10);train.dir=1;
+  const z=document.getElementById('trZone');
+  z.style.left=c+'%';z.style.width=w+'%';
+  document.getElementById('trHint').innerHTML=
+    `round <b>${train.round+1}</b> of ${TRAIN_ROUNDS} \u00b7 stop the marker on the green`;
+  trainPips();
+  let last=performance.now();
+  const step=(ts)=>{
+    if(!train.live)return;
+    const dt=Math.min(40,ts-last);last=ts;
+    train.pos+=train.dir*train.sp*dt;
+    if(train.pos>100){train.pos=100;train.dir=-1}
+    if(train.pos<0){train.pos=0;train.dir=1}
+    document.getElementById('trPin').style.left=train.pos+'%';
+    train.raf=requestAnimationFrame(step);
+  };
+  train.raf=requestAnimationFrame(step);
+}
+function trainTap(){
+  if(!train.live||!train.f)return;
+  const hit=train.pos>=train.zone[0]&&train.pos<=train.zone[1];
+  train.marks[train.round]=hit;
+  train.round++;train.hits+=hit?1:0;
+  if(train.raf)cancelAnimationFrame(train.raf);train.raf=0;
+  trainPips();
+  if(hit){SFX.chime();puff(train.f.x,train.f.y-12,'#ffe9a8',5);hearts(train.f.x,train.f.y-18,1)}
+  else SFX.buzz();
+  if(train.round>=TRAIN_ROUNDS){
+    const f=train.f;
+    const gain=train.hits>=3?2:(train.hits>=1?1:0);
+    f.fit=Math.min(FIT_MAX,(f.fit||0)+gain);
+    train.live=false;
+    document.getElementById('train').classList.add('done');
+    document.getElementById('trSub').textContent='fitness '+fitOf(f)+'/'+FIT_MAX;
+    document.getElementById('trHint').innerHTML=gain
+      ? `<b>+${gain} fitness</b> \u00b7 shorter rests and a better price`
+      : 'no points this time \u2014 the pond forgives you. try again.';
+    if(gain){squish(f,1.2,.84,340);say(f,train.hits>=3?'perfect! \u2661':'good workout');
+      SFX.love();banner(`${f.name} trained`,`fitness ${fitOf(f)}/${FIT_MAX}`,FROG_URL[SP[f.spec].i]);}
+    else say(f,'\u2026we can try again');
+    setTimeout(()=>{if(!train.live)closeTrain();if(selFrog===f)showCard(f)},2100);
+    saveSoon();
+    return;
+  }
+  setTimeout(trainRound,320);
+}
+
+/* ---------------- the loop tracker + tutorial ----------------
+   Six steps, each read straight off the live pond rather than from a script, so
+   it cannot get out of step with what you actually did. Once you have been round
+   the loop once it folds down to the strip. */
+const LOOP_CHIPS=['feed','full','pair','egg','hatch','sell'];
+function questState(){
+  const adults=G.frogs.filter(f=>f.stage==='adult');
+  const fulls=adults.filter(isFull);
+  const fed=!!G.everFed||adults.some(f=>(f.full||0)>0);
+  if(nest.egg)
+    return {i:4,t:'the egg is warming',
+      d:'wait it out, or warm it with the <b>sun lamp</b> to skip ahead.',ic:ICON.egg};
+  if(nest.a&&nest.b)
+    return {i:3,t:'they are courting',
+      d:'stay close — an <b>egg</b> appears on the pad in a moment.',ic:ICON.heart};
+  if(fulls.length>=2)
+    return {i:2,t:'pair them up',
+      d:'take the <b>love wand</b> from the rack, then tap two full frogs.',ic:ICON.wand};
+  if(!fed)
+    return {i:0,t:'feed a frog',
+      d:'pick the free <b>pea bowl</b> below, then tap a frog to hand it over.',ic:ICON.hand};
+  if(fulls.length<2)
+    return {i:1,t:'fill two tummies',
+      d:'four pips is full. a frog\u2019s own <b>diet</b> fills it twice as fast.',ic:ICON.heart};
+  return {i:5,t:'sell or breed on',
+      d:'sell a frog in <b>ShopHop</b>, or find a pair that makes a new species.',ic:ICON.coin};
+}
+function paintQuest(){
+  const box=document.getElementById('quest');
+  if(!box||mode!=='play')return;
+  const q=questState();
+  document.getElementById('qTitle').textContent=G.loopDone?'the pond loop':q.t;
+  document.getElementById('qBody').innerHTML=
+    `<div class="qs">${q.ic?`<img src="${q.ic}">`:''}<div>${G.loopDone?'<b>'+q.t+'</b> \u00b7 ':''}${q.d}</div></div>`;
+  const loop=document.getElementById('qLoop');
+  const html=[];
+  LOOP_CHIPS.forEach((c,i)=>{
+    if(i)html.push('<s>\u2192</s>');
+    html.push(`<i class="${i===q.i?'on':(i<q.i?'done':'')}">${c}</i>`);
+  });
+  loop.innerHTML=html.join('');
+  box.classList.toggle('shut',G.questOpen===false);
+  document.getElementById('qTog').textContent=G.questOpen===false?'+':'\u2013';
+}
+function wireQuest(){
+  const box=document.getElementById('quest');
+  box.onclick=()=>{G.questOpen=(G.questOpen===false);SFX.click();paintQuest();saveSoon()};
+}
 const HINTS=['welcome. the pea bowl is free — pick it below, then tap the water.',
 'tap a frog with a snack in hand to feed it. a frog must be FULL to breed.',
 'each frog has a diet — its own kind of food fills it twice as fast.',
@@ -3629,7 +4083,7 @@ const HINTS=['welcome. the pea bowl is free — pick it below, then tap the wate
 function hint(step){
   if(G.hint!==step-1)return;
   G.hint=step;
-  if(HINTS[step])setTimeout(()=>toast(HINTS[step]),800);
+  paintQuest();
 }
 
 /* Every collector gets a generated pixel portrait: a frog face in a hat, seeded
@@ -3785,7 +4239,7 @@ document.getElementById('appBack').onclick=()=>{SFX.click();
 document.getElementById('hudDex').onclick=()=>{initAudio();SFX.click();openPhone('dex')};
 document.getElementById('bMute').onclick=()=>{initAudio();toggleMute();SFX.click()};
 document.getElementById('bHelp').onclick=()=>{SFX.click();
-  toast(HINTS[0]);setTimeout(()=>toast(HINTS[2]),1400)};
+  note(HINTS[0]);setTimeout(()=>note(HINTS[2]),1400)};
 
 /* every app on the handset. `dock:true` pins it to the bottom row. */
 const APPS=[
@@ -3935,7 +4389,7 @@ function renderApp(){
       sb.onclick=()=>{SFX.click();const f=sellable(o.spid);if(!f)return;
         if(sellFrog(f,o.price,true)){o.state='sold';
           o.lines.push(`(sold ${f.name} for ${o.price}c)`);o.lines.push(pick(THANKS));
-          toast(`sold ${f.name} to ${o.cust} · +${o.price}`,ICON.coin,true);renderApp()}};
+          banner(`+${o.price}c`,`${o.cust} took ${f.name} home`,ICON.coin);renderApp()}};
       const nb=document.createElement('button');nb.className='btn gray sm';nb.textContent='nah';
       nb.onclick=()=>{SFX.click();o.state='expired';
         o.lines.push('no worries. happy ponding.');renderApp()};
@@ -4400,9 +4854,10 @@ function saveNow(){
       coins:G.coins,discovered:G.discovered,unlocked:G.unlocked,muted,hint:G.hint,won:G.won,
       theme:G.theme,themes:G.themes,decor:G.decor,guides:G.guides||{},
       music:G.music!==false,track:G.track|0,pets:G.pets|0,
+      loopDone:!!G.loopDone,questOpen:G.questOpen!==false,caught:G.caught|0,everFed:!!G.everFed,
       diary:(G.diary||[]).slice(-40),hops:G.hops,
       day:pondDay(),stamp:1,
-      frogs:G.frogs.map(f=>({spec:f.spec,name:f.name,x:f.x,y:f.y,stage:f.stage,lastFood:f.lastFood,
+      frogs:G.frogs.map(f=>({spec:f.spec,name:f.name,x:f.x,y:f.y,stage:f.stage,lastFood:f.lastFood,fit:f.fit|0,
         full:+(f.full||0).toFixed(2),rest:Math.max(0,f.coolUntil-G.time),
         tonic:Math.max(0,f.tonicUntil-G.time)})),
       egg:nest.egg?{spec:nest.egg.spec,left:Math.max(0,nest.egg.hatch-G.time)}:null,
@@ -4418,6 +4873,8 @@ function load(){
     G.coins=d.coins??GD.startCoins;G.discovered=d.discovered||{};
     G.unlocked=d.unlocked||{};muted=!!d.muted;G.hint=d.hint||0;G.won=!!d.won;
     G.music=d.music!==false;G.track=d.track|0;G.pets=d.pets|0;
+    G.loopDone=!!d.loopDone;G.questOpen=d.questOpen!==false;G.caught=d.caught|0;
+    G.everFed=!!d.everFed;
     G.theme=(d.theme&&TH[d.theme])?d.theme:'emerald';
     G.themes=d.themes||{emerald:true};G.themes.emerald=true;
     G.decor=d.decor||{};G.diary=d.diary||[];G.hops=d.hops||0;G.guides=d.guides||{};
@@ -4427,7 +4884,7 @@ function load(){
       if(!SP[fd.spec])continue;
       const f=new Frog(fd.spec,fd.x,fd.y,fd.stage);
       f.name=fd.name;f.lastFood=(fd.lastFood&&FD[fd.lastFood])?fd.lastFood:null;
-      f.full=clamp(+fd.full||0,0,1);
+      f.full=clamp(+fd.full||0,0,1);f.fit=clamp(fd.fit|0,0,FIT_MAX);
       if(fd.rest>0)f.coolUntil=G.time+fd.rest;
       if(fd.tonic>0)f.tonicUntil=G.time+fd.tonic;
       G.frogs.push(f);
@@ -4504,7 +4961,7 @@ function loop(ts){
     f.x=f.bx+Math.cos(G.time*f.sp+f.ph)*f.ax;
     f.y=f.by+Math.sin(G.time*f.sp*1.7+f.ph)*f.ay;
   }
-  stepPond(dt);
+  stepPond(dt);stepScene(dt);stepTalk(dt);
   for(let i=G.food.length-1;i>=0;i--){const f=G.food[i];
     if(!f.flying&&G.time-f.born>T(45000)){G.food.splice(i,1);ripple(f.x,f.y)}}
   if(mode==='play'){
@@ -4513,6 +4970,7 @@ function loop(ts){
   }
   stepTint();stepWeather(dt);
   if(((G.time/700)|0)!==(((G.time-dt)/700)|0))syncTrayRect();
+  if(((G.time/300)|0)!==(((G.time-dt)/300)|0))paintQuest();
   if(phoneOpen&&app==='thread'&&((G.time/1000)|0)!==(((G.time-dt)/1000)|0))renderApp();
   draw();
 }
@@ -4867,7 +5325,7 @@ function startGame(){
   document.getElementById('bMute').textContent=muted?'✕':'♪';
   G.nextCust=G.time+T(18000);
   mode='play';
-  if(G.hint===0)setTimeout(()=>toast(HINTS[0]),1100);
+  wireQuest();paintQuest();
   if(G.won)document.getElementById('win').style.display='none';
   SFX.chime();
 }
@@ -4917,6 +5375,9 @@ window.__dbg={pads,dflies,twinks,initPond,stepPond,
   TRACKS,mus,musStart,musStop,musSkip,tapAt,leavePad,getWandPick:()=>wandPick,
   getMuted:()=>muted,openTitlePane,closeTitlePane,getPane:()=>tPane,
   menuFeed,buildShelf,setMascot,getMascot:()=>mascotId,getMenuFed:()=>menuFed,
+  questState,paintQuest,say,fly,nudge,banner,bubbles,pops,
+  fish,leaves,reeds,farFrogs,initScene,stepScene,dragonflyAt,catchDragonfly,
+  openTrain,closeTrain,trainTap,train,fitOf,
   GUIDES,buyGuide,ownGuide,readable,DIETS,dietOf,likes,biteSize,isFull,favourites,getMode:()=>mode,spawnCust,resolve,sellable,sellFrog,SP,FD,inWater,usable,randWater,behindTray,
   FROG_URL,geom:GEOM,discover};
 boot();

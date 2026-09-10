@@ -27,8 +27,43 @@ and the frog card tucks in above the bar.
 
 Progress saves automatically in your browser.
 
+## The loop, and how the pond teaches it
+
+![the pond, with the tracker and a training session](docs/training.png)
+
+A tracker sits in the top-left corner and reads the pond, not a script: it names
+**the next thing to do**, and under that runs the whole loop as six chips —
+**feed → full → pair → egg → hatch → sell** — with the stage you are actually in
+lit up. On a fresh pond it is the tutorial; once you have been round once it
+folds down to the strip so it stops explaining and just keeps score. Tap it to
+collapse or reopen it.
+
+On a phone the pond is letterboxed, which leaves a band of nothing under it, so
+that is where the tracker docks — it covers no water at all.
+
+### One skill test: training
+
+Everything else in the pond is patient, so there is exactly one thing you can be
+good at. **Train** on a frog's card sweeps a marker across a bar three times, each
+round faster with a narrower green: stop it on the green. A clean sweep is worth
+**+2 fitness**, one hit **+1**, up to five. Each point takes **8% off the rest** a
+frog needs after laying an egg and adds **4% to what it sells for**, and the card
+shows both. The panel opens where the frog card opens, above the bar.
+
+**Dragonflies pay.** They cross the pond every few seconds; tap one before it
+leaves and it is worth 6–14 coins. It is the only thing in the pond that rewards
+a fast hand.
+
 ## How it works
 
+- **Nothing pops up in the middle.** Each kind of news gets the shape that suits
+  it, instead of one note box for everything: a **nudge** appears exactly where
+  you tapped when something cannot be done there; a **banner** slides in from the
+  right edge for the moments worth stopping for (a new species, an egg, a frog
+  grown up); frogs say things themselves in **pixel speech bubbles out in the
+  water**; coins **fly off** the thing that earned or cost them; and the quiet
+  **notes** stack in the top-right corner. What is in your hand is written on the
+  tool rack's own label rather than on a strip across the pond.
 - **Throw snacks** — pick a snack from the tray, then tap the open water.
   It arcs in, splashes, and the frogs swarm it; the closest one gets the bite.
   Every frog remembers its **last snack**.
@@ -205,6 +240,11 @@ their frogs, dex and coins.
 - The vines and leaf sprigs draped over the snack bar are pixel art painted from
   char grids the same way the icons are, then handed to CSS as background images —
   no extra markup.
+- **The scene is built out of what the game already has.** Reeds sway along the
+  banks, fish shadows glide under the surface, leaves drift across on the breeze,
+  and three frogs sit out on the far bank drawn small and dim — that last one is
+  the existing frog atlas at 45% scale, so the depth costs nothing but a
+  `drawImage`. None of it touches the walkable mask or the rules.
 - **The pond is alive between the frogs.** Seven lily pads drift on the open
   water and bounce off the banks, each drawn from the same few ellipses with a
   wedge notch and, on some, a little bloom; fifteen fireflies pulse with a soft
@@ -288,7 +328,8 @@ Both zips are built from this repo and are ready to upload as they are:
 
 `itch/` holds the store art: `cover-630x500.png` (the size itch asks for),
 `thumbnail-315x250.png`, a wide `1280x720` version for social cards, and four
-screenshots. `itch/UPLOAD.md` has the page settings that match the game — HTML
+screenshots (the menu, the pond, the phone, a phone screen and a training
+session). `itch/UPLOAD.md` has the page settings that match the game — HTML
 project, 1280 × 720 viewport, mobile friendly on — and a blurb to paste.
 
 ![the itch cover](itch/cover-630x500.png)
